@@ -1,0 +1,12 @@
+{
+  "name": "tousinclus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -r run start:dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
