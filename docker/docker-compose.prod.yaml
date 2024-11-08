@@ -1,0 +1,7 @@
+---
+
+services:
+  directus:
+  valkey:
+  postgres-directus:
+  postgres-backend:
