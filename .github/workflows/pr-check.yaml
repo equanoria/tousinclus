@@ -1,0 +1,16 @@
+name: Check PR Source Branch
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-branch:
+    if: github.event.pull_request.head.ref != 'develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail PR if source branch is not develop
+        run: |
+          echo "PRs can only be created from the 'develop' branch."
+          exit 1
