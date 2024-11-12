@@ -1,21 +1,23 @@
-# Utiliser l'image de base
-FROM node:20-slim AS base
+FROM debian:bookworm-slim
 
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN apt update && apt install -y nodejs npm && \
+  apt clean && \
+  rm -rf /var/lib/apt/lists/*
 
-FROM base AS prod
+RUN npm install -g pnpm
 
-COPY pnpm-lock.yaml /app
+COPY . ./app
 WORKDIR /app
-RUN pnpm fetch --prod
 
-COPY . /app
-RUN pnpm run build
+RUN pnpm install && \
+  pnpm run build && \
+  rm -rf node_modules
 
-FROM base
-COPY --from=prod /app/node_modules /app/node_modules
-COPY --from=prod /app/dist /app/dist
-EXPOSE 3001
-CMD [ "pnpm", "start:prod" ]
+ENV PORT=3000
+ENV NODE_ENV=production
+
+RUN pnpm install
+
+EXPOSE ${PORT}
+
+CMD ["pnpm", "run", "start:prod"]
