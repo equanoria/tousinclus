@@ -13,7 +13,7 @@ RUN pnpm install && \
   pnpm run build && \
   rm -rf node_modules
 
-ENV PORT=3000
+ENV PORT=3001
 ENV NODE_ENV=production
 
 RUN pnpm install
