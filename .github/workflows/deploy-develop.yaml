@@ -10,12 +10,14 @@ on:
 jobs:
   checkout:
     runs-on: ubuntu-latest
+    environment: develop
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
   build-frontend:
     runs-on: ubuntu-latest
+    environment: develop
     needs: checkout
     steps:
       - name: Set up QEMU
@@ -41,6 +43,7 @@ jobs:
 
   build-backend:
     runs-on: ubuntu-latest
+    environment: develop
     needs: checkout
     steps:
       - name: Set up QEMU
@@ -66,6 +69,7 @@ jobs:
 
   update-stack:
     runs-on: ubuntu-latest
+    environment: develop
     needs: [build-frontend, build-backend]
     steps:
       - name: Update stack via Portainer GitOps webhook
