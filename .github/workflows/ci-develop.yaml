@@ -36,7 +36,7 @@ jobs:
       - name: Build and Push tousinclus-frontend
         uses: docker/build-push-action@v6
         with:
-          context: ../../
+          context: /
           file: ./apps/frontend/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
@@ -63,7 +63,7 @@ jobs:
       - name: Build and Push tousinclus-backend
         uses: docker/build-push-action@v6
         with:
-          context: ../../
+          context: /
           file: ./apps/backend/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
