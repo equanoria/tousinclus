@@ -1,23 +1,18 @@
-FROM debian:bookworm-slim
-
-RUN apt update && apt install -y nodejs npm && \
-  apt clean && \
-  rm -rf /var/lib/apt/lists/*
-
-RUN npm install -g pnpm
-
-COPY . ./app
+FROM node:23-bookworm-slim AS base
+RUN npm install --global pnpm
 WORKDIR /app
+COPY . .
 
-RUN pnpm install && \
-  pnpm run build && \
-  rm -rf node_modules
+FROM base AS build
+RUN pnpm install --filter @tousinclus/backend
+RUN pnpm run build --filter @tousinclus/backend
 
-ENV PORT=3001
-ENV NODE_ENV=production
+FROM base AS assets
+RUN rm -rf node_modules && pnpm recursive exec -- rm -rf ./node_modules ./src
 
-RUN pnpm install
+FROM base AS prod
+RUN pnpm install --prod --filter @tousinclus/backend
+COPY --from=assets /app .
 
-EXPOSE ${PORT}
-
-CMD ["pnpm", "run", "start:prod"]
+EXPOSE 3000
+ENTRYPOINT ["pnpm", "run", "--filter", "@tousinclus/backend", "start:prod"]
