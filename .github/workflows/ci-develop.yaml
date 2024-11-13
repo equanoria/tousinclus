@@ -36,7 +36,8 @@ jobs:
       - name: Build and Push tousinclus-frontend
         uses: docker/build-push-action@v6
         with:
-          context: ./apps/frontend
+          context: ../../
+          file: ./apps/frontend/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ghcr.io/${{ github.repository }}/tousinclus-frontend:develop
@@ -62,7 +63,8 @@ jobs:
       - name: Build and Push tousinclus-backend
         uses: docker/build-push-action@v6
         with:
-          context: ./apps/backend
+          context: ../../
+          file: ./apps/backend/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ghcr.io/${{ github.repository }}/tousinclus-backend:develop
@@ -73,5 +75,4 @@ jobs:
     needs: [build-frontend, build-backend]
     steps:
       - name: Update stack via Portainer GitOps webhook
-        run: |
-          curl -k -X POST "${{ secrets.PORTAINER_WEBHOOK }}"
+        run: curl -k -X POST "${{ secrets.PORTAINER_WEBHOOK }}"
