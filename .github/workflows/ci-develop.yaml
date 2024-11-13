@@ -36,7 +36,7 @@ jobs:
       - name: Build and Push tousinclus-frontend
         uses: docker/build-push-action@v6
         with:
-          file: ./apps/frontend/Dockerfile
+          file: apps/frontend/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ghcr.io/${{ github.repository }}/tousinclus-frontend:develop
@@ -62,7 +62,7 @@ jobs:
       - name: Build and Push tousinclus-backend
         uses: docker/build-push-action@v6
         with:
-          file: ./apps/backend/Dockerfile
+          file: apps/backend/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ghcr.io/${{ github.repository }}/tousinclus-backend:develop
