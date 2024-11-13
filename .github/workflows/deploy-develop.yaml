@@ -1,0 +1,77 @@
+name: Build and Deploy Docker images from develop to ghcr.io
+
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - closed
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    environment: develop
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    environment: develop
+    needs: checkout
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push tousinclus-frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ../apps/frontend
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ghcr.io/${{ github.repository }}/tousinclus-frontend:develop
+
+  build-backend:
+    runs-on: ubuntu-latest
+    environment: develop
+    needs: checkout
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push tousinclus-backend
+        uses: docker/build-push-action@v6
+        with:
+          context: ../apps/backend
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ghcr.io/${{ github.repository }}/tousinclus-backend:develop
+
+  update-stack:
+    runs-on: ubuntu-latest
+    environment: develop
+    needs: [build-frontend, build-backend]
+    steps:
+      - name: Update stack via Portainer GitOps webhook
+        run: |
+          curl -k -X POST "${{ secrets.PORTAINER_WEBHOOK }}"
