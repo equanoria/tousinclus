@@ -7,6 +7,8 @@ on:
     types:
       - closed
 
+permissions: write-all
+
 jobs:
   build-frontend:
     runs-on: ubuntu-latest
