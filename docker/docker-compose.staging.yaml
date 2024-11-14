@@ -2,7 +2,7 @@
 
 services:
   tousinclus-frontend:
-    image: ghcr.io/equanoria/tousinclus-frontend:develop
+    image: ghcr.io/equanoria/tousinclus-frontend:staging
     environment:
       - BACKEND_HOST=backend
     networks:
@@ -14,14 +14,14 @@ services:
       replicas: 1
       labels:
         - traefik.enable=true
-        - traefik.http.routers.equanoria-tousinclus-frontend_develop.entrypoints=websecure
-        - traefik.http.routers.equanoria-tousinclus-frontend_develop.rule=Host(`develop.tousinclus.org`)
-        - traefik.http.services.equanoria-tousinclus-frontend_develop.loadbalancer.server.port=3000
-        - traefik.http.routers.equanoria-tousinclus-frontend_develop.tls=true
-        - traefik.http.routers.equanoria-tousinclus-frontend_develop.tls.certresolver=letsencrypt
+        - traefik.http.routers.equanoria-tousinclus-frontend_staging.entrypoints=websecure
+        - traefik.http.routers.equanoria-tousinclus-frontend_staging.rule=Host(`staging.tousinclus.org`)
+        - traefik.http.services.equanoria-tousinclus-frontend_staging.loadbalancer.server.port=3000
+        - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls=true
+        - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls.certresolver=letsencrypt
 
   tousinclus-backend:
-    image: ghcr.io/equanoria/tousinclus-backend:develop
+    image: ghcr.io/equanoria/tousinclus-backend:staging
     networks:
       tousinclus:
     deploy:

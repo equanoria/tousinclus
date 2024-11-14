@@ -1,14 +1,23 @@
-name: Build and Deploy Docker images from develop to ghcr.io
+name: Build and Deploy Docker images from staging to ghcr.io
 
 on:
   pull_request:
     branches:
-      - develop
+      - staging
     types:
       - closed
 
+permissions: write-all
+
 jobs:
-  build-frontend:
+  build:
+    strategy:
+      matrix:
+        include:
+          - image: tousinclus-frontend
+            dockerfile: apps/frontend/Dockerfile
+          - image: tousinclus-backend
+            dockerfile: apps/backend/Dockerfile
     runs-on: ubuntu-latest
     environment: develop
     steps:
@@ -32,15 +41,15 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: apps/frontend/Dockerfile
+          file: ${{ matrix.dockerfile }}
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ghcr.io/${{ github.repository }}/tousinclus-frontend:develop
+          tags: ghcr.io/${{ github.repository }}/${{ matrix.image }}:staging
 
   update-stack:
     runs-on: ubuntu-latest
     environment: develop
-    needs: build-frontend
+    needs: build
     steps:
       - name: Update stack via Portainer GitOps webhook
         run: curl -k -X POST "${{ secrets.PORTAINER_WEBHOOK }}"
