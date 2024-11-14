@@ -19,7 +19,6 @@ jobs:
           - image: tousinclus-backend
             dockerfile: apps/backend/Dockerfile
     runs-on: ubuntu-latest
-    environment: develop
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -48,7 +47,7 @@ jobs:
 
   update-stack:
     runs-on: ubuntu-latest
-    environment: develop
+    environment: staging
     needs: build
     steps:
       - name: Update stack via Portainer GitOps webhook
