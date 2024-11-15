@@ -96,16 +96,14 @@ services:
       tousinclus-backend:
 
 volumes:
-  tousinclus-frontend:
-  tousinclus-backend:
   directus-uploads:
   directus-extensions:
   valkey-directus:
   postgresql-directus:
   postgresql-backend:
-  traefik_traefik:
-    external: true
 
 networks:
   directus:
   tousinclus-backend:
+  traefik_traefik:
+    external: true
