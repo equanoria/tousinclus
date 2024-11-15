@@ -1,9 +1,9 @@
-name: Build and Deploy Docker images from staging to ghcr.io
+name: Build and Deploy Docker images from main to ghcr.io
 
 on:
   pull_request:
     branches:
-      - staging
+      - main
     types:
       - closed
 
@@ -43,11 +43,11 @@ jobs:
           file: ${{ matrix.dockerfile }}
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ghcr.io/${{ github.repository }}/${{ matrix.image }}:staging
+          tags: ghcr.io/${{ github.repository }}/${{ matrix.image }}:latest
 
   update-stack:
     runs-on: ubuntu-latest
-    environment: staging
+    environment: prod
     needs: build
     steps:
       - name: Update stack via Portainer GitOps webhook

@@ -2,11 +2,11 @@
 
 services:
   tousinclus-frontend:
-    image: ghcr.io/equanoria/tousinclus-frontend:staging
-    environment:
-      - BACKEND_HOST=backend
+    image: ghcr.io/equanoria/tousinclus/tousinclus-frontend:staging
     networks:
-      tousinclus:
+      traefik_traefik:
+    environment:
+      - BACKEND_HOST=https://staging.api.tousinclus.org
     deploy:
       placement:
         constraints:
@@ -21,14 +21,22 @@ services:
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls.certresolver=letsencrypt
 
   tousinclus-backend:
-    image: ghcr.io/equanoria/tousinclus-backend:staging
+    image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging
     networks:
-      tousinclus:
+      tousinclus-backend:
+      traefik_traefik:
     deploy:
       placement:
         constraints:
           - node.hostname == vm01
       replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.equanoria-tousinclus-backend_staging.entrypoints=websecure
+        - traefik.http.routers.equanoria-tousinclus-backend_staging.rule=Host(`staging.api.tousinclus.org`)
+        - traefik.http.services.equanoria-tousinclus-backend_staging.loadbalancer.server.port=3001
+        - traefik.http.routers.equanoria-tousinclus-backend_staging.tls=true
+        - traefik.http.routers.equanoria-tousinclus-backend_staging.tls.certresolver=letsencrypt
 
   directus:
     image: directus/directus:11.2.0
@@ -85,7 +93,7 @@ services:
     volumes:
       - postgresql-backend:/var/lib/postgresql/data
     networks:
-      backend:
+      tousinclus-backend:
 
 volumes:
   directus-uploads:
@@ -96,4 +104,6 @@ volumes:
 
 networks:
   directus:
-  backend:
+  tousinclus-backend:
+  traefik_traefik:
+    external: true
