@@ -19,7 +19,8 @@ services:
         - traefik.http.services.equanoria-tousinclus-frontend_staging.loadbalancer.server.port=3000
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls=true
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.auth-basic.basicauth.users=api:$2y$05$9LJbkeIBeq7x0.Iu/UOVhebjnMDo1Ey4RMaBIiozGPDiXdEUvHVbW,dev:$2y$05$ygG.G.TAOf.O5o/rUwSWHujBICo8x8Y4asbAXYelzRAr./jvJnThG
+        - traefik.http.middlewares.equanoria-tousinclus-frontend_staging_auth.basicauth.users=api:$2y$05$9LJbkeIBeq7x0.Iu/UOVhebjnMDo1Ey4RMaBIiozGPDiXdEUvHVbW,dev:$2y$05$ygG.G.TAOf.O5o/rUwSWHujBICo8x8Y4asbAXYelzRAr./jvJnThG
+        - traefik.http.routers.equanoria-tousinclus-frontend_staging.middlewares=equanoria-tousinclus-frontend_staging_auth
 
   tousinclus-backend:
     image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging
