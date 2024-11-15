@@ -3,6 +3,8 @@
 services:
   tousinclus-frontend:
     image: ghcr.io/equanoria/tousinclus/tousinclus-frontend:staging
+    networks:
+      traefik_traefik:
     environment:
       - BACKEND_HOST=https://staging.api.tousinclus.org
     deploy:
@@ -22,6 +24,7 @@ services:
     image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging
     networks:
       tousinclus-backend:
+      traefik_traefik:
     deploy:
       placement:
         constraints:
