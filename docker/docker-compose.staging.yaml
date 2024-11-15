@@ -4,9 +4,7 @@ services:
   tousinclus-frontend:
     image: ghcr.io/equanoria/tousinclus-frontend:staging
     environment:
-      - BACKEND_HOST=backend
-    networks:
-      tousinclus:
+      - BACKEND_HOST=https://staging.api.tousinclus.org
     deploy:
       placement:
         constraints:
@@ -22,13 +20,18 @@ services:
 
   tousinclus-backend:
     image: ghcr.io/equanoria/tousinclus-backend:staging
-    networks:
-      tousinclus:
     deploy:
       placement:
         constraints:
           - node.hostname == vm01
       replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.equanoria-tousinclus-backend_staging.entrypoints=websecure
+        - traefik.http.routers.equanoria-tousinclus-backend_staging.rule=Host(`staging.api.tousinclus.org`)
+        - traefik.http.services.equanoria-tousinclus-backend_staging.loadbalancer.server.port=3001
+        - traefik.http.routers.equanoria-tousinclus-backend_staging.tls=true
+        - traefik.http.routers.equanoria-tousinclus-backend_staging.tls.certresolver=letsencrypt
 
   directus:
     image: directus/directus:11.2.0
@@ -96,4 +99,3 @@ volumes:
 
 networks:
   directus:
-  backend:
