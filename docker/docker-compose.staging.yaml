@@ -101,6 +101,8 @@ volumes:
   valkey-directus:
   postgresql-directus:
   postgresql-backend:
+  traefik_traefik:
+    external: true
 
 networks:
   directus:
