@@ -20,6 +20,8 @@ services:
 
   tousinclus-backend:
     image: ghcr.io/equanoria/tousinclus-backend:staging
+    networks:
+      tousinclus-backend:
     deploy:
       placement:
         constraints:
@@ -88,7 +90,7 @@ services:
     volumes:
       - postgresql-backend:/var/lib/postgresql/data
     networks:
-      backend:
+      tousinclus-backend:
 
 volumes:
   directus-uploads:
@@ -99,3 +101,4 @@ volumes:
 
 networks:
   directus:
+  tousinclus-backend:
