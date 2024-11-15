@@ -2,7 +2,7 @@
 
 services:
   tousinclus-frontend:
-    image: ghcr.io/equanoria/tousinclus-frontend:staging
+    image: ghcr.io/equanoria/tousinclus/tousinclus-frontend:staging
     environment:
       - BACKEND_HOST=https://staging.api.tousinclus.org
     deploy:
@@ -19,7 +19,7 @@ services:
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls.certresolver=letsencrypt
 
   tousinclus-backend:
-    image: ghcr.io/equanoria/tousinclus-backend:staging
+    image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging
     networks:
       tousinclus-backend:
     deploy:
