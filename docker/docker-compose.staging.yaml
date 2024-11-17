@@ -15,7 +15,7 @@ services:
         - traefik.enable=true
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.entrypoints=websecure
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.rule=Host(`staging.tousinclus.org`)
-        - traefik.http.services.equanoria-tousinclus-frontend_staging.loadbalancer.server.port=8055
+        - traefik.http.services.equanoria-tousinclus-frontend_staging.loadbalancer.server.port=3000
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls=true
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls.certresolver=letsencrypt
         - traefik.http.middlewares.equanoria-tousinclus-frontend_staging-auth.basicauth.users=equanoria:$$apr1$$BWTizF2p$$ukAwXw5sWVRmgbcOfZDRV1
@@ -63,7 +63,7 @@ services:
         - traefik.enable=true
         - traefik.http.routers.equanoria-tousinclus-directus_staging.entrypoints=websecure
         - traefik.http.routers.equanoria-tousinclus-directus_staging.rule=Host(`staging.directus.tousinclus.org`)
-        - traefik.http.services.equanoria-tousinclus-directus_staging.loadbalancer.server.port=3000
+        - traefik.http.services.equanoria-tousinclus-directus_staging.loadbalancer.server.port=8055
         - traefik.http.routers.equanoria-tousinclus-directus_staging.tls=true
         - traefik.http.routers.equanoria-tousinclus-directus_staging.tls.certresolver=letsencrypt
         - traefik.http.middlewares.equanoria-tousinclus-directus_staging-auth.basicauth.users=equanoria:$$apr1$$BWTizF2p$$ukAwXw5sWVRmgbcOfZDRV1
