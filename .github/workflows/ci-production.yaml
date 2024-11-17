@@ -47,7 +47,7 @@ jobs:
 
   update-stack:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: production
     needs: build
     steps:
       - name: Update stack via Portainer GitOps webhook

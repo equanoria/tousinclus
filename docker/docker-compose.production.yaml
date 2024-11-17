@@ -2,7 +2,7 @@
 
 services:
   tousinclus-frontend:
-    image: ghcr.io/equanoria/tousinclus/tousinclus-frontend:staging
+    image: ghcr.io/equanoria/tousinclus/tousinclus-frontend:latest
     networks:
       tousinclus-backend:
       traefik_traefik:
@@ -13,18 +13,16 @@ services:
       replicas: 1
       labels:
         - traefik.enable=true
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.entrypoints=websecure
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.rule=Host(`staging.tousinclus.org`)
-        - traefik.http.services.equanoria-tousinclus-frontend_staging.loadbalancer.server.port=3000
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls=true
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.equanoria-tousinclus-frontend_staging-auth.basicauth.users=equanoria:$$apr1$$BWTizF2p$$ukAwXw5sWVRmgbcOfZDRV1
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.middlewares=equanoria-tousinclus-frontend_staging-auth
+        - traefik.http.routers.equanoria-tousinclus-frontend_production.entrypoints=websecure
+        - traefik.http.routers.equanoria-tousinclus-frontend_production.rule=Host(`tousinclus.org`)
+        - traefik.http.services.equanoria-tousinclus-frontend_production.loadbalancer.server.port=3000
+        - traefik.http.routers.equanoria-tousinclus-frontend_production.tls=true
+        - traefik.http.routers.equanoria-tousinclus-frontend_production.tls.certresolver=letsencrypt
     environment:
       - BACKEND_HOST=tousinclus-backend
 
   tousinclus-backend:
-    image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging
+    image: ghcr.io/equanoria/tousinclus/tousinclus-backend:latest
     networks:
       tousinclus-backend:
     deploy:
@@ -61,13 +59,11 @@ services:
       replicas: 1
       labels:
         - traefik.enable=true
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.entrypoints=websecure
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.rule=Host(`staging.directus.tousinclus.org`)
-        - traefik.http.services.equanoria-tousinclus-directus_staging.loadbalancer.server.port=3000
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.tls=true
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.equanoria-tousinclus-directus_staging-auth.basicauth.users=equanoria:$$apr1$$BWTizF2p$$ukAwXw5sWVRmgbcOfZDRV1
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.middlewares=equanoria-tousinclus-directus_staging-auth
+        - traefik.http.routers.equanoria-tousinclus-directus_production.entrypoints=websecure
+        - traefik.http.routers.equanoria-tousinclus-directus_production.rule=Host(`directus.tousinclus.org`)
+        - traefik.http.services.equanoria-tousinclus-directus_production.loadbalancer.server.port=3000
+        - traefik.http.routers.equanoria-tousinclus-directus_production.tls=true
+        - traefik.http.routers.equanoria-tousinclus-directus_production.tls.certresolver=letsencrypt
     depends_on:
       - postgresql-directus
       - valkey-directus
@@ -126,11 +122,11 @@ services:
       - postgresql-directus:/var/lib/postgresql/data
 
 volumes:
-  postgresql-backend:
+  postgresql-directus:
   directus-uploads:
   directus-extensions:
   valkey-directus:
-  postgresql-directus:
+  postgresql-backend:
 
 networks:
   directus:
