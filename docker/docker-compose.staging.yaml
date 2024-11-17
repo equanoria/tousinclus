@@ -18,7 +18,7 @@ services:
         - traefik.http.services.equanoria-tousinclus-frontend_staging.loadbalancer.server.port=3000
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls=true
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.equanoria-tousinclus-frontend_staging-auth.basicauth.users=equanoria:$$apr1$$BWTizF2p$$ukAwXw5sWVRmgbcOfZDRV1
+        - traefik.http.middlewares.equanoria-tousinclus-frontend_staging-auth.basicauth.users=${STAGING_USERS}
         - traefik.http.routers.equanoria-tousinclus-frontend_staging.middlewares=equanoria-tousinclus-frontend_staging-auth
     environment:
       - BACKEND_HOST=tousinclus-backend
@@ -66,7 +66,7 @@ services:
         - traefik.http.services.equanoria-tousinclus-directus_staging.loadbalancer.server.port=8055
         - traefik.http.routers.equanoria-tousinclus-directus_staging.tls=true
         - traefik.http.routers.equanoria-tousinclus-directus_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.equanoria-tousinclus-directus_staging-auth.basicauth.users=equanoria:$$apr1$$BWTizF2p$$ukAwXw5sWVRmgbcOfZDRV1
+        - traefik.http.middlewares.equanoria-tousinclus-directus_staging-auth.basicauth.users=${STAGING_USERS}
         - traefik.http.routers.equanoria-tousinclus-directus_staging.middlewares=equanoria-tousinclus-directus_staging-auth
     depends_on:
       - postgresql-directus
