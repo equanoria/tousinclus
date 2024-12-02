@@ -48,7 +48,10 @@ services:
       - postgresql-backend:/var/lib/postgresql/data
 
   directus:
-    image: directus/directus:11.2.0
+    build:
+      context: ../
+      dockerfile: ./tools/directus/Dockerfile
+    pull_policy: build
     networks:
       directus:
       traefik_traefik:
@@ -89,9 +92,9 @@ services:
       - EMAIL_SMTP_PORT=${DIRECTUS_EMAIL_SMTP_PORT}
       - EMAIL_SMTP_USER=${DIRECTUS_EMAIL_SMTP_USER}
       - EMAIL_SMTP_PASSWORD=${DIRECTUS_EMAIL_SMTP_PASSWORD}
+      - SCHEMA_SYNC=IMPORT
     volumes:
       - directus-uploads:/directus/uploads
-      - directus-extensions:/directus/extensions
 
   valkey-directus:
     image: valkey/valkey:8.0.1
@@ -124,7 +127,6 @@ services:
 volumes:
   postgresql-directus:
   directus-uploads:
-  directus-extensions:
   valkey-directus:
   postgresql-backend:
 

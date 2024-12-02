@@ -14,5 +14,5 @@ FROM base AS prod
 RUN pnpm install --prod --filter @tousinclus/backend
 COPY --from=assets /app .
 
-EXPOSE 3000
+EXPOSE 3001
 ENTRYPOINT ["pnpm", "run", "--filter", "@tousinclus/backend", "start:prod"]
