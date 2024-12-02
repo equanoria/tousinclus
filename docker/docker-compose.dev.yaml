@@ -13,10 +13,7 @@ services:
       - 3003:5432
 
   directus:
-    build:
-      context: ../
-      dockerfile: ./tools/directus/Dockerfile
-    pull_policy: build
+    image: directus/directus:11.2.0
     networks:
       directus:
     depends_on:
@@ -44,10 +41,9 @@ services:
       - EMAIL_SMTP_PORT=${DIRECTUS_EMAIL_SMTP_PORT}
       - EMAIL_SMTP_USER=${DIRECTUS_EMAIL_SMTP_USER}
       - EMAIL_SMTP_PASSWORD=${DIRECTUS_EMAIL_SMTP_PASSWORD}
-      - SCHEMA_SYNC=BOTH
     volumes:
       - directus-uploads:/directus/uploads
-      - ../tools/directus/schema-sync:/directus/schema-sync
+      - directus-extensions:/directus/extensions
     ports:
       - 3002:8055
 
@@ -68,17 +64,11 @@ services:
       - POSTGRES_PASSWORD=${DIRECTUS_DB_PASSWORD}
     volumes:
       - postgresql-directus:/var/lib/postgresql/data
-  
-  adminer:
-    image: adminer
-    networks:
-      directus:
-    ports:
-      - 3100:8080
 
 volumes:
   postgresql-backend:
   directus-uploads:
+  directus-extensions:
   valkey-directus:
   postgresql-directus:
 
