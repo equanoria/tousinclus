@@ -1,37 +1,36 @@
 import { OnModuleInit } from '@nestjs/common';
-import { 
-    MessageBody, 
-    SubscribeMessage, 
-    WebSocketGateway, 
-    WebSocketServer
-} from '@nestjs/websockets'
+import {
+  MessageBody,
+  SubscribeMessage,
+  WebSocketGateway,
+  WebSocketServer,
+} from '@nestjs/websockets';
 import { Server } from 'socket.io';
 
-// Init websocket 
+// Init websocket
 @WebSocketGateway({
-    cors: {
-        origin: '*',
-    },
+  cors: {
+    origin: '*',
+  },
 })
 export class MyGateway implements OnModuleInit {
+  @WebSocketServer()
+  server: Server;
 
-    @WebSocketServer()
-    server: Server;
+  onModuleInit() {
+    this.server.on('connection', (socket) => {
+      console.log(socket.id);
+      console.log('Connected');
+    });
+  }
 
-    onModuleInit() {
-        this.server.on('connection', (socket) => {
-            console.log(socket.id);
-            console.log('Connected')
-        })
-    }
-
-    // Event listener 
-    @SubscribeMessage('newMessage')
-    onNewMessage(@MessageBody() body:any) {
-        console.log(body);
-        this.server.emit('onMessage', {
-            message: "Hello world through websocket",
-            content: body,
-        })
-    }
+  // Event listener
+  @SubscribeMessage('newMessage')
+  onNewMessage(@MessageBody() body: any) {
+    console.log(body);
+    this.server.emit('onMessage', {
+      message: 'Hello world through websocket',
+      content: body,
+    });
+  }
 }

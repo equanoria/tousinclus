@@ -30,6 +30,9 @@ services:
         constraints:
           - node.hostname == vm01
       replicas: 1
+    environment:
+      - REDIS_HOSTNAME=valkey-backend
+      - REDIS_PORT=6379
 
   postgresql-backend:
     image: postgres:13.16
@@ -46,6 +49,18 @@ services:
       - POSTGRES_PASSWORD=${BACKEND_DB_PASSWORD}
     volumes:
       - postgresql-backend:/var/lib/postgresql/data
+
+  valkey-backend:
+    image: valkey/valkey:8.0.1
+    networks:
+      tousinclus-backend:
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == vm01
+      replicas: 1
+    volumes:
+      - valkey-directus:/data
 
   directus:
     build:
