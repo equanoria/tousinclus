@@ -20,8 +20,7 @@ export class GameService {
 
     async createGame(): Promise<Game> {
         const newGame = this.generateNewGameData()
-        let code = newGame.code
-        await this.redisService.setGame(code, newGame);     // add new game data to redis db
+        await this.redisService.setGame(newGame.code, newGame);     // add new game data to redis db
         return newGame;     // Return the game create as JSON
     }
 
@@ -29,9 +28,8 @@ export class GameService {
         let newGames: Game[] = [];
         for (let step = 0; step < i; step++) {  
             const newGame = this.generateNewGameData()    // Generate i game data
-            let code = newGame.code
             await newGames.push(newGame);
-            await this.redisService.setGame(code, newGame);     // add new game data to redis db
+            await this.redisService.setGame(newGame.code, newGame);     // add new game data to redis db
         }
         return newGames;    // Return all game create as JSON
     }

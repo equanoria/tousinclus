@@ -22,6 +22,8 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     return this.redisClient.get(key);
   }
 
+  // ========== Game ==========
+
   async setGame(key: string, value: Game) {
     return this.redisClient.set(key, JSON.stringify(value));
   }
