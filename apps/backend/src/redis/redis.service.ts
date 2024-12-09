@@ -1,4 +1,5 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import { Game } from '../game/interfaces/game.interface';
 import Redis from 'ioredis';
 
 @Injectable()
@@ -18,6 +19,14 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   }
 
   async get(key: string) {
+    return this.redisClient.get(key);
+  }
+
+  async setGame(key: string, value: Game) {
+    return this.redisClient.set(key, JSON.stringify(value));
+  }
+
+  async getGame(key: string) {
     return this.redisClient.get(key);
   }
 
