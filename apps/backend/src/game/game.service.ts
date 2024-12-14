@@ -12,8 +12,9 @@ export class GameService {
     private generateNewGameData(): Game {
         const newGame: Game = {
             code: Math.random().toString(36).substring(2, 8).toUpperCase(),
-            isTeam1Connected: false,
-            isTeam2Connected: false,
+            status: "waiting",
+            isTeam1Connected: null,
+            isTeam2Connected: null,
         };
         return newGame;
     }
@@ -26,7 +27,7 @@ export class GameService {
 
     async createManyGame(i: number): Promise<Game[]> {
         let newGames: Game[] = [];
-        for (let step = 0; step < i; step++) {  
+        for (let step = 0; step < i; step++) {
             const newGame = this.generateNewGameData()    // Generate i game data
             await newGames.push(newGame);
             await this.redisService.setGame(newGame.code, newGame);     // add new game data to redis db
@@ -37,5 +38,29 @@ export class GameService {
     async findOneGame(code): Promise<Game> {
         const gameString = await this.redisService.get(code);       // Find game with the code as redis key
         return JSON.parse(gameString) as Game;      // Return it with the good format
+    }
+
+    // Mettre à jour le statut d'une équipe connectée
+    async updateTeamConnectionStatus(code: string, team: 'team1' | 'team2', clientId: string): Promise<Game> {
+        const game = await this.findOneGame(code);
+
+        if (!game) {
+            throw new Error(`Game with code ${code} not found`);
+        }
+
+        if (team === 'team1') {
+            if (game.isTeam1Connected) {
+            throw new Error(`Team 1 is already connected with client ID ${game.isTeam1Connected}`);
+            }
+            game.isTeam1Connected = clientId; // Assign the uuid of the client
+        } else if (team === 'team2') {
+            if (game.isTeam2Connected) {
+            throw new Error(`Team 2 is already connected with client ID ${game.isTeam2Connected}`);
+            }
+            game.isTeam2Connected = clientId; // Assign the uuid of the client
+        }
+
+        await this.redisService.setGame(code, game); // Update the game state in Redis
+        return game;
     }
 }

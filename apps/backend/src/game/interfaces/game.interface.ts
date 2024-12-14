@@ -1,5 +1,6 @@
 export interface Game {
     code : string;
-    isTeam1Connected: boolean;
-    isTeam2Connected: boolean;
+    status : string,
+    isTeam1Connected: string;
+    isTeam2Connected: string;
 }
