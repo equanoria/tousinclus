@@ -1,40 +1,40 @@
 {
-  "collection": "Config_translations",
+  "collection": "categories_design_for_all_translations",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "Config_translations",
+    "collection": "categories_design_for_all_translations",
     "color": null,
     "display_template": null,
-    "group": null,
+    "group": "Categories",
     "hidden": true,
     "icon": "import_export",
     "item_duplication_fields": null,
     "note": null,
     "preview_url": null,
     "singleton": false,
-    "sort": 13,
+    "sort": 3,
     "sort_field": null,
     "translations": null,
     "unarchive_value": null,
     "versioning": false
   },
   "schema": {
-    "name": "Config_translations"
+    "name": "categories_design_for_all_translations"
   },
   "fields": [
     {
-      "field": "Config_id",
+      "field": "categories_design_for_all_id",
       "type": "integer",
       "meta": {
-        "collection": "Config_translations",
+        "collection": "categories_design_for_all_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "Config_id",
+        "field": "categories_design_for_all_id",
         "group": null,
         "hidden": true,
         "interface": null,
@@ -50,8 +50,8 @@
         "width": "full"
       },
       "schema": {
-        "name": "Config_id",
-        "table": "Config_translations",
+        "name": "categories_design_for_all_id",
+        "table": "categories_design_for_all_translations",
         "data_type": "integer",
         "default_value": null,
         "max_length": null,
@@ -64,15 +64,66 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": "Config",
+        "foreign_key_table": "categories_design_for_all",
         "foreign_key_column": "id"
+      }
+    },
+    {
+      "field": "category_name",
+      "type": "string",
+      "meta": {
+        "collection": "categories_design_for_all_translations",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "category_name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Nom de la catégorie"
+          },
+          {
+            "language": "en-US",
+            "translation": "Category name"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "category_name",
+        "table": "categories_design_for_all_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
       }
     },
     {
       "field": "id",
       "type": "integer",
       "meta": {
-        "collection": "Config_translations",
+        "collection": "categories_design_for_all_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -93,9 +144,9 @@
       },
       "schema": {
         "name": "id",
-        "table": "Config_translations",
+        "table": "categories_design_for_all_translations",
         "data_type": "integer",
-        "default_value": "nextval('\"Config_translations_id_seq\"'::regclass)",
+        "default_value": null,
         "max_length": null,
         "numeric_precision": 32,
         "numeric_scale": 0,
@@ -114,7 +165,7 @@
       "field": "languages_code",
       "type": "string",
       "meta": {
-        "collection": "Config_translations",
+        "collection": "categories_design_for_all_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -135,7 +186,7 @@
       },
       "schema": {
         "name": "languages_code",
-        "table": "Config_translations",
+        "table": "categories_design_for_all_translations",
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
@@ -155,25 +206,25 @@
   ],
   "relations": [
     {
-      "field": "Config_id",
-      "related_collection": "Config",
+      "field": "categories_design_for_all_id",
+      "related_collection": "categories_design_for_all",
       "meta": {
         "junction_field": "languages_code",
-        "many_collection": "Config_translations",
-        "many_field": "Config_id",
+        "many_collection": "categories_design_for_all_translations",
+        "many_field": "categories_design_for_all_id",
         "one_allowed_collections": null,
-        "one_collection": "Config",
+        "one_collection": "categories_design_for_all",
         "one_collection_field": null,
         "one_deselect_action": "nullify",
-        "one_field": null,
+        "one_field": "translations",
         "sort_field": null
       },
       "schema": {
-        "table": "Config_translations",
-        "column": "Config_id",
-        "foreign_key_table": "Config",
+        "table": "categories_design_for_all_translations",
+        "column": "categories_design_for_all_id",
+        "foreign_key_table": "categories_design_for_all",
         "foreign_key_column": "id",
-        "constraint_name": "config_translations_config_id_foreign",
+        "constraint_name": "categories_design_for_all_translations_cat__55c19053_foreign",
         "on_update": "NO ACTION",
         "on_delete": "SET NULL"
       }
@@ -182,8 +233,8 @@
       "field": "languages_code",
       "related_collection": "languages",
       "meta": {
-        "junction_field": "Config_id",
-        "many_collection": "Config_translations",
+        "junction_field": "categories_design_for_all_id",
+        "many_collection": "categories_design_for_all_translations",
         "many_field": "languages_code",
         "one_allowed_collections": null,
         "one_collection": "languages",
@@ -193,11 +244,11 @@
         "sort_field": null
       },
       "schema": {
-        "table": "Config_translations",
+        "table": "categories_design_for_all_translations",
         "column": "languages_code",
         "foreign_key_table": "languages",
         "foreign_key_column": "code",
-        "constraint_name": "config_translations_languages_code_foreign",
+        "constraint_name": "categories_design_for_all_translations_lan__29a4e411_foreign",
         "on_update": "NO ACTION",
         "on_delete": "SET NULL"
       }

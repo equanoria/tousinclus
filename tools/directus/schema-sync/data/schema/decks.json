@@ -1,13 +1,13 @@
 {
-  "collection": "Deck_de_cartes",
+  "collection": "decks",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "Deck_de_cartes",
-    "color": null,
+    "collection": "decks",
+    "color": "#9605B3",
     "display_template": null,
     "group": null,
     "hidden": false,
@@ -23,14 +23,52 @@
     "versioning": false
   },
   "schema": {
-    "name": "Deck_de_cartes"
+    "name": "decks"
   },
   "fields": [
+    {
+      "field": "group",
+      "type": "alias",
+      "meta": {
+        "collection": "decks",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "group",
+        "group": null,
+        "hidden": false,
+        "interface": "list-m2m",
+        "note": null,
+        "options": {
+          "enableCreate": false,
+          "template": "{{cards_group_id.translations}}"
+        },
+        "readonly": false,
+        "required": true,
+        "sort": 3,
+        "special": [
+          "m2m"
+        ],
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Groupes"
+          },
+          {
+            "language": "en-US",
+            "translation": "Groups"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
     {
       "field": "id",
       "type": "integer",
       "meta": {
-        "collection": "Deck_de_cartes",
+        "collection": "decks",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -51,9 +89,9 @@
       },
       "schema": {
         "name": "id",
-        "table": "Deck_de_cartes",
+        "table": "decks",
         "data_type": "integer",
-        "default_value": "nextval('\"Deck_de_cartes_id_seq\"'::regclass)",
+        "default_value": null,
         "max_length": null,
         "numeric_precision": 32,
         "numeric_scale": 0,
@@ -69,68 +107,43 @@
       }
     },
     {
-      "field": "Titre",
-      "type": "string",
+      "field": "translations",
+      "type": "alias",
       "meta": {
-        "collection": "Deck_de_cartes",
+        "collection": "decks",
         "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "Titre",
+        "display": "translations",
+        "display_options": {
+          "languageField": "name",
+          "template": "{{title}}",
+          "userLanguage": true
+        },
+        "field": "translations",
         "group": null,
         "hidden": false,
-        "interface": "input",
+        "interface": "translations",
         "note": null,
-        "options": null,
+        "options": {
+          "defaultLanguage": "en-US",
+          "languageField": "name",
+          "userLanguage": true
+        },
         "readonly": false,
         "required": true,
         "sort": 2,
-        "special": null,
-        "translations": null,
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "Titre",
-        "table": "Deck_de_cartes",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "utilisateur_extreme",
-      "type": "alias",
-      "meta": {
-        "collection": "Deck_de_cartes",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "utilisateur_extreme",
-        "group": null,
-        "hidden": false,
-        "interface": "list-m2m",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 4,
         "special": [
-          "m2m"
+          "translations"
         ],
-        "translations": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Titre deck"
+          },
+          {
+            "language": "en-US",
+            "translation": "Deck title"
+          }
+        ],
         "validation": null,
         "validation_message": null,
         "width": "full"

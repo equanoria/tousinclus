@@ -16,7 +16,7 @@
     "note": null,
     "preview_url": null,
     "singleton": false,
-    "sort": 7,
+    "sort": 9,
     "sort_field": null,
     "translations": null,
     "unarchive_value": null,
@@ -26,90 +26,6 @@
     "name": "Deck_de_cartes_Cartes_utilisateurs_extreme"
   },
   "fields": [
-    {
-      "field": "Cartes_utilisateurs_extreme_id",
-      "type": "integer",
-      "meta": {
-        "collection": "Deck_de_cartes_Cartes_utilisateurs_extreme",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "Cartes_utilisateurs_extreme_id",
-        "group": null,
-        "hidden": true,
-        "interface": null,
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": false,
-        "sort": 3,
-        "special": null,
-        "translations": null,
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "Cartes_utilisateurs_extreme_id",
-        "table": "Deck_de_cartes_Cartes_utilisateurs_extreme",
-        "data_type": "integer",
-        "default_value": null,
-        "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": "Cartes_utilisateurs_extreme",
-        "foreign_key_column": "id"
-      }
-    },
-    {
-      "field": "Deck_de_cartes_id",
-      "type": "integer",
-      "meta": {
-        "collection": "Deck_de_cartes_Cartes_utilisateurs_extreme",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "Deck_de_cartes_id",
-        "group": null,
-        "hidden": true,
-        "interface": null,
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": false,
-        "sort": 2,
-        "special": null,
-        "translations": null,
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "Deck_de_cartes_id",
-        "table": "Deck_de_cartes_Cartes_utilisateurs_extreme",
-        "data_type": "integer",
-        "default_value": null,
-        "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": "Deck_de_cartes",
-        "foreign_key_column": "id"
-      }
-    },
     {
       "field": "id",
       "type": "integer",
@@ -153,54 +69,5 @@
       }
     }
   ],
-  "relations": [
-    {
-      "field": "Cartes_utilisateurs_extreme_id",
-      "related_collection": "Cartes_utilisateurs_extreme",
-      "meta": {
-        "junction_field": "Deck_de_cartes_id",
-        "many_collection": "Deck_de_cartes_Cartes_utilisateurs_extreme",
-        "many_field": "Cartes_utilisateurs_extreme_id",
-        "one_allowed_collections": null,
-        "one_collection": "Cartes_utilisateurs_extreme",
-        "one_collection_field": null,
-        "one_deselect_action": "nullify",
-        "one_field": null,
-        "sort_field": null
-      },
-      "schema": {
-        "table": "Deck_de_cartes_Cartes_utilisateurs_extreme",
-        "column": "Cartes_utilisateurs_extreme_id",
-        "foreign_key_table": "Cartes_utilisateurs_extreme",
-        "foreign_key_column": "id",
-        "constraint_name": "deck_de_cartes_cartes_utilisateurs_extreme__2a19b585_foreign",
-        "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
-      }
-    },
-    {
-      "field": "Deck_de_cartes_id",
-      "related_collection": "Deck_de_cartes",
-      "meta": {
-        "junction_field": "Cartes_utilisateurs_extreme_id",
-        "many_collection": "Deck_de_cartes_Cartes_utilisateurs_extreme",
-        "many_field": "Deck_de_cartes_id",
-        "one_allowed_collections": null,
-        "one_collection": "Deck_de_cartes",
-        "one_collection_field": null,
-        "one_deselect_action": "nullify",
-        "one_field": "utilisateur_extreme",
-        "sort_field": null
-      },
-      "schema": {
-        "table": "Deck_de_cartes_Cartes_utilisateurs_extreme",
-        "column": "Deck_de_cartes_id",
-        "foreign_key_table": "Deck_de_cartes",
-        "foreign_key_column": "id",
-        "constraint_name": "deck_de_cartes_cartes_utilisateurs_extreme___593ba61_foreign",
-        "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
-      }
-    }
-  ]
+  "relations": []
 }

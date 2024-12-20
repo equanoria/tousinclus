@@ -16,7 +16,7 @@
     "note": null,
     "preview_url": null,
     "singleton": true,
-    "sort": 3,
+    "sort": 10,
     "sort_field": null,
     "translations": null,
     "unarchive_value": null,
@@ -27,39 +27,141 @@
   },
   "fields": [
     {
-      "field": "cards_designing_all_name",
+      "field": "cards_designing_all_color",
       "type": "string",
       "meta": {
         "collection": "Config",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "cards_designing_all_name",
+        "field": "cards_designing_all_color",
         "group": null,
         "hidden": false,
-        "interface": "input",
+        "interface": "select-color",
         "note": null,
         "options": null,
         "readonly": false,
         "required": false,
-        "sort": 3,
+        "sort": 6,
         "special": null,
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Nom cartes concevoir pour tous"
+            "translation": "Couleur cartes concevoir pour tous"
           },
           {
             "language": "en-US",
-            "translation": "Cards name designing for all"
+            "translation": "Color cards design for all"
           }
         ],
         "validation": null,
         "validation_message": null,
-        "width": "full"
+        "width": "half"
       },
       "schema": {
-        "name": "cards_designing_all_name",
+        "name": "cards_designing_all_color",
+        "table": "Config",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "cards_situation_color",
+      "type": "string",
+      "meta": {
+        "collection": "Config",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "cards_situation_color",
+        "group": null,
+        "hidden": false,
+        "interface": "select-color",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Couleur cartes situation d'usage"
+          },
+          {
+            "language": "en-US",
+            "translation": "Color usage situation cards"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "cards_situation_color",
+        "table": "Config",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "cards_user_color",
+      "type": "string",
+      "meta": {
+        "collection": "Config",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "cards_user_color",
+        "group": null,
+        "hidden": false,
+        "interface": "select-color",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Couleur cartes utilisateurs extrêmes"
+          },
+          {
+            "language": "en-US",
+            "translation": "Color extreme users cards"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "cards_user_color",
         "table": "Config",
         "data_type": "character varying",
         "default_value": null,
@@ -102,7 +204,7 @@
         "translations": null,
         "validation": null,
         "validation_message": null,
-        "width": "half"
+        "width": "full"
       },
       "schema": {
         "name": "date_updated",
@@ -163,6 +265,36 @@
         "has_auto_increment": true,
         "foreign_key_table": null,
         "foreign_key_column": null
+      }
+    },
+    {
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "Config",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "defaultLanguage": "en-US",
+          "languageField": "name",
+          "userLanguage": true
+        },
+        "readonly": false,
+        "required": false,
+        "sort": 3,
+        "special": [
+          "translations"
+        ],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
       }
     }
   ],

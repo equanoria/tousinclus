@@ -1,12 +1,12 @@
 {
-  "collection": "Cartes",
+  "collection": "Categories",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "Cartes",
+    "collection": "Categories",
     "color": "#E35169",
     "display_template": null,
     "group": null,
@@ -16,16 +16,16 @@
     "note": null,
     "preview_url": null,
     "singleton": false,
-    "sort": 1,
+    "sort": 2,
     "sort_field": null,
     "translations": [
       {
-        "language": "fr-FR",
-        "translation": "Cartes"
+        "language": "en-US",
+        "translation": "Categories"
       },
       {
-        "language": "en-US",
-        "translation": "Cards"
+        "language": "fr-FR",
+        "translation": "Catégories"
       }
     ],
     "unarchive_value": null,
