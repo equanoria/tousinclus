@@ -16,8 +16,6 @@ COPY --from=assets /app .
 
 FROM caddy:2.8.4-alpine AS prod
 COPY --from=prodbuild /app /app
-# RUN chown -R caddy:caddy /app
-# USER caddy
 ENV NODE_ENV=production
 ENV PORT=3000
 
