@@ -13,15 +13,15 @@ services:
       replicas: 1
       labels:
         - traefik.enable=true
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.entrypoints=websecure
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.rule=Host(`staging.tousinclus.org`)
-        - traefik.http.services.equanoria-tousinclus-frontend_staging.loadbalancer.server.port=3000
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls=true
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.equanoria-tousinclus-frontend_staging-auth.basicauth.users=${STAGING_USERS}
-        - traefik.http.routers.equanoria-tousinclus-frontend_staging.middlewares=equanoria-tousinclus-frontend_staging-auth
+        - traefik.http.routers.tousinclus-frontend_staging.entrypoints=websecure
+        - traefik.http.routers.tousinclus-frontend_staging.rule=Host(`staging.tousinclus.org`)
+        - traefik.http.services.tousinclus-frontend_staging.loadbalancer.server.port=3000
+        - traefik.http.routers.tousinclus-frontend_staging.tls=true
+        - traefik.http.routers.tousinclus-frontend_staging.tls.certresolver=letsencrypt
+        - traefik.http.middlewares.tousinclus-frontend_staging-auth.basicauth.users=${STAGING_USERS}
+        - traefik.http.routers.tousinclus-frontend_staging.middlewares=tousinclus-frontend_staging-auth
     environment:
-      - BACKEND_HOST=tousinclus-backend
+      - BACKEND_HOST=/api
 
   tousinclus-backend:
     image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging
@@ -32,6 +32,15 @@ services:
         constraints:
           - node.hostname == vm01
       replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.tousinclus-backend_staging.entrypoints=websecure
+        - traefik.http.routers.tousinclus-backend_staging.rule=Host(`staging.tousinclus.org`) && PathPrefix(`/api`)
+        - traefik.http.services.tousinclus-backend_staging.loadbalancer.server.port=3000
+        - traefik.http.routers.tousinclus-backend_staging.tls=true
+        - traefik.http.routers.tousinclus-backend_staging.tls.certresolver=letsencrypt
+        - traefik.http.middlewares.tousinclus-backend_staging-auth.basicauth.users=${STAGING_USERS}
+        - traefik.http.routers.tousinclus-backend_staging.middlewares=tousinclus-backend_staging-auth
     environment:
       - REDIS_HOSTNAME=valkey-backend
       - REDIS_PORT=6379
@@ -79,13 +88,13 @@ services:
       replicas: 1
       labels:
         - traefik.enable=true
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.entrypoints=websecure
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.rule=Host(`staging.directus.tousinclus.org`)
-        - traefik.http.services.equanoria-tousinclus-directus_staging.loadbalancer.server.port=8055
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.tls=true
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.equanoria-tousinclus-directus_staging-auth.basicauth.users=${STAGING_USERS}
-        - traefik.http.routers.equanoria-tousinclus-directus_staging.middlewares=equanoria-tousinclus-directus_staging-auth
+        - traefik.http.routers.tousinclus-directus_staging.entrypoints=websecure
+        - traefik.http.routers.tousinclus-directus_staging.rule=Host(`staging.directus.tousinclus.org`)
+        - traefik.http.services.tousinclus-directus_staging.loadbalancer.server.port=8055
+        - traefik.http.routers.tousinclus-directus_staging.tls=true
+        - traefik.http.routers.tousinclus-directus_staging.tls.certresolver=letsencrypt
+        - traefik.http.middlewares.tousinclus-directus_staging-auth.basicauth.users=${STAGING_USERS}
+        - traefik.http.routers.tousinclus-directus_staging.middlewares=tousinclus-directus_staging-auth
     depends_on:
       - postgresql-directus
       - valkey-directus
