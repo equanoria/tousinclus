@@ -10,9 +10,14 @@ RUN pnpm run --filter @tousinclus/frontend build
 FROM build AS assets
 RUN rm -rf node_modules && pnpm recursive exec -- rm -rf ./node_modules ./src
 
-FROM base AS prod
+FROM base AS prodbuild
 RUN pnpm install --prod --filter @tousinclus/frontend
 COPY --from=assets /app .
 
+FROM caddy:2.8.4-alpine AS prod
+COPY --from=prodbuild /app /app
+ENV NODE_ENV=production
+ENV PORT=3000
+
 EXPOSE 3000
-ENTRYPOINT ["pnpm", "run", "--filter", "@tousinclus/frontend", "start:prod"]
+ENTRYPOINT ["caddy", "run", "--config", "/app/apps/frontend/Caddyfile"]

@@ -11,6 +11,15 @@ services:
       - postgresql-backend:/var/lib/postgresql/data
     ports:
       - 3003:5432
+  
+  valkey-backend:
+    image: valkey/valkey:8.0.1
+    networks:
+      directus:
+    volumes:
+      - valkey-directus:/data
+    ports:
+      - 3004:6379
 
   directus:
     build:

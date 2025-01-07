@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "pnpm -r --stream --parallel run start:dev",
     "lint": "pnpm -r run lint",
-    "test": "pnpm -r run test"
+    "test": "pnpm -r run test",
+    "test:watch": "pnpm -r run test:watch"
   },
   "keywords": [],
   "author": "",
