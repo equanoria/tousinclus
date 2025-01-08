@@ -74,9 +74,7 @@ services:
       - valkey-directus:/data
 
   directus:
-    build:
-      context: ../
-      dockerfile: ./tools/directus/Dockerfile
+    image: ghcr.io/equanoria/tousinclus/directus:staging
     networks:
       directus:
       traefik_traefik:
