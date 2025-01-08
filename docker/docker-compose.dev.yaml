@@ -25,7 +25,6 @@ services:
     build:
       context: ../
       dockerfile: ./tools/directus/Dockerfile
-    pull_policy: build
     networks:
       directus:
     depends_on:
