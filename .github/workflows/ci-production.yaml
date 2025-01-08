@@ -18,6 +18,8 @@ jobs:
             dockerfile: apps/frontend/Dockerfile
           - image: tousinclus-backend
             dockerfile: apps/backend/Dockerfile
+          - image: directus
+            dockerfile: tools/directus/Dockerfile
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
