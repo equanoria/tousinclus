@@ -13,13 +13,13 @@ services:
       replicas: 1
       labels:
         - traefik.enable=true
-        - traefik.http.routers.equanoria-tousinclus-frontend_production.entrypoints=websecure
-        - traefik.http.routers.equanoria-tousinclus-frontend_production.rule=Host(`tousinclus.org`)
-        - traefik.http.services.equanoria-tousinclus-frontend_production.loadbalancer.server.port=3000
-        - traefik.http.routers.equanoria-tousinclus-frontend_production.tls=true
-        - traefik.http.routers.equanoria-tousinclus-frontend_production.tls.certresolver=letsencrypt
+        - traefik.http.routers.tousinclus-frontend_production.entrypoints=websecure
+        - traefik.http.routers.tousinclus-frontend_production.rule=Host(`tousinclus.org`)
+        - traefik.http.services.tousinclus-frontend_production.loadbalancer.server.port=3000
+        - traefik.http.routers.tousinclus-frontend_production.tls=true
+        - traefik.http.routers.tousinclus-frontend_production.tls.certresolver=letsencrypt
     environment:
-      - BACKEND_HOST=tousinclus-backend
+      - BACKEND_HOST=/api
 
   tousinclus-backend:
     image: ghcr.io/equanoria/tousinclus/tousinclus-backend:latest
@@ -30,6 +30,13 @@ services:
         constraints:
           - node.hostname == vm01
       replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.tousinclus-backend_production.entrypoints=websecure
+        - traefik.http.routers.tousinclus-backend_production.rule=Host(`tousinclus.org`) && PathPrefix(`/api`)
+        - traefik.http.services.tousinclus-backend_production.loadbalancer.server.port=3000
+        - traefik.http.routers.tousinclus-backend_production.tls=true
+        - traefik.http.routers.tousinclus-backend_production.tls.certresolver=letsencrypt
     environment:
       - REDIS_HOSTNAME=valkey-backend
       - REDIS_PORT=6379
@@ -63,10 +70,7 @@ services:
       - valkey-directus:/data
 
   directus:
-    build:
-      context: ../
-      dockerfile: ./tools/directus/Dockerfile
-    pull_policy: build
+    image: ghcr.io/equanoria/tousinclus/directus:latest
     networks:
       directus:
       traefik_traefik:
@@ -77,11 +81,11 @@ services:
       replicas: 1
       labels:
         - traefik.enable=true
-        - traefik.http.routers.equanoria-tousinclus-directus_production.entrypoints=websecure
-        - traefik.http.routers.equanoria-tousinclus-directus_production.rule=Host(`directus.tousinclus.org`)
-        - traefik.http.services.equanoria-tousinclus-directus_production.loadbalancer.server.port=8055
-        - traefik.http.routers.equanoria-tousinclus-directus_production.tls=true
-        - traefik.http.routers.equanoria-tousinclus-directus_production.tls.certresolver=letsencrypt
+        - traefik.http.routers.tousinclus-directus_production.entrypoints=websecure
+        - traefik.http.routers.tousinclus-directus_production.rule=Host(`directus.tousinclus.org`)
+        - traefik.http.services.tousinclus-directus_production.loadbalancer.server.port=8055
+        - traefik.http.routers.tousinclus-directus_production.tls=true
+        - traefik.http.routers.tousinclus-directus_production.tls.certresolver=letsencrypt
     depends_on:
       - postgresql-directus
       - valkey-directus

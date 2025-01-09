@@ -14,6 +14,9 @@
  * 		onImport: (optional) (object) => object: Function to parse the data before importing, useful for decoding secrets
  */
 export const syncCustomCollections = {
+	languages: {
+		watch: ['languages.items'],
+	},
 	/*
 	posts: {
 		watch: ['posts.items'],
