@@ -1,4 +1,3 @@
-import { OnModuleInit } from '@nestjs/common';
 import {
   MessageBody,
   SubscribeMessage,
@@ -20,8 +19,9 @@ import { DisconnectService } from './disconnect.service';
     origin: '*',
   },
 })
-export class WebsocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
-
+export class WebsocketGateway
+  implements OnGatewayConnection, OnGatewayDisconnect
+{
   @WebSocketServer()
   server: Server;
 

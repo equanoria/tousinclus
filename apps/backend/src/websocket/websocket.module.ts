@@ -8,6 +8,12 @@ import { GameModule } from 'src/game/game.module';
 
 @Module({
   imports: [GameModule],
-  providers: [WebsocketGateway, WaitingService, ReflectionService, DebateService, DisconnectService],
+  providers: [
+    WebsocketGateway,
+    WaitingService,
+    ReflectionService,
+    DebateService,
+    DisconnectService,
+  ],
 })
 export class WebsocketModule {}

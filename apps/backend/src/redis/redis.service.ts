@@ -46,7 +46,9 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
       .map((gameData) => {
         try {
           const parsedGame = JSON.parse(gameData);
-          return parsedGame && parsedGame.code && parsedGame.status ? parsedGame : null;
+          return parsedGame && parsedGame.code && parsedGame.status
+            ? parsedGame
+            : null;
         } catch (error) {
           console.error(`Error parsing game data:`, error);
           return null;
