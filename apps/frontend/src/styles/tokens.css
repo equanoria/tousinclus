@@ -1,0 +1,15 @@
+:root {
+  color-scheme: light dark;
+
+  /* Colors */
+  --color-text: var(--blue-500);
+  --color-bg: var(--yellow-100);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}

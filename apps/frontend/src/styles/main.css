@@ -1,0 +1,70 @@
+body {
+  font-family: Gotham, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  transition: 125ms ease;
+  transition-property: background-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+p, li, figcaption {
+  /* font-size: var(--text-base); */
+  max-width: 75ch;
+  text-wrap: pretty;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+code {
+  font-family: "Fira Code", monospace;
+}
+
+.icon {
+  aspect-ratio: 1 / 1;
+  display: block;
+  width: 1em;
+  height: 1em;
+}
+
+a {
+  /* color: var(--color-accent);
+
+  &:active {
+    color: var(--color-accent);
+  } */
+
+  &:has(> .icon) {
+    display: flex;
+    align-items: center;
+    gap: .25em;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  *:has(:target) {
+    scroll-behavior: smooth;
+    scroll-padding-top: 3rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  img {
+    filter: brightness(0.8) contrast(1.2);
+
+    .no-dark-mode {
+      filter: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion), (update: slow) {
+  *, *::before, *::after {
+    transition-duration: 0s !important;
+  }
+}
