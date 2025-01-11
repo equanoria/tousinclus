@@ -1,15 +1,15 @@
 import { LocalStorageManager } from "./LocalStorageManager";
 
 export enum Theme {
-  light = 'light',
-  dark = 'dark',
-  system = 'system',
+  LIGHT = 'light',
+  DARK = 'dark',
+  SYSTEM = 'system'
 }
 
 export class ThemeSwitcher {
   private readonly localStorageManager = new LocalStorageManager();
   static readonly LOCAL_STORAGE_KEY: string = 'theme';
-  static readonly FALLBACK_THEME: Theme = Theme.light;
+  static readonly FALLBACK_THEME: Theme = Theme.LIGHT;
   static readonly DATA_NAME: string = 'data-theme';
   private theme: Theme;
 
@@ -64,10 +64,10 @@ export class ThemeSwitcher {
    * Get the effective theme, considering "system".
    */
   private getEffectiveTheme(): Theme {
-    if (this.theme === Theme.system) {
+    if (this.theme === Theme.SYSTEM) {
       const prefersDarkScheme = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 
-      return prefersDarkScheme ? Theme.dark : Theme.light;
+      return prefersDarkScheme ? Theme.DARK : Theme.LIGHT;
     }
 
     return this.theme;
@@ -82,8 +82,8 @@ export class ThemeSwitcher {
       return storedTheme;
     }
 
-    this.setDefault(Theme.system);
+    this.setDefault(Theme.SYSTEM);
     
-    return Theme.system;
+    return Theme.SYSTEM;
   }
 }

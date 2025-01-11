@@ -46,13 +46,13 @@
   --green-700: #064801;
 
   /* Red */
-  --green-100: #FFE2E2;
-  --green-200: #FFA2A2;
-  --green-300: #FF4A4A;
-  --green-400: #E50202;
-  --green-500: #A30000;
-  --green-600: #7E0000;
-  --green-700: #550101;
+  --red-100: #FFE2E2;
+  --red-200: #FFA2A2;
+  --red-300: #FF4A4A;
+  --red-400: #E50202;
+  --red-500: #A30000;
+  --red-600: #7E0000;
+  --red-700: #550101;
 }
 
 [data-theme="dark"] {

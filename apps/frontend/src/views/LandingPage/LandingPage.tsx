@@ -1,5 +1,6 @@
 import classes from './LandingPage.module.css';
 import tousinclusLogo from '/tousinclus.svg';
+import Button from '../../components/Button/Button'
 
 const LandingPage = () => {
   return (
@@ -14,6 +15,7 @@ const LandingPage = () => {
           </a>
         </div>
         <h1>Bienvenue sur la LandingPage !</h1>
+        <Button type="link" content="Voir plus de détails sur le jeu" />
       </section>
     </>
   );

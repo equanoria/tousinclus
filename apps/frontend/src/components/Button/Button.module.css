@@ -1,0 +1,57 @@
+.button {
+  /* normal */
+  --color-button-text-normal-default: var(--grey-100);
+  --color-button-bg-normal-default: var(--blue-400);
+  --color-button-bg-normal-hover: var(--blue-500);
+
+  /* disabled */
+  --color-button-text-disabled-default: var(--blue-400);
+  --color-button-bg-disabled-default: var(--blue-200);
+
+  /* danger */
+  --color-button-text-danger-default: var(--red-400);
+  --color-button-bg-danger-default: var(--red-100);
+  --color-button-text-danger-hover: var(--red-500);
+  --color-button-bg-danger-hover: var(--red-200);
+
+  /* positive */
+  --color-button-text-positive-default: var(--green-600);
+  --color-button-bg-positive-default: var(--green-300);
+  --color-button-text-positive-hover: var(--green-700);
+  --color-button-bg-positive-hover: var(--green-400);
+
+  color: var(--color-button-text-normal-default);
+  background-color: var(--color-button-bg-normal-default);
+  cursor: pointer;
+  transition: 125ms ease;
+  transition-property: color, background-color;
+
+  &:hover {
+    background-color: var(--color-button-bg-normal-hover);
+  }
+
+  &.disabled {
+    color: var(--color-button-text-disabled-default);
+    background-color: var(--color-button-bg-disabled-default);
+  }
+
+  &.danger {
+    color: var(--color-button-text-danger-default);
+    background-color: var(--color-button-bg-danger-default);
+
+    &:hover {
+      color: var(--color-button-text-danger-hover);
+      background-color: var(--color-button-bg-danger-hover);
+    }
+  }
+
+  &.positive {
+    color: var(--color-button-text-positive-default);
+    background-color: var(--color-button-bg-positive-default);
+
+    &:hover {
+      color: var(--color-button-text-positive-hover);
+      background-color: var(--color-button-bg-positive-hover);
+    }
+  }
+}
