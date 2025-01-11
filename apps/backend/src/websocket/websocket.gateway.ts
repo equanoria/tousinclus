@@ -33,12 +33,12 @@ export class WebsocketGateway
   ) {}
 
   async handleConnection(client: Socket): Promise<void> {
-    console.log(`Client connecté ${client.id}`);
+    console.log(`Client connected ${client.id}`);
     // Exemple d'initialisation ou de logique pour un nouveau client
   }
 
   async handleDisconnect(client: Socket): Promise<void> {
-    console.log(`Client déconnecté ${client.id}`);
+    console.log(`Client disconnected ${client.id}`);
     // Search for client.id in the Redis DB and delete the value
     await this.disconnectService.handleDisconnectLogic(client);
   }

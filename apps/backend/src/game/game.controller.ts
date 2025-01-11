@@ -12,7 +12,7 @@ import {
 import { GameService } from './game.service';
 import { Game } from './interfaces/game.interface';
 
-@Controller('games')
+@Controller('game')
 export class GameController {
   constructor(private readonly gameService: GameService) {}
 

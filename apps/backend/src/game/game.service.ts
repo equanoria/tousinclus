@@ -26,13 +26,13 @@ export class GameService {
     const newGames: Game[] = [];
     for (let step = 0; step < i; step++) {
       const newGame = this.generateNewGameData(); // Generate i game data
-      await newGames.push(newGame);
+      newGames.push(newGame);
       await this.redisService.setGame(newGame.code, newGame); // add new game data to redis db
     }
     return newGames; // Return all game create as JSON
   }
 
-  async findOneGame(code): Promise<Game> {
+  async findOneGame(code: string): Promise<Game> {
     const game = await this.redisService.getGame(code); // Find game with the code as redis key
     return game; // Return it with the good format
   }
@@ -42,7 +42,7 @@ export class GameService {
     return games;
   }
 
-  async deleteOneGame(code): Promise<boolean> {
+  async deleteOneGame(code: string): Promise<boolean> {
     const gameDelete = await this.redisService.deleteOneGame(code);
     return gameDelete;
   }
@@ -113,7 +113,7 @@ export class GameService {
   async checkIfReadyToStart(code: string): Promise<boolean> {
     const game = await this.findOneGame(code);
 
-    if (game.isTeam1Connected !== null && game.isTeam2Connected !== null) {
+    if (game.isTeam1Connected && game.isTeam2Connected) {
       game.status = 'start';
       await this.redisService.setGame(code, game); // Update the game state in Redis
       return true;

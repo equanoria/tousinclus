@@ -34,7 +34,7 @@ export class WaitingService {
   }
 
   async handleTeamConnection(
-    server,
+    server: Server,
     client: Socket,
     gameCode: string,
     team: string,

@@ -2,7 +2,7 @@
 
 ## Create One Game 
 Type : PUT
-Root : /games
+Root : /game
 Cela va créer une game et renvoyer les données sous format JSON
 - Success :
 ```
@@ -17,7 +17,7 @@ Cela va créer une game et renvoyer les données sous format JSON
 
 ## Create Many Game 
 Type : PUT
-Root : /games/:numberOfGame
+Root : /game/:numberOfGame
 (:numberOfGame -> int)
 Cela va créer plusieurs games et renvoyer les données sous format JSON
 - Success :
@@ -41,7 +41,7 @@ Cela va créer plusieurs games et renvoyer les données sous format JSON
 
 ## Get All Games
 Type : GET
-Root : /games
+Root : /game
 Cela va renvoyer les informations de toute les games en cours sous format json
 - Success : 
 ```
@@ -79,7 +79,7 @@ Cela va renvoyer les informations de toute les games en cours sous format json
 
 ## Get One Game 
 Type : GET
-Root : /games/:code
+Root : /game/:code
 (:code -> string)
 Cela va renvoyer les informations de la game sous format json
 - Success :
@@ -104,7 +104,7 @@ Cela va renvoyer les informations de la game sous format json
 
 ## Delete One Game 
 Type : Delete
-Root : /games/:code
+Root : /game/:code
 (:code -> string)
 Cela va supprimer la game spécifiée
 - Success :
