@@ -53,6 +53,41 @@
   --red-500: #A30000;
   --red-600: #7E0000;
   --red-700: #550101;
+
+  /* Sizes */
+  /* Space */
+  --space-50: 0.125rem;
+  --space-100: 0.25rem;
+  --space-150: 0.375rem;
+  --space-200: 0.5rem;
+  --space-300: 0.75rem;
+  --space-400: 1rem;
+  --space-450: 1.125rem;
+  --space-600: 1.5rem;
+  --space-700: 1.75rem;
+  --space-800: 2rem;
+  --space-900: 2.25rem;
+  --space-1000: 2.5rem;
+  --space-1200: 3rem;
+  --space-1600: 4rem;
+  --space-2400: 6rem;
+  --space-4000: 10rem;
+
+  /* Radius */
+  --radius-100: 0.25rem;
+  --radius-200: 0.5rem;
+  --radius-300: 1rem;
+  --radius-400: 1.5rem;
+  --radius-500: 2rem;
+  --radius-600: 2.5rem;
+  --radius-9999: 999rem;
+
+  /* Typography */
+  /* Font */
+  --font-gotham: "Gotham", sans-serif;
+  --font-cal-sans: "Cal Sans", sans-serif;
+  --font-comfortaa: "Comfortaa", sans-serif;
+  --font-opendyslexic: "OpenDyslexic", sans-serif;
 }
 
 [data-theme="dark"] {

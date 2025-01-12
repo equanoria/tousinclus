@@ -1,5 +1,5 @@
 body {
-  font-family: Gotham, sans-serif;
+  font-family: var(--font-gotham);
   color: var(--color-text);
   background-color: var(--color-bg);
   transition: 125ms ease;
@@ -8,6 +8,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
+  text-box: trim-both cap alphabetic;
 }
 
 p, li, figcaption {

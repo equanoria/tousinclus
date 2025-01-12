@@ -12,4 +12,8 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
+
+  /* Colors */
+  --color-text: var(--yellow-100);
+  --color-bg: var(--blue-500);
 }

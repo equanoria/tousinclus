@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import LandingPage from './views/LandingPage/LandingPage';
-import { ThemeSwitcher } from './utils/ThemeSwitcher';
+import { ThemeManager } from './utils/ThemeManager';
+import { FontManager } from './utils/FontManager';
+import { LocaleManager } from './utils/LocaleManager';
+import { ContrastManager } from './utils/ContrastManager';
 
 const App = () => {
   const [currentView, setCurrentView] = useState<JSX.Element>(<LandingPage />);
 
-  const themeSwitcher = new ThemeSwitcher();
-  themeSwitcher.switch();
+  new ThemeManager();
+  new FontManager();
+  new LocaleManager();
+  new ContrastManager();
 
   return (
     <>

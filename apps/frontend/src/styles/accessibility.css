@@ -36,6 +36,24 @@
   --color-a11y-skip-content-outline: var(--a11y-500);
 }
 
+[data-font="OpenDyslexic"] {
+  * {
+    font-family: var(--font-opendyslexic) !important;
+  }
+}
+
+[data-contrast="more"] {
+  body {
+    filter: contrast(120%);
+  }
+}
+
+[data-contrast="less"] {
+  body {
+    filter: contrast(80%);
+  }
+}
+
 .sr-only {
   border: 0 !important;
   clip: rect(1px, 1px, 1px, 1px) !important;
@@ -63,7 +81,6 @@
   a {
     font-weight: 500;
     text-decoration: underline;
-    padding: 0.25rem;
     color: var(--color-a11y-skip-content-text);
   }
 
@@ -75,4 +92,6 @@
 
 *:focus-visible {
   outline: 0.125rem solid var(--color-a11y-skip-content-outline);
+  outline-offset: 0.25rem;
+  outline-offset: 0.25rem 3rem;
 }

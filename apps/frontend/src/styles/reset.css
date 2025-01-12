@@ -32,7 +32,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-	line-height: 1;
+	line-height: 1.15;
 }
 
 ol, ul, menu {
@@ -80,6 +80,7 @@ button,
 [type="reset"],
 [type="submit"] {
   appearance: none;
+	border: 0;
 }
 
 input[type="number"] {

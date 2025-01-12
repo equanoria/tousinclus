@@ -4,10 +4,6 @@
   --color-button-bg-normal-default: var(--blue-400);
   --color-button-bg-normal-hover: var(--blue-500);
 
-  /* disabled */
-  --color-button-text-disabled-default: var(--blue-400);
-  --color-button-bg-disabled-default: var(--blue-200);
-
   /* danger */
   --color-button-text-danger-default: var(--red-400);
   --color-button-bg-danger-default: var(--red-100);
@@ -20,19 +16,29 @@
   --color-button-text-positive-hover: var(--green-700);
   --color-button-bg-positive-hover: var(--green-400);
 
+  /* outlined */
+  --color-button-text-outlined-default: var(--blue-500);
+  --color-button-bg-outlined-default: var(--blue-100);
+  --color-button-shadow-outlined-default: var(--blue-500);
+  --size-button-shadow-outlined-default: var(--space-100); /* TODO inclure des tokens pour ça */
+  --size-button-shadow-outlined-hover: 0; /* TODO inclure des tokens pour ça */
+
+  /* disabled */
+  --color-button-text-disabled-default: var(--grey-400);
+  --color-button-bg-disabled-default: var(--grey-200);
+
   color: var(--color-button-text-normal-default);
   background-color: var(--color-button-bg-normal-default);
-  cursor: pointer;
+  padding: var(--space-600) var(--space-800);
+  width: fit-content;
+  border-radius: var(--radius-100);
+  font-family: var(--font-cal-sans);
+  text-box: trim-both cap alphabetic;
   transition: 125ms ease;
-  transition-property: color, background-color;
+  transition-property: color, background-color, box-shadow;
 
   &:hover {
     background-color: var(--color-button-bg-normal-hover);
-  }
-
-  &.disabled {
-    color: var(--color-button-text-disabled-default);
-    background-color: var(--color-button-bg-disabled-default);
   }
 
   &.danger {
@@ -54,4 +60,27 @@
       background-color: var(--color-button-bg-positive-hover);
     }
   }
+
+  &.outlined {
+    color: var(--color-button-text-outlined-default);
+    background-color: var(--color-button-bg-outlined-default);
+    border: 0.125rem solid var(--color-button-shadow-outlined-default); /* TODO il faut un token pour le 0.125rem */
+    box-shadow: var(--size-button-shadow-outlined-default) var(--size-button-shadow-outlined-default) var(--color-button-shadow-outlined-default);
+
+    &:hover {
+      box-shadow: var(--size-button-shadow-outlined-hover) var(--size-button-shadow-outlined-hover) var(--color-button-shadow-outlined-default);
+    }
+  }
+
+  &.disabled {
+    color: var(--color-button-text-disabled-default);
+    background-color: var(--color-button-bg-disabled-default);
+    cursor: not-allowed;
+  }
+}
+
+[data-theme="dark"] .button {
+  --color-button-text-outlined-default: var(--blue-200);
+  --color-button-bg-outlined-default: var(--blue-600);
+  --color-button-shadow-outlined-default: var(--blue-200);
 }

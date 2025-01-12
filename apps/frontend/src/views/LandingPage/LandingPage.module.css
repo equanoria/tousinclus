@@ -3,4 +3,8 @@
   display: grid;
   place-content: center;
   gap: 1rem;
+
+  h1 {
+    font-size: 3rem;
+  }
 }
