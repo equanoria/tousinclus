@@ -82,6 +82,8 @@ services:
     image: adminer
     networks:
       directus:
+    environment:
+      - ADMINER_DESIGN=hydra
     ports:
       - 3100:8080
 
