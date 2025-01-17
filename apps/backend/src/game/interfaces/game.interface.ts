@@ -1,4 +1,4 @@
-export interface Game {
+export interface IGame {
   code: string;
   status: string;
   isTeam1Connected: string;

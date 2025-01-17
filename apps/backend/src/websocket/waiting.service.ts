@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { GameService } from '../game/game.service';
+import { IWaitingData } from './interfaces/data.interface'
 import { Server, Socket } from 'socket.io';
 
 @Injectable()
@@ -9,7 +10,7 @@ export class WaitingService {
   async handleWaitingLogic(
     server: Server,
     client: Socket,
-    data: any,
+    data: IWaitingData,
   ): Promise<void> {
     // Vérification de l'action
     const action = data?.action;
