@@ -1,5 +1,14 @@
 :root {
   /* Colors */
+  /* Pink */
+  --pink-100: #FFF1F3;
+  --pink-200: #FFCED6;
+  --pink-300: #FFA9BA;
+  --pink-400: #FF809D;
+  --pink-500: #F75482;
+  --pink-600: #DE376C;
+  --pink-700: #C40055;
+
   /* Blue */
   --blue-100: #F6FBFF;
   --blue-200: #DAF0FE;
@@ -8,15 +17,6 @@
   --blue-500: #02526A;
   --blue-600: #0C3D4C;
   --blue-700: #032630;
-
-  /* Pink */
-  --pink-100: #FFEDF2;
-  --pink-200: #FFC5D6;
-  --pink-300: #FFA5C0;
-  --pink-400: #FA5C8B;
-  --pink-500: #DC3164;
-  --pink-600: #B20D3E;
-  --pink-700: #711430;
 
   /* Yellow */
   --yellow-100: #FFFBEE;

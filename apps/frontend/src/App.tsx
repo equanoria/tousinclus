@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import LandingPage from './views/LandingPage/LandingPage';
-import { ThemeManager } from './utils/ThemeManager';
+import { ThemeManager, Theme } from './utils/ThemeManager';
 import { FontManager } from './utils/FontManager';
 import { LocaleManager } from './utils/LocaleManager';
 import { ContrastManager } from './utils/ContrastManager';

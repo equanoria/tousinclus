@@ -22,10 +22,6 @@ img {
   display: block;
 }
 
-code {
-  font-family: "Fira Code", monospace;
-}
-
 .icon {
   aspect-ratio: 1 / 1;
   display: block;

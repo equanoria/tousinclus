@@ -18,7 +18,7 @@
 
   /* outlined */
   --color-button-text-outlined-default: var(--blue-500);
-  --color-button-bg-outlined-default: var(--blue-100);
+  --color-button-bg-outlined-default: var(--grey-100);
   --color-button-shadow-outlined-default: var(--blue-500);
   --size-button-shadow-outlined-default: var(--space-100); /* TODO inclure des tokens pour ça */
   --size-button-shadow-outlined-hover: 0; /* TODO inclure des tokens pour ça */
@@ -29,10 +29,15 @@
 
   color: var(--color-button-text-normal-default);
   background-color: var(--color-button-bg-normal-default);
-  padding: var(--space-600) var(--space-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-100);
   width: fit-content;
+  padding: var(--space-600) var(--space-800);
   border-radius: var(--radius-100);
   font-family: var(--font-cal-sans);
+  line-height: 1.15;
   text-box: trim-both cap alphabetic;
   transition: 125ms ease;
   transition-property: color, background-color, box-shadow;
@@ -80,7 +85,7 @@
 }
 
 [data-theme="dark"] .button {
-  --color-button-text-outlined-default: var(--blue-200);
-  --color-button-bg-outlined-default: var(--blue-600);
-  --color-button-shadow-outlined-default: var(--blue-200);
+  --color-button-text-outlined-default: var(--blue-700);
+  --color-button-bg-outlined-default: var(--blue-400);
+  --color-button-shadow-outlined-default: var(--blue-700);
 }

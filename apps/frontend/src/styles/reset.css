@@ -32,7 +32,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-	line-height: 1.15;
+	line-height: 1;
 }
 
 ol, ul, menu {
@@ -63,7 +63,7 @@ button, input, optgroup, select, textarea, [role='button'] {
 	cursor: pointer;
 	font-family: inherit;
 	font-size: 100%;
-	line-height: 1.15;
+	line-height: 1;
 	margin: 0;
 }
 
