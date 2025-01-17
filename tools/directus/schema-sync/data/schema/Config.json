@@ -18,7 +18,16 @@
     "singleton": true,
     "sort": 10,
     "sort_field": null,
-    "translations": null,
+    "translations": [
+      {
+        "language": "fr-FR",
+        "translation": "Configuration des cartes et des règles"
+      },
+      {
+        "language": "en-US",
+        "translation": "Cards and rules configuration"
+      }
+    ],
     "unarchive_value": null,
     "versioning": false
   },

@@ -252,7 +252,7 @@
         "foreign_key_column": "id",
         "constraint_name": "cards_design_for_all_principle_category_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "CASCADE"
+        "on_delete": "NO ACTION"
       }
     },
     {
@@ -276,7 +276,7 @@
         "foreign_key_column": "id",
         "constraint_name": "cards_design_for_all_image_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "NO ACTION"
       }
     }
   ]

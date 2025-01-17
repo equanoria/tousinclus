@@ -306,6 +306,159 @@
         "foreign_key_table": "languages",
         "foreign_key_column": "code"
       }
+    },
+    {
+      "field": "rules_connexion_phase",
+      "type": "text",
+      "meta": {
+        "collection": "Config_translations_1",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "rules_connexion_phase",
+        "group": null,
+        "hidden": false,
+        "interface": "input-rich-text-md",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Règles phase de connexion et choix équipe"
+          },
+          {
+            "language": "en-US",
+            "translation": "Rules of the connection and choosing team phase"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "rules_connexion_phase",
+        "table": "Config_translations_1",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "rules_debating_phase",
+      "type": "text",
+      "meta": {
+        "collection": "Config_translations_1",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "rules_debating_phase",
+        "group": null,
+        "hidden": false,
+        "interface": "input-rich-text-md",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Règles de la phase de débat"
+          },
+          {
+            "language": "fr-FR",
+            "translation": "Rules of the debating phase"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "rules_debating_phase",
+        "table": "Config_translations_1",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "rules_reflexion_phase",
+      "type": "text",
+      "meta": {
+        "collection": "Config_translations_1",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "rules_reflexion_phase",
+        "group": null,
+        "hidden": false,
+        "interface": "input-rich-text-md",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Règles de la phase de réflexion"
+          },
+          {
+            "language": "fr-FR",
+            "translation": "Rules of the reflection phase"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "rules_reflexion_phase",
+        "table": "Config_translations_1",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
     }
   ],
   "relations": [
