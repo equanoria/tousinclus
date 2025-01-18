@@ -36,92 +36,6 @@
   },
   "fields": [
     {
-      "field": "context_translations",
-      "type": "alias",
-      "meta": {
-        "collection": "cards_situations",
-        "conditions": null,
-        "display": "translations",
-        "display_options": {
-          "languageField": "name",
-          "template": "{{context}}",
-          "userLanguage": true
-        },
-        "field": "context_translations",
-        "group": null,
-        "hidden": false,
-        "interface": "translations",
-        "note": null,
-        "options": {
-          "defaultLanguage": "en-US",
-          "languageField": "name",
-          "userLanguage": true
-        },
-        "readonly": false,
-        "required": false,
-        "sort": 3,
-        "special": [
-          "translations"
-        ],
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Contexte"
-          },
-          {
-            "language": "en-US",
-            "translation": "Context"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      }
-    },
-    {
-      "field": "description_translations",
-      "type": "alias",
-      "meta": {
-        "collection": "cards_situations",
-        "conditions": null,
-        "display": "translations",
-        "display_options": {
-          "languageField": "name",
-          "template": "{{description}}",
-          "userLanguage": true
-        },
-        "field": "description_translations",
-        "group": null,
-        "hidden": false,
-        "interface": "translations",
-        "note": null,
-        "options": {
-          "defaultLanguage": "en-US",
-          "languageField": "name",
-          "userLanguage": true
-        },
-        "readonly": false,
-        "required": true,
-        "sort": 4,
-        "special": [
-          "translations"
-        ],
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Description"
-          },
-          {
-            "language": "en-US",
-            "translation": "Description"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      }
-    },
-    {
       "field": "id",
       "type": "integer",
       "meta": {
@@ -214,6 +128,46 @@
         "has_auto_increment": false,
         "foreign_key_table": "directus_files",
         "foreign_key_column": "id"
+      }
+    },
+    {
+      "field": "translations",
+      "type": "alias",
+      "meta": {
+        "collection": "cards_situations",
+        "conditions": null,
+        "display": null,
+        "display_options": {
+          "template": null,
+          "userLanguage": true
+        },
+        "field": "translations",
+        "group": null,
+        "hidden": false,
+        "interface": "translations",
+        "note": null,
+        "options": {
+          "userLanguage": true
+        },
+        "readonly": false,
+        "required": false,
+        "sort": 3,
+        "special": [
+          "translations"
+        ],
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Traductions"
+          },
+          {
+            "language": "en-US",
+            "translation": "Translations"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
       }
     }
   ],

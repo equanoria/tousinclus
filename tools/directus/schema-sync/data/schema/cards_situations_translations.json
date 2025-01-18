@@ -16,7 +16,7 @@
     "note": null,
     "preview_url": null,
     "singleton": false,
-    "sort": 5,
+    "sort": 4,
     "sort_field": null,
     "translations": null,
     "unarchive_value": null,
@@ -81,9 +81,7 @@
         "hidden": false,
         "interface": "input",
         "note": null,
-        "options": {
-          "trim": true
-        },
+        "options": null,
         "readonly": false,
         "required": false,
         "sort": 4,
@@ -108,6 +106,57 @@
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "desciption",
+      "type": "text",
+      "meta": {
+        "collection": "cards_situations_translations",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "desciption",
+        "group": null,
+        "hidden": false,
+        "interface": "input-rich-text-md",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Description"
+          },
+          {
+            "language": "en-US",
+            "translation": "Description"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "desciption",
+        "table": "cards_situations_translations",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
         "numeric_precision": null,
         "numeric_scale": null,
         "is_nullable": true,
@@ -218,7 +267,7 @@
         "one_collection": "cards_situations",
         "one_collection_field": null,
         "one_deselect_action": "nullify",
-        "one_field": "context_translations",
+        "one_field": "translations",
         "sort_field": null
       },
       "schema": {

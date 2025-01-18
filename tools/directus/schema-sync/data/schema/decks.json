@@ -137,11 +137,11 @@
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Titre deck"
+            "translation": "Traductions"
           },
           {
             "language": "en-US",
-            "translation": "Deck title"
+            "translation": "Translations"
           }
         ],
         "validation": null,

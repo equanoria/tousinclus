@@ -161,11 +161,11 @@
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Nom du principe"
+            "translation": "Traductions"
           },
           {
             "language": "en-US",
-            "translation": "Principle name"
+            "translation": "Translations"
           }
         ],
         "validation": null,

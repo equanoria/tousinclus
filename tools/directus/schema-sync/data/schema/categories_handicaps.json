@@ -161,11 +161,11 @@
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Nom de la catégorie"
+            "translation": "Traductions"
           },
           {
             "language": "en-US",
-            "translation": "Category name"
+            "translation": "Translations"
           }
         ],
         "validation": null,

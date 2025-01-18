@@ -145,7 +145,7 @@
         "note": null,
         "options": {
           "enableCreate": false,
-          "template": "{{translations}}"
+          "template": "{{translations.category_name}}"
         },
         "readonly": false,
         "required": true,
@@ -217,11 +217,11 @@
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Description"
+            "translation": "Traductions"
           },
           {
             "language": "en-US",
-            "translation": "Description"
+            "translation": "Translations"
           }
         ],
         "validation": null,

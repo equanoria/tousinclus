@@ -9,14 +9,14 @@
     "collection": "Config_translations",
     "color": null,
     "display_template": null,
-    "group": null,
+    "group": "Config",
     "hidden": true,
     "icon": "import_export",
     "item_duplication_fields": null,
     "note": null,
     "preview_url": null,
     "singleton": false,
-    "sort": 13,
+    "sort": 1,
     "sort_field": null,
     "translations": null,
     "unarchive_value": null,
@@ -26,6 +26,159 @@
     "name": "Config_translations"
   },
   "fields": [
+    {
+      "field": "cards_designing_all_name",
+      "type": "string",
+      "meta": {
+        "collection": "Config_translations",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "cards_designing_all_name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Nom des cartes concevoir pour tous"
+          },
+          {
+            "language": "en-US",
+            "translation": "Designing for all cards name"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "cards_designing_all_name",
+        "table": "Config_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "cards_situation_name",
+      "type": "string",
+      "meta": {
+        "collection": "Config_translations",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "cards_situation_name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Nom des cartes de situation"
+          },
+          {
+            "language": "en-US",
+            "translation": "Situation cards name"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "cards_situation_name",
+        "table": "Config_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "cards_user_name",
+      "type": "string",
+      "meta": {
+        "collection": "Config_translations",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "cards_user_name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Nom des cartes utilisateurs extrêmes"
+          },
+          {
+            "language": "en-US",
+            "translation": "Extreme users cards name"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "cards_user_name",
+        "table": "Config_translations",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
     {
       "field": "Config_id",
       "type": "integer",
@@ -151,6 +304,159 @@
         "foreign_key_table": "languages",
         "foreign_key_column": "code"
       }
+    },
+    {
+      "field": "rules_connection_phase",
+      "type": "text",
+      "meta": {
+        "collection": "Config_translations",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "rules_connection_phase",
+        "group": null,
+        "hidden": false,
+        "interface": "input-rich-text-md",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Règles de la phase de connexion"
+          },
+          {
+            "language": "en-US",
+            "translation": "Connection phase rules"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "rules_connection_phase",
+        "table": "Config_translations",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "rules_debating_phase",
+      "type": "text",
+      "meta": {
+        "collection": "Config_translations",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "rules_debating_phase",
+        "group": null,
+        "hidden": false,
+        "interface": "input-rich-text-md",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Règles de la phase de débat"
+          },
+          {
+            "language": "en-US",
+            "translation": "Debating phase rules"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "rules_debating_phase",
+        "table": "Config_translations",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "rules_reflection_phase",
+      "type": "text",
+      "meta": {
+        "collection": "Config_translations",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "rules_reflection_phase",
+        "group": null,
+        "hidden": false,
+        "interface": "input-rich-text-md",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Règles de la phase de réflexion"
+          },
+          {
+            "language": "en-US",
+            "translation": "Reflection phase rules"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "rules_reflection_phase",
+        "table": "Config_translations",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
     }
   ],
   "relations": [
@@ -165,7 +471,7 @@
         "one_collection": "Config",
         "one_collection_field": null,
         "one_deselect_action": "nullify",
-        "one_field": null,
+        "one_field": "translations",
         "sort_field": null
       },
       "schema": {

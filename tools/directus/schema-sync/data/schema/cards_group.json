@@ -50,7 +50,7 @@
         "note": null,
         "options": {
           "enableCreate": false,
-          "template": "{{cards_users_id.translations}}{{cards_users_id.handicap_category.translations}}"
+          "template": "{{cards_users_id.translations.description}}"
         },
         "readonly": false,
         "required": true,
@@ -146,11 +146,11 @@
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Titre groupe"
+            "translation": "Traductions"
           },
           {
             "language": "en-US",
-            "translation": "Group title"
+            "translation": "Translations"
           }
         ],
         "validation": null,
@@ -165,7 +165,9 @@
         "collection": "cards_group",
         "conditions": null,
         "display": null,
-        "display_options": null,
+        "display_options": {
+          "template": "{{translations.desciption}}"
+        },
         "field": "usage_situation",
         "group": null,
         "hidden": false,
@@ -173,7 +175,8 @@
         "note": null,
         "options": {
           "enableCreate": false,
-          "template": "{{context_translations}}{{description_translations}}"
+          "filter": null,
+          "template": "{{translations.desciption}}"
         },
         "readonly": false,
         "required": true,
