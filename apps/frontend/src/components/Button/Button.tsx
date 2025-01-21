@@ -3,7 +3,7 @@ import styles from './Button.module.css';
 import clsx from 'clsx';
 
 export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
-  variant?: 'normal' | 'danger' | 'positive' | 'outlined';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'positive' | 'warning' | 'danger' | 'outlined';
 }
 
 export const Button: React.FC<ButtonProps> = ({ children, className, variant = 'normal', ...props }) => {

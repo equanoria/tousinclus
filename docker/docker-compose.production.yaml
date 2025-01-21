@@ -19,7 +19,9 @@ services:
         - traefik.http.routers.tousinclus-frontend_production.tls=true
         - traefik.http.routers.tousinclus-frontend_production.tls.certresolver=letsencrypt
     environment:
-      - BACKEND_HOST=/api
+      - SOCKET_IO_URL=https://tousinclus.org/api
+      - BACKEND_URL=https://tousinclus.org/api
+      - DIRECTUS_URL=https://directus.tousinclus.org
 
   tousinclus-backend:
     image: ghcr.io/equanoria/tousinclus/tousinclus-backend:latest

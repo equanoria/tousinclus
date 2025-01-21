@@ -1,6 +1,6 @@
 @import 'reset.css';
 @import 'fonts.css';
-@import 'primitives.css';
+/* @import 'primitives.css'; */
 @import 'tokens.css';
 @import 'accessibility.css';
 @import 'main.css';

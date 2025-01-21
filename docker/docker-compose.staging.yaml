@@ -21,7 +21,9 @@ services:
         - traefik.http.middlewares.tousinclus-frontend_staging-auth.basicauth.users=${STAGING_USERS}
         - traefik.http.routers.tousinclus-frontend_staging.middlewares=tousinclus-frontend_staging-auth
     environment:
-      - BACKEND_HOST=/api
+      - SOCKET_IO_URL=https://staging.tousinclus.org/api
+      - BACKEND_URL=https://staging.tousinclus.org/api
+      - DIRECTUS_URL=https://staging.directus.tousinclus.org
 
   tousinclus-backend:
     image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging

@@ -10,10 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@directus/sdk": "^19.0.0",
+    "@tousinclus/types": "workspace:^",
     "clsx": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.4.0"
+    "react-i18next": "^15.4.0",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

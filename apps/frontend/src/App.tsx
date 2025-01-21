@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import LandingPage from './views/LandingPage/LandingPage';
-import { ThemeManager, Theme } from './utils/ThemeManager';
-import { FontManager } from './utils/FontManager';
-import { LocaleManager } from './utils/LocaleManager';
-import { ContrastManager } from './utils/ContrastManager';
+import { ThemeManager } from './managers/ThemeManager';
+import { FontManager } from './managers/FontManager';
+import { LocaleManager } from './managers/LocaleManager';
+import { ContrastManager } from './managers/ContrastManager';
 
 const App = () => {
   const [currentView, setCurrentView] = useState<JSX.Element>(<LandingPage />);

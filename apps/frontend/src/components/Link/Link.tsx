@@ -11,7 +11,6 @@ export const Link: React.FC<LinkProps> = ({ children, className, variant = 'norm
 
   const getClasses = () => {
     const variantName = variant.split('-');
-    console.log(variantName)
 
     if (variantName[0] === 'button') {
       return clsx(

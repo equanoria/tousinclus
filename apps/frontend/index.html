@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="fr-FR" dir="ltr">
   <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="/tousinclus-icon.svg">
@@ -11,6 +11,13 @@
   </head>
   <body>
     <div id="root" aria-live="polite"></div>
+    <script>
+      window.env = {
+        'DIRECTUS_URL': '{{env "DIRECTUS_URL"}}',
+        'SOCKET_IO_URL': '{{env "SOCKET_IO_URL"}}',
+        'BACKEND_URL': '{{env "BACKEND_URL"}}',
+      };
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -1,32 +1,4 @@
 .button {
-  /* normal */
-  --color-button-text-normal-default: var(--grey-100);
-  --color-button-bg-normal-default: var(--blue-400);
-  --color-button-bg-normal-hover: var(--blue-500);
-
-  /* danger */
-  --color-button-text-danger-default: var(--red-400);
-  --color-button-bg-danger-default: var(--red-100);
-  --color-button-text-danger-hover: var(--red-500);
-  --color-button-bg-danger-hover: var(--red-200);
-
-  /* positive */
-  --color-button-text-positive-default: var(--green-600);
-  --color-button-bg-positive-default: var(--green-300);
-  --color-button-text-positive-hover: var(--green-700);
-  --color-button-bg-positive-hover: var(--green-400);
-
-  /* outlined */
-  --color-button-text-outlined-default: var(--blue-500);
-  --color-button-bg-outlined-default: var(--grey-100);
-  --color-button-shadow-outlined-default: var(--blue-500);
-  --size-button-shadow-outlined-default: var(--space-100); /* TODO inclure des tokens pour ça */
-  --size-button-shadow-outlined-hover: 0; /* TODO inclure des tokens pour ça */
-
-  /* disabled */
-  --color-button-text-disabled-default: var(--grey-400);
-  --color-button-bg-disabled-default: var(--grey-200);
-
   color: var(--color-button-text-normal-default);
   background-color: var(--color-button-bg-normal-default);
   display: flex;
@@ -82,10 +54,4 @@
     background-color: var(--color-button-bg-disabled-default);
     cursor: not-allowed;
   }
-}
-
-[data-theme="dark"] .button {
-  --color-button-text-outlined-default: var(--blue-700);
-  --color-button-bg-outlined-default: var(--blue-400);
-  --color-button-shadow-outlined-default: var(--blue-700);
 }

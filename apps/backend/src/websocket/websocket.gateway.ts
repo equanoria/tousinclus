@@ -18,6 +18,7 @@ import { DisconnectService } from './disconnect.service';
   cors: {
     origin: '*',
   },
+  serveClient: false,
 })
 export class WebsocketGateway
   implements OnGatewayConnection, OnGatewayDisconnect
