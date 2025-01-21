@@ -7,7 +7,7 @@ const language: Object = {
     fr: "fr-FR"
 };
 
-// ! Clean absolument les response json
+// ! Différencier les CardRequest
 
 @Injectable()
 export class DirectusService {
@@ -25,7 +25,7 @@ export class DirectusService {
             const result = await client.request(
                 readItems<any, any, any>(`cards_${type}`, {
                     filter,
-                    deep: {         // 
+                    deep: {
                         translations: {
                             _filter: {
                                 _and: [
@@ -36,7 +36,12 @@ export class DirectusService {
                             },
                         },
                     },
-                    fields: ['*', { translations: ['*'] }],
+                    fields: [
+                        '*',        // "*" obligatoire car champs exclusif au type de carte
+                        { 
+                            translations: ['description'] 
+                        }
+                    ],
                 })
             );
 
@@ -72,8 +77,18 @@ export class DirectusService {
                                 ],
                             },
                         },
+                        usage_situation: {
+                            
+                        },
                         extreme_user: {
                             cards_users_id: {
+                                handicap_category: {
+                                    translations: {
+                                        _filter: {
+                                            languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                                        },
+                                    },
+                                },
                                 translations: {
                                     _filter: {
                                         languages_code: { _eq: language[languageCode] }, // Choisie la langue
@@ -83,14 +98,26 @@ export class DirectusService {
                         },
                     },
                     fields: [
-                        '*',
+                        'usage_situation',
                         {
-                            translations: ['*'],
+                            translations: ['title'],
                             extreme_user: [
                                 {
                                     cards_users_id: [
-                                        '*',
-                                        { translations: ['*'] }
+                                        {
+                                            handicap_category: [
+                                                {
+                                                    translations: ['category_name'],
+                                                },
+                                            ],
+                                        },
+                                        'image',
+                                        { 
+                                            translations: [
+                                                'description',
+
+                                            ] 
+                                        }
                                     ]
                                 }
                             ]
