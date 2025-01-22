@@ -3,7 +3,7 @@ export interface ITranslation {
 }
 
 export interface ICard extends ITranslation{
-    type: "users" | "situations" | "design_for_all";
+    type: "users" | "situations" | "design-for-all";
     id: number;
 }
 

@@ -31,7 +31,7 @@ export class DirectusController {
             throw new NotFoundException('language not supported');
         }
 
-        if (!(type === "users" || type === "situations" || type === "design_for_all")) {
+        if (!(type === "users" || type === "situations" || type === "design-for-all")) {
             throw new NotFoundException(`Type ${type} don't exist`);
         }
 
@@ -56,7 +56,7 @@ export class DirectusController {
             throw new NotFoundException('language not supported');
         }
 
-        if (!(type === "users" || type === "situations" || type === "design_for_all")) {
+        if (!(type === "users" || type === "situations" || type === "design-for-all")) {
             throw new NotFoundException(`Type ${type} don't exist`);
         }
 
