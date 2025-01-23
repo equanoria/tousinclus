@@ -9,7 +9,7 @@
     "collection": "cards_design_for_all",
     "color": "#FFC23B",
     "display_template": null,
-    "group": "Cards",
+    "group": "cards",
     "hidden": false,
     "icon": null,
     "item_duplication_fields": null,
@@ -21,7 +21,7 @@
     "translations": [
       {
         "language": "en-US",
-        "translation": "Cards design for all"
+        "translation": "cards design for all"
       },
       {
         "language": "fr-FR",

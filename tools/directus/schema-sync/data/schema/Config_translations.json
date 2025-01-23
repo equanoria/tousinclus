@@ -182,14 +182,14 @@
       }
     },
     {
-      "field": "Config_id",
+      "field": "config_id",
       "type": "integer",
       "meta": {
         "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "Config_id",
+        "field": "config_id",
         "group": null,
         "hidden": true,
         "interface": null,
@@ -205,7 +205,7 @@
         "width": "full"
       },
       "schema": {
-        "name": "Config_id",
+        "name": "config_id",
         "table": "config_translations",
         "data_type": "integer",
         "default_value": null,
@@ -219,7 +219,7 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": "Config",
+        "foreign_key_table": "config",
         "foreign_key_column": "id"
       }
     },
@@ -463,14 +463,14 @@
   ],
   "relations": [
     {
-      "field": "Config_id",
-      "related_collection": "Config",
+      "field": "config_id",
+      "related_collection": "config",
       "meta": {
         "junction_field": "languages_code",
         "many_collection": "config_translations",
-        "many_field": "Config_id",
+        "many_field": "config_id",
         "one_allowed_collections": null,
-        "one_collection": "Config",
+        "one_collection": "config",
         "one_collection_field": null,
         "one_deselect_action": "nullify",
         "one_field": "translations",
@@ -478,8 +478,8 @@
       },
       "schema": {
         "table": "config_translations",
-        "column": "Config_id",
-        "foreign_key_table": "Config",
+        "column": "config_id",
+        "foreign_key_table": "config",
         "foreign_key_column": "id",
         "constraint_name": "config_translations_config_id_foreign",
         "on_update": "NO ACTION",
@@ -490,7 +490,7 @@
       "field": "languages_code",
       "related_collection": "languages",
       "meta": {
-        "junction_field": "Config_id",
+        "junction_field": "config_id",
         "many_collection": "config_translations",
         "many_field": "languages_code",
         "one_allowed_collections": null,

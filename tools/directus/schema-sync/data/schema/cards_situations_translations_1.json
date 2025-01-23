@@ -9,7 +9,7 @@
     "collection": "cards_situations_translations_1",
     "color": null,
     "display_template": null,
-    "group": "Cards",
+    "group": "cards",
     "hidden": true,
     "icon": "import_export",
     "item_duplication_fields": null,

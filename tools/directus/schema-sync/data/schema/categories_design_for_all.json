@@ -9,7 +9,7 @@
     "collection": "categories_design_for_all",
     "color": "#FFC23B",
     "display_template": null,
-    "group": "Categories",
+    "group": "categories",
     "hidden": false,
     "icon": null,
     "item_duplication_fields": null,

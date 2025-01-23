@@ -9,7 +9,7 @@
     "collection": "cards_users",
     "color": "#E859DC",
     "display_template": null,
-    "group": "Cards",
+    "group": "cards",
     "hidden": false,
     "icon": null,
     "item_duplication_fields": null,
