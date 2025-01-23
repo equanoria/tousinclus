@@ -1,12 +1,12 @@
 {
-  "collection": "cards_situations_translations",
+  "collection": "cards_situations_translations_2",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "cards_situations_translations",
+    "collection": "cards_situations_translations_2",
     "color": null,
     "display_template": null,
     "group": "Cards",
@@ -16,21 +16,21 @@
     "note": null,
     "preview_url": null,
     "singleton": false,
-    "sort": 5,
+    "sort": 6,
     "sort_field": null,
     "translations": null,
     "unarchive_value": null,
     "versioning": false
   },
   "schema": {
-    "name": "cards_situations_translations"
+    "name": "cards_situations_translations_2"
   },
   "fields": [
     {
       "field": "cards_situations_id",
       "type": "integer",
       "meta": {
-        "collection": "cards_situations_translations",
+        "collection": "cards_situations_translations_2",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -51,7 +51,7 @@
       },
       "schema": {
         "name": "cards_situations_id",
-        "table": "cards_situations_translations",
+        "table": "cards_situations_translations_2",
         "data_type": "integer",
         "default_value": null,
         "max_length": null,
@@ -69,33 +69,31 @@
       }
     },
     {
-      "field": "context",
-      "type": "string",
+      "field": "description",
+      "type": "text",
       "meta": {
-        "collection": "cards_situations_translations",
+        "collection": "cards_situations_translations_2",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "context",
+        "field": "description",
         "group": null,
         "hidden": false,
-        "interface": "input",
+        "interface": "input-multiline",
         "note": null,
-        "options": {
-          "trim": true
-        },
+        "options": null,
         "readonly": false,
-        "required": false,
+        "required": true,
         "sort": 4,
         "special": null,
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Contexte"
+            "translation": "Description"
           },
           {
             "language": "en-US",
-            "translation": "Context"
+            "translation": "Description"
           }
         ],
         "validation": null,
@@ -103,14 +101,14 @@
         "width": "full"
       },
       "schema": {
-        "name": "context",
-        "table": "cards_situations_translations",
-        "data_type": "character varying",
+        "name": "description",
+        "table": "cards_situations_translations_2",
+        "data_type": "text",
         "default_value": null,
-        "max_length": 255,
+        "max_length": null,
         "numeric_precision": null,
         "numeric_scale": null,
-        "is_nullable": true,
+        "is_nullable": false,
         "is_unique": false,
         "is_indexed": false,
         "is_primary_key": false,
@@ -125,7 +123,7 @@
       "field": "id",
       "type": "integer",
       "meta": {
-        "collection": "cards_situations_translations",
+        "collection": "cards_situations_translations_2",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -146,7 +144,7 @@
       },
       "schema": {
         "name": "id",
-        "table": "cards_situations_translations",
+        "table": "cards_situations_translations_2",
         "data_type": "integer",
         "default_value": null,
         "max_length": null,
@@ -167,7 +165,7 @@
       "field": "languages_code",
       "type": "string",
       "meta": {
-        "collection": "cards_situations_translations",
+        "collection": "cards_situations_translations_2",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -188,7 +186,7 @@
       },
       "schema": {
         "name": "languages_code",
-        "table": "cards_situations_translations",
+        "table": "cards_situations_translations_2",
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
@@ -212,21 +210,21 @@
       "related_collection": "cards_situations",
       "meta": {
         "junction_field": "languages_code",
-        "many_collection": "cards_situations_translations",
+        "many_collection": "cards_situations_translations_2",
         "many_field": "cards_situations_id",
         "one_allowed_collections": null,
         "one_collection": "cards_situations",
         "one_collection_field": null,
         "one_deselect_action": "nullify",
-        "one_field": "context_translations",
+        "one_field": "description_translations",
         "sort_field": null
       },
       "schema": {
-        "table": "cards_situations_translations",
+        "table": "cards_situations_translations_2",
         "column": "cards_situations_id",
         "foreign_key_table": "cards_situations",
         "foreign_key_column": "id",
-        "constraint_name": "cards_situations_translations_cards_situations_id_foreign",
+        "constraint_name": "cards_situations_translations_2_cards_situations_id_foreign",
         "on_update": "NO ACTION",
         "on_delete": "SET NULL"
       }
@@ -236,7 +234,7 @@
       "related_collection": "languages",
       "meta": {
         "junction_field": "cards_situations_id",
-        "many_collection": "cards_situations_translations",
+        "many_collection": "cards_situations_translations_2",
         "many_field": "languages_code",
         "one_allowed_collections": null,
         "one_collection": "languages",
@@ -246,11 +244,11 @@
         "sort_field": null
       },
       "schema": {
-        "table": "cards_situations_translations",
+        "table": "cards_situations_translations_2",
         "column": "languages_code",
         "foreign_key_table": "languages",
         "foreign_key_column": "code",
-        "constraint_name": "cards_situations_translations_languages_code_foreign",
+        "constraint_name": "cards_situations_translations_2_languages_code_foreign",
         "on_update": "NO ACTION",
         "on_delete": "SET NULL"
       }

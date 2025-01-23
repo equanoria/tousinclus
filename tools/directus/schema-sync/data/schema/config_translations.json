@@ -1,12 +1,12 @@
 {
-  "collection": "Config_translations_1",
+  "collection": "config_translations",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "Config_translations_1",
+    "collection": "config_translations",
     "color": null,
     "display_template": null,
     "group": null,
@@ -23,14 +23,14 @@
     "versioning": false
   },
   "schema": {
-    "name": "Config_translations_1"
+    "name": "config_translations"
   },
   "fields": [
     {
       "field": "cards_designing_all_name",
       "type": "string",
       "meta": {
-        "collection": "Config_translations_1",
+        "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -62,7 +62,7 @@
       },
       "schema": {
         "name": "cards_designing_all_name",
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "data_type": "character varying",
         "default_value": "concevoir pour tous",
         "max_length": 255,
@@ -83,7 +83,7 @@
       "field": "cards_situation_name",
       "type": "string",
       "meta": {
-        "collection": "Config_translations_1",
+        "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -113,7 +113,7 @@
       },
       "schema": {
         "name": "cards_situation_name",
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "data_type": "character varying",
         "default_value": "situation d''usage",
         "max_length": 255,
@@ -134,7 +134,7 @@
       "field": "cards_user_name",
       "type": "string",
       "meta": {
-        "collection": "Config_translations_1",
+        "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -164,7 +164,7 @@
       },
       "schema": {
         "name": "cards_user_name",
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "data_type": "character varying",
         "default_value": "utilisateur extrême",
         "max_length": 255,
@@ -185,7 +185,7 @@
       "field": "Config_id",
       "type": "integer",
       "meta": {
-        "collection": "Config_translations_1",
+        "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -206,7 +206,7 @@
       },
       "schema": {
         "name": "Config_id",
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "data_type": "integer",
         "default_value": null,
         "max_length": null,
@@ -227,7 +227,7 @@
       "field": "id",
       "type": "integer",
       "meta": {
-        "collection": "Config_translations_1",
+        "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -248,9 +248,9 @@
       },
       "schema": {
         "name": "id",
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "data_type": "integer",
-        "default_value": "nextval('\"Config_translations_1_id_seq\"'::regclass)",
+        "default_value": "nextval('\"config_translations_id_seq\"'::regclass)",
         "max_length": null,
         "numeric_precision": 32,
         "numeric_scale": 0,
@@ -269,7 +269,7 @@
       "field": "languages_code",
       "type": "string",
       "meta": {
-        "collection": "Config_translations_1",
+        "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -290,7 +290,7 @@
       },
       "schema": {
         "name": "languages_code",
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
@@ -311,7 +311,7 @@
       "field": "rules_connexion_phase",
       "type": "text",
       "meta": {
-        "collection": "Config_translations_1",
+        "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -341,7 +341,7 @@
       },
       "schema": {
         "name": "rules_connexion_phase",
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "data_type": "text",
         "default_value": null,
         "max_length": null,
@@ -362,7 +362,7 @@
       "field": "rules_debating_phase",
       "type": "text",
       "meta": {
-        "collection": "Config_translations_1",
+        "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -392,7 +392,7 @@
       },
       "schema": {
         "name": "rules_debating_phase",
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "data_type": "text",
         "default_value": null,
         "max_length": null,
@@ -413,7 +413,7 @@
       "field": "rules_reflexion_phase",
       "type": "text",
       "meta": {
-        "collection": "Config_translations_1",
+        "collection": "config_translations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -443,7 +443,7 @@
       },
       "schema": {
         "name": "rules_reflexion_phase",
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "data_type": "text",
         "default_value": null,
         "max_length": null,
@@ -467,7 +467,7 @@
       "related_collection": "Config",
       "meta": {
         "junction_field": "languages_code",
-        "many_collection": "Config_translations_1",
+        "many_collection": "config_translations",
         "many_field": "Config_id",
         "one_allowed_collections": null,
         "one_collection": "Config",
@@ -477,11 +477,11 @@
         "sort_field": null
       },
       "schema": {
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "column": "Config_id",
         "foreign_key_table": "Config",
         "foreign_key_column": "id",
-        "constraint_name": "config_translations_1_config_id_foreign",
+        "constraint_name": "config_translations_config_id_foreign",
         "on_update": "NO ACTION",
         "on_delete": "SET NULL"
       }
@@ -491,7 +491,7 @@
       "related_collection": "languages",
       "meta": {
         "junction_field": "Config_id",
-        "many_collection": "Config_translations_1",
+        "many_collection": "config_translations",
         "many_field": "languages_code",
         "one_allowed_collections": null,
         "one_collection": "languages",
@@ -501,11 +501,11 @@
         "sort_field": null
       },
       "schema": {
-        "table": "Config_translations_1",
+        "table": "config_translations",
         "column": "languages_code",
         "foreign_key_table": "languages",
         "foreign_key_column": "code",
-        "constraint_name": "config_translations_1_languages_code_foreign",
+        "constraint_name": "config_translations_languages_code_foreign",
         "on_update": "NO ACTION",
         "on_delete": "SET NULL"
       }

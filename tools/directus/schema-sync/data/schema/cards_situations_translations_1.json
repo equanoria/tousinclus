@@ -16,7 +16,7 @@
     "note": null,
     "preview_url": null,
     "singleton": false,
-    "sort": 6,
+    "sort": 5,
     "sort_field": null,
     "translations": null,
     "unarchive_value": null,
@@ -69,31 +69,33 @@
       }
     },
     {
-      "field": "description",
-      "type": "text",
+      "field": "context",
+      "type": "string",
       "meta": {
         "collection": "cards_situations_translations_1",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "description",
+        "field": "context",
         "group": null,
         "hidden": false,
-        "interface": "input-multiline",
+        "interface": "input",
         "note": null,
-        "options": null,
+        "options": {
+          "trim": true
+        },
         "readonly": false,
-        "required": true,
+        "required": false,
         "sort": 4,
         "special": null,
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Description"
+            "translation": "Contexte"
           },
           {
             "language": "en-US",
-            "translation": "Description"
+            "translation": "Context"
           }
         ],
         "validation": null,
@@ -101,14 +103,14 @@
         "width": "full"
       },
       "schema": {
-        "name": "description",
+        "name": "context",
         "table": "cards_situations_translations_1",
-        "data_type": "text",
+        "data_type": "character varying",
         "default_value": null,
-        "max_length": null,
+        "max_length": 255,
         "numeric_precision": null,
         "numeric_scale": null,
-        "is_nullable": false,
+        "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
         "is_primary_key": false,
@@ -216,7 +218,7 @@
         "one_collection": "cards_situations",
         "one_collection_field": null,
         "one_deselect_action": "nullify",
-        "one_field": "description_translations",
+        "one_field": "context_translations",
         "sort_field": null
       },
       "schema": {
