@@ -5,12 +5,14 @@ import { TLanguage } from '@tousinclus/types';
 export class LocaleManager {
   private localStorageManager = new LocalStorageManager();
   private directusService = DirectusService.getInstance();
+
   static readonly LOCAL_STORAGE_KEY = 'locale';
   static readonly FALLBACK_LOCALE: TLanguage = {
     code: 'fr-FR',
     name: 'Français',
     direction: 'ltr',
   };
+
   private locale: TLanguage = LocaleManager.FALLBACK_LOCALE;
   private supportedLocales: TLanguage[] = [LocaleManager.FALLBACK_LOCALE];
 
@@ -18,18 +20,43 @@ export class LocaleManager {
     this.init();
   }
 
+  /**
+   * Change the active language.
+   * If `localeCode` is `system`, switch to system mode.
+   * Otherwise, apply the specified language if supported.
+   */
   public async switch(localeCode?: string): Promise<void> {
-    const newLocale =
-      this.supportedLocales.find((locale) => locale.code === localeCode) ||
-      this.locale;
+    if (localeCode === 'system') {
+      this.setDefaultLocale('system');
+      this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
+    } else if (localeCode) {
+      const newLocale = this.supportedLocales.find((locale) => locale.code === localeCode);
+      if (newLocale) {
+        this.setDefaultLocale(localeCode);
+        this.locale = newLocale;
+      } else {
+        console.warn(`Locale "${localeCode}" not supported. Falling back.`);
+        this.locale = LocaleManager.FALLBACK_LOCALE;
+      }
+    } else {
+      console.warn('Locale not specified. Falling back to default.');
+      this.locale = LocaleManager.FALLBACK_LOCALE;
+    }
 
-    this.setLocale(newLocale);
+    this.applyLocale();
   }
 
+  /**
+   * Retrieves the currently active language.
+   */
   public getLocale(): TLanguage {
     return this.locale;
   }
 
+  /**
+   * Initializes the active language based on localStorage or the system.
+   * If the locale in localStorage is incompatible, it will be replaced by "system".
+   */
   private async init(): Promise<void> {
     try {
       this.supportedLocales = await this.directusService.getLanguages();
@@ -37,29 +64,49 @@ export class LocaleManager {
       console.warn('Using fallback locale due to error fetching locales.');
     }
 
-    const storedLocaleCode = this.localStorageManager.getItem<string>(
-      LocaleManager.LOCAL_STORAGE_KEY
-    );
-    const initialLocale =
-      this.supportedLocales.find((locale) => locale.code === storedLocaleCode) ||
-      this.getBrowserLocale() ||
-      LocaleManager.FALLBACK_LOCALE;
+    const storedLocaleCode = this.localStorageManager.getItem<string>(LocaleManager.LOCAL_STORAGE_KEY);
 
-    this.setLocale(initialLocale);
-  }
+    if (storedLocaleCode) {
+      if (storedLocaleCode === 'system') {
+        this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
+      } else {
+        const storedLocale = this.supportedLocales.find((locale) => locale.code === storedLocaleCode);
+        if (storedLocale) {
+          this.locale = storedLocale;
+        } else {
+          console.warn(`Stored locale "${storedLocaleCode}" is not supported. Reverting to system locale.`);
+          this.setDefaultLocale('system');
+          this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
+        }
+      }
+    } else {
+      this.setDefaultLocale('system');
+      this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
+    }
 
-  private setLocale(locale: TLanguage): void {
-    this.localStorageManager.setItem(LocaleManager.LOCAL_STORAGE_KEY, locale.code);
-    this.locale = locale;
     this.applyLocale();
   }
 
+  /**
+   * Sets the default value in localStorage.
+   * If the value is "system", it is applied automatically.
+   */
+  private setDefaultLocale(localeCode: string): void {
+    this.localStorageManager.setItem(LocaleManager.LOCAL_STORAGE_KEY, localeCode);
+  }
+
+  /**
+   * Applies the active language to the root element of the document.
+   */
   private applyLocale(): void {
     document.documentElement.lang = this.locale.code;
     document.documentElement.dir = this.locale.direction;
   }
 
-  private getBrowserLocale(): TLanguage | undefined {
+  /**
+   * Retrieves the system's language.
+   */
+  private getSystemLocale(): TLanguage | undefined {
     const navigatorLanguages = navigator.languages || [navigator.language];
 
     for (const lang of navigatorLanguages) {

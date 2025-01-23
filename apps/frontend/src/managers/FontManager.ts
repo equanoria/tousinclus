@@ -17,6 +17,10 @@ export class FontManager {
     this.applyFont();
   }
 
+  /**
+   * Switches the font. If no font is provided, it retrieves the current setting from localStorage.
+   * If a valid font is provided, it sets it as the new font.
+   */
   public switch(font?: Font): this {
     if (font) {
       this.setDefault(font);
@@ -30,22 +34,37 @@ export class FontManager {
     return this;
   }
 
+  /**
+   * Retrieves the current font setting.
+   */
   public getFont(): Font {
     return this.font;
   }
 
+  /**
+   * Sets the default font value in localStorage.
+   * This method ensures the font preference is saved for future visits.
+   */
   private setDefault(font: Font): this {
     this.localStorageManager.setItem<Font>(FontManager.LOCAL_STORAGE_KEY, font);
 
     return this;
   }
 
+  /**
+   * Applies the active font to the root element of the document.
+   * This updates the `data-font` attribute with the current font setting.
+   */
   private applyFont(): this {
     document.documentElement.setAttribute(FontManager.DATA_NAME, this.font);
 
     return this;
   }
 
+  /**
+   * Determines the initial font setting.
+   * This method checks localStorage first, and if no value is found, defaults to the fallback font.
+   */
   private determineInitialFont(): Font {
     const storedFont = this.localStorageManager.getItem<Font>(FontManager.LOCAL_STORAGE_KEY);
     if (storedFont) {

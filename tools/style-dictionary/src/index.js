@@ -1,23 +1,37 @@
 import StyleDictionary from 'style-dictionary';
-import { formats, transformGroups } from 'style-dictionary/enums';
 
-const sd = new StyleDictionary({
-  log: {
-    verbosity: "verbose"
-  },
-  source: ['tokens/**/*.json'],
-  platforms: {
-    css: {
-      transformGroup: transformGroups.css,
-      buildPath: '../../apps/frontend/src/styles/',
-      files: [
-        {
-          destination: 'tokens.css',
-          format: formats.cssVariables,
-        },
-      ],
-    },
-  },
+// Format personnalisé pour inclure les deux thèmes dans un seul fichier
+StyleDictionary.registerFormat({
+  name: 'css/theme-variables',
+  format: ({ dictionary }) => {
+    const lightTokens = dictionary.allTokens
+      .filter(token => token.path.includes('light'))
+      .map(token => `  --${token.name.replace('light-', '')}: ${token.value};`)
+      .join('\n');
+
+    const darkTokens = dictionary.allTokens
+      .filter(token => token.path.includes('dark'))
+      .map(token => `  --${token.name.replace('dark-', '')}: ${token.value};`)
+      .join('\n');
+
+    return `[data-theme="light"] {\n${lightTokens}\n}\n\n[data-theme="dark"] {\n${darkTokens}\n}`;
+  }
 });
 
-await sd.buildAllPlatforms();
+const styleDictionary = StyleDictionary.extend({
+  source: ['tokens/design-tokens.json'],
+  platforms: {
+    css: {
+      transformGroup: 'css',
+      buildPath: 'build/css/',
+      files: [
+        {
+          destination: 'theme-variables.css',
+          format: 'css/theme-variables'
+        }
+      ]
+    }
+  }
+});
+
+await styleDictionary.buildAllPlatforms();
