@@ -68,4 +68,6 @@ export class FormatterService {
         );
     }
 
+    // todo Formatter pour les Deck à faire
+
 }

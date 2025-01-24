@@ -11,7 +11,7 @@ import { ICard, IGroup } from './interfaces/directus.interface';
 
 // ? Typage à ajouter pour Directus https://docs.directus.io/guides/sdk/types.html
 
-const client = createDirectus('http://localhost:3002')
+const client = createDirectus(process.env.DIRECTUS_URL || 'http://127.0.0.1:3002')
     .with(staticToken(process.env.DIRECTUS_ADMIN_TOKEN || 'ssHmmuIXSHHbnsxsTTKeSqIuc1e66diF'))
     .with(rest());
 
@@ -107,4 +107,6 @@ export class DirectusController {
 
         return group
     }
+
+    // todo Routes pour les decks à faire
 }

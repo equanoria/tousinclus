@@ -309,4 +309,6 @@ export class DirectusService {
             );
         }
     }
+
+    // todo Gestion des Deck à faire
 }
