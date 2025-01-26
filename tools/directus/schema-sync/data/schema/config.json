@@ -1,12 +1,12 @@
 {
-  "collection": "Config",
+  "collection": "config",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "Config",
+    "collection": "config",
     "color": null,
     "display_template": null,
     "group": null,
@@ -18,19 +18,28 @@
     "singleton": true,
     "sort": 10,
     "sort_field": null,
-    "translations": null,
+    "translations": [
+      {
+        "language": "fr-FR",
+        "translation": "configuration des cartes et des règles"
+      },
+      {
+        "language": "en-US",
+        "translation": "cards and rules configuration"
+      }
+    ],
     "unarchive_value": null,
     "versioning": false
   },
   "schema": {
-    "name": "Config"
+    "name": "config"
   },
   "fields": [
     {
       "field": "cards_designing_all_color",
       "type": "string",
       "meta": {
-        "collection": "Config",
+        "collection": "config",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -60,7 +69,7 @@
       },
       "schema": {
         "name": "cards_designing_all_color",
-        "table": "Config",
+        "table": "config",
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
@@ -81,7 +90,7 @@
       "field": "cards_situation_color",
       "type": "string",
       "meta": {
-        "collection": "Config",
+        "collection": "config",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -111,7 +120,7 @@
       },
       "schema": {
         "name": "cards_situation_color",
-        "table": "Config",
+        "table": "config",
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
@@ -132,7 +141,7 @@
       "field": "cards_user_color",
       "type": "string",
       "meta": {
-        "collection": "Config",
+        "collection": "config",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -162,7 +171,7 @@
       },
       "schema": {
         "name": "cards_user_color",
-        "table": "Config",
+        "table": "config",
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
@@ -183,7 +192,7 @@
       "field": "date_updated",
       "type": "timestamp",
       "meta": {
-        "collection": "Config",
+        "collection": "config",
         "conditions": null,
         "display": "datetime",
         "display_options": {
@@ -208,7 +217,7 @@
       },
       "schema": {
         "name": "date_updated",
-        "table": "Config",
+        "table": "config",
         "data_type": "timestamp with time zone",
         "default_value": null,
         "max_length": null,
@@ -229,7 +238,7 @@
       "field": "id",
       "type": "integer",
       "meta": {
-        "collection": "Config",
+        "collection": "config",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -250,9 +259,9 @@
       },
       "schema": {
         "name": "id",
-        "table": "Config",
+        "table": "config",
         "data_type": "integer",
-        "default_value": "nextval('\"Config_id_seq\"'::regclass)",
+        "default_value": "nextval('\"config_id_seq\"'::regclass)",
         "max_length": null,
         "numeric_precision": 32,
         "numeric_scale": 0,
@@ -271,7 +280,7 @@
       "field": "translations",
       "type": "alias",
       "meta": {
-        "collection": "Config",
+        "collection": "config",
         "conditions": null,
         "display": null,
         "display_options": null,

@@ -9,7 +9,7 @@
     "collection": "cards_users",
     "color": "#E859DC",
     "display_template": null,
-    "group": "Cards",
+    "group": "cards",
     "hidden": false,
     "icon": null,
     "item_duplication_fields": null,
@@ -255,7 +255,7 @@
         "foreign_key_column": "id",
         "constraint_name": "cards_users_handicap_category_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "CASCADE"
+        "on_delete": "NO ACTION"
       }
     },
     {
@@ -279,7 +279,7 @@
         "foreign_key_column": "id",
         "constraint_name": "cards_users_image_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "NO ACTION"
       }
     }
   ]
