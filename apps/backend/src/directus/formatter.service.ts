@@ -68,6 +68,24 @@ export class FormatterService {
         );
     }
 
-    // todo Formatter pour les Deck à faire
+    // Formatter pour les decks
+    async deckFormatter(deckData: any) {
+        return Promise.all(
+            deckData.map(async (deck: any) => {
+                // Traitement des groupes dans le deck
+                const formattedGroups = await Promise.all(
+                    deck.group.map(async (group: any) => {
+                        const formattedGroup = await this.groupFormatter([group.cards_group_id]);
+                        return formattedGroup[0]; // `groupFormatter` retourne un tableau, on prend le premier élément
+                    }),
+                );
+    
+                return {
+                    title: deck.translations?.[0]?.title || null, // Titre du deck
+                    groups: formattedGroups, // Groupes formatés
+                };
+            }),
+        );
+    }
 
 }

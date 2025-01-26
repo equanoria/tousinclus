@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { createDirectus, staticToken, rest } from '@directus/sdk';
 import { DirectusService } from './directus.service';
-import { ICard, IGroup } from './interfaces/directus.interface';
+import { ICard, IGroup, IDeck } from './interfaces/directus.interface';
 
 // ? Typage à ajouter pour Directus https://docs.directus.io/guides/sdk/types.html
 
@@ -20,6 +20,8 @@ export class DirectusController {
 
     constructor(private readonly directusService: DirectusService) { }
 
+
+    // ========== CARD ==========
     @Get(':languageCode/card/:type/:id')
     async getOneCard(
         @Param('languageCode') languageCode: ICard['languageCode'],
@@ -63,7 +65,7 @@ export class DirectusController {
         const cards = await this.directusService.handleCardRequest(client, languageCode, type, null)
 
         if (!cards.length) {
-            throw new NotFoundException(`No card ${type} found`);
+            throw new NotFoundException(`No card ${type} found, database may be empty`);
         }
 
         return cards
@@ -71,6 +73,7 @@ export class DirectusController {
         // ? On renvoie comment l'image
     }
 
+    // ========== GROUP ==========
     @Get(':languageCode/group/:id')
     async getOneGroup(
         @Param('languageCode') languageCode: IGroup['languageCode'],
@@ -84,9 +87,9 @@ export class DirectusController {
         const group = await this.directusService.handleGroupRequest(client, languageCode, id)
 
         if (!group.length) {
-            throw new NotFoundException(`No card with id : ${id} found`);
+            throw new NotFoundException(`No card group with id : ${id} found`);
         }
-        
+
         return group
     }
 
@@ -102,11 +105,47 @@ export class DirectusController {
         const group = await this.directusService.handleGroupRequest(client, languageCode, null)
 
         if (!group.length) {
-            throw new NotFoundException(`No card group found`);
+            throw new NotFoundException(`No card group found, database may be empty`);
         }
 
         return group
     }
 
-    // todo Routes pour les decks à faire
+    // ========== DECK ==========
+    @Get(':languageCode/deck/:id')
+    async getOneDeck(
+        @Param('languageCode') languageCode: IDeck['languageCode'],
+        @Param('id') id: IDeck['id']
+    ): Promise<unknown> {
+
+        if (!(languageCode === "en" || languageCode === "fr")) {
+            throw new NotFoundException('language not supported');
+        }
+
+        const group = await this.directusService.handleDeckRequest(client, languageCode, id)
+
+        if (!group.length) {
+            throw new NotFoundException(`No card deck with id : ${id} found`);
+        }
+
+        return group
+    }
+
+    @Get(':languageCode/deck')
+    async getAllDeck(
+        @Param('languageCode') languageCode: IDeck['languageCode'],
+    ): Promise<unknown> {
+
+        if (!(languageCode === "en" || languageCode === "fr")) {
+            throw new NotFoundException('language not supported');
+        }
+
+        const group = await this.directusService.handleDeckRequest(client, languageCode, null)
+
+        if (!group.length) {
+            throw new NotFoundException(`No card deck found, database may be empty`);
+        }
+
+        return group
+    }
 }

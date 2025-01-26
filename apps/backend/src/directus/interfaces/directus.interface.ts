@@ -10,3 +10,7 @@ export interface ICard extends ITranslation{
 export interface IGroup extends ITranslation{
     id: number;
 }
+
+export interface IDeck extends ITranslation{
+    id: number;
+}

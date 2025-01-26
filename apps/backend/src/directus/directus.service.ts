@@ -310,5 +310,151 @@ export class DirectusService {
         }
     }
 
-    // todo Gestion des Deck à faire
+    // ========== DECK ==========
+    async handleDeckRequest(client: any, languageCode: IGroup['languageCode'], id: IGroup['id']): Promise<Array<unknown>> {
+        try {
+            const filter: any = {};
+
+            // Ajoute le filtre pour `id` uniquement si `id` n'est pas null
+            if (id !== null) {
+                filter.id = { _eq: id };
+            }
+
+            // Fais une request pour les decks ( permet de filtrer les champs )
+            let groupData = await client.request(
+                readItems<any, any, any>(`decks`, {
+                    filter,
+                    deep: {         // 
+                        translations: {
+                            _filter: {
+                                _and: [
+                                    {
+                                        languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                                    },
+                                ],
+                            },
+                        },
+                        group: {
+                            translations: {
+                                _filter: {
+                                    _and: [
+                                        {
+                                            languages_code: { _eq: language[languageCode] },
+                                        }
+                                    ]
+                                }
+                            },
+                            cards_group_id:  {
+                                translations: {
+                                    _filter: {
+                                        _and: [
+                                            {
+                                                languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                                            },
+                                        ],
+                                    },
+                                },
+                                usage_situation: {
+                                    translations: {
+                                        _filter: {
+                                            _and: [
+                                                {
+                                                    languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                                                },
+                                            ],
+                                        },
+                                    },
+                                    context_translations: {
+                                        _filter: {
+                                            languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                                        },
+                                    },
+                                    description_translations: {
+                                        _filter: {
+                                            languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                                        },
+                                    },
+                                },
+                                extreme_user: {
+                                    cards_users_id: {
+                                        handicap_category: {
+                                            translations: {
+                                                _filter: {
+                                                    languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                                                },
+                                            },
+                                        },
+                                        translations: {
+                                            _filter: {
+                                                languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                                            },
+                                        },
+                                    },
+                                },
+                            }
+                        }
+                    },
+                    fields: [
+                        {
+                            group: [
+                                {
+                                    cards_group_id: [
+                                        {
+                                            usage_situation: [
+                                                'image',
+                                                {
+                                                    context_translations: ['context']
+                                                },
+                                                {
+                                                    description_translations: ['description']
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            translations: ['title'],
+                                            extreme_user: [
+                                                {
+                                                    cards_users_id: [
+                                                        {
+                                                            handicap_category: [
+                                                                'icon',
+                                                                {
+                                                                    translations: ['category_name'],
+                                                                },
+                                                            ],
+                                                        },
+                                                        'image',
+                                                        {
+                                                            translations: [
+                                                                'description',
+
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            translations: ['title'],
+                        }
+
+                    ],
+                })
+            );
+
+            // Formate les données reçu
+            groupData = this.formatterService.deckFormatter(groupData)
+
+            return groupData;
+        } catch (error) {
+            throw new Error(
+                error,
+            );
+        }
+    }
+
 }

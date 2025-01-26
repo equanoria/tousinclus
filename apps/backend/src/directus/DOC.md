@@ -1,4 +1,4 @@
-# ============== Game [REST] ==============
+# ============== Directus [REST] ==============
 
 ## Get One Card
 Type : GET
@@ -100,6 +100,42 @@ Cela va renvoyer les informations de tout les groups
     "extreme_user": [
       ...
     ]
+  }
+]
+```
+
+## Get One Deck
+Type : GET
+Root : /directus/:languageCode/deck/:id
+(:languageCode -> en | fr)
+(:id -> int)
+Cela va renvoyer les informations du deck ayant un id 1
+- Success :
+```
+[
+  {
+    "title": "Deck Un",
+    "groups": [...]         // contient la même structure qu'un group
+  }
+]
+```
+
+## Get All Deck
+Type : GET
+Root : /directus/:languageCode/deck
+(:languageCode -> en | fr)
+(:id -> int)
+Cela va renvoyer les informations de tout les groups
+- Success :
+```
+[
+  {
+    "title": "Deck Un",
+    "groups": [...]         // contient la même structure qu'un group
+  },
+  {
+    "title": "Deck Two",
+    "groups": [...]
   }
 ]
 ```
