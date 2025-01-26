@@ -8,7 +8,7 @@ export class GameService {
 
   private generateNewGameData(): Game {
     const newGame: Game = {
-      code: Math.random().toString(36).substring(2, 8).toUpperCase(),
+      code: Math.floor(100000 + Math.random() * 900000).toString(), // Generate a 6-digit numeric code
       status: 'waiting',
       isTeam1Connected: null,
       isTeam2Connected: null,
