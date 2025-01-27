@@ -1,6 +1,8 @@
 @import 'reset.css';
 @import 'fonts.css';
-/* @import 'primitives.css'; */
+
 @import 'tokens.css';
+@import 'tokens-theme-dark.css';
+
 @import 'accessibility.css';
 @import 'main.css';
