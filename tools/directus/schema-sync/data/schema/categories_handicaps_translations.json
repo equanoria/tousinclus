@@ -9,7 +9,7 @@
     "collection": "categories_handicaps_translations",
     "color": null,
     "display_template": null,
-    "group": "Categories",
+    "group": "categories",
     "hidden": true,
     "icon": "import_export",
     "item_duplication_fields": null,
