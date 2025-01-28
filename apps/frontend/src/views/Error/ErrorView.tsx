@@ -2,7 +2,7 @@ export interface IError {
   message?: string;
 }
 
-export const Error = ({ message }: IError) => {
+export const ErrorView = ({ message }: IError) => {
   return (
     <>
       <p>There is an error.</p>

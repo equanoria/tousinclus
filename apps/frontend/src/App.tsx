@@ -1,30 +1,11 @@
-import { useState } from 'react';
-import ComingSoonPage from './views/ComingSoonPage/ComingSoonPage';
-import { ThemeManager } from './managers/ThemeManager';
-import { FontManager } from './managers/FontManager';
-import { LocaleManager } from './managers/LocaleManager';
-import { ContrastManager } from './managers/ContrastManager';
+import { AppStateProvider } from './context/AppStateProvider';
+import AppContent from './AppContent';
 
 const App = () => {
-  const [currentView, setCurrentView] = useState<JSX.Element>(<ComingSoonPage />);
-
-  new ThemeManager();
-  new FontManager();
-  new LocaleManager();
-  new ContrastManager();
-
   return (
-    <>
-      <nav className="a11y-skip-content">
-          <ul>
-              <li><a href="#main">Aller au contenu principal</a></li>
-              <li><a href="#main">Aller à un autre endoit</a></li>
-          </ul>
-      </nav>
-      <main>
-        { currentView }
-      </main>
-    </>
+    <AppStateProvider>
+      <AppContent />
+    </AppStateProvider>
   );
 };
 

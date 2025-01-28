@@ -1,8 +1,8 @@
-import styles from './ComingSoonPage.module.css';
+import styles from './ComingSoonView.module.css';
 import tousinclusLogo from '/tousinclus.svg';
 import { Link } from '../../components/Link/Link';
 
-const ComingSoonPage = () => {
+export const ComingSoonView = () => {
   return (
     <>
       <section className={styles.hero}>
@@ -42,5 +42,3 @@ const ComingSoonPage = () => {
     </>
   );
 };
-
-export default ComingSoonPage;
