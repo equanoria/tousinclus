@@ -13,8 +13,8 @@
 
 body {
   font-family: var(--font-gotham);
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  color: var(--text-primary-default);
+  background-color: var(--view-bg);
   transition: 125ms ease;
   transition-property: background-color;
 }
@@ -25,7 +25,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p, li, figcaption {
-  /* font-size: var(--text-base); */
+  font-size: var(--scale-03);
   max-width: 75ch;
   text-wrap: pretty;
 }

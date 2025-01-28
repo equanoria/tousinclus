@@ -1,57 +1,81 @@
 .button {
-  color: var(--color-button-text-normal-default);
-  background-color: var(--color-button-bg-normal-default);
+  color: var(--button-contrast-primary-default);
+  background-color: var(--button-bg-primary-default);
+  font-family: var(--font-cal-sans);
+  text-box: trim-both cap alphabetic;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-100);
   width: fit-content;
-  padding: var(--space-600) var(--space-800);
+  padding:var(--space-600) var(--space-800);
   border-radius: var(--radius-100);
-  font-family: var(--font-cal-sans);
-  line-height: 1.15;
-  text-box: trim-both cap alphabetic;
-  transition: 125ms ease;
+  transition: 125ms ease-out;
+  transition-property: color, background-color;
+
+  &:hover {
+    color: var(--button-contrast-primary-hover);
+    background-color: var(--button-bg-primary-hover);
+  }
+
+  &:active {
+    color: var(--button-contrast-primary-active);
+    background-color: var(--button-bg-primary-active);
+    box-shadow: inset 0 0 0 var(--stroke-border-75) var(--button-border-primary-active);
+  }
+
+  &:disabled {
+    color: var(--button-contrast-primary-disabled);
+    background-color: var(--button-bg-primary-disabled);
+  }
+}
+
+.button.primary {
+  /* Default */
+}
+
+.button.secondary {
+  background-color: transparent;
+  color: var(--button-contrast-secondary-default);
+  box-shadow: inset 0 0 0 var(--stroke-border-50) var(--button-border-secondary-default);
+
+  &:hover {
+    background-color: var(--button-bg-secondary-hover);
+    color: var(--button-contrast-secondary-hover);
+  }
+
+  &:active {
+    background-color: var(--button-bg-secondary-active);
+    color: var(--button-contrast-secondary-active);
+    box-shadow: inset 0 0 0 var(--stroke-border-75) var(--button-border-secondary-active);
+  }
+
+  &:disabled {
+    color: var(--button-contrast-secondary-disabled);
+  }
+}
+
+.button.outlined {
+  background-color: var(--button-bg-outlined-default);
+  color: var(--button-contrast-outlined-default);
+  box-shadow:
+    inset 0 0 0 var(--stroke-border-50) var(--button-border-outlined-default),
+    0.25rem 0.25rem 0 0 var(--button-border-outlined-default);
   transition-property: color, background-color, box-shadow;
 
   &:hover {
-    background-color: var(--color-button-bg-normal-hover);
+    color: var(--button-contrast-outlined-hover);
+    box-shadow: inset 0 0 0 var(--stroke-border-50) var(--button-border-outlined-hover);
   }
 
-  &.danger {
-    color: var(--color-button-text-danger-default);
-    background-color: var(--color-button-bg-danger-default);
-
-    &:hover {
-      color: var(--color-button-text-danger-hover);
-      background-color: var(--color-button-bg-danger-hover);
-    }
+  &:active {
+    color: var(--button-contrast-outlined-active);
+    box-shadow: inset 0 0 0 var(--stroke-border-75) var(--button-border-outlined-active);
+    transition-property: none;
   }
 
-  &.positive {
-    color: var(--color-button-text-positive-default);
-    background-color: var(--color-button-bg-positive-default);
-
-    &:hover {
-      color: var(--color-button-text-positive-hover);
-      background-color: var(--color-button-bg-positive-hover);
-    }
-  }
-
-  &.outlined {
-    color: var(--color-button-text-outlined-default);
-    background-color: var(--color-button-bg-outlined-default);
-    border: 0.125rem solid var(--color-button-shadow-outlined-default); /* TODO il faut un token pour le 0.125rem */
-    box-shadow: var(--size-button-shadow-outlined-default) var(--size-button-shadow-outlined-default) var(--color-button-shadow-outlined-default);
-
-    &:hover {
-      box-shadow: var(--size-button-shadow-outlined-hover) var(--size-button-shadow-outlined-hover) var(--color-button-shadow-outlined-default);
-    }
-  }
-
-  &.disabled {
-    color: var(--color-button-text-disabled-default);
-    background-color: var(--color-button-bg-disabled-default);
-    cursor: not-allowed;
+  &:disabled {
+    color: var(--button-contrast-outlined-disabled);
+    box-shadow: 0.25rem 0.25rem 0 0 var(--button-border-outlined-disabled);
   }
 }

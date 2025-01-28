@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import LandingPage from './views/LandingPage/LandingPage';
+import ComingSoonPage from './views/ComingSoonPage/ComingSoonPage';
 import { ThemeManager } from './managers/ThemeManager';
 import { FontManager } from './managers/FontManager';
 import { LocaleManager } from './managers/LocaleManager';
 import { ContrastManager } from './managers/ContrastManager';
 
 const App = () => {
-  const [currentView, setCurrentView] = useState<JSX.Element>(<LandingPage />);
+  const [currentView, setCurrentView] = useState<JSX.Element>(<ComingSoonPage />);
 
   new ThemeManager();
   new FontManager();

@@ -5,7 +5,6 @@
         "$type": "color",
         "$value": "#ffffff0d",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffffff0d",
@@ -28,7 +27,6 @@
         "$type": "color",
         "$value": "#ffffff1a",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffffff1a",
@@ -51,7 +49,6 @@
         "$type": "color",
         "$value": "#ffffff33",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffffff33",
@@ -74,7 +71,6 @@
         "$type": "color",
         "$value": "#ffffff66",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffffff66",
@@ -97,7 +93,6 @@
         "$type": "color",
         "$value": "#ffffffb3",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffffffb3",
@@ -120,7 +115,6 @@
         "$type": "color",
         "$value": "#ffffffcc",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffffffcc",
@@ -143,7 +137,6 @@
         "$type": "color",
         "$value": "#ffffffd9",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffffffd9",
@@ -166,7 +159,6 @@
         "$type": "color",
         "$value": "#ffffffe6",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffffffe6",
@@ -189,7 +181,6 @@
         "$type": "color",
         "$value": "#fffffff2",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#fffffff2",
@@ -212,7 +203,6 @@
         "$type": "color",
         "$value": "#ffffff",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffffff",
@@ -237,10 +227,9 @@
         "$type": "color",
         "$value": "#fff1f3",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
-            "Dark": "#3700ff",
+            "Dark": "#fff1f3",
             "Light": "#fff1f3"
           },
           "figma": {
@@ -260,7 +249,6 @@
         "$type": "color",
         "$value": "#ffced6",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffced6",
@@ -283,7 +271,6 @@
         "$type": "color",
         "$value": "#ffa9ba",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffa9ba",
@@ -306,7 +293,6 @@
         "$type": "color",
         "$value": "#ff809d",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ff809d",
@@ -329,7 +315,6 @@
         "$type": "color",
         "$value": "#f75482",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#f75482",
@@ -352,7 +337,6 @@
         "$type": "color",
         "$value": "#de376c",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#de376c",
@@ -375,7 +359,6 @@
         "$type": "color",
         "$value": "#c40055",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#c40055",
@@ -398,7 +381,6 @@
         "$type": "color",
         "$value": "#90003d",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#90003d",
@@ -421,7 +403,6 @@
         "$type": "color",
         "$value": "#5e0025",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#5e0025",
@@ -444,7 +425,6 @@
         "$type": "color",
         "$value": "#350011",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#350011",
@@ -469,7 +449,6 @@
         "$type": "color",
         "$value": "#fff2f0",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#fff2f0",
@@ -492,7 +471,6 @@
         "$type": "color",
         "$value": "#ffd0c9",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffd0c9",
@@ -515,7 +493,6 @@
         "$type": "color",
         "$value": "#ffada1",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffada1",
@@ -538,7 +515,6 @@
         "$type": "color",
         "$value": "#ff8576",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ff8576",
@@ -561,7 +537,6 @@
         "$type": "color",
         "$value": "#ff5245",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ff5245",
@@ -584,7 +559,6 @@
         "$type": "color",
         "$value": "#ec221f",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ec221f",
@@ -607,7 +581,6 @@
         "$type": "color",
         "$value": "#c9000a",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#c9000a",
@@ -630,7 +603,6 @@
         "$type": "color",
         "$value": "#940005",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#940005",
@@ -653,7 +625,6 @@
         "$type": "color",
         "$value": "#600002",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#600002",
@@ -676,7 +647,6 @@
         "$type": "color",
         "$value": "#360001",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#360001",
@@ -701,7 +671,6 @@
         "$type": "color",
         "$value": "#fff3e4",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#fff3e4",
@@ -724,7 +693,6 @@
         "$type": "color",
         "$value": "#ffe5c2",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffe5c2",
@@ -747,7 +715,6 @@
         "$type": "color",
         "$value": "#ffd69f",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffd69f",
@@ -770,7 +737,6 @@
         "$type": "color",
         "$value": "#ffc777",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffc777",
@@ -793,7 +759,6 @@
         "$type": "color",
         "$value": "#ffb643",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ffb643",
@@ -816,7 +781,6 @@
         "$type": "color",
         "$value": "#f7a917",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#f7a917",
@@ -839,7 +803,6 @@
         "$type": "color",
         "$value": "#c98700",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#c98700",
@@ -862,7 +825,6 @@
         "$type": "color",
         "$value": "#8d5e00",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#8d5e00",
@@ -885,7 +847,6 @@
         "$type": "color",
         "$value": "#523500",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#523500",
@@ -908,7 +869,6 @@
         "$type": "color",
         "$value": "#241500",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#241500",
@@ -933,7 +893,6 @@
         "$type": "color",
         "$value": "#deffe6",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#deffe6",
@@ -956,7 +915,6 @@
         "$type": "color",
         "$value": "#85ffab",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#85ffab",
@@ -979,7 +937,6 @@
         "$type": "color",
         "$value": "#6beb96",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#6beb96",
@@ -1002,7 +959,6 @@
         "$type": "color",
         "$value": "#55d683",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#55d683",
@@ -1025,7 +981,6 @@
         "$type": "color",
         "$value": "#3cc270",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#3cc270",
@@ -1048,7 +1003,6 @@
         "$type": "color",
         "$value": "#13ae5c",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#13ae5c",
@@ -1071,7 +1025,6 @@
         "$type": "color",
         "$value": "#008f49",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#008f49",
@@ -1094,7 +1047,6 @@
         "$type": "color",
         "$value": "#006732",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#006732",
@@ -1117,7 +1069,6 @@
         "$type": "color",
         "$value": "#003f1d",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#003f1d",
@@ -1140,7 +1091,6 @@
         "$type": "color",
         "$value": "#001f0b",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#001f0b",
@@ -1165,7 +1115,6 @@
         "$type": "color",
         "$value": "#0c0c0d0d",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0d0d",
@@ -1188,7 +1137,6 @@
         "$type": "color",
         "$value": "#0c0c0d1a",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0d1a",
@@ -1211,7 +1159,6 @@
         "$type": "color",
         "$value": "#0c0c0d33",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0d33",
@@ -1234,7 +1181,6 @@
         "$type": "color",
         "$value": "#0c0c0d66",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0d66",
@@ -1257,7 +1203,6 @@
         "$type": "color",
         "$value": "#0c0c0db3",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0db3",
@@ -1280,7 +1225,6 @@
         "$type": "color",
         "$value": "#0c0c0dcc",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0dcc",
@@ -1303,7 +1247,6 @@
         "$type": "color",
         "$value": "#0c0c0dd9",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0dd9",
@@ -1326,7 +1269,6 @@
         "$type": "color",
         "$value": "#0c0c0de6",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0de6",
@@ -1349,7 +1291,6 @@
         "$type": "color",
         "$value": "#0c0c0df2",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0df2",
@@ -1372,7 +1313,6 @@
         "$type": "color",
         "$value": "#0c0c0d",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#0c0c0d",
@@ -1397,7 +1337,6 @@
         "$type": "color",
         "$value": "#f5f5f5",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#f5f5f5",
@@ -1420,7 +1359,6 @@
         "$type": "color",
         "$value": "#e6e6e6",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#e6e6e6",
@@ -1443,7 +1381,6 @@
         "$type": "color",
         "$value": "#d9d9d9",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#d9d9d9",
@@ -1466,7 +1403,6 @@
         "$type": "color",
         "$value": "#b3b3b3",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#b3b3b3",
@@ -1489,7 +1425,6 @@
         "$type": "color",
         "$value": "#757575",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#757575",
@@ -1512,7 +1447,6 @@
         "$type": "color",
         "$value": "#444444",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#444444",
@@ -1535,7 +1469,6 @@
         "$type": "color",
         "$value": "#383838",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#383838",
@@ -1558,7 +1491,6 @@
         "$type": "color",
         "$value": "#2c2c2c",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#2c2c2c",
@@ -1581,7 +1513,6 @@
         "$type": "color",
         "$value": "#1e1e1e",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#1e1e1e",
@@ -1604,7 +1535,6 @@
         "$type": "color",
         "$value": "#111111",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#111111",
@@ -1629,7 +1559,6 @@
         "$type": "color",
         "$value": "#ecf7ff",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#ecf7ff",
@@ -1652,7 +1581,6 @@
         "$type": "color",
         "$value": "#c2e6ff",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#c2e6ff",
@@ -1675,7 +1603,6 @@
         "$type": "color",
         "$value": "#95d4ff",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#95d4ff",
@@ -1698,7 +1625,6 @@
         "$type": "color",
         "$value": "#79c1f0",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#79c1f0",
@@ -1721,7 +1647,6 @@
         "$type": "color",
         "$value": "#65addb",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#65addb",
@@ -1744,7 +1669,6 @@
         "$type": "color",
         "$value": "#4e99c8",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#4e99c8",
@@ -1767,7 +1691,6 @@
         "$type": "color",
         "$value": "#007fb7",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#007fb7",
@@ -1790,7 +1713,6 @@
         "$type": "color",
         "$value": "#005a85",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#005a85",
@@ -1813,7 +1735,6 @@
         "$type": "color",
         "$value": "#003753",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#003753",
@@ -1836,7 +1757,6 @@
         "$type": "color",
         "$value": "#001b2b",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#001b2b",
@@ -1861,7 +1781,6 @@
         "$type": "color",
         "$value": "#e9f8ff",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#e9f8ff",
@@ -1884,7 +1803,6 @@
         "$type": "color",
         "$value": "#9bdbf6",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#9bdbf6",
@@ -1907,7 +1825,6 @@
         "$type": "color",
         "$value": "#78b7d1",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#78b7d1",
@@ -1930,7 +1847,6 @@
         "$type": "color",
         "$value": "#5694ad",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#5694ad",
@@ -1953,7 +1869,6 @@
         "$type": "color",
         "$value": "#33728a",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#33728a",
@@ -1976,7 +1891,6 @@
         "$type": "color",
         "$value": "#00526a",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#00526a",
@@ -1999,7 +1913,6 @@
         "$type": "color",
         "$value": "#00465c",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#00465c",
@@ -2022,7 +1935,6 @@
         "$type": "color",
         "$value": "#003749",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#003749",
@@ -2045,7 +1957,6 @@
         "$type": "color",
         "$value": "#002836",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#002836",
@@ -2068,7 +1979,6 @@
         "$type": "color",
         "$value": "#001c26",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#001c26",
@@ -2093,7 +2003,6 @@
         "$type": "color",
         "$value": "#fff0fc",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#fff0fc",
@@ -2116,7 +2025,6 @@
         "$type": "color",
         "$value": "#f6d1ef",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#f6d1ef",
@@ -2139,7 +2047,6 @@
         "$type": "color",
         "$value": "#dfbbd9",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#dfbbd9",
@@ -2162,7 +2069,6 @@
         "$type": "color",
         "$value": "#c8a5c2",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#c8a5c2",
@@ -2185,7 +2091,6 @@
         "$type": "color",
         "$value": "#b290ac",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#b290ac",
@@ -2208,7 +2113,6 @@
         "$type": "color",
         "$value": "#9e7a98",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#9e7a98",
@@ -2231,7 +2135,6 @@
         "$type": "color",
         "$value": "#8c5c85",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#8c5c85",
@@ -2254,7 +2157,6 @@
         "$type": "color",
         "$value": "#72356a",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#72356a",
@@ -2277,7 +2179,6 @@
         "$type": "color",
         "$value": "#55044f",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#55044f",
@@ -2300,7 +2201,6 @@
         "$type": "color",
         "$value": "#2f002b",
         "$description": "",
-        "scopes": [],
         "$extensions": {
           "mode": {
             "Dark": "#2f002b",
@@ -2329,9 +2229,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.400}",
             "$description": "Bg/Positive/Default",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.400}",
@@ -2354,9 +2251,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.200}",
             "$description": "Bg/Positive/Secondary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.200}",
@@ -2379,9 +2273,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.600}",
             "$description": "Bg/Positive/Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.600}",
@@ -2404,9 +2295,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.600}",
             "$description": "Bg/Positive/Secondary Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.600}",
@@ -2429,9 +2317,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.200}",
             "$description": "Bg/Positive/Tertiary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.200}",
@@ -2456,9 +2341,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.400}",
             "$description": "Bg/Warning/Default",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.400}",
@@ -2481,9 +2363,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.200}",
             "$description": "Bg/Warning/Secondary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.200}",
@@ -2506,9 +2385,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.600}",
             "$description": "Bg/Warning/Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.600}",
@@ -2531,9 +2407,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.600}",
             "$description": "Bg/Warning/Secondary Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.600}",
@@ -2556,9 +2429,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.200}",
             "$description": "Bg/Warning/Tertiary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.200}",
@@ -2583,12 +2453,9 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.400}",
             "$description": "Bg/Neutral/Default",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
-                "Dark": "{Color Primitives.Pink.600}",
+                "Dark": "{Color Primitives.Blue.400}",
                 "Light": "{Color Primitives.Blue.400}"
               },
               "figma": {
@@ -2608,9 +2475,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.600}",
             "$description": "Bg/Neutral/Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.600}",
@@ -2633,9 +2497,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.200}",
             "$description": "Bg/Neutral/Secondary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.200}",
@@ -2658,9 +2519,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.600}",
             "$description": "Bg/Neutral/Secondary Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.600}",
@@ -2683,9 +2541,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.200}",
             "$description": "Bg/Neutral/Tertiary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.200}",
@@ -2710,9 +2565,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.100}",
             "$description": "Bg/Neutral/Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.100}",
@@ -2735,9 +2587,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.200}",
             "$description": "Bg/Neutral/Secondary Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.200}",
@@ -2762,9 +2611,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.400}",
             "$description": "Bg/Warning/Default",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.400}",
@@ -2787,9 +2633,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.600}",
             "$description": "Bg/Warning/Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.600}",
@@ -2812,9 +2655,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.200}",
             "$description": "Bg/Warning/Secondary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.200}",
@@ -2837,9 +2677,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.600}",
             "$description": "Bg/Warning/Secondary Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.600}",
@@ -2862,9 +2699,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.200}",
             "$description": "Bg/Warning/Tertiary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.200}",
@@ -2889,9 +2723,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.100}",
             "$description": "Bg/Neutral/Default",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.100}",
@@ -2914,9 +2745,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.100}",
             "$description": "Bg/Neutral/Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.100}",
@@ -2939,9 +2767,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.100}",
             "$description": "Bg/Neutral/Secondary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.100}",
@@ -2964,9 +2789,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.100}",
             "$description": "Bg/Neutral/Secondary Hover",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.100}",
@@ -2989,9 +2811,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.100}",
             "$description": "Bg/Neutral/Tertiary",
-            "scopes": [
-              "FRAME_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.100}",
@@ -3018,10 +2837,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.900}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.900}",
@@ -3044,10 +2859,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.1000}",
@@ -3070,10 +2881,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.400}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.400}",
@@ -3096,10 +2903,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.1000}",
@@ -3122,10 +2925,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.800}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.800}",
@@ -3150,10 +2949,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.900}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.900}",
@@ -3176,10 +2971,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.1000}",
@@ -3202,10 +2993,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.400}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.400}",
@@ -3228,10 +3015,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.1000}",
@@ -3254,10 +3037,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.800}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.800}",
@@ -3282,10 +3061,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.900}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.900}",
@@ -3308,10 +3083,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.1000}",
@@ -3334,10 +3105,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.400}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.400}",
@@ -3360,10 +3127,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.1000}",
@@ -3386,10 +3149,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.800}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.800}",
@@ -3414,10 +3173,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.900}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.900}",
@@ -3440,10 +3195,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.1000}",
@@ -3466,10 +3217,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.400}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.400}",
@@ -3492,10 +3239,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.1000}",
@@ -3518,10 +3261,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.800}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.800}",
@@ -3546,10 +3285,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.800}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.800}",
@@ -3572,10 +3307,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.900}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.900}",
@@ -3598,10 +3329,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.200}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.200}",
@@ -3624,10 +3351,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.1000}",
@@ -3650,10 +3373,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.600}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.600}",
@@ -3678,10 +3397,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.800}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.800}",
@@ -3704,10 +3419,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.900}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.900}",
@@ -3730,10 +3441,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.200}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.200}",
@@ -3756,10 +3463,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.1000}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.1000}",
@@ -3782,10 +3485,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.600}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.600}",
@@ -3810,10 +3509,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.800}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.800}",
@@ -3836,10 +3531,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.800}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.800}",
@@ -3862,10 +3553,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.200}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.200}",
@@ -3888,10 +3575,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.900}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.900}",
@@ -3914,10 +3597,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.600}",
             "$description": "",
-            "scopes": [
-              "SHAPE_FILL",
-              "TEXT_FILL"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.600}",
@@ -3944,9 +3623,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.800}",
             "$description": "",
-            "scopes": [
-              "STROKE_COLOR"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.800}",
@@ -3971,9 +3647,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.800}",
             "$description": "",
-            "scopes": [
-              "STROKE_COLOR"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.800}",
@@ -3998,9 +3671,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.800}",
             "$description": "",
-            "scopes": [
-              "STROKE_COLOR"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.800}",
@@ -4025,9 +3695,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.800}",
             "$description": "",
-            "scopes": [
-              "STROKE_COLOR"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.800}",
@@ -4052,9 +3719,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.1000}",
             "$description": "",
-            "scopes": [
-              "STROKE_COLOR"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.1000}",
@@ -4077,9 +3741,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.800}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.800}",
@@ -4100,9 +3761,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.200}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.200}",
@@ -4123,9 +3781,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.600}",
@@ -4148,9 +3803,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.800}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.800}",
@@ -4171,9 +3823,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.900}",
             "$description": "",
-            "scopes": [
-              "STROKE_COLOR"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.900}",
@@ -4196,9 +3845,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.200}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.200}",
@@ -4219,9 +3865,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.600}",
@@ -4242,9 +3885,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.800}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.800}",
@@ -4269,9 +3909,6 @@
         "$type": "color",
         "$value": "{Color Primitives.Yellow.100}",
         "$description": "",
-        "scopes": [
-          "ALL_SCOPES"
-        ],
         "$extensions": {
           "mode": {
             "Dark": "{Color Primitives.Yellow.100}",
@@ -4295,9 +3932,6 @@
           "$type": "color",
           "$value": "{Color Primitives.Pale Blue.700}",
           "$description": "",
-          "scopes": [
-            "ALL_SCOPES"
-          ],
           "$extensions": {
             "mode": {
               "Dark": "{Color Primitives.Pale Blue.700}",
@@ -4320,9 +3954,6 @@
           "$type": "color",
           "$value": "{Color Primitives.Pale Blue.500}",
           "$description": "",
-          "scopes": [
-            "ALL_SCOPES"
-          ],
           "$extensions": {
             "mode": {
               "Dark": "{Color Primitives.Pale Blue.500}",
@@ -4349,9 +3980,6 @@
               "$type": "color",
               "$value": "{Color Primitives.Yellow.600}",
               "$description": "",
-              "scopes": [
-                "ALL_SCOPES"
-              ],
               "$extensions": {
                 "mode": {
                   "Dark": "{Color Primitives.Yellow.600}",
@@ -4374,9 +4002,6 @@
               "$type": "color",
               "$value": "{Color Primitives.Blue.500}",
               "$description": "",
-              "scopes": [
-                "ALL_SCOPES"
-              ],
               "$extensions": {
                 "mode": {
                   "Dark": "{Color Primitives.Blue.500}",
@@ -4399,9 +4024,6 @@
               "$type": "color",
               "$value": "{Color Primitives.Pink.500}",
               "$description": "",
-              "scopes": [
-                "ALL_SCOPES"
-              ],
               "$extensions": {
                 "mode": {
                   "Dark": "{Color Primitives.Pink.500}",
@@ -4426,9 +4048,6 @@
               "$type": "color",
               "$value": "{Color Primitives.Yellow.1000}",
               "$description": "",
-              "scopes": [
-                "ALL_SCOPES"
-              ],
               "$extensions": {
                 "mode": {
                   "Dark": "{Color Primitives.Yellow.1000}",
@@ -4451,9 +4070,6 @@
               "$type": "color",
               "$value": "{Color Primitives.Blue.1000}",
               "$description": "",
-              "scopes": [
-                "ALL_SCOPES"
-              ],
               "$extensions": {
                 "mode": {
                   "Dark": "{Color Primitives.Blue.1000}",
@@ -4476,9 +4092,6 @@
               "$type": "color",
               "$value": "{Color Primitives.Pink.1000}",
               "$description": "",
-              "scopes": [
-                "ALL_SCOPES"
-              ],
               "$extensions": {
                 "mode": {
                   "Dark": "{Color Primitives.Pink.1000}",
@@ -4504,9 +4117,6 @@
             "$type": "color",
             "$value": "{Color Primitives.White.1000}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.White.1000}",
@@ -4529,9 +4139,6 @@
             "$type": "color",
             "$value": "{Color Primitives.White.1000}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.White.1000}",
@@ -4554,9 +4161,6 @@
             "$type": "color",
             "$value": "{Color Primitives.White.1000}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.White.1000}",
@@ -4581,9 +4185,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Yellow.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Yellow.700}",
@@ -4606,9 +4207,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.700}",
@@ -4631,9 +4229,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pink.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pink.700}",
@@ -4658,9 +4253,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -4683,9 +4275,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -4708,9 +4297,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -4737,9 +4323,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -4760,9 +4343,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.400}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.400}",
@@ -4785,9 +4365,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -4808,9 +4385,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.400}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.400}",
@@ -4835,9 +4409,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.500}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.500}",
@@ -4858,9 +4429,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.300}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.300}",
@@ -4883,9 +4451,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.500}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.500}",
@@ -4906,9 +4471,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.300}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.300}",
@@ -4933,9 +4495,6 @@
             "$type": "color",
             "$value": "{Color Primitives.White.1000}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.White.1000}",
@@ -4956,9 +4515,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.100}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.100}",
@@ -4981,9 +4537,6 @@
             "$type": "color",
             "$value": "{Color Primitives.White.1000}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.White.1000}",
@@ -5004,9 +4557,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.100}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.100}",
@@ -5031,9 +4581,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.500}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.500}",
@@ -5054,9 +4601,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.300}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.300}",
@@ -5077,9 +4621,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.700}",
@@ -5100,9 +4641,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.800}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.800}",
@@ -5125,9 +4663,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.500}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.500}",
@@ -5148,9 +4683,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.300}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.300}",
@@ -5171,9 +4703,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.700}",
@@ -5194,9 +4723,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.800}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.800}",
@@ -5221,9 +4747,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.300}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.300}",
@@ -5244,9 +4767,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.300}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.300}",
@@ -5267,9 +4787,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.700}",
@@ -5290,9 +4807,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.800}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.800}",
@@ -5315,9 +4829,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -5338,9 +4849,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.300}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.300}",
@@ -5361,9 +4869,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.700}",
@@ -5384,9 +4889,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.800}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.800}",
@@ -5411,9 +4913,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -5434,9 +4933,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.300}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.300}",
@@ -5457,9 +4953,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.500}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.500}",
@@ -5482,9 +4975,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -5505,9 +4995,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.300}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.300}",
@@ -5528,9 +5015,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.500}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.500}",
@@ -5554,9 +5038,6 @@
           "$type": "color",
           "$value": "{Color Primitives.Red.700}",
           "$description": "",
-          "scopes": [
-            "ALL_SCOPES"
-          ],
           "$extensions": {
             "mode": {
               "Dark": "{Color Primitives.Red.700}",
@@ -5577,9 +5058,6 @@
           "$type": "color",
           "$value": "{Color Primitives.Gray.600}",
           "$description": "",
-          "scopes": [
-            "ALL_SCOPES"
-          ],
           "$extensions": {
             "mode": {
               "Dark": "{Color Primitives.Gray.600}",
@@ -5605,9 +5083,6 @@
             "$type": "color",
             "$value": "{Color Primitives.White.1000}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.White.1000}",
@@ -5630,9 +5105,6 @@
             "$type": "color",
             "$value": "{Color Primitives.White.1000}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.White.1000}",
@@ -5657,9 +5129,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.400}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.400}",
@@ -5680,9 +5149,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.400}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.400}",
@@ -5703,9 +5169,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.600}",
@@ -5726,9 +5189,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.600}",
@@ -5751,9 +5211,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -5774,9 +5231,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.400}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.400}",
@@ -5797,9 +5251,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.600}",
@@ -5820,9 +5271,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.600}",
@@ -5847,9 +5295,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Blue.400}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Blue.400}",
@@ -5870,9 +5315,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.400}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.400}",
@@ -5893,9 +5335,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.600}",
@@ -5916,9 +5355,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.600}",
@@ -5941,9 +5377,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -5964,9 +5397,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.400}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.400}",
@@ -5987,9 +5417,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Red.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Red.600}",
@@ -6010,9 +5437,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Green.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Green.600}",
@@ -6037,9 +5461,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -6060,9 +5481,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.600}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.600}",
@@ -6087,9 +5505,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.500}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.500}",
@@ -6110,9 +5525,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Gray.500}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Gray.500}",
@@ -6137,9 +5549,6 @@
             "$type": "color",
             "$value": "{Color Primitives.Pale Blue.700}",
             "$description": "",
-            "scopes": [
-              "ALL_SCOPES"
-            ],
             "$extensions": {
               "mode": {
                 "Dark": "{Color Primitives.Pale Blue.700}",
@@ -6165,9 +5574,6 @@
       "$type": "string",
       "$value": "100",
       "$description": "",
-      "scopes": [
-        "FONT_WEIGHT"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6187,9 +5593,6 @@
       "$type": "string",
       "$value": "200",
       "$description": "",
-      "scopes": [
-        "FONT_WEIGHT"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6209,9 +5612,6 @@
       "$type": "string",
       "$value": "300",
       "$description": "",
-      "scopes": [
-        "FONT_WEIGHT"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6231,9 +5631,6 @@
       "$type": "string",
       "$value": "400",
       "$description": "",
-      "scopes": [
-        "FONT_WEIGHT"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6253,9 +5650,6 @@
       "$type": "string",
       "$value": "500",
       "$description": "",
-      "scopes": [
-        "FONT_WEIGHT"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6275,9 +5669,6 @@
       "$type": "string",
       "$value": "600",
       "$description": "",
-      "scopes": [
-        "FONT_WEIGHT"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6297,9 +5688,6 @@
       "$type": "string",
       "$value": "700",
       "$description": "",
-      "scopes": [
-        "FONT_WEIGHT"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6319,9 +5707,6 @@
       "$type": "string",
       "$value": "800",
       "$description": "",
-      "scopes": [
-        "FONT_WEIGHT"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6341,9 +5726,6 @@
       "$type": "string",
       "$value": "900",
       "$description": "",
-      "scopes": [
-        "FONT_WEIGHT"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6363,7 +5745,6 @@
       "$type": "dimension",
       "$value": "72px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6383,7 +5764,6 @@
       "$type": "dimension",
       "$value": "64px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6403,7 +5783,6 @@
       "$type": "dimension",
       "$value": "48px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6423,7 +5802,6 @@
       "$type": "dimension",
       "$value": "40px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6443,7 +5821,6 @@
       "$type": "dimension",
       "$value": "32px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6463,7 +5840,6 @@
       "$type": "dimension",
       "$value": "24px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6483,7 +5859,6 @@
       "$type": "dimension",
       "$value": "20px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6503,7 +5878,6 @@
       "$type": "dimension",
       "$value": "16px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6523,7 +5897,6 @@
       "$type": "dimension",
       "$value": "14px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6543,7 +5916,6 @@
       "$type": "dimension",
       "$value": "12px",
       "$description": "",
-      "scopes": [],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6563,9 +5935,6 @@
       "$type": "string",
       "$value": "Gotham",
       "$description": "",
-      "scopes": [
-        "FONT_FAMILY"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6585,9 +5954,6 @@
       "$type": "string",
       "$value": "Cal Sans",
       "$description": "",
-      "scopes": [
-        "FONT_FAMILY"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6607,9 +5973,6 @@
       "$type": "string",
       "$value": "Comfortaa",
       "$description": "",
-      "scopes": [
-        "FONT_FAMILY"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6629,9 +5992,6 @@
       "$type": "string",
       "$value": "Light Italic",
       "$description": "",
-      "scopes": [
-        "FONT_STYLE"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6651,9 +6011,6 @@
       "$type": "string",
       "$value": "Italic",
       "$description": "",
-      "scopes": [
-        "FONT_STYLE"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6673,9 +6030,6 @@
       "$type": "string",
       "$value": "Bold Italic",
       "$description": "",
-      "scopes": [
-        "FONT_STYLE"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6695,9 +6049,6 @@
       "$type": "string",
       "$value": "Thin Italic",
       "$description": "",
-      "scopes": [
-        "FONT_STYLE"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6717,9 +6068,6 @@
       "$type": "string",
       "$value": "Extra Light Italic",
       "$description": "",
-      "scopes": [
-        "FONT_STYLE"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6739,9 +6087,6 @@
       "$type": "string",
       "$value": "Medium Italic",
       "$description": "",
-      "scopes": [
-        "FONT_STYLE"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6761,9 +6106,6 @@
       "$type": "string",
       "$value": "Semi Bold Italic",
       "$description": "",
-      "scopes": [
-        "FONT_STYLE"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6783,9 +6125,6 @@
       "$type": "string",
       "$value": "Extra Bold Italic",
       "$description": "",
-      "scopes": [
-        "FONT_STYLE"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6805,9 +6144,6 @@
       "$type": "string",
       "$value": "Black Italic",
       "$description": "",
-      "scopes": [
-        "FONT_STYLE"
-      ],
       "$extensions": {
         "mode": {},
         "figma": {
@@ -6830,9 +6166,6 @@
         "$type": "dimension",
         "$value": "2px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -6852,9 +6185,6 @@
         "$type": "dimension",
         "$value": "4px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -6874,9 +6204,6 @@
         "$type": "dimension",
         "$value": "6px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -6896,9 +6223,6 @@
         "$type": "dimension",
         "$value": "8px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -6918,9 +6242,6 @@
         "$type": "dimension",
         "$value": "12px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -6940,9 +6261,6 @@
         "$type": "dimension",
         "$value": "16px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -6962,9 +6280,6 @@
         "$type": "dimension",
         "$value": "24px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -6984,9 +6299,6 @@
         "$type": "dimension",
         "$value": "32px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7006,9 +6318,6 @@
         "$type": "dimension",
         "$value": "48px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7028,9 +6337,6 @@
         "$type": "dimension",
         "$value": "64px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7050,9 +6356,6 @@
         "$type": "dimension",
         "$value": "96px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7072,9 +6375,6 @@
         "$type": "dimension",
         "$value": "160px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7094,9 +6394,6 @@
         "$type": "dimension",
         "$value": "-4px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7116,9 +6413,6 @@
         "$type": "dimension",
         "$value": "-8px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7138,9 +6432,6 @@
         "$type": "dimension",
         "$value": "-12px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7160,9 +6451,6 @@
         "$type": "dimension",
         "$value": "-16px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7182,9 +6470,6 @@
         "$type": "dimension",
         "$value": "-24px",
         "$description": "",
-        "scopes": [
-          "GAP"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7206,9 +6491,6 @@
         "$type": "dimension",
         "$value": "4px",
         "$description": "",
-        "scopes": [
-          "CORNER_RADIUS"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7228,9 +6510,6 @@
         "$type": "dimension",
         "$value": "8px",
         "$description": "",
-        "scopes": [
-          "CORNER_RADIUS"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7250,9 +6529,6 @@
         "$type": "dimension",
         "$value": "16px",
         "$description": "",
-        "scopes": [
-          "CORNER_RADIUS"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7272,9 +6548,6 @@
         "$type": "dimension",
         "$value": "9999px",
         "$description": "",
-        "scopes": [
-          "CORNER_RADIUS"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7296,9 +6569,6 @@
         "$type": "dimension",
         "$value": "1px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7318,9 +6588,6 @@
         "$type": "dimension",
         "$value": "4px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7340,9 +6607,6 @@
         "$type": "dimension",
         "$value": "8px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7362,9 +6626,6 @@
         "$type": "dimension",
         "$value": "16px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7384,9 +6645,6 @@
         "$type": "dimension",
         "$value": "32px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7406,9 +6664,6 @@
         "$type": "dimension",
         "$value": "48px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7428,9 +6683,6 @@
         "$type": "dimension",
         "$value": "-1px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7450,9 +6702,6 @@
         "$type": "dimension",
         "$value": "-4px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7472,9 +6721,6 @@
         "$type": "dimension",
         "$value": "-8px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7494,9 +6740,6 @@
         "$type": "dimension",
         "$value": "-16px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7516,9 +6759,6 @@
         "$type": "dimension",
         "$value": "-32px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7538,9 +6778,6 @@
         "$type": "dimension",
         "$value": "-48px",
         "$description": "",
-        "scopes": [
-          "EFFECT_FLOAT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7563,9 +6800,6 @@
           "$type": "dimension",
           "$value": "1px",
           "$description": "",
-          "scopes": [
-            "ALL_SCOPES"
-          ],
           "$extensions": {
             "mode": {},
             "figma": {
@@ -7585,9 +6819,6 @@
           "$type": "dimension",
           "$value": "2px",
           "$description": "",
-          "scopes": [
-            "ALL_SCOPES"
-          ],
           "$extensions": {
             "mode": {},
             "figma": {
@@ -7607,9 +6838,6 @@
           "$type": "dimension",
           "$value": "3px",
           "$description": "",
-          "scopes": [
-            "ALL_SCOPES"
-          ],
           "$extensions": {
             "mode": {},
             "figma": {
@@ -7629,9 +6857,6 @@
           "$type": "dimension",
           "$value": "4px",
           "$description": "",
-          "scopes": [
-            "ALL_SCOPES"
-          ],
           "$extensions": {
             "mode": {},
             "figma": {
@@ -7652,9 +6877,6 @@
         "$type": "dimension",
         "$value": "2px",
         "$description": "",
-        "scopes": [
-          "ALL_SCOPES"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7676,9 +6898,6 @@
         "$type": "dimension",
         "$value": "4px",
         "$description": "",
-        "scopes": [
-          "ALL_SCOPES"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7700,9 +6919,6 @@
         "$type": "dimension",
         "$value": "24px",
         "$description": "",
-        "scopes": [
-          "ALL_SCOPES"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7722,9 +6938,6 @@
         "$type": "dimension",
         "$value": "32px",
         "$description": "",
-        "scopes": [
-          "ALL_SCOPES"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7744,9 +6957,6 @@
         "$type": "dimension",
         "$value": "40px",
         "$description": "",
-        "scopes": [
-          "ALL_SCOPES"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7770,9 +6980,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Font Cal Sans}",
         "$description": "",
-        "scopes": [
-          "FONT_FAMILY"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7792,9 +6999,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Weight Bold}",
         "$description": "",
-        "scopes": [
-          "FONT_WEIGHT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7814,9 +7018,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 07}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7836,9 +7037,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 08}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7858,9 +7056,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 09}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7882,9 +7077,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Font Gotham}",
         "$description": "",
-        "scopes": [
-          "FONT_FAMILY"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7904,9 +7096,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 06}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7926,9 +7115,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Weight Regular}",
         "$description": "",
-        "scopes": [
-          "FONT_WEIGHT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7948,9 +7134,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 07}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7970,9 +7153,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 05}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -7994,9 +7174,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Font Gotham}",
         "$description": "",
-        "scopes": [
-          "FONT_FAMILY"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8016,9 +7193,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 03}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8038,9 +7212,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Weight Regular}",
         "$description": "",
-        "scopes": [
-          "FONT_WEIGHT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8060,9 +7231,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 04}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8082,9 +7250,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 02}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8104,9 +7269,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Weight Semibold}",
         "$description": "",
-        "scopes": [
-          "FONT_WEIGHT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8126,9 +7288,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Weight Regular Italic}",
         "$description": "",
-        "scopes": [
-          "ALL_SCOPES"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8150,9 +7309,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Font Gotham}",
         "$description": "",
-        "scopes": [
-          "FONT_FAMILY"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8172,9 +7328,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 05}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8194,9 +7347,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Weight Semibold}",
         "$description": "",
-        "scopes": [
-          "FONT_WEIGHT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8216,9 +7366,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 06}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8238,9 +7385,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 04}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8262,9 +7406,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Font Cal Sans}",
         "$description": "",
-        "scopes": [
-          "FONT_FAMILY"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8284,9 +7425,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 10}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8306,9 +7444,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Weight Bold}",
         "$description": "",
-        "scopes": [
-          "FONT_WEIGHT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8330,9 +7465,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Font Gotham}",
         "$description": "",
-        "scopes": [
-          "FONT_FAMILY"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8352,9 +7484,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 03}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8374,9 +7503,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 04}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8396,9 +7522,6 @@
         "$type": "dimension",
         "$value": "{Typography Primitives.Scale 05}",
         "$description": "",
-        "scopes": [
-          "FONT_SIZE"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8418,9 +7541,6 @@
         "$type": "string",
         "$value": "{Typography Primitives.Weight Regular}",
         "$description": "",
-        "scopes": [
-          "FONT_WEIGHT"
-        ],
         "$extensions": {
           "mode": {},
           "figma": {
@@ -8449,7 +7569,7 @@
         "Size Tokens",
         "Typography Tokens"
       ],
-      "createdAt": "2025-01-26T17:16:11.479Z"
+      "createdAt": "2025-01-27T17:05:30.676Z"
     }
   }
 }

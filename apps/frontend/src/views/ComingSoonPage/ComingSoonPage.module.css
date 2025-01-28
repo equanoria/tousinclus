@@ -1,0 +1,37 @@
+.hero {
+  height: 100lvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-800);
+
+  & > div {
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    max-width: 768px;
+  }
+}
+
+.figure {
+  position: relative;
+  background-color: var(--white-1000);
+  padding: var(--space-1600);
+  border-radius: var(--radius-200);
+
+  figcaption {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: var(--space-200) var(--space-400);
+    background-color: var(--pale-blue-800);
+    color: var(--white-1000);
+    border-radius: var(--radius-100);
+  }
+
+  img {
+    height: 6rem;
+  }
+}

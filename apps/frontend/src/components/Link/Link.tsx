@@ -4,7 +4,7 @@ import stylesButton from '../Button/Button.module.css';
 import clsx from 'clsx';
 
 export interface LinkProps extends ComponentPropsWithoutRef<'a'> {
-  variant?: 'button-normal' | 'button-danger' | 'button-positive' | 'button-outlined';
+  variant?: 'button-primary' | 'button-secondary' | 'button-tertiary' | 'button-positive' | 'button-warning' | 'button-danger' | 'button-outlined';
 }
 
 export const Link: React.FC<LinkProps> = ({ children, className, variant = 'normal', ...props }) => {
