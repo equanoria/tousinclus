@@ -1,5 +1,4 @@
 import styles from './ComingSoonView.module.css';
-import tousinclusLogo from '/tousinclus.svg';
 import { Link } from '../../components/Link/Link';
 
 export const ComingSoonView = () => {
@@ -8,7 +7,7 @@ export const ComingSoonView = () => {
       <section className={styles.hero}>
         <div>
           <div className={styles.headings}>
-            <h1>Tous inclus <br />débarque <br />prochaînement</h1>
+            <h1>Tous inclus arrive <br />très prochaînement…</h1>
             <div className={styles.buttons}>
               <Link
                 variant="button-secondary"
@@ -16,7 +15,7 @@ export const ComingSoonView = () => {
                 href="https://www.apf-francehandicap.org/"
                 target="_blank"
               >
-                apf-francehandicap.org
+                APF France handicap
               </Link>
               <Link
                 variant="button-primary"
@@ -24,19 +23,10 @@ export const ComingSoonView = () => {
                 href="https://techlab-handicap.org/le-techlab-accompagne-les-entreprises-dans-leur-demarche-dinnovation-inclusive/jeu-serieux-tous-inclus/"
                 target="_blank"
               >
-                techlab-handicap.org
+                TechLab
               </Link>
             </div>
           </div>
-          <a
-            href="https://techlab-handicap.org/le-techlab-accompagne-les-entreprises-dans-leur-demarche-dinnovation-inclusive/jeu-serieux-tous-inclus/"
-            target="_blank"
-          >
-            <figure className={styles.figure}>
-              <figcaption>Équanoria présente</figcaption>
-              <img src={tousinclusLogo} alt="Site web de la présentation du jeu Tous Inclus" />
-            </figure>
-          </a>
         </div>
       </section>
     </>
