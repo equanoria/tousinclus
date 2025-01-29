@@ -31,8 +31,6 @@ pnpm run dev
 
 ## Credits
 
-A project orchestrated by Anaïs MICHEL ([website](https://anaismichel.fr/)) & Léo PLANUS.
-
 ### Creative Team
 
 Diyana BALIT ([behance](https://www.behance.net/diyanabalit1))  
@@ -46,6 +44,7 @@ Cécile PHAN NGUYEN  ([@cecilepn](https://github.com/cecilepn))
 Dan PHAN NGUYEN ([@danphannguyen](https://github.com/danphannguyen))  
 Léo PLANUS ([@leo29plns](https://github.com/leo29plns))  
 
+A project orchestrated by Anaïs MICHEL ([website](https://anaismichel.fr/)) & Léo PLANUS.
 
 Proudly hosted by MCB29 Network
 
