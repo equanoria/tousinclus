@@ -54,6 +54,8 @@ services:
       - EMAIL_SMTP_USER=${DIRECTUS_EMAIL_SMTP_USER}
       - EMAIL_SMTP_PASSWORD=${DIRECTUS_EMAIL_SMTP_PASSWORD}
       - SCHEMA_SYNC=BOTH
+      - CORS_ENABLED=true
+      - CORS_ORIGIN=*
     volumes:
       - directus-uploads:/directus/uploads
       - ../tools/directus/schema-sync:/directus/schema-sync
