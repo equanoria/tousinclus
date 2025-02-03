@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import type { RedisService } from '../redis/redis.service';
-import type { IGame } from './interfaces/game.interface';
+import { RedisService } from '../redis/redis.service';
+import { IGame } from './interfaces/game.interface';
 
 @Injectable()
 export class GameService {
@@ -47,7 +47,7 @@ export class GameService {
     return gameDelete;
   }
 
-  // Mettre à jour le statut d'une équipe connectée
+  // Update the status of a connected team
   async updateTeamConnectionStatus(
     code: string,
     team: string,

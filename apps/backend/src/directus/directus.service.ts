@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import type { ICard, IGroup } from './interfaces/directus.interface';
-import type { FormatterService } from './formatter.service';
+import { ICard, IGroup } from './interfaces/directus.interface';
+import { FormatterService } from './formatter.service';
 import { readItems } from '@directus/sdk';
 
 const language: object = {
@@ -50,12 +50,12 @@ export class DirectusService {
   ) {
     const filter: any = {};
 
-    // Ajoute le filtre pour `id` uniquement si `id` n'est pas null
+    // Add the filter for `id` only if `id` is not null
     if (id !== null) {
       filter.id = { _eq: id };
     }
 
-    // Fais une request explicitement pour les users ( permet de filtrer les champs )
+    // Make an explicit request for users (allows filtering fields)
     let usersData = await client.request(
       readItems<any, any, any>('cards_users', {
         filter,
@@ -63,18 +63,18 @@ export class DirectusService {
           handicap_category: {
             translations: {
               _filter: {
-                languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                languages_code: { _eq: language[languageCode] }, // Choose language
               },
             },
           },
           translations: {
             _filter: {
-              languages_code: { _eq: language[languageCode] }, // Choisie la langue
+              languages_code: { _eq: language[languageCode] },
             },
           },
         },
         fields: [
-          // Permet de trier les champs que l'on veut
+            // Allows filtering the fields we want
           {
             handicap_category: [
               'icon',
@@ -91,7 +91,7 @@ export class DirectusService {
       }),
     );
 
-    // Formate les données reçu
+    // Formatting data
     usersData = this.formatterService.usersFormatter(usersData);
 
     return usersData;
@@ -104,12 +104,12 @@ export class DirectusService {
   ) {
     const filter: any = {};
 
-    // Ajoute le filtre pour `id` uniquement si `id` n'est pas null
+    // Add the filter for `id` only if `id` is not null
     if (id !== null) {
       filter.id = { _eq: id };
     }
 
-    // Fais une request explicitement pour les situations ( permet de filtrer les champs )
+    // Make an explicit request for users (allows filtering fields)
     let situationsData = await client.request(
       readItems<any, any, any>(`cards_situations`, {
         filter,
@@ -118,24 +118,24 @@ export class DirectusService {
             _filter: {
               _and: [
                 {
-                  languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                  languages_code: { _eq: language[languageCode] }, // Choose language
                 },
               ],
             },
           },
           context_translations: {
             _filter: {
-              languages_code: { _eq: language[languageCode] }, // Choisie la langue
+              languages_code: { _eq: language[languageCode] },
             },
           },
           description_translations: {
             _filter: {
-              languages_code: { _eq: language[languageCode] }, // Choisie la langue
+              languages_code: { _eq: language[languageCode] },
             },
           },
         },
         fields: [
-          // Permet de trier les champs que l'on veut
+          // Allows filtering the fields we want
           'image',
           {
             context_translations: ['context'],
@@ -147,7 +147,7 @@ export class DirectusService {
       }),
     );
 
-    // Formate les données reçu
+    // Formatting data
     situationsData = this.formatterService.situationsFormatter(situationsData);
 
     return situationsData;
@@ -160,20 +160,20 @@ export class DirectusService {
   ) {
     const filter: any = {};
 
-    // Ajoute le filtre pour `id` uniquement si `id` n'est pas null
+    // Add the filter for `id` only if `id` is not null
     if (id !== null) {
       filter.id = { _eq: id };
     }
 
-    // Fais une request explicitement pour les situations ( permet de filtrer les champs )
+    // Make an explicit request for users (allows filtering fields)
     let designData = await client.request(
-      readItems<any, any, any>(`cards_design_for_all`, {
+      readItems<any, any, any>('cards_design_for_all', {
         filter,
         deep: {
           principle_category: {
             translations: {
               _filter: {
-                languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                languages_code: { _eq: language[languageCode] }, // Choose language
               },
             },
           },
@@ -181,14 +181,14 @@ export class DirectusService {
             _filter: {
               _and: [
                 {
-                  languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                  languages_code: { _eq: language[languageCode] },
                 },
               ],
             },
           },
         },
         fields: [
-          // Permet de trier les champs que l'on veut
+          // Allows filtering the fields we want
           'image',
           {
             principle_category: [
@@ -205,7 +205,7 @@ export class DirectusService {
       }),
     );
 
-    // Formate les données reçu
+    // Formatting data
     designData = this.formatterService.designFormatter(designData);
 
     return designData;
@@ -220,14 +220,14 @@ export class DirectusService {
     try {
       const filter: any = {};
 
-      // Ajoute le filtre pour `id` uniquement si `id` n'est pas null
+      // Add the filter for `id` only if `id` is not null
       if (id !== null) {
         filter.id = { _eq: id };
       }
 
-      // Fais une request pour les groups ( permet de filtrer les champs )
+      // Make an explicit request for users (allows filtering fields)
       let groupData = await client.request(
-        readItems<any, any, any>(`cards_group`, {
+        readItems<any, any, any>('cards_group', {
           filter,
           deep: {
             //
@@ -235,7 +235,7 @@ export class DirectusService {
               _filter: {
                 _and: [
                   {
-                    languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                    languages_code: { _eq: language[languageCode] }, // Choose language
                   },
                 ],
               },
@@ -245,19 +245,19 @@ export class DirectusService {
                 _filter: {
                   _and: [
                     {
-                      languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                      languages_code: { _eq: language[languageCode] }, 
                     },
                   ],
                 },
               },
               context_translations: {
                 _filter: {
-                  languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                  languages_code: { _eq: language[languageCode] }, 
                 },
               },
               description_translations: {
                 _filter: {
-                  languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                  languages_code: { _eq: language[languageCode] }, 
                 },
               },
             },
@@ -266,13 +266,13 @@ export class DirectusService {
                 handicap_category: {
                   translations: {
                     _filter: {
-                      languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                      languages_code: { _eq: language[languageCode] }, 
                     },
                   },
                 },
                 translations: {
                   _filter: {
-                    languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                    languages_code: { _eq: language[languageCode] }, 
                   },
                 },
               },
@@ -315,7 +315,7 @@ export class DirectusService {
         }),
       );
 
-      // Formate les données reçu
+      // Formatting data
       groupData = this.formatterService.groupFormatter(groupData);
 
       return groupData;
@@ -333,14 +333,14 @@ export class DirectusService {
     try {
       const filter: any = {};
 
-      // Ajoute le filtre pour `id` uniquement si `id` n'est pas null
+      // Add the filter for `id` only if `id` is not null
       if (id !== null) {
         filter.id = { _eq: id };
       }
 
-      // Fais une request pour les decks ( permet de filtrer les champs )
+      // Make an explicit request for users (allows filtering fields)
       let groupData = await client.request(
-        readItems<any, any, any>(`decks`, {
+        readItems<any, any, any>('decks', {
           filter,
           deep: {
             //
@@ -348,7 +348,7 @@ export class DirectusService {
               _filter: {
                 _and: [
                   {
-                    languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                    languages_code: { _eq: language[languageCode] }, // Choose language
                   },
                 ],
               },
@@ -368,7 +368,7 @@ export class DirectusService {
                   _filter: {
                     _and: [
                       {
-                        languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                        languages_code: { _eq: language[languageCode] },
                       },
                     ],
                   },
@@ -378,19 +378,19 @@ export class DirectusService {
                     _filter: {
                       _and: [
                         {
-                          languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                          languages_code: { _eq: language[languageCode] },
                         },
                       ],
                     },
                   },
                   context_translations: {
                     _filter: {
-                      languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                      languages_code: { _eq: language[languageCode] },
                     },
                   },
                   description_translations: {
                     _filter: {
-                      languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                      languages_code: { _eq: language[languageCode] },
                     },
                   },
                 },
@@ -399,13 +399,13 @@ export class DirectusService {
                     handicap_category: {
                       translations: {
                         _filter: {
-                          languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                          languages_code: { _eq: language[languageCode] },
                         },
                       },
                     },
                     translations: {
                       _filter: {
-                        languages_code: { _eq: language[languageCode] }, // Choisie la langue
+                        languages_code: { _eq: language[languageCode] },
                       },
                     },
                   },
@@ -461,7 +461,7 @@ export class DirectusService {
         }),
       );
 
-      // Formate les données reçu
+      // Formatting data
       groupData = this.formatterService.deckFormatter(groupData);
 
       return groupData;

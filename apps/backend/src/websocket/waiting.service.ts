@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import type { Server, Socket } from 'socket.io';
-import type { GameService } from '../game/game.service';
-import type { IWaitingData } from './interfaces/data.interface';
+import { Server, Socket } from 'socket.io';
+import { GameService } from '../game/game.service';
+import { IWaitingData } from './interfaces/data.interface';
 
 @Injectable()
 export class WaitingService {
-  constructor(private readonly gameService: GameService) {} // Injection du GameService
+  constructor(private readonly gameService: GameService) {} // Injection of GameService
 
   async handleWaitingLogic(
     server: Server,
     client: Socket,
     data: IWaitingData,
   ): Promise<void> {
-    // Vérification de l'action
+    // Checking the action
     const action = data?.action;
 
-    // Permet de trigger la bonne logique selon l'action
+    // Trigger the appropriate logic based on the action
     switch (action) {
       case 'handle-team':
-        // Appel de la méthode pour gérer la connexion d'une équipe
+        // Call the method to handle team connection
         await this.handleTeamConnection(
           server,
           client,
@@ -29,7 +29,7 @@ export class WaitingService {
         break;
 
       default:
-        // Emission d'une erreur en cas d'action non reconnue
+        // Emit an error in case of unrecognized action
         client.emit('error', { message: 'Action non reconnue', action });
     }
   }
@@ -42,24 +42,24 @@ export class WaitingService {
     clientId: string,
   ): Promise<void> {
     try {
-      // Permet de mettre au bon format le champ Team
+      // Format the team field correctly
       team = team.toLowerCase().replace(/\s/g, '');
 
-      // Appel au service pour mettre à jour le statut de la connexion d'une équipe
+      // Call the service to update the connection status of a team
       const updatedGame = await this.gameService.updateTeamConnectionStatus(
         gameCode,
         team,
         clientId,
       );
 
-      // Enregistre dans le client Socket IO le Code et la Team
+      // Register the game code and team in the Socket IO client
       client.data.team = team;
       client.data.gameCode = gameCode;
 
-      // Ajoute le client à une "room" SocketIO
+      // Add the client to a SocketIO "room"
       client.join(gameCode);
 
-      // Notifier le client que l'état a été mis à jour
+      // Notify the client that the state has been updated
       client.emit('team-connection-updated', {
         status: 'success',
         gameCode,
@@ -73,17 +73,17 @@ export class WaitingService {
         await this.gameService.checkIfReadyToStart(gameCode);
 
       if (isReadyToStart) {
-        // Envoie un message à tout les participants de la room
+        // Send a message to all participants in the room
         server
           .to(gameCode)
           .emit('game-status', { gameStatus: 'start', gameCode });
 
-        // Todo : Passer le status au status suivant
+        // TODO: Move the status to the next status
       }
     } catch (error) {
       console.error(`Error updating team connection: ${error.message}`);
 
-      // Gérer les cas spécifiques
+      // Handle specific cases
       let errorCode = 'GENERIC_ERROR';
       if (error.message.includes('not found')) {
         errorCode = 'GAME_NOT_FOUND';
@@ -91,7 +91,7 @@ export class WaitingService {
         errorCode = 'TEAM_ALREADY_ASSIGNED';
       }
 
-      // Renvoyer une réponse d'erreur structurée au client
+      // Send a structured error response to the client
       client.emit('team-connection-error', {
         status: 'error',
         errorCode,

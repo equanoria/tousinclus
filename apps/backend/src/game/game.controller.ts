@@ -9,8 +9,8 @@ import {
   ParseIntPipe,
   Put,
 } from '@nestjs/common';
-import type { GameService } from './game.service';
-import type { IGame } from './interfaces/game.interface';
+import { GameService } from './game.service';
+import { IGame } from './interfaces/game.interface';
 
 @Controller('game')
 export class GameController {

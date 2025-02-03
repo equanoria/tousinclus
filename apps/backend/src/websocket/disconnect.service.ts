@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import type { Socket } from 'socket.io';
-import type { GameService } from '../game/game.service';
+import { Socket } from 'socket.io';
+import { GameService } from '../game/game.service';
 
 @Injectable()
 export class DisconnectService {
-  constructor(private readonly gameService: GameService) {} // Injection du GameService
+  constructor(private readonly gameService: GameService) {} // Injection of GameService
 
   async handleDisconnectLogic(client: Socket): Promise<void> {
     try {

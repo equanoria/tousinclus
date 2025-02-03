@@ -4,7 +4,7 @@ import {
   type OnModuleInit,
 } from '@nestjs/common';
 import Redis from 'ioredis';
-import type { IGame } from '../game/interfaces/game.interface';
+import { IGame } from '../game/interfaces/game.interface';
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
@@ -40,12 +40,12 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   async getAllGames(): Promise<IGame[]> {
     const keys = await this.redisClient.keys('*');
 
-    // Si aucun jeu n'est enregistré
+    // If no games are recorded
     if (keys.length === 0) {
       return [];
     }
 
-    const gameDataArray = await this.redisClient.mget(keys); // Récupère toutes les valeurs en une seule commande
+    const gameDataArray = await this.redisClient.mget(keys); // Retrieve all values in a single command
     return gameDataArray
       .map((gameData) => {
         try {
@@ -56,7 +56,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
           return null;
         }
       })
-      .filter((game) => game !== null); // Supprime les entrées nulles
+      .filter((game) => game !== null);  // Remove null entries
   }
 
   async deleteOneGame(key: string): Promise<boolean> {

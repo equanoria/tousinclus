@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class FormatterService {
-  // Formatter permettant une meilleur lisibilité des JSON
+  // Formatter for better readability of JSON
   async usersFormatter(usersData: any) {
     return usersData.map((user: any) => ({
       image: user.image,
@@ -26,7 +26,7 @@ export class FormatterService {
     }
 
     if (situationsData && typeof situationsData === 'object') {
-      // Si c'est un objet unique, le formater directement
+      // If it's a single object, format it directly
       return {
         image: situationsData.image,
         context: situationsData.context_translations?.[0]?.context || null,
@@ -34,7 +34,7 @@ export class FormatterService {
           situationsData.description_translations?.[0]?.description || null,
       };
     }
-    return null; // Si les données sont null ou non valides
+    return null; // If the data is null or invalid
   }
 
   async designFormatter(designData: any) {
@@ -49,21 +49,21 @@ export class FormatterService {
     }));
   }
 
-  // Formatter pour les groupes
+  // Formatter for groups
   async groupFormatter(groupData: any) {
     return Promise.all(
       groupData.map(async (group: any) => {
-        // Formattage de usage_situation
+        // Formatting of usage_situation
         const usage_situation = group.usage_situation
           ? (await this.situationsFormatter([group.usage_situation]))[0]
           : null;
 
-        // Extraction des utilisateurs extrêmes
+        // Extraction of extreme users
         const extremeUsers = group.extreme_user.map(
           (extreme: any) => extreme.cards_users_id,
         );
 
-        // Formattage des utilisateurs extrêmes
+        // Formatting of extreme users
         const extreme_user = await this.usersFormatter(extremeUsers);
 
         return {
@@ -75,23 +75,23 @@ export class FormatterService {
     );
   }
 
-  // Formatter pour les decks
+  // Formatter for decks
   async deckFormatter(deckData: any) {
     return Promise.all(
       deckData.map(async (deck: any) => {
-        // Traitement des groupes dans le deck
+        // Processing groups in the deck
         const formattedGroups = await Promise.all(
           deck.group.map(async (group: any) => {
             const formattedGroup = await this.groupFormatter([
               group.cards_group_id,
             ]);
-            return formattedGroup[0]; // `groupFormatter` retourne un tableau, on prend le premier élément
+            return formattedGroup[0]; // `groupFormatter` returns an array, we take the first element
           }),
         );
 
         return {
-          title: deck.translations?.[0]?.title || null, // Titre du deck
-          groups: formattedGroups, // Groupes formatés
+          title: deck.translations?.[0]?.title || null, // Deck title
+          groups: formattedGroups, // Formatted Groups
         };
       }),
     );

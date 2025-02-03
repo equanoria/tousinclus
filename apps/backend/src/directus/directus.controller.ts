@@ -1,9 +1,9 @@
 import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
 import { createDirectus, staticToken, rest } from '@directus/sdk';
-import type { DirectusService } from './directus.service';
-import type { ICard, IGroup, IDeck } from './interfaces/directus.interface';
+import { DirectusService } from './directus.service';
+import { ICard, IGroup, IDeck } from './interfaces/directus.interface';
 
-// ? Typage à ajouter pour Directus https://docs.directus.io/guides/sdk/types.html
+// ? Typing to add for Directus https://docs.directus.io/guides/sdk/types.html
 
 const client = createDirectus(
   process.env.DIRECTUS_URL || 'http://127.0.0.1:3002',
@@ -49,7 +49,7 @@ export class DirectusController {
 
     return card;
 
-    // ? On renvoie comment l'image
+    // ? How do we return the image
   }
 
   @Get(':languageCode/card/:type')
@@ -82,7 +82,7 @@ export class DirectusController {
 
     return cards;
 
-    // ? On renvoie comment l'image
+    // ? How do we return the image
   }
 
   // ========== GROUP ==========
