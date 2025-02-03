@@ -1,23 +1,24 @@
 import {
+  ConnectedSocket,
   MessageBody,
+  type OnGatewayConnection,
+  type OnGatewayDisconnect,
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-  OnGatewayConnection,
-  OnGatewayDisconnect,
-  ConnectedSocket,
 } from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
-import { WaitingService } from './waiting.service';
-import { ReflectionService } from './reflection.service';
-import { DebateService } from './debate.service';
-import { DisconnectService } from './disconnect.service';
+import type { Server, Socket } from 'socket.io';
+import type { DebateService } from './debate.service';
+import type { DisconnectService } from './disconnect.service';
+import type { ReflectionService } from './reflection.service';
+import type { WaitingService } from './waiting.service';
 
 // Init websocket
 @WebSocketGateway({
   cors: {
     origin: '*',
   },
+  serveClient: false,
 })
 export class WebsocketGateway
   implements OnGatewayConnection, OnGatewayDisconnect

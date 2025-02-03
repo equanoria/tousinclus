@@ -9,7 +9,7 @@
     "collection": "cards_design_for_all",
     "color": "#FFC23B",
     "display_template": null,
-    "group": "Cards",
+    "group": "cards",
     "hidden": false,
     "icon": null,
     "item_duplication_fields": null,
@@ -21,7 +21,7 @@
     "translations": [
       {
         "language": "en-US",
-        "translation": "Cards design for all"
+        "translation": "cards design for all"
       },
       {
         "language": "fr-FR",
@@ -94,9 +94,7 @@
         "readonly": false,
         "required": true,
         "sort": 2,
-        "special": [
-          "file"
-        ],
+        "special": ["file"],
         "translations": [
           {
             "language": "fr-FR",
@@ -150,9 +148,7 @@
         "readonly": false,
         "required": true,
         "sort": 4,
-        "special": [
-          "m2o"
-        ],
+        "special": ["m2o"],
         "translations": [
           {
             "language": "fr-FR",
@@ -211,9 +207,7 @@
         "readonly": false,
         "required": true,
         "sort": 3,
-        "special": [
-          "translations"
-        ],
+        "special": ["translations"],
         "translations": [
           {
             "language": "fr-FR",
@@ -252,7 +246,7 @@
         "foreign_key_column": "id",
         "constraint_name": "cards_design_for_all_principle_category_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "CASCADE"
+        "on_delete": "NO ACTION"
       }
     },
     {
@@ -276,7 +270,7 @@
         "foreign_key_column": "id",
         "constraint_name": "cards_design_for_all_image_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "NO ACTION"
       }
     }
   ]

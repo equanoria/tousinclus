@@ -21,7 +21,9 @@ services:
         - traefik.http.middlewares.tousinclus-frontend_staging-auth.basicauth.users=${STAGING_USERS}
         - traefik.http.routers.tousinclus-frontend_staging.middlewares=tousinclus-frontend_staging-auth
     environment:
-      - BACKEND_HOST=/api
+      - SOCKET_IO_URL=https://staging.tousinclus.org/api
+      - BACKEND_URL=https://staging.tousinclus.org/api
+      - DIRECTUS_URL=https://staging.directus.tousinclus.org
 
   tousinclus-backend:
     image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging
@@ -118,6 +120,8 @@ services:
       - EMAIL_SMTP_USER=${DIRECTUS_EMAIL_SMTP_USER}
       - EMAIL_SMTP_PASSWORD=${DIRECTUS_EMAIL_SMTP_PASSWORD}
       - SCHEMA_SYNC=IMPORT
+      - CORS_ENABLED=true
+      - CORS_ORIGIN=*
     volumes:
       - directus-uploads:/directus/uploads
 
@@ -152,8 +156,8 @@ services:
 volumes:
   postgresql-backend:
   directus-uploads:
-  valkey-directus:
   postgresql-directus:
+  valkey-directus:
 
 networks:
   directus:

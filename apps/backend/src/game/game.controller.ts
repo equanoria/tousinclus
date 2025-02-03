@@ -1,16 +1,16 @@
 import {
   Controller,
+  Delete,
   Get,
-  Put,
-  Param,
-  ParseIntPipe,
-  NotFoundException,
   HttpException,
   HttpStatus,
-  Delete,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Put,
 } from '@nestjs/common';
-import { GameService } from './game.service';
-import { IGame } from './interfaces/game.interface';
+import type { GameService } from './game.service';
+import type { IGame } from './interfaces/game.interface';
 
 @Controller('game')
 export class GameController {
@@ -55,7 +55,7 @@ export class GameController {
   async getAllGames(): Promise<IGame[]> {
     const allGames = await this.gameService.findAllGames();
     if (!allGames || allGames.length === 0) {
-      throw new NotFoundException(`Database is empty`);
+      throw new NotFoundException('Database is empty');
     }
     return allGames;
   }

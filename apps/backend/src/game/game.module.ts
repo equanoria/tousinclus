@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { WaitingService } from 'src/websocket/waiting.service';
+import { RedisModule } from '../redis/redis.module';
 import { GameController } from './game.controller';
 import { GameService } from './game.service';
-import { RedisModule } from '../redis/redis.module';
-import { WaitingService } from 'src/websocket/waiting.service';
 
 @Module({
   imports: [RedisModule],

@@ -1,6 +1,10 @@
-import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { IGame } from '../game/interfaces/game.interface';
+import {
+  Injectable,
+  type OnModuleDestroy,
+  type OnModuleInit,
+} from '@nestjs/common';
 import Redis from 'ioredis';
+import type { IGame } from '../game/interfaces/game.interface';
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
@@ -9,7 +13,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   onModuleInit() {
     this.redisClient = new Redis({
       host: process.env.REDIS_HOSTNAME || 'localhost',
-      port: parseInt(process.env.REDIS_PORT, 10) || 3004,
+      port: Number.parseInt(process.env.REDIS_PORT, 10) || 3004,
     });
     console.log('Redis client initialized');
   }
@@ -50,7 +54,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
             ? parsedGame
             : null;
         } catch (error) {
-          console.error(`Error parsing game data:`, error);
+          console.error('Error parsing game data:', error);
           return null;
         }
       })
