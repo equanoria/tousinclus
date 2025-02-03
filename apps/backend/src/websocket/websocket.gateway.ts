@@ -46,6 +46,7 @@ export class WebsocketGateway
 
   @SubscribeMessage('waiting')
   async handleWaiting(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
@@ -54,6 +55,7 @@ export class WebsocketGateway
 
   @SubscribeMessage('reflexion')
   async handleReflexion(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
@@ -62,6 +64,7 @@ export class WebsocketGateway
 
   @SubscribeMessage('debat')
   async handleDebat(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {

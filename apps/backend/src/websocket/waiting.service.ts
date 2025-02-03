@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { GameService } from '../game/game.service';
-import { IWaitingData } from './interfaces/data.interface';
+import type { IWaitingData } from './interfaces/data.interface';
 
 @Injectable()
 export class WaitingService {
@@ -43,17 +43,17 @@ export class WaitingService {
   ): Promise<void> {
     try {
       // Format the team field correctly
-      team = team.toLowerCase().replace(/\s/g, '');
+      const formattedTeam = team.toLowerCase().replace(/\s/g, '');
 
       // Call the service to update the connection status of a team
       const updatedGame = await this.gameService.updateTeamConnectionStatus(
         gameCode,
-        team,
+        formattedTeam,
         clientId,
       );
 
       // Register the game code and team in the Socket IO client
-      client.data.team = team;
+      client.data.team = formattedTeam;
       client.data.gameCode = gameCode;
 
       // Add the client to a SocketIO "room"

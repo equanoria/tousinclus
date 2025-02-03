@@ -1,7 +1,7 @@
 import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
 import { createDirectus, staticToken, rest } from '@directus/sdk';
 import { DirectusService } from './directus.service';
-import { ICard, IGroup, IDeck } from './interfaces/directus.interface';
+import type { ICard, IGroup, IDeck } from './interfaces/directus.interface';
 
 // ? Typing to add for Directus https://docs.directus.io/guides/sdk/types.html
 

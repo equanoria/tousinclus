@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ICard, IGroup } from './interfaces/directus.interface';
+import type { ICard, IGroup } from './interfaces/directus.interface';
 import { FormatterService } from './formatter.service';
 import { readItems } from '@directus/sdk';
 
@@ -14,12 +14,14 @@ export class DirectusService {
 
   // ========== CARD ==========
   async handleCardRequest(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
     languageCode: ICard['languageCode'],
     type: ICard['type'],
     id: ICard['id'],
   ): Promise<Array<unknown>> {
     try {
+      // biome-ignore lint/suspicious/noImplicitAnyLet: TODO any type
       let result;
 
       switch (type) {
@@ -44,10 +46,12 @@ export class DirectusService {
 
   // Card Request & formatter Function
   async usersRequest(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
     languageCode: ICard['languageCode'],
     id: ICard['id'],
   ) {
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     const filter: any = {};
 
     // Add the filter for `id` only if `id` is not null
@@ -57,6 +61,7 @@ export class DirectusService {
 
     // Make an explicit request for users (allows filtering fields)
     let usersData = await client.request(
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       readItems<any, any, any>('cards_users', {
         filter,
         deep: {
@@ -98,10 +103,12 @@ export class DirectusService {
   }
 
   async situationsRequest(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
     languageCode: ICard['languageCode'],
     id: ICard['id'],
   ) {
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     const filter: any = {};
 
     // Add the filter for `id` only if `id` is not null
@@ -111,7 +118,8 @@ export class DirectusService {
 
     // Make an explicit request for users (allows filtering fields)
     let situationsData = await client.request(
-      readItems<any, any, any>(`cards_situations`, {
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+      readItems<any, any, any>('cards_situations', {
         filter,
         deep: {
           translations: {
@@ -154,10 +162,12 @@ export class DirectusService {
   }
 
   async designRequest(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
     languageCode: ICard['languageCode'],
     id: ICard['id'],
   ) {
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     const filter: any = {};
 
     // Add the filter for `id` only if `id` is not null
@@ -167,6 +177,7 @@ export class DirectusService {
 
     // Make an explicit request for users (allows filtering fields)
     let designData = await client.request(
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       readItems<any, any, any>('cards_design_for_all', {
         filter,
         deep: {
@@ -213,11 +224,13 @@ export class DirectusService {
 
   // ========== GROUP ==========
   async handleGroupRequest(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
     languageCode: IGroup['languageCode'],
     id: IGroup['id'],
   ): Promise<Array<unknown>> {
     try {
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       const filter: any = {};
 
       // Add the filter for `id` only if `id` is not null
@@ -227,6 +240,7 @@ export class DirectusService {
 
       // Make an explicit request for users (allows filtering fields)
       let groupData = await client.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('cards_group', {
           filter,
           deep: {
@@ -326,11 +340,13 @@ export class DirectusService {
 
   // ========== DECK ==========
   async handleDeckRequest(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
     languageCode: IGroup['languageCode'],
     id: IGroup['id'],
   ): Promise<Array<unknown>> {
     try {
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       const filter: any = {};
 
       // Add the filter for `id` only if `id` is not null
@@ -340,6 +356,7 @@ export class DirectusService {
 
       // Make an explicit request for users (allows filtering fields)
       let groupData = await client.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('decks', {
           filter,
           deep: {

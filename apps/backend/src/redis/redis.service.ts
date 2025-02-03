@@ -4,7 +4,7 @@ import {
   type OnModuleInit,
 } from '@nestjs/common';
 import Redis from 'ioredis';
-import { IGame } from '../game/interfaces/game.interface';
+import type { IGame } from '../game/interfaces/game.interface';
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {

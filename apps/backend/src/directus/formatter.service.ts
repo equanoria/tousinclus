@@ -3,7 +3,9 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class FormatterService {
   // Formatter for better readability of JSON
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
   async usersFormatter(usersData: any) {
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     return usersData.map((user: any) => ({
       image: user.image,
       handicap_category: {
@@ -15,8 +17,10 @@ export class FormatterService {
     }));
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
   async situationsFormatter(situationsData: any) {
     if (Array.isArray(situationsData)) {
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       return situationsData.map((situation: any) => ({
         image: situation.image,
         context: situation.context_translations?.[0]?.context || null,
@@ -37,7 +41,9 @@ export class FormatterService {
     return null; // If the data is null or invalid
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
   async designFormatter(designData: any) {
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     return designData.map((design: any) => ({
       image: design.image,
       principle_category: {
@@ -50,8 +56,10 @@ export class FormatterService {
   }
 
   // Formatter for groups
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
   async groupFormatter(groupData: any) {
     return Promise.all(
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       groupData.map(async (group: any) => {
         // Formatting of usage_situation
         const usage_situation = group.usage_situation
@@ -60,6 +68,7 @@ export class FormatterService {
 
         // Extraction of extreme users
         const extremeUsers = group.extreme_user.map(
+          // biome-ignore lint/suspicious/noExplicitAny: TODO any type
           (extreme: any) => extreme.cards_users_id,
         );
 
@@ -76,11 +85,14 @@ export class FormatterService {
   }
 
   // Formatter for decks
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
   async deckFormatter(deckData: any) {
     return Promise.all(
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       deckData.map(async (deck: any) => {
         // Processing groups in the deck
         const formattedGroups = await Promise.all(
+          // biome-ignore lint/suspicious/noExplicitAny: TODO any type
           deck.group.map(async (group: any) => {
             const formattedGroup = await this.groupFormatter([
               group.cards_group_id,

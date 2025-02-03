@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { RedisService } from '../redis/redis.service';
-import { IGame } from './interfaces/game.interface';
+import type { IGame } from './interfaces/game.interface';
 
 @Injectable()
 export class GameService {

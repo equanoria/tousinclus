@@ -10,7 +10,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { GameService } from './game.service';
-import { IGame } from './interfaces/game.interface';
+import type { IGame } from './interfaces/game.interface';
 
 @Controller('game')
 export class GameController {
