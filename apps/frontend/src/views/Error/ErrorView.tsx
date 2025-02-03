@@ -6,7 +6,7 @@ export const ErrorView = ({ message }: IError) => {
   return (
     <>
       <p>There is an error.</p>
-      <code>{ message ?? 'Unknown error.' }</code>
+      <code>{message ?? 'Unknown error.'}</code>
     </>
   );
 };

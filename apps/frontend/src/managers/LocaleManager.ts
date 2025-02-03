@@ -1,6 +1,6 @@
+import type { TLanguage } from '@tousinclus/types';
 import { DirectusService } from '../services/DirectusService';
 import { LocalStorageManager } from './LocalStorageManager';
-import { TLanguage } from '@tousinclus/types';
 
 export class LocaleManager {
   private localStorageManager = new LocalStorageManager();
@@ -30,7 +30,9 @@ export class LocaleManager {
       this.setDefaultLocale('system');
       this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
     } else if (localeCode) {
-      const newLocale = this.supportedLocales.find((locale) => locale.code === localeCode);
+      const newLocale = this.supportedLocales.find(
+        (locale) => locale.code === localeCode,
+      );
       if (newLocale) {
         this.setDefaultLocale(localeCode);
         this.locale = newLocale;
@@ -64,17 +66,23 @@ export class LocaleManager {
       console.warn('Using fallback locale due to error fetching locales.');
     }
 
-    const storedLocaleCode = this.localStorageManager.getItem<string>(LocaleManager.LOCAL_STORAGE_KEY);
+    const storedLocaleCode = this.localStorageManager.getItem<string>(
+      LocaleManager.LOCAL_STORAGE_KEY,
+    );
 
     if (storedLocaleCode) {
       if (storedLocaleCode === 'system') {
         this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
       } else {
-        const storedLocale = this.supportedLocales.find((locale) => locale.code === storedLocaleCode);
+        const storedLocale = this.supportedLocales.find(
+          (locale) => locale.code === storedLocaleCode,
+        );
         if (storedLocale) {
           this.locale = storedLocale;
         } else {
-          console.warn(`Stored locale "${storedLocaleCode}" is not supported. Reverting to system locale.`);
+          console.warn(
+            `Stored locale "${storedLocaleCode}" is not supported. Reverting to system locale.`,
+          );
           this.setDefaultLocale('system');
           this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
         }
@@ -92,7 +100,10 @@ export class LocaleManager {
    * If the value is "system", it is applied automatically.
    */
   private setDefaultLocale(localeCode: string): void {
-    this.localStorageManager.setItem(LocaleManager.LOCAL_STORAGE_KEY, localeCode);
+    this.localStorageManager.setItem(
+      LocaleManager.LOCAL_STORAGE_KEY,
+      localeCode,
+    );
   }
 
   /**
@@ -113,12 +124,12 @@ export class LocaleManager {
       const baseLang = lang.split('-')[0];
 
       const exactMatch = this.supportedLocales.find((locale) =>
-        locale.code.startsWith(baseLang)
+        locale.code.startsWith(baseLang),
       );
       if (exactMatch) return exactMatch;
 
-      const closeMatch = this.supportedLocales.find((locale) =>
-        locale.code.slice(0, 2) === baseLang.slice(0, 2)
+      const closeMatch = this.supportedLocales.find(
+        (locale) => locale.code.slice(0, 2) === baseLang.slice(0, 2),
       );
       if (closeMatch) return closeMatch;
     }

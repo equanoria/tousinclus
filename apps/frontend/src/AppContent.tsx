@@ -13,13 +13,15 @@ const AppContent = () => {
     <>
       <nav className="a11y-skip-content">
         <ul>
-          <li><a href="#main">Aller au contenu principal</a></li>
-          <li><a href="#main">Aller à un autre endroit</a></li>
+          <li>
+            <a href="#main">Aller au contenu principal</a>
+          </li>
+          <li>
+            <a href="#main">Aller à un autre endroit</a>
+          </li>
         </ul>
       </nav>
-      <main id="main">
-        {currentView}
-      </main>
+      <main id="main">{currentView}</main>
     </>
   );
 };

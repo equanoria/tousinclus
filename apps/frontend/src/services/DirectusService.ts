@@ -1,6 +1,6 @@
 import { createDirectus, readItems, rest } from '@directus/sdk';
+import type { TLanguage } from '@tousinclus/types';
 import { isValidUrl } from '../utils/isValidUrl';
-import { TLanguage } from '@tousinclus/types';
 
 interface Schema {
   languages: TLanguage[];

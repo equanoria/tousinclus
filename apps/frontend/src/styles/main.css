@@ -10,7 +10,6 @@
   color-scheme: dark;
 }
 
-
 body {
   font-family: var(--font-gotham);
   color: var(--text-primary-default);
@@ -19,12 +18,20 @@ body {
   transition-property: background-color;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap: balance;
+  /* biome-ignore lint/correctness/noUnknownProperty: <explanation> */
   text-box: trim-both cap alphabetic;
 }
 
-p, li, figcaption {
+p,
+li,
+figcaption {
   font-size: var(--scale-03);
   max-width: 75ch;
   text-wrap: pretty;
@@ -74,7 +81,9 @@ a {
 }
 
 @media (prefers-reduced-motion), (update: slow) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     transition-duration: 0s !important;
   }
 }
