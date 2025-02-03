@@ -4,9 +4,9 @@ import { DirectusService } from './directus.service';
 import { FormatterService } from './formatter.service';
 
 @Module({
-    imports:[],
-    controllers: [DirectusController],
-    providers: [DirectusService, FormatterService],
-    exports: []
+  imports: [],
+  controllers: [DirectusController],
+  providers: [DirectusService, FormatterService],
+  exports: [],
 })
 export class DirectusModule {}

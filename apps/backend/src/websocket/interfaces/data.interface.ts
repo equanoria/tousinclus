@@ -1,8 +1,8 @@
 export interface IData {
-    action: string,
+  action: string;
 }
 
-export interface IWaitingData extends IData{
-    gameCode: string,
-    team: string
+export interface IWaitingData extends IData {
+  gameCode: string;
+  team: string;
 }
