@@ -1,4 +1,4 @@
-import { LocalStorageManager } from "./LocalStorageManager";
+import { LocalStorageManager } from './LocalStorageManager';
 
 export enum Font {
   OPENDYSLEXIC = 'OpenDyslexic',
@@ -22,13 +22,15 @@ export class FontManager {
    * If a valid font is provided, it sets it as the new font.
    */
   public switch(font?: Font): this {
-    if (font) {
-      this.setDefault(font);
-    } else {
-      font = this.localStorageManager.getItem<Font>(FontManager.LOCAL_STORAGE_KEY);
+    let resolvedFont = font;
+
+    if (!resolvedFont) {
+      resolvedFont = this.localStorageManager.getItem<Font>(
+        FontManager.LOCAL_STORAGE_KEY,
+      );
     }
 
-    this.font = font ?? FontManager.FALLBACK_FONT;
+    this.font = resolvedFont ?? FontManager.FALLBACK_FONT;
 
     this.applyFont();
     return this;
@@ -66,7 +68,9 @@ export class FontManager {
    * This method checks localStorage first, and if no value is found, defaults to the fallback font.
    */
   private determineInitialFont(): Font {
-    const storedFont = this.localStorageManager.getItem<Font>(FontManager.LOCAL_STORAGE_KEY);
+    const storedFont = this.localStorageManager.getItem<Font>(
+      FontManager.LOCAL_STORAGE_KEY,
+    );
     if (storedFont) {
       return storedFont;
     }

@@ -1,9 +1,10 @@
-import React, { createContext, useState, ReactNode, useContext } from 'react';
-import { ErrorView } from '../views/Error/ErrorView';
+import type React from 'react';
+import { type ReactNode, createContext, useContext, useState } from 'react';
 import { ContrastManager } from '../managers/ContrastManager';
 import { FontManager } from '../managers/FontManager';
 import { LocaleManager } from '../managers/LocaleManager';
 import { ThemeManager } from '../managers/ThemeManager';
+import { ErrorView } from '../views/Error/ErrorView';
 
 export interface AppStateContextProps {
   currentView: JSX.Element;
@@ -14,10 +15,16 @@ export interface AppStateContextProps {
   contrastManager: ContrastManager;
 }
 
-const AppStateContext = createContext<AppStateContextProps | undefined>(undefined);
+const AppStateContext = createContext<AppStateContextProps | undefined>(
+  undefined,
+);
 
-export const AppStateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [currentView, setCurrentView] = useState<JSX.Element>(<ErrorView message="Cannot load view." />);
+export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const [currentView, setCurrentView] = useState<JSX.Element>(
+    <ErrorView message="Cannot load view." />,
+  );
 
   const themeManager = new ThemeManager();
   const fontManager = new FontManager();

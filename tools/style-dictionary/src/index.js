@@ -1,6 +1,6 @@
 import StyleDictionary from 'style-dictionary';
-import { THEMES } from './constant.js';
 import { logVerbosityLevels, logWarningLevels } from 'style-dictionary/enums';
+import { THEMES } from './constant.js';
 
 StyleDictionary.registerTransform({
   name: 'attribute/omit-description',
@@ -17,7 +17,7 @@ StyleDictionary.registerTransform({
   transform: (token) => {
     return token.path
       .slice(1)
-      .map(part => part.replace(/\s+/g, '-'))
+      .map((part) => part.replace(/\s+/g, '-'))
       .join('-')
       .toLowerCase();
   },
@@ -59,7 +59,6 @@ StyleDictionary.registerTransformGroup({
 });
 
 THEMES.map((theme) => {
-
   const fileName = () => {
     if (theme === 'default') {
       return 'tokens.css';
@@ -82,7 +81,7 @@ THEMES.map((theme) => {
     }
 
     return ['value/use-mode'];
-  }
+  };
 
   StyleDictionary.registerTransform({
     name: 'value/use-mode',
@@ -91,7 +90,7 @@ THEMES.map((theme) => {
       if (token.$extensions?.mode?.[theme]) {
         return token.$extensions?.mode?.[theme];
       }
-  
+
       return token.$value;
     },
   });
@@ -117,14 +116,14 @@ THEMES.map((theme) => {
             format: 'css/variables',
             filter: (token) => {
               if (theme === 'default') {
-                return true
+                return true;
               }
 
-              return token.$extensions?.mode?.[theme]
+              return token.$extensions?.mode?.[theme];
             },
           },
         ],
       },
     },
-  }).buildAllPlatforms();  
+  }).buildAllPlatforms();
 });

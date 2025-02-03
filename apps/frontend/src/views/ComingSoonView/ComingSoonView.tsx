@@ -1,5 +1,5 @@
-import styles from './ComingSoonView.module.css';
 import { Link } from '../../components/Link/Link';
+import styles from './ComingSoonView.module.css';
 
 export const ComingSoonView = () => {
   return (
@@ -7,7 +7,10 @@ export const ComingSoonView = () => {
       <section className={styles.hero}>
         <div>
           <div className={styles.headings}>
-            <h1>Tous inclus arrive <br />très prochaînement…</h1>
+            <h1>
+              Tous inclus arrive <br />
+              très prochaînement…
+            </h1>
             <div className={styles.buttons}>
               <Link
                 variant="button-secondary"

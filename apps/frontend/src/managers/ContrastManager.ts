@@ -1,4 +1,4 @@
-import { LocalStorageManager } from "./LocalStorageManager";
+import { LocalStorageManager } from './LocalStorageManager';
 
 export enum Contrast {
   SYSTEM = 'system',
@@ -23,13 +23,15 @@ export class ContrastManager {
    * If a valid contrast is provided, it sets it as the new contrast mode.
    */
   public switch(contrast?: Contrast): this {
-    if (contrast) {
-      this.setDefault(contrast);
-    } else {
-      contrast = this.localStorageManager.getItem<Contrast>(ContrastManager.LOCAL_STORAGE_KEY);
+    let resolvedContrast = contrast;
+
+    if (!resolvedContrast) {
+      resolvedContrast = this.localStorageManager.getItem<Contrast>(
+        ContrastManager.LOCAL_STORAGE_KEY,
+      );
     }
 
-    this.contrast = contrast ?? ContrastManager.FALLBACK_CONTRAST;
+    this.contrast = resolvedContrast ?? ContrastManager.FALLBACK_CONTRAST;
 
     this.applyContrast();
     return this;
@@ -47,7 +49,10 @@ export class ContrastManager {
    * This method ensures the contrast preference is saved for future visits.
    */
   private setDefault(contrast: Contrast): this {
-    this.localStorageManager.setItem<Contrast>(ContrastManager.LOCAL_STORAGE_KEY, contrast);
+    this.localStorageManager.setItem<Contrast>(
+      ContrastManager.LOCAL_STORAGE_KEY,
+      contrast,
+    );
 
     return this;
   }
@@ -58,7 +63,10 @@ export class ContrastManager {
    */
   private applyContrast(): this {
     const effectiveContrast = this.getEffectiveContrast();
-    document.documentElement.setAttribute(ContrastManager.DATA_NAME, effectiveContrast);
+    document.documentElement.setAttribute(
+      ContrastManager.DATA_NAME,
+      effectiveContrast,
+    );
 
     return this;
   }
@@ -68,7 +76,9 @@ export class ContrastManager {
    * This method checks localStorage first, and if no value is found, defaults to the fallback contrast.
    */
   private determineInitialContrast(): Contrast {
-    const storedContrast = this.localStorageManager.getItem<Contrast>(ContrastManager.LOCAL_STORAGE_KEY);
+    const storedContrast = this.localStorageManager.getItem<Contrast>(
+      ContrastManager.LOCAL_STORAGE_KEY,
+    );
     if (storedContrast) {
       return storedContrast;
     }
@@ -85,8 +95,12 @@ export class ContrastManager {
    */
   private getEffectiveContrast(): Contrast {
     if (this.contrast === Contrast.SYSTEM) {
-      const prefersMoreContrast = window.matchMedia('(prefers-contrast: more)').matches;
-      const prefersLessContrast = window.matchMedia('(prefers-contrast: less)').matches;
+      const prefersMoreContrast = window.matchMedia(
+        '(prefers-contrast: more)',
+      ).matches;
+      const prefersLessContrast = window.matchMedia(
+        '(prefers-contrast: less)',
+      ).matches;
 
       if (prefersMoreContrast) {
         return Contrast.MORE;

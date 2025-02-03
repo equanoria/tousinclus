@@ -207,9 +207,7 @@
         "readonly": true,
         "required": false,
         "sort": 2,
-        "special": [
-          "date-updated"
-        ],
+        "special": ["date-updated"],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -297,9 +295,7 @@
         "readonly": false,
         "required": false,
         "sort": 3,
-        "special": [
-          "translations"
-        ],
+        "special": ["translations"],
         "translations": null,
         "validation": null,
         "validation_message": null,

@@ -1,9 +1,9 @@
-import { LocalStorageManager } from "./LocalStorageManager";
+import { LocalStorageManager } from './LocalStorageManager';
 
 export enum Theme {
   LIGHT = 'light',
   DARK = 'dark',
-  SYSTEM = 'system'
+  SYSTEM = 'system',
 }
 
 export class ThemeManager {
@@ -23,13 +23,15 @@ export class ThemeManager {
    * If a valid theme is provided, it sets it as the new theme.
    */
   public switch(theme?: Theme): this {
-    if (theme) {
-      this.setDefault(theme);
-    } else {
-      theme = this.localStorageManager.getItem<Theme>(ThemeManager.LOCAL_STORAGE_KEY);
+    let resolvedTheme = theme;
+
+    if (!resolvedTheme) {
+      resolvedTheme = this.localStorageManager.getItem<Theme>(
+        ThemeManager.LOCAL_STORAGE_KEY,
+      );
     }
 
-    this.theme = theme ?? ThemeManager.FALLBACK_THEME;
+    this.theme = resolvedTheme ?? ThemeManager.FALLBACK_THEME;
 
     this.applyTheme();
     return this;
@@ -47,7 +49,10 @@ export class ThemeManager {
    * This method ensures the theme preference is saved for future visits.
    */
   private setDefault(theme: Theme): this {
-    this.localStorageManager.setItem<Theme>(ThemeManager.LOCAL_STORAGE_KEY, theme);
+    this.localStorageManager.setItem<Theme>(
+      ThemeManager.LOCAL_STORAGE_KEY,
+      theme,
+    );
 
     return this;
   }
@@ -58,7 +63,10 @@ export class ThemeManager {
    */
   private applyTheme(): this {
     const effectiveTheme = this.getEffectiveTheme();
-    document.documentElement.setAttribute(ThemeManager.DATA_NAME, effectiveTheme);
+    document.documentElement.setAttribute(
+      ThemeManager.DATA_NAME,
+      effectiveTheme,
+    );
 
     return this;
   }
@@ -69,7 +77,9 @@ export class ThemeManager {
    */
   private getEffectiveTheme(): Theme {
     if (this.theme === Theme.SYSTEM) {
-      const prefersDarkScheme = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      const prefersDarkScheme = window.matchMedia?.(
+        '(prefers-color-scheme: dark)',
+      ).matches;
 
       return prefersDarkScheme ? Theme.DARK : Theme.LIGHT;
     }
@@ -83,13 +93,15 @@ export class ThemeManager {
    * It adjusts between "dark" or "light" based on the user's system preference.
    */
   private determineInitialTheme(): Theme {
-    const storedTheme = this.localStorageManager.getItem<Theme>(ThemeManager.LOCAL_STORAGE_KEY);
+    const storedTheme = this.localStorageManager.getItem<Theme>(
+      ThemeManager.LOCAL_STORAGE_KEY,
+    );
     if (storedTheme) {
       return storedTheme;
     }
 
     this.setDefault(Theme.SYSTEM);
-    
+
     return Theme.SYSTEM;
   }
 }

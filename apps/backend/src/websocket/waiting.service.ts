@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { GameService } from '../game/game.service';
-import { Server, Socket } from 'socket.io';
+import type { Server, Socket } from 'socket.io';
+import type { GameService } from '../game/game.service';
 
 @Injectable()
 export class WaitingService {

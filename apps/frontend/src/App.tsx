@@ -1,5 +1,5 @@
-import { AppStateProvider } from './context/AppStateProvider';
 import AppContent from './AppContent';
+import { AppStateProvider } from './context/AppStateProvider';
 
 const App = () => {
   return (
