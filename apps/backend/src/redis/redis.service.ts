@@ -56,7 +56,7 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
           return null;
         }
       })
-      .filter((game) => game !== null);  // Remove null entries
+      .filter((game) => game !== null); // Remove null entries
   }
 
   async deleteOneGame(key: string): Promise<boolean> {

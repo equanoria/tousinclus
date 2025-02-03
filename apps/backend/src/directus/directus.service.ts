@@ -74,7 +74,7 @@ export class DirectusService {
           },
         },
         fields: [
-            // Allows filtering the fields we want
+          // Allows filtering the fields we want
           {
             handicap_category: [
               'icon',
@@ -245,19 +245,19 @@ export class DirectusService {
                 _filter: {
                   _and: [
                     {
-                      languages_code: { _eq: language[languageCode] }, 
+                      languages_code: { _eq: language[languageCode] },
                     },
                   ],
                 },
               },
               context_translations: {
                 _filter: {
-                  languages_code: { _eq: language[languageCode] }, 
+                  languages_code: { _eq: language[languageCode] },
                 },
               },
               description_translations: {
                 _filter: {
-                  languages_code: { _eq: language[languageCode] }, 
+                  languages_code: { _eq: language[languageCode] },
                 },
               },
             },
@@ -266,13 +266,13 @@ export class DirectusService {
                 handicap_category: {
                   translations: {
                     _filter: {
-                      languages_code: { _eq: language[languageCode] }, 
+                      languages_code: { _eq: language[languageCode] },
                     },
                   },
                 },
                 translations: {
                   _filter: {
-                    languages_code: { _eq: language[languageCode] }, 
+                    languages_code: { _eq: language[languageCode] },
                   },
                 },
               },
