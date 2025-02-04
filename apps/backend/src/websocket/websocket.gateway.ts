@@ -7,11 +7,11 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import type { Server, Socket } from 'socket.io';
-import type { DebateService } from './debate.service';
-import type { DisconnectService } from './disconnect.service';
-import type { ReflectionService } from './reflection.service';
-import type { WaitingService } from './waiting.service';
+import { Server, Socket } from 'socket.io';
+import { DebateService } from './debate.service';
+import { DisconnectService } from './disconnect.service';
+import { ReflectionService } from './reflection.service';
+import { WaitingService } from './waiting.service';
 
 // Init websocket
 @WebSocketGateway({
@@ -35,7 +35,7 @@ export class WebsocketGateway
 
   async handleConnection(client: Socket): Promise<void> {
     console.log(`Client connected ${client.id}`);
-    // Exemple d'initialisation ou de logique pour un nouveau client
+    // Example of initialization or logic for a new client
   }
 
   async handleDisconnect(client: Socket): Promise<void> {
@@ -46,6 +46,7 @@ export class WebsocketGateway
 
   @SubscribeMessage('waiting')
   async handleWaiting(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
@@ -54,6 +55,7 @@ export class WebsocketGateway
 
   @SubscribeMessage('reflexion')
   async handleReflexion(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
@@ -62,6 +64,7 @@ export class WebsocketGateway
 
   @SubscribeMessage('debat')
   async handleDebat(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {

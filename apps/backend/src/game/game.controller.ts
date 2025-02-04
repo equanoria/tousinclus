@@ -9,15 +9,15 @@ import {
   ParseIntPipe,
   Put,
 } from '@nestjs/common';
-import type { GameService } from './game.service';
-import type { Game } from './interfaces/game.interface';
+import { GameService } from './game.service';
+import type { IGame } from './interfaces/game.interface';
 
 @Controller('game')
 export class GameController {
   constructor(private readonly gameService: GameService) {}
 
   @Put()
-  createGame(): Promise<Game> {
+  createGame(): Promise<IGame> {
     const game = this.gameService.createGame();
     if (!game) {
       throw new HttpException(
@@ -31,7 +31,7 @@ export class GameController {
   @Put(':numberOfGame')
   createManyGame(
     @Param('numberOfGame', ParseIntPipe) numberOfGame: number,
-  ): Promise<Game[]> {
+  ): Promise<IGame[]> {
     const games = this.gameService.createManyGame(numberOfGame);
     if (!games) {
       throw new HttpException(
@@ -43,7 +43,7 @@ export class GameController {
   }
 
   @Get(':code')
-  async getOneGame(@Param('code') code: string): Promise<Game> {
+  async getOneGame(@Param('code') code: string): Promise<IGame> {
     const game = await this.gameService.findOneGame(code);
     if (!game) {
       throw new NotFoundException(`Game with code ${code} not found`);
@@ -52,7 +52,7 @@ export class GameController {
   }
 
   @Get()
-  async getAllGames(): Promise<Game[]> {
+  async getAllGames(): Promise<IGame[]> {
     const allGames = await this.gameService.findAllGames();
     if (!allGames || allGames.length === 0) {
       throw new NotFoundException('Database is empty');

@@ -4,7 +4,7 @@ import {
   type OnModuleInit,
 } from '@nestjs/common';
 import Redis from 'ioredis';
-import type { Game } from '../game/interfaces/game.interface';
+import type { IGame } from '../game/interfaces/game.interface';
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
@@ -28,37 +28,35 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
 
   // ========== Game ==========
 
-  async setGame(key: string, value: Game) {
+  async setGame(key: string, value: IGame) {
     return this.redisClient.set(key, JSON.stringify(value));
   }
 
-  async getGame(key: string): Promise<Game> {
+  async getGame(key: string): Promise<IGame> {
     const gameData = await this.redisClient.get(key);
-    return JSON.parse(gameData) as Game;
+    return JSON.parse(gameData) as IGame;
   }
 
-  async getAllGames(): Promise<Game[]> {
+  async getAllGames(): Promise<IGame[]> {
     const keys = await this.redisClient.keys('*');
 
-    // Si aucun jeu n'est enregistré
+    // If no games are recorded
     if (keys.length === 0) {
       return [];
     }
 
-    const gameDataArray = await this.redisClient.mget(keys); // Récupère toutes les valeurs en une seule commande
+    const gameDataArray = await this.redisClient.mget(keys); // Retrieve all values in a single command
     return gameDataArray
       .map((gameData) => {
         try {
           const parsedGame = JSON.parse(gameData);
-          return parsedGame && parsedGame.code && parsedGame.status
-            ? parsedGame
-            : null;
+          return parsedGame?.code && parsedGame.status ? parsedGame : null;
         } catch (error) {
           console.error('Error parsing game data:', error);
           return null;
         }
       })
-      .filter((game) => game !== null); // Supprime les entrées nulles
+      .filter((game) => game !== null); // Remove null entries
   }
 
   async deleteOneGame(key: string): Promise<boolean> {

@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import type { RedisService } from '../redis/redis.service';
-import type { Game } from './interfaces/game.interface';
+import { RedisService } from '../redis/redis.service';
+import type { IGame } from './interfaces/game.interface';
 
 @Injectable()
 export class GameService {
   constructor(private readonly redisService: RedisService) {}
 
-  private generateNewGameData(): Game {
-    const newGame: Game = {
+  private generateNewGameData(): IGame {
+    const newGame: IGame = {
       code: Math.floor(100000 + Math.random() * 900000).toString(), // Generate a 6-digit numeric code
       status: 'waiting',
       isTeam1Connected: null,
@@ -16,14 +16,14 @@ export class GameService {
     return newGame;
   }
 
-  async createGame(): Promise<Game> {
+  async createGame(): Promise<IGame> {
     const newGame = this.generateNewGameData();
     await this.redisService.setGame(newGame.code, newGame); // add new game data to redis db
     return newGame; // Return the game create as JSON
   }
 
-  async createManyGame(i: number): Promise<Game[]> {
-    const newGames: Game[] = [];
+  async createManyGame(i: number): Promise<IGame[]> {
+    const newGames: IGame[] = [];
     for (let step = 0; step < i; step++) {
       const newGame = this.generateNewGameData(); // Generate i game data
       newGames.push(newGame);
@@ -32,12 +32,12 @@ export class GameService {
     return newGames; // Return all game create as JSON
   }
 
-  async findOneGame(code: string): Promise<Game> {
+  async findOneGame(code: string): Promise<IGame> {
     const game = await this.redisService.getGame(code); // Find game with the code as redis key
     return game; // Return it with the good format
   }
 
-  async findAllGames(): Promise<Game[]> {
+  async findAllGames(): Promise<IGame[]> {
     const games = await this.redisService.getAllGames(); // Retrieve all games from Redis
     return games;
   }
@@ -47,12 +47,12 @@ export class GameService {
     return gameDelete;
   }
 
-  // Mettre à jour le statut d'une équipe connectée
+  // Update the status of a connected team
   async updateTeamConnectionStatus(
     code: string,
     team: string,
     clientId: string,
-  ): Promise<Game> {
+  ): Promise<IGame> {
     const game = await this.findOneGame(code);
 
     if (!game) {
@@ -85,7 +85,7 @@ export class GameService {
     code: string,
     team: string,
     clientId: string,
-  ): Promise<Game> {
+  ): Promise<IGame> {
     const game = await this.findOneGame(code);
 
     if (!game) {
