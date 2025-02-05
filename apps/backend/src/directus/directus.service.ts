@@ -3,16 +3,9 @@ import type { ICard, IGroup } from './interfaces/directus.interface';
 import { FormatterService } from './formatter.service';
 import { readItems } from '@directus/sdk';
 
-const language: object = {
-  en: 'en-US',
-  fr: 'fr-FR',
-};
-
 @Injectable()
 export class DirectusService {
-  constructor(
-    private readonly formatterService: FormatterService
-  ) { }
+  constructor(private readonly formatterService: FormatterService) {}
 
   // ========== CARD ==========
   async handleCardRequest(
@@ -492,17 +485,17 @@ export class DirectusService {
   // ========== LANGUAGES ==========
   async languageRequest(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any
+    client: any,
   ): Promise<Array<unknown>> {
     try {
-        // Get Language Data
-        let languageData = await client.request(
-          // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-          readItems<any, any, any>('languages'),
-        );
+      // Get Language Data
+      let languageData = await client.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+        readItems<any, any, any>('languages'),
+      );
 
-        // Formatter for Language Data
-        languageData = this.formatterService.languageFormatter(languageData)
+      // Formatter for Language Data
+      languageData = this.formatterService.languageFormatter(languageData);
 
       return languageData;
     } catch (error) {

@@ -4,7 +4,7 @@ export interface ITranslation {
 
 export interface ICard extends ITranslation {
   type: 'users' | 'situations' | 'design-for-all';
-  requestLanguage: string,
+  requestLanguage: string;
   id: number;
 }
 
