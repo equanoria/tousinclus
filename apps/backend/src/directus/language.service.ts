@@ -11,9 +11,9 @@ export class LanguageService {
     private readonly directusService: DirectusService,
   ) {}
 
-  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
   async getPreferredLanguage(
     acceptLanguage: string,
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
   ): Promise<string> {
     if (!acceptLanguage) {
