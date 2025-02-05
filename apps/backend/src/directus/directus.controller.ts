@@ -1,7 +1,8 @@
-import { Controller, Get, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, NotFoundException, Headers } from '@nestjs/common';
 import { createDirectus, staticToken, rest } from '@directus/sdk';
 import { DirectusService } from './directus.service';
 import type { ICard, IGroup, IDeck } from './interfaces/directus.interface';
+import { LanguageService } from './language.service';
 
 // ? Typing to add for Directus https://docs.directus.io/guides/sdk/types.html
 
@@ -17,18 +18,20 @@ const client = createDirectus(
 
 @Controller('directus')
 export class DirectusController {
-  constructor(private readonly directusService: DirectusService) {}
+  constructor(
+    private readonly directusService: DirectusService,
+    private readonly languageService: LanguageService
+  ) { }
 
   // ========== CARD ==========
-  @Get(':languageCode/card/:type/:id')
+  @Get('card/:type/:id')
   async getOneCard(
-    @Param('languageCode') languageCode: ICard['languageCode'],
+    @Headers('accept-language') requestLanguage: ICard['requestLanguage'],
     @Param('type') type: ICard['type'],
     @Param('id') id: ICard['id'],
   ): Promise<unknown> {
-    if (!(languageCode === 'en' || languageCode === 'fr')) {
-      throw new NotFoundException('language not supported');
-    }
+
+    const languageCode = await this.languageService.getPreferredLanguage(requestLanguage, client)
 
     if (
       !(type === 'users' || type === 'situations' || type === 'design-for-all')
@@ -52,14 +55,13 @@ export class DirectusController {
     // ? How do we return the image
   }
 
-  @Get(':languageCode/card/:type')
+  @Get('card/:type')
   async getAllCard(
-    @Param('languageCode') languageCode: ICard['languageCode'],
+    @Headers('accept-language') requestLanguage: ICard['requestLanguage'],
     @Param('type') type: ICard['type'],
   ): Promise<unknown> {
-    if (!(languageCode === 'en' || languageCode === 'fr')) {
-      throw new NotFoundException('language not supported');
-    }
+
+    const languageCode = await this.languageService.getPreferredLanguage(requestLanguage, client)
 
     if (
       !(type === 'users' || type === 'situations' || type === 'design-for-all')
@@ -86,14 +88,13 @@ export class DirectusController {
   }
 
   // ========== GROUP ==========
-  @Get(':languageCode/group/:id')
+  @Get('group/:id')
   async getOneGroup(
-    @Param('languageCode') languageCode: IGroup['languageCode'],
+    @Headers('accept-language') requestLanguage: ICard['requestLanguage'],
     @Param('id') id: IGroup['id'],
   ): Promise<unknown> {
-    if (!(languageCode === 'en' || languageCode === 'fr')) {
-      throw new NotFoundException('language not supported');
-    }
+
+    const languageCode = await this.languageService.getPreferredLanguage(requestLanguage, client)
 
     const group = await this.directusService.handleGroupRequest(
       client,
@@ -108,13 +109,12 @@ export class DirectusController {
     return group;
   }
 
-  @Get(':languageCode/group')
+  @Get('group')
   async getAllGroup(
-    @Param('languageCode') languageCode: IGroup['languageCode'],
+    @Headers('accept-language') requestLanguage: IGroup['languageCode'],
   ): Promise<unknown> {
-    if (!(languageCode === 'en' || languageCode === 'fr')) {
-      throw new NotFoundException('language not supported');
-    }
+
+    const languageCode = await this.languageService.getPreferredLanguage(requestLanguage, client)
 
     const group = await this.directusService.handleGroupRequest(
       client,
@@ -130,14 +130,13 @@ export class DirectusController {
   }
 
   // ========== DECK ==========
-  @Get(':languageCode/deck/:id')
+  @Get('deck/:id')
   async getOneDeck(
-    @Param('languageCode') languageCode: IDeck['languageCode'],
+    @Headers('accept-language') requestLanguage: IDeck['languageCode'],
     @Param('id') id: IDeck['id'],
   ): Promise<unknown> {
-    if (!(languageCode === 'en' || languageCode === 'fr')) {
-      throw new NotFoundException('language not supported');
-    }
+
+    const languageCode = await this.languageService.getPreferredLanguage(requestLanguage, client)
 
     const group = await this.directusService.handleDeckRequest(
       client,
@@ -152,13 +151,12 @@ export class DirectusController {
     return group;
   }
 
-  @Get(':languageCode/deck')
+  @Get('deck')
   async getAllDeck(
-    @Param('languageCode') languageCode: IDeck['languageCode'],
+    @Headers('accept-language') requestLanguage: IDeck['languageCode'],
   ): Promise<unknown> {
-    if (!(languageCode === 'en' || languageCode === 'fr')) {
-      throw new NotFoundException('language not supported');
-    }
+
+    const languageCode = await this.languageService.getPreferredLanguage(requestLanguage, client)
 
     const group = await this.directusService.handleDeckRequest(
       client,

@@ -108,4 +108,10 @@ export class FormatterService {
       }),
     );
   }
+
+  // Formatter for language 
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+  async languageFormatter(languageData: any[]): Promise<string[]> {
+    return languageData.map((lang) => lang.code);
+  }
 }
