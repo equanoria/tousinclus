@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+const { spawn } = require('node:child_process');
 
 const composeFile = 'docker-compose.dev.yaml';
 const projectName = 'tousinclus';
@@ -6,30 +6,32 @@ const envFile = '../.env.dev';
 
 const startCompose = () => {
   console.log('Starting Docker Compose...');
-  const composeProcess = spawn('docker', [
-    'compose',
-    '-f',
-    composeFile,
-    '-p',
-    projectName,
-    '--env-file',
-    envFile,
-    'up',
-  ], { stdio: 'inherit', detached: true });
+  const composeProcess = spawn(
+    'docker',
+    [
+      'compose',
+      '-f',
+      composeFile,
+      '-p',
+      projectName,
+      '--env-file',
+      envFile,
+      'up',
+      '--watch',
+    ],
+    { stdio: 'inherit', detached: true },
+  );
 
   return composeProcess;
 };
 
 const stopCompose = () => {
   console.log('Stopping Docker Compose...');
-  const stopProcess = spawn('docker', [
-    'compose',
-    '-f',
-    composeFile,
-    '-p',
-    projectName,
-    'down',
-  ], { stdio: 'inherit' });
+  const stopProcess = spawn(
+    'docker',
+    ['compose', '-f', composeFile, '-p', projectName, 'down'],
+    { stdio: 'inherit' },
+  );
 
   return new Promise((resolve, reject) => {
     stopProcess.on('close', (code) => {

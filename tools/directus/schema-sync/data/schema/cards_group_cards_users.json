@@ -175,7 +175,7 @@
         "foreign_key_column": "id",
         "constraint_name": "cards_group_cards_users_cards_group_id_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "CASCADE"
       }
     },
     {
@@ -199,7 +199,7 @@
         "foreign_key_column": "id",
         "constraint_name": "cards_group_cards_users_cards_users_id_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "NO ACTION"
       }
     }
   ]
