@@ -17,6 +17,7 @@ const startCompose = () => {
       '--env-file',
       envFile,
       'up',
+      '--watch',
     ],
     { stdio: 'inherit', detached: true },
   );
