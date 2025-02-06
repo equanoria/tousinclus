@@ -26,9 +26,6 @@ export class DirectusService {
         case 'situations':
           result = await this.situationsRequest(client, languageCode, id);
           break;
-        case 'design-for-all':
-          result = await this.designRequest(client, languageCode, id);
-          break;
         default:
           throw new Error(`Unknown type: ${type}`);
       }
@@ -154,67 +151,6 @@ export class DirectusService {
     situationsData = this.formatterService.situationsFormatter(situationsData);
 
     return situationsData;
-  }
-
-  async designRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
-    languageCode: ICard['languageCode'],
-    id: ICard['id'],
-  ) {
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    const filter: any = {};
-
-    // Add the filter for `id` only if `id` is not null
-    if (id !== null) {
-      filter.id = { _eq: id };
-    }
-
-    // Make an explicit request for users (allows filtering fields)
-    let designData = await client.request(
-      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-      readItems<any, any, any>('cards_design_for_all', {
-        filter,
-        deep: {
-          principle_category: {
-            translations: {
-              _filter: {
-                languages_code: { _eq: languageCode }, // Choose language
-              },
-            },
-          },
-          translations: {
-            _filter: {
-              _and: [
-                {
-                  languages_code: { _eq: languageCode },
-                },
-              ],
-            },
-          },
-        },
-        fields: [
-          // Allows filtering the fields we want
-          'image',
-          {
-            principle_category: [
-              'icon',
-              {
-                translations: ['category_name'],
-              },
-            ],
-          },
-          {
-            translations: ['description'],
-          },
-        ],
-      }),
-    );
-
-    // Formatting data
-    designData = this.formatterService.designFormatter(designData);
-
-    return designData;
   }
 
   // ========== GROUP ==========
