@@ -1,16 +1,16 @@
 ---
 
 services:
-  postgresql-backend:
-    image: postgres:13.16
+  mongo-backend:
+    image: mongo:8.0.4-noble
     environment:
-      - POSTGRES_USER=${BACKEND_DB_USER}
-      - POSTGRES_DB=${BACKEND_DB_NAME}
-      - POSTGRES_PASSWORD=${BACKEND_DB_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${BACKEND_DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${BACKEND_DB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${BACKEND_DB_NAME}
     volumes:
-      - postgresql-backend:/var/lib/postgresql/data
+      - mongo-backend:/data/db
     ports:
-      - 3003:5432
+      - 3003:27017
   
   valkey-backend:
     image: valkey/valkey:8.0.1
@@ -167,7 +167,7 @@ services:
       - 3100:8080
 
 volumes:
-  postgresql-backend:
+  mongo-backend:
   directus-uploads:
   valkey-directus:
   postgresql-directus:

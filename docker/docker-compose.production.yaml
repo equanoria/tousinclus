@@ -41,9 +41,14 @@ services:
     environment:
       - REDIS_HOSTNAME=valkey-backend
       - REDIS_PORT=6379
+      - MONGO_HOSTNAME=mongo-backend
+      - MONGO_PORT=27017
+      - MONGO_DATABASE=${BACKEND_DB_NAME}
+      - MONGO_USERNAME=${BACKEND_DB_USER}
+      - MONGO_PASSWORD=${BACKEND_DB_PASSWORD}
 
-  postgresql-backend:
-    image: postgres:13.16
+  mongo-backend:
+    image: mongo:8.0.4-noble
     networks:
       tousinclus-backend:
     deploy:
@@ -52,11 +57,11 @@ services:
           - node.hostname == vm01
       replicas: 1
     environment:
-      - POSTGRES_USER=${BACKEND_DB_USER}
-      - POSTGRES_DB=${BACKEND_DB_NAME}
-      - POSTGRES_PASSWORD=${BACKEND_DB_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${BACKEND_DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${BACKEND_DB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${BACKEND_DB_NAME}
     volumes:
-      - postgresql-backend:/var/lib/postgresql/data
+      - mongo-backend:/data/db
 
   valkey-backend:
     image: valkey/valkey:8.0.1
@@ -239,7 +244,7 @@ services:
       - postgresql-authentik:/var/lib/postgresql/data
 
 volumes:
-  postgresql-backend:
+  mongo-backend:
   valkey-backend:
   directus-uploads:
   postgresql-directus:
