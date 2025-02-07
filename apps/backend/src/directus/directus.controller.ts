@@ -42,7 +42,7 @@ export class DirectusController {
     );
 
     if (
-      !(type === 'users' || type === 'situations' || type === 'design-for-all')
+      !(type === 'users' || type === 'situations')
     ) {
       throw new NotFoundException(`Type ${type} don't exist`);
     }
@@ -74,7 +74,7 @@ export class DirectusController {
     );
 
     if (
-      !(type === 'users' || type === 'situations' || type === 'design-for-all')
+      !(type === 'users' || type === 'situations')
     ) {
       throw new NotFoundException(`Type ${type} don't exist`);
     }

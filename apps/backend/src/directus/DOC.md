@@ -5,7 +5,7 @@ Type : GET
 Root : /directus/:languageCode/card/:type/:id
 Cela va renvoyer la carte demandée dans la catégorie spécifiée
 (:languageCode -> en | fr)
-(:type -> "users" | "situations" | "design-for-all")
+(:type -> "users" | "situations")
 (:id -> int)
 - Success :
 ```
@@ -23,7 +23,7 @@ Cela va renvoyer la carte demandée dans la catégorie spécifiée
 Type : GET
 Root : /directus/:languageCode/card/:type
 (:languageCode -> en | fr)
-(:type -> "users" | "situations" | "design-for-all")
+(:type -> "users" | "situations")
 Cela va renvoyer toute les cartes de la catégorie
 - Success :
 ```
