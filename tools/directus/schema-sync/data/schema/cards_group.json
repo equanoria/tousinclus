@@ -21,7 +21,7 @@
     "translations": [
       {
         "language": "en-US",
-        "translation": "cards groups"
+        "translation": "Cards groups"
       },
       {
         "language": "fr-FR",
@@ -55,7 +55,9 @@
         "readonly": false,
         "required": true,
         "sort": 4,
-        "special": ["m2m"],
+        "special": [
+          "m2m"
+        ],
         "translations": [
           {
             "language": "fr-FR",
@@ -66,8 +68,16 @@
             "translation": "Extreme users"
           }
         ],
-        "validation": null,
-        "validation_message": null,
+        "validation": {
+          "_and": [
+            {
+              "extreme_user": {
+                "_eq": "6"
+              }
+            }
+          ]
+        },
+        "validation_message": "$t:validation_translations",
         "width": "full"
       }
     },
@@ -138,7 +148,9 @@
         "readonly": false,
         "required": false,
         "sort": 2,
-        "special": ["translations"],
+        "special": [
+          "translations"
+        ],
         "translations": [
           {
             "language": "fr-FR",
@@ -174,7 +186,9 @@
         "readonly": false,
         "required": true,
         "sort": 3,
-        "special": ["m2o"],
+        "special": [
+          "m2o"
+        ],
         "translations": [
           {
             "language": "fr-FR",
