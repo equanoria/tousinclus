@@ -46,7 +46,9 @@
         "readonly": false,
         "required": true,
         "sort": 3,
-        "special": ["m2m"],
+        "special": [
+          "m2m"
+        ],
         "translations": [
           {
             "language": "fr-FR",
@@ -129,7 +131,9 @@
         "readonly": false,
         "required": true,
         "sort": 2,
-        "special": ["translations"],
+        "special": [
+          "translations"
+        ],
         "translations": [
           {
             "language": "fr-FR",

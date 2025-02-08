@@ -175,8 +175,6 @@ services:
         - traefik.http.services.tousinclus-authentik_staging.loadbalancer.server.port=9000
         - traefik.http.routers.tousinclus-authentik_staging.tls=true
         - traefik.http.routers.tousinclus-authentik_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.tousinclus-authentik_staging-auth.basicauth.users=${STAGING_USERS}
-        - traefik.http.routers.tousinclus-authentik_staging.middlewares=tousinclus-authentik_staging-auth
     depends_on:
       - postgresql-authentik
       - valkey-authentik
