@@ -20,6 +20,8 @@ jobs:
             dockerfile: apps/backend/Dockerfile
           - image: directus
             dockerfile: tools/directus/Dockerfile
+          - image: authentik
+            dockerfile: tools/authentik/Dockerfile
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
