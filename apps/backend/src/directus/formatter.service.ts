@@ -41,20 +41,6 @@ export class FormatterService {
     return null; // If the data is null or invalid
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async designFormatter(designData: any) {
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    return designData.map((design: any) => ({
-      image: design.image,
-      principle_category: {
-        icon: design.principle_category?.icon || null,
-        category_name:
-          design.principle_category?.translations?.[0]?.category_name || null,
-      },
-      description: design.translations?.[0]?.description || null,
-    }));
-  }
-
   // Formatter for groups
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
   async groupFormatter(groupData: any) {
@@ -107,5 +93,11 @@ export class FormatterService {
         };
       }),
     );
+  }
+
+  // Formatter for language
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+  async languageFormatter(languageData: any[]): Promise<string[]> {
+    return languageData.map((lang) => lang.code);
   }
 }

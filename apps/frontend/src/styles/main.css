@@ -2,18 +2,18 @@
   color-scheme: light dark;
 }
 
-[data-theme="light"] {
+[data-theme='light'] {
   color-scheme: light;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   color-scheme: dark;
 }
 
 body {
   font-family: var(--font-gotham);
   color: var(--text-primary-default);
-  background-color: var(--view-bg);
+  background-color: var(--view-bg-secondary);
   transition: 125ms ease;
   transition-property: background-color;
 }
@@ -59,7 +59,7 @@ a {
   &:has(> .icon) {
     display: flex;
     align-items: center;
-    gap: .25em;
+    gap: 0.25em;
   }
 }
 

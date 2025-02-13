@@ -1,9 +1,10 @@
 export interface ITranslation {
-  languageCode: 'en' | 'fr';
+  languageCode: string;
 }
 
 export interface ICard extends ITranslation {
-  type: 'users' | 'situations' | 'design-for-all';
+  type: 'users' | 'situations';
+  requestLanguage: string;
   id: number;
 }
 

@@ -1,0 +1,43 @@
+.pageConnection {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--scale-06);
+}
+
+.connection {
+  min-width: 400px;
+  padding: var(--space-400) var(--space-300);
+  border-radius: var(--radius-200);
+  border: var(--stroke-border-50) solid var(--pale-blue-600);
+  background-color: #f5fbff;
+  box-shadow: 4px 4px 0px 0px var(--pale-blue-600);
+  gap: var(--space-800);
+  width: auto;
+}
+
+.connection,
+.teamSelection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.teamSelection {
+  gap: var(--scale-05);
+}
+
+.teamSelection > p {
+  font-family: var(--font-cal-sans);
+}
+
+.teamButtons {
+  display: flex;
+  gap: var(--scale-05);
+}
+
+.connectionBtn {
+  width: 100%;
+}

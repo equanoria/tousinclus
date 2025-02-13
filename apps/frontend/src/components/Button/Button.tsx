@@ -8,10 +8,6 @@ export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
     | 'primary'
     | 'secondary'
     | 'tertiary'
-    | 'positive'
-    | 'warning'
-    | 'danger'
-    | 'outlined';
 }
 
 export const Button: React.FC<ButtonProps> = ({

@@ -21,11 +21,11 @@
     "translations": [
       {
         "language": "fr-FR",
-        "translation": "configuration des cartes et des règles"
+        "translation": "Configuration des cartes et des règles"
       },
       {
         "language": "en-US",
-        "translation": "cards and rules configuration"
+        "translation": "Cards and rules configuration"
       }
     ],
     "unarchive_value": null,
@@ -207,7 +207,9 @@
         "readonly": true,
         "required": false,
         "sort": 2,
-        "special": ["date-updated"],
+        "special": [
+          "date-updated"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
@@ -259,7 +261,7 @@
         "name": "id",
         "table": "config",
         "data_type": "integer",
-        "default_value": "nextval('\"config_id_seq\"'::regclass)",
+        "default_value": null,
         "max_length": null,
         "numeric_precision": 32,
         "numeric_scale": 0,
@@ -295,7 +297,9 @@
         "readonly": false,
         "required": false,
         "sort": 3,
-        "special": ["translations"],
+        "special": [
+          "translations"
+        ],
         "translations": null,
         "validation": null,
         "validation_message": null,
