@@ -17,7 +17,7 @@ services:
     networks:
       directus:
     volumes:
-      - valkey-directus:/data
+      - valkey-backend:/data
     ports:
       - 3004:6379
 
@@ -168,6 +168,7 @@ services:
 
 volumes:
   mongo-backend:
+  valkey-backend:
   directus-uploads:
   valkey-directus:
   postgresql-directus:
