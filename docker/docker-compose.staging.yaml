@@ -5,10 +5,6 @@ services:
     image: ghcr.io/equanoria/tousinclus/tousinclus-frontend:staging
     networks:
       traefik_traefik:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
       labels:
         - traefik.enable=true
@@ -28,10 +24,6 @@ services:
     image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging
     networks:
       tousinclus-backend:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
       labels:
         - traefik.enable=true
@@ -55,10 +47,6 @@ services:
     image: mongo:8.0.4-noble
     networks:
       tousinclus-backend:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${BACKEND_DB_USER}
@@ -71,10 +59,6 @@ services:
     image: valkey/valkey:8.0.1
     networks:
       tousinclus-backend:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     volumes:
       - valkey-backend:/data
@@ -84,10 +68,6 @@ services:
     networks:
       directus:
       traefik_traefik:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
       labels:
         - traefik.enable=true
@@ -133,10 +113,6 @@ services:
     image: valkey/valkey:8.0.1
     networks:
       directus:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     volumes:
       - valkey-directus:/data
@@ -145,10 +121,6 @@ services:
     image: postgres:13.16
     networks:
       directus:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     environment:
       - POSTGRES_USER=${DIRECTUS_DB_USER}
@@ -163,10 +135,6 @@ services:
       authentik:
       traefik_traefik:
     command: server
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
       labels:
         - traefik.enable=true
@@ -196,10 +164,6 @@ services:
     image: ghcr.io/goauthentik/server:2024.12.3
     networks:
       authentik:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     command: worker
     environment:
@@ -225,10 +189,6 @@ services:
     image: valkey/valkey:8.0.1
     networks:
       authentik:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     volumes:
       - valkey-authentik:/data
@@ -237,10 +197,6 @@ services:
     image: postgres:13.16
     networks:
       authentik:
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     environment:
       - POSTGRES_USER=${AUTHENTIK_DB_USER}
