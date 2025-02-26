@@ -6,9 +6,6 @@ services:
     networks:
       traefik_traefik:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
       labels:
         - traefik.enable=true
@@ -27,9 +24,6 @@ services:
     networks:
       tousinclus-backend:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
       labels:
         - traefik.enable=true
@@ -52,9 +46,6 @@ services:
     networks:
       tousinclus-backend:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${BACKEND_DB_USER}
@@ -68,9 +59,6 @@ services:
     networks:
       tousinclus-backend:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     volumes:
       - valkey-backend:/data
@@ -81,9 +69,6 @@ services:
       directus:
       traefik_traefik:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
       labels:
         - traefik.enable=true
@@ -128,9 +113,6 @@ services:
     networks:
       directus:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     volumes:
       - valkey-directus:/data
@@ -140,9 +122,6 @@ services:
     networks:
       directus:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     environment:
       - POSTGRES_USER=${DIRECTUS_DB_USER}
@@ -158,9 +137,6 @@ services:
       traefik_traefik:
     command: server
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
       labels:
         - traefik.enable=true
@@ -191,9 +167,6 @@ services:
     networks:
       authentik:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     command: worker
     environment:
@@ -220,9 +193,6 @@ services:
     networks:
       authentik:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     volumes:
       - valkey-authentik:/data
@@ -232,9 +202,6 @@ services:
     networks:
       authentik:
     deploy:
-      placement:
-        constraints:
-          - node.hostname == vm01
       replicas: 1
     environment:
       - POSTGRES_USER=${AUTHENTIK_DB_USER}
