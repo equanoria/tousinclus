@@ -188,7 +188,7 @@
         "one_allowed_collections": null,
         "one_collection": "decks",
         "one_collection_field": null,
-        "one_deselect_action": "delete",
+        "one_deselect_action": "nullify",
         "one_field": "group",
         "sort_field": null
       },
