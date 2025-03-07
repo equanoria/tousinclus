@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import type { ICard, IGroup } from './interfaces/directus.interface';
-import { FormatterService } from './formatter.service';
+import type { ICardDTO, IGroupDTO } from './dto/directus.dto';
+import { FormatterService } from '../utils/services/formatter.service';
 import { readItems } from '@directus/sdk';
 
 @Injectable()
@@ -11,9 +11,9 @@ export class DirectusService {
   async handleCardRequest(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
-    languageCode: ICard['languageCode'],
-    type: ICard['type'],
-    id: ICard['id'],
+    languageCode: ICardDTO['requestLanguage'],
+    type: ICardDTO['type'],
+    id: ICardDTO['id'],
   ): Promise<Array<unknown>> {
     try {
       // biome-ignore lint/suspicious/noImplicitAnyLet: TODO any type
@@ -40,8 +40,8 @@ export class DirectusService {
   async usersRequest(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
-    languageCode: ICard['languageCode'],
-    id: ICard['id'],
+    languageCode: ICardDTO['requestLanguage'],
+    id: ICardDTO['id'],
   ) {
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     const filter: any = {};
@@ -72,6 +72,7 @@ export class DirectusService {
         },
         fields: [
           // Allows filtering the fields we want
+          'id',
           {
             handicap_category: [
               'icon',
@@ -89,7 +90,7 @@ export class DirectusService {
     );
 
     // Formatting data
-    usersData = this.formatterService.usersFormatter(usersData);
+    usersData = this.formatterService.directusUsersFormatter(usersData);
 
     return usersData;
   }
@@ -97,8 +98,8 @@ export class DirectusService {
   async situationsRequest(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
-    languageCode: ICard['languageCode'],
-    id: ICard['id'],
+    languageCode: ICardDTO['requestLanguage'],
+    id: ICardDTO['id'],
   ) {
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     const filter: any = {};
@@ -135,6 +136,7 @@ export class DirectusService {
           },
         },
         fields: [
+          'id',
           // Allows filtering the fields we want
           'image',
           {
@@ -148,7 +150,8 @@ export class DirectusService {
     );
 
     // Formatting data
-    situationsData = this.formatterService.situationsFormatter(situationsData);
+    situationsData =
+      this.formatterService.directusSituationsFormatter(situationsData);
 
     return situationsData;
   }
@@ -157,8 +160,8 @@ export class DirectusService {
   async handleGroupRequest(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
-    languageCode: IGroup['languageCode'],
-    id: IGroup['id'],
+    languageCode: IGroupDTO['requestLanguage'],
+    id: IGroupDTO['id'],
   ): Promise<Array<unknown>> {
     try {
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
@@ -224,6 +227,7 @@ export class DirectusService {
             },
           },
           fields: [
+            'id',
             {
               usage_situation: [
                 'image',
@@ -261,7 +265,7 @@ export class DirectusService {
       );
 
       // Formatting data
-      groupData = this.formatterService.groupFormatter(groupData);
+      groupData = this.formatterService.directusGroupFormatter(groupData);
 
       return groupData;
     } catch (error) {
@@ -273,8 +277,8 @@ export class DirectusService {
   async handleDeckRequest(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
-    languageCode: IGroup['languageCode'],
-    id: IGroup['id'],
+    languageCode: IGroupDTO['requestLanguage'],
+    id: IGroupDTO['id'],
   ): Promise<Array<unknown>> {
     try {
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
@@ -291,7 +295,6 @@ export class DirectusService {
         readItems<any, any, any>('decks', {
           filter,
           deep: {
-            //
             translations: {
               _filter: {
                 _and: [
@@ -362,6 +365,7 @@ export class DirectusService {
             },
           },
           fields: [
+            'id',
             {
               group: [
                 {
@@ -410,7 +414,7 @@ export class DirectusService {
       );
 
       // Formatting data
-      groupData = this.formatterService.deckFormatter(groupData);
+      groupData = this.formatterService.directusDeckFormatter(groupData);
 
       return groupData;
     } catch (error) {
@@ -431,7 +435,8 @@ export class DirectusService {
       );
 
       // Formatter for Language Data
-      languageData = this.formatterService.languageFormatter(languageData);
+      languageData =
+        this.formatterService.directusLanguageFormatter(languageData);
 
       return languageData;
     } catch (error) {

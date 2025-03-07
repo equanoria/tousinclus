@@ -4,8 +4,11 @@ import { Server, Socket } from 'socket.io';
 // ========== Service Import ==========
 import { GameService } from '../../game/game.service';
 
-// ========== Interface Import ==========
-import type { IWaitingData } from '../interfaces/data.interface';
+// ========== DTO Import ==========
+import { IWaitingDataDTO, IWSGameStatus } from '../dto/websocket.dto';
+import { IWSResponseDTO } from 'src/utils/dto/response.dto';
+import { IGameDTO } from 'src/game/dto/game.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class WaitingService {
@@ -14,7 +17,7 @@ export class WaitingService {
   async handleWaitingLogic(
     server: Server,
     client: Socket,
-    data: IWaitingData,
+    data: IWaitingDataDTO,
   ): Promise<void> {
     // Checking the action
     const action = data?.action;
@@ -26,7 +29,7 @@ export class WaitingService {
         await this.handleTeamConnection(
           server,
           client,
-          data.gameCode,
+          data.code,
           data.team,
           client.id,
         );
@@ -41,8 +44,8 @@ export class WaitingService {
   async handleTeamConnection(
     server: Server,
     client: Socket,
-    gameCode: string,
-    team: string,
+    code: IWaitingDataDTO['code'],
+    team: IWaitingDataDTO['team'],
     clientId: string,
   ): Promise<void> {
     try {
@@ -51,36 +54,39 @@ export class WaitingService {
 
       // Call the service to update the connection status of a team
       const updatedGame = await this.gameService.updateTeamConnectionStatus(
-        gameCode,
+        code,
         formattedTeam,
         clientId,
       );
 
       // Register the game code and team in the Socket IO client
       client.data.team = formattedTeam;
-      client.data.gameCode = gameCode;
+      client.data.code = code;
 
       // Add the client to a SocketIO "room"
-      client.join(gameCode);
+      client.join(code);
+
+      // Transformer l'objet en excluant les clés marquées
+      const dataGame = plainToInstance(IGameDTO, updatedGame, {
+        excludeExtraneousValues: true,
+        groups: ['room'],
+      });
 
       // Notify the client that the state has been updated
-      client.emit('team-connection-updated', {
+      client.emit('waiting-response', {
         status: 'success',
-        gameCode,
-        team,
-        clientId,
+        message: `You successfully join ${formattedTeam}`,
+        data: dataGame,
       });
 
       console.log(`Updated game (Team Choice): ${JSON.stringify(updatedGame)}`);
 
-      const isReadyToStart =
-        await this.gameService.checkIfReadyToStart(gameCode);
+      const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
 
       if (isReadyToStart) {
+        const responseData: IWSGameStatus = { gameStatus: 'start', code };
         // Send a message to all participants in the room
-        server
-          .to(gameCode)
-          .emit('game-status', { gameStatus: 'start', gameCode });
+        server.to(code).emit('game-status', responseData);
 
         // TODO: Move the status to the next status
       }
@@ -95,12 +101,13 @@ export class WaitingService {
         errorCode = 'TEAM_ALREADY_ASSIGNED';
       }
 
-      // Send a structured error response to the client
-      client.emit('team-connection-error', {
+      const responseData: IWSResponseDTO = {
         status: 'error',
-        errorCode,
         message: error.message,
-      });
+        error: errorCode,
+      };
+      // Send a structured error response to the client
+      client.emit('team-connection-error', responseData);
     }
   }
 }

@@ -4,7 +4,7 @@ import {
   type OnModuleInit,
 } from '@nestjs/common';
 import Redis from 'ioredis';
-import type { IGame } from '../game/interfaces/game.interface';
+import { IGameDTO } from 'src/game/dto/game.dto';
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
@@ -28,16 +28,16 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
 
   // ========== Game ==========
 
-  async setGame(key: string, value: IGame) {
+  async setGame(key: string, value: IGameDTO) {
     return this.redisClient.set(key, JSON.stringify(value));
   }
 
-  async getGame(key: string): Promise<IGame> {
+  async getGame(key: string): Promise<IGameDTO> {
     const gameData = await this.redisClient.get(key);
-    return JSON.parse(gameData) as IGame;
+    return JSON.parse(gameData) as IGameDTO;
   }
 
-  async getAllGames(): Promise<IGame[]> {
+  async getAllGames(): Promise<IGameDTO[]> {
     const keys = await this.redisClient.keys('*');
 
     // If no games are recorded

@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Socket } from 'socket.io';
+
+// ========== Service Import ==========
 import { GameService } from '../../game/game.service';
 
 @Injectable()
@@ -9,7 +11,7 @@ export class DisconnectService {
   async handleDisconnectLogic(client: Socket): Promise<void> {
     try {
       const updatedGame = await this.gameService.updateTeamDisconnectStatus(
-        client.data.gameCode,
+        client.data.code,
         client.data.team,
         client.id,
       );

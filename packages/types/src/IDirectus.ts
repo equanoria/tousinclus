@@ -1,10 +1,7 @@
-export interface ITranslation {
-  languageCode: string;
-}
+import type { ITranslation } from './ITranslation';
 
 export interface ICard extends ITranslation {
   type: 'users' | 'situations';
-  requestLanguage: string;
   id: number;
 }
 
