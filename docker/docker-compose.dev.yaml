@@ -57,7 +57,7 @@ services:
       - CORS_ENABLED=true
       - CORS_ORIGIN=*
     volumes:
-      - directus-uploads:/directus/uploads
+      - ../tools/directus/sample-data-uploads:/directus/uploads
       - ../tools/directus/schema-sync:/directus/schema-sync
     ports:
       - 3002:8055
