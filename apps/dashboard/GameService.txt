@@ -1,0 +1,66 @@
+import { isValidUrl } from '../frontend/src/utils/isValidUrl';
+
+export interface GameInfo {
+  code: string;
+  status: string;
+  isTeam1Connected: boolean | null;
+  isTeam2Connected: boolean | null;
+}
+
+export class GameService {
+  private baseUrl: string;
+
+  public constructor() {
+    const backendUrl = isValidUrl(window.env.BACKEND_URL)
+      ? window.env.BACKEND_URL
+      : 'http://127.0.0.1:3001';
+
+    this.baseUrl = `${backendUrl}/api/game`;
+  }
+
+  public async createGames(numberGames: number): Promise<GameInfo[]> {
+    if (numberGames < 1) {
+      throw new Error('Au moins une partie doit être créée.');
+    }
+
+    try {
+      const response = await fetch(`${this.baseUrl}/games/${numberGames}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'New Game' }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Erreur lors de la création des parties :', error);
+      return [];
+    }
+  }
+
+  public async getGameInfos(gameCode: string): Promise<GameInfo | null> {
+    if (!gameCode.trim()) {
+      console.error('Veuillez fournir un code de partie valide.');
+      return null;
+    }
+
+    try {
+      const response = await fetch(`${this.baseUrl}/games/${gameCode}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Erreur lors de la récupération des informations de la partie :', error);
+      return null;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import { LocalStorageManager } from './LocalStorageManager';
 
 export class LocaleManager {
   private localStorageManager = new LocalStorageManager();
-  private directusService = DirectusService.getInstance();
+  private directusService = new DirectusService();
 
   static readonly LOCAL_STORAGE_KEY = 'locale';
   static readonly FALLBACK_LOCALE: TLanguage = {
