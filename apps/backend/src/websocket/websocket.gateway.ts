@@ -7,11 +7,16 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
+
+
 import { Server, Socket } from 'socket.io';
-import { DebateService } from './debate.service';
-import { DisconnectService } from './disconnect.service';
-import { ReflectionService } from './reflection.service';
-import { WaitingService } from './waiting.service';
+
+// ========== Service Import ==========
+import { JoiningService } from './service/joining.service';
+import { WaitingService } from './service/waiting.service';
+import { ReflectionService } from './service/reflection.service';
+import { DebateService } from './service/debate.service';
+import { DisconnectService } from './service/disconnect.service';
 
 // Init websocket
 @WebSocketGateway({
@@ -27,23 +32,36 @@ export class WebsocketGateway
   server: Server;
 
   constructor(
+    private readonly joiningService: JoiningService,
     private readonly waitingService: WaitingService,
     private readonly reflectionService: ReflectionService,
     private readonly debatService: DebateService,
     private readonly disconnectService: DisconnectService,
   ) {}
 
+  // ? Handle Websocket connection
   async handleConnection(client: Socket): Promise<void> {
     console.log(`Client connected ${client.id}`);
-    // Example of initialization or logic for a new client
   }
 
+   // ? Handle Websocket disconnect
   async handleDisconnect(client: Socket): Promise<void> {
     console.log(`Client disconnected ${client.id}`);
     // Search for client.id in the Redis DB and delete the value
     await this.disconnectService.handleDisconnectLogic(client);
   }
 
+   // ? Handle Client join a game
+  @SubscribeMessage('joining')
+  async handleJoining(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+    @MessageBody() data: any,
+    @ConnectedSocket() client: Socket,
+  ): Promise<void> {
+    await this.joiningService.handleJoiningLogic(client, data);
+  }
+
+   // ? Handle Client choose a team
   @SubscribeMessage('waiting')
   async handleWaiting(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
@@ -63,7 +81,7 @@ export class WebsocketGateway
   }
 
   @SubscribeMessage('debat')
-  async handleDebat(
+  async handleDebate(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
