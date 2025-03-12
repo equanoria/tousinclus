@@ -7,22 +7,14 @@ interface Schema {
 }
 
 export class DirectusService {
-  private static instance: DirectusService;
   private directus;
 
-  private constructor() {
-    const directusUrl = isValidUrl(window.env.DIRECTUS_URL)
-      ? window.env.DIRECTUS_URL
-      : 'http://127.0.0.1:3002';
+  public constructor() {
+    const directusBaseUrl = isValidUrl(window.env.DIRECTUS_URL)
+    ? window.env.DIRECTUS_URL
+    : 'http://127.0.0.1:3002';
 
-    this.directus = createDirectus<Schema>(directusUrl).with(rest());
-  }
-
-  public static getInstance(): DirectusService {
-    if (!DirectusService.instance) {
-      DirectusService.instance = new DirectusService();
-    }
-    return DirectusService.instance;
+    this.directus = createDirectus<Schema>(directusBaseUrl).with(rest())
   }
 
   public async getLanguages(): Promise<TLanguage[]> {
