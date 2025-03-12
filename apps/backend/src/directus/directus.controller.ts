@@ -41,9 +41,7 @@ export class DirectusController {
       client,
     );
 
-    if (
-      !(type === 'users' || type === 'situations')
-    ) {
+    if (!(type === 'users' || type === 'situations')) {
       throw new NotFoundException(`Type ${type} don't exist`);
     }
 
@@ -73,9 +71,7 @@ export class DirectusController {
       client,
     );
 
-    if (
-      !(type === 'users' || type === 'situations')
-    ) {
+    if (!(type === 'users' || type === 'situations')) {
       throw new NotFoundException(`Type ${type} don't exist`);
     }
 
