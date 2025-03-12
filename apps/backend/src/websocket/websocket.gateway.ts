@@ -8,7 +8,6 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 
-
 import { Server, Socket } from 'socket.io';
 
 // ========== Service Import ==========
@@ -44,14 +43,14 @@ export class WebsocketGateway
     console.log(`Client connected ${client.id}`);
   }
 
-   // ? Handle Websocket disconnect
+  // ? Handle Websocket disconnect
   async handleDisconnect(client: Socket): Promise<void> {
     console.log(`Client disconnected ${client.id}`);
     // Search for client.id in the Redis DB and delete the value
     await this.disconnectService.handleDisconnectLogic(client);
   }
 
-   // ? Handle Client join a game
+  // ? Handle Client join a game
   @SubscribeMessage('joining')
   async handleJoining(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
@@ -61,7 +60,7 @@ export class WebsocketGateway
     await this.joiningService.handleJoiningLogic(client, data);
   }
 
-   // ? Handle Client choose a team
+  // ? Handle Client choose a team
   @SubscribeMessage('waiting')
   async handleWaiting(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type

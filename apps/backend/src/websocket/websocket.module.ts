@@ -17,7 +17,7 @@ import { JoiningService } from './service/joining.service';
     ReflectionService,
     DebateService,
     DisconnectService,
-    JoiningService
+    JoiningService,
   ],
 })
 export class WebsocketModule {}
