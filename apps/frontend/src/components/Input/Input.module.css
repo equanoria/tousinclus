@@ -1,22 +1,21 @@
 .inputContainer {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: var(--scale-03);
+  display: grid;
+  gap: var(--space-400);
 }
 
 .input {
-  width: auto;
   color: var(--blue-900);
+  background-color: var(--input-field-bg-default);
+  border: var(--input-field-border-default) solid var(--stroke-border-50);
   border-radius: var(--radius-200);
-  border: var(--textarea-field-border-default) solid var(--stroke-border-50);
-  border-radius: var(--radius-200);
-  background: var(--Textarea-Field-Bg-Default, #fff);
   padding: var(--space-300) var(--space-400);
+  width: 100%;
 }
 
 .label {
-  color: var(--textarea-field-label-default);
+  color: var(--input-field-label-default);
   font-size: var(--body-size-small);
   font-weight: var(--body-font-weight-strong);
+  font-size: var(--scale-03);
 }

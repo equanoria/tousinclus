@@ -7,7 +7,7 @@ export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   variant?:
     | 'primary'
     | 'secondary'
-    | 'tertiary'
+    | 'tertiary';
 }
 
 export const Button: React.FC<ButtonProps> = ({
