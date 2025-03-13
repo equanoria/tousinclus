@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CacheService } from '../cache/cache.service';
-import { DirectusService } from './directus.service';
+import { CacheService } from '../../cache/cache.service';
+import { DirectusService } from '../../directus/directus.service';
+import { ITranslationDTO } from '../../directus/dto/directus.dto';
 
 @Injectable()
 export class LanguageService {
@@ -12,7 +13,7 @@ export class LanguageService {
   ) {}
 
   async getPreferredLanguage(
-    acceptLanguage: string,
+    acceptLanguage: ITranslationDTO['requestLanguage'],
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     client: any,
   ): Promise<string> {

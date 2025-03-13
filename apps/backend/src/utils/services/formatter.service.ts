@@ -4,9 +4,10 @@ import { Injectable } from '@nestjs/common';
 export class FormatterService {
   // Formatter for better readability of JSON
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async usersFormatter(usersData: any) {
+  async directusUsersFormatter(usersData: any) {
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     return usersData.map((user: any) => ({
+      id: user.id,
       image: user.image,
       handicap_category: {
         icon: user.handicap_category?.icon || null,
@@ -18,10 +19,11 @@ export class FormatterService {
   }
 
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async situationsFormatter(situationsData: any) {
+  async directusSituationsFormatter(situationsData: any) {
     if (Array.isArray(situationsData)) {
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       return situationsData.map((situation: any) => ({
+        id: situation.id,
         image: situation.image,
         context: situation.context_translations?.[0]?.context || null,
         description:
@@ -32,6 +34,7 @@ export class FormatterService {
     if (situationsData && typeof situationsData === 'object') {
       // If it's a single object, format it directly
       return {
+        id: situationsData.id,
         image: situationsData.image,
         context: situationsData.context_translations?.[0]?.context || null,
         description:
@@ -43,13 +46,13 @@ export class FormatterService {
 
   // Formatter for groups
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async groupFormatter(groupData: any) {
+  async directusGroupFormatter(groupData: any) {
     return Promise.all(
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       groupData.map(async (group: any) => {
         // Formatting of usage_situation
         const usage_situation = group.usage_situation
-          ? (await this.situationsFormatter([group.usage_situation]))[0]
+          ? (await this.directusSituationsFormatter([group.usage_situation]))[0]
           : null;
 
         // Extraction of extreme users
@@ -59,9 +62,10 @@ export class FormatterService {
         );
 
         // Formatting of extreme users
-        const extreme_user = await this.usersFormatter(extremeUsers);
+        const extreme_user = await this.directusUsersFormatter(extremeUsers);
 
         return {
+          id: group.id,
           title: group.translations?.[0]?.title || null,
           usage_situation,
           extreme_user,
@@ -72,7 +76,7 @@ export class FormatterService {
 
   // Formatter for decks
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async deckFormatter(deckData: any) {
+  async directusDeckFormatter(deckData: any) {
     return Promise.all(
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       deckData.map(async (deck: any) => {
@@ -80,7 +84,7 @@ export class FormatterService {
         const formattedGroups = await Promise.all(
           // biome-ignore lint/suspicious/noExplicitAny: TODO any type
           deck.group.map(async (group: any) => {
-            const formattedGroup = await this.groupFormatter([
+            const formattedGroup = await this.directusGroupFormatter([
               group.cards_group_id,
             ]);
             return formattedGroup[0]; // `groupFormatter` returns an array, we take the first element
@@ -88,6 +92,7 @@ export class FormatterService {
         );
 
         return {
+          id: deck.id,
           title: deck.translations?.[0]?.title || null, // Deck title
           groups: formattedGroups, // Formatted Groups
         };
@@ -97,7 +102,7 @@ export class FormatterService {
 
   // Formatter for language
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async languageFormatter(languageData: any[]): Promise<string[]> {
+  async directusLanguageFormatter(languageData: any[]): Promise<string[]> {
     return languageData.map((lang) => lang.code);
   }
 }

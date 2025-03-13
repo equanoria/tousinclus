@@ -5,10 +5,16 @@ import {
   NotFoundException,
   Headers,
 } from '@nestjs/common';
+
+// ========== Directus SDK Import ==========
 import { createDirectus, staticToken, rest } from '@directus/sdk';
 import { DirectusService } from './directus.service';
-import type { ICard, IGroup, IDeck } from './interfaces/directus.interface';
-import { LanguageService } from './language.service';
+
+// ========== DTO Import ==========
+import type { ICardDTO, IGroupDTO, IDeckDTO } from './dto/directus.dto';
+
+// ========== Services Import ==========
+import { LanguageService } from '../utils/services/language.service';
 
 // ? Typing to add for Directus https://docs.directus.io/guides/sdk/types.html
 
@@ -32,9 +38,9 @@ export class DirectusController {
   // ========== CARD ==========
   @Get('card/:type/:id')
   async getOneCard(
-    @Headers('accept-language') requestLanguage: ICard['requestLanguage'],
-    @Param('type') type: ICard['type'],
-    @Param('id') id: ICard['id'],
+    @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
+    @Param('type') type: ICardDTO['type'],
+    @Param('id') id: ICardDTO['id'],
   ): Promise<unknown> {
     const languageCode = await this.languageService.getPreferredLanguage(
       requestLanguage,
@@ -63,8 +69,8 @@ export class DirectusController {
 
   @Get('card/:type')
   async getAllCard(
-    @Headers('accept-language') requestLanguage: ICard['requestLanguage'],
-    @Param('type') type: ICard['type'],
+    @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
+    @Param('type') type: ICardDTO['type'],
   ): Promise<unknown> {
     const languageCode = await this.languageService.getPreferredLanguage(
       requestLanguage,
@@ -96,8 +102,8 @@ export class DirectusController {
   // ========== GROUP ==========
   @Get('group/:id')
   async getOneGroup(
-    @Headers('accept-language') requestLanguage: ICard['requestLanguage'],
-    @Param('id') id: IGroup['id'],
+    @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
+    @Param('id') id: IGroupDTO['id'],
   ): Promise<unknown> {
     const languageCode = await this.languageService.getPreferredLanguage(
       requestLanguage,
@@ -119,7 +125,7 @@ export class DirectusController {
 
   @Get('group')
   async getAllGroup(
-    @Headers('accept-language') requestLanguage: IGroup['languageCode'],
+    @Headers('accept-language') requestLanguage: IGroupDTO['requestLanguage'],
   ): Promise<unknown> {
     const languageCode = await this.languageService.getPreferredLanguage(
       requestLanguage,
@@ -142,8 +148,8 @@ export class DirectusController {
   // ========== DECK ==========
   @Get('deck/:id')
   async getOneDeck(
-    @Headers('accept-language') requestLanguage: IDeck['languageCode'],
-    @Param('id') id: IDeck['id'],
+    @Headers('accept-language') requestLanguage: IDeckDTO['requestLanguage'],
+    @Param('id') id: IDeckDTO['id'],
   ): Promise<unknown> {
     const languageCode = await this.languageService.getPreferredLanguage(
       requestLanguage,
@@ -165,7 +171,7 @@ export class DirectusController {
 
   @Get('deck')
   async getAllDeck(
-    @Headers('accept-language') requestLanguage: IDeck['languageCode'],
+    @Headers('accept-language') requestLanguage: IDeckDTO['requestLanguage'],
   ): Promise<unknown> {
     const languageCode = await this.languageService.getPreferredLanguage(
       requestLanguage,

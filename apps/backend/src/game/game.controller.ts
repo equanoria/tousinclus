@@ -1,7 +1,9 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
+  HttpCode,
   HttpException,
   HttpStatus,
   NotFoundException,
@@ -9,16 +11,22 @@ import {
   ParseIntPipe,
   Put,
 } from '@nestjs/common';
+
+// ========== DTO Import ==========
+import { CreateGameDTO, IGameDTO } from './dto/game.dto';
+
+// ========== Service Import ==========
 import { GameService } from './game.service';
-import type { IGame } from './interfaces/game.interface';
+import { IHTTPResponseDTO } from 'src/utils/dto/response.dto';
 
 @Controller('game')
 export class GameController {
   constructor(private readonly gameService: GameService) {}
 
   @Put()
-  createGame(): Promise<IGame> {
-    const game = this.gameService.createGame();
+  @HttpCode(201)
+  createGame(@Body() createGameDto: CreateGameDTO): Promise<IGameDTO> {
+    const game = this.gameService.createGame({ ...createGameDto });
     if (!game) {
       throw new HttpException(
         'Failed to create a game',
@@ -29,10 +37,15 @@ export class GameController {
   }
 
   @Put(':numberOfGame')
+  @HttpCode(201)
   createManyGame(
-    @Param('numberOfGame', ParseIntPipe) numberOfGame: number,
-  ): Promise<IGame[]> {
-    const games = this.gameService.createManyGame(numberOfGame);
+    @Body() createGameDto: CreateGameDTO,
+    @Param('numberOfGame', ParseIntPipe)
+    numberOfGame: number,
+  ): Promise<IGameDTO[]> {
+    const games = this.gameService.createManyGame(numberOfGame, {
+      ...createGameDto,
+    });
     if (!games) {
       throw new HttpException(
         `Failed to create ${numberOfGame} games`,
@@ -43,7 +56,7 @@ export class GameController {
   }
 
   @Get(':code')
-  async getOneGame(@Param('code') code: string): Promise<IGame> {
+  async getOneGame(@Param('code') code: IGameDTO['code']): Promise<IGameDTO> {
     const game = await this.gameService.findOneGame(code);
     if (!game) {
       throw new NotFoundException(`Game with code ${code} not found`);
@@ -52,7 +65,7 @@ export class GameController {
   }
 
   @Get()
-  async getAllGames(): Promise<IGame[]> {
+  async getAllGames(): Promise<IGameDTO[]> {
     const allGames = await this.gameService.findAllGames();
     if (!allGames || allGames.length === 0) {
       throw new NotFoundException('Database is empty');
@@ -61,14 +74,14 @@ export class GameController {
   }
 
   @Delete(':code')
-  async DeleteOneGame(@Param('code') code: string): Promise<object> {
+  async DeleteOneGame(@Param('code') code: string): Promise<IHTTPResponseDTO> {
     const game = await this.gameService.deleteOneGame(code);
     if (!game) {
       throw new NotFoundException(`Game with code ${code} not found`);
     }
     return {
-      message: `The game ${code} has been successfully deleted`,
       statusCode: HttpStatus.OK,
+      message: `The game ${code} has been successfully deleted`,
     };
   }
 }
