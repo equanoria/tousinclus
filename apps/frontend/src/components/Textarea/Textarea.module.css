@@ -1,9 +1,9 @@
-.blocInput {
+.blocTextarea {
   display: grid;
   gap: var(--space-200);
 }
 
-.input {
+.textarea {
   color: var(--input-field-contrast-default);
   background-color: var(--input-field-bg-default);
   border: var(--input-field-border-default) var(--stroke-border-50) solid;

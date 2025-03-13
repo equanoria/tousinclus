@@ -2,7 +2,7 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --white-100: #ffffff0d;
   --white-200: #ffffff1a;
   --white-300: #ffffff33;
@@ -116,6 +116,10 @@
   --button-bg-tertiary-hover: var(--pale-blue-600);
   --button-bg-tertiary-active: var(--pale-blue-600);
   --button-bg-tertiary-disabled: var(--pale-blue-400);
+  --button-bg-quaternary-default: var(--white-1000);
+  --button-bg-quaternary-hover: var(--blue-100);
+  --button-bg-quaternary-active: var(--blue-100);
+  --button-bg-quaternary-disable: var(--blue-100);
   --button-contrast-primary-default: var(--pale-blue-600);
   --button-contrast-primary-hover: var(--pale-blue-600);
   --button-contrast-primary-disabled: var(--pale-blue-400);
@@ -128,38 +132,39 @@
   --button-contrast-tertiary-hover: var(--white-1000);
   --button-contrast-tertiary-disabled: var(--white-1000);
   --button-contrast-tertiary-active: var(--white-1000);
+  --button-contrast-quaternary-default: var(--blue-800);
+  --button-contrast-quaternary-hover: var(--blue-800);
+  --button-contrast-quaternary-active: var(--blue-800);
+  --button-contrast-quaternary-disabled: var(--blue-200);
+  --button-shadow-primary-default: var(--pale-blue-600);
+  --button-shadow-primary-disabled: var(--pale-blue-400);
+  --button-shadow-secondary-default: var(--pale-blue-600);
+  --button-shadow-secondary-disabled: var(--pale-blue-400);
+  --button-shadow-tertiary-default: var(--pale-blue-600);
+  --button-shadow-tertiary-disabled: var(--pale-blue-400);
+  --button-shadow-quaternary-default: var(--blue-300);
+  --button-shadow-quaternary-disabled: var(--blue-200);
+  --button-border-quaternary-default: var(--blue-800);
+  --button-border-quaternary-active: var(--blue-800);
+  --button-border-quaternary-hover: var(--blue-800);
   --button-border-primary-active: var(--pale-blue-600);
-  --button-border-primary-default: var(--pale-blue-600);
-  --button-border-primary-hover: var(--pale-blue-600);
-  --button-border-primary-disabled: var(--pale-blue-400);
   --button-border-secondary-active: var(--pale-blue-600);
-  --button-border-secondary-default: var(--pale-blue-600);
-  --button-border-secondary-hover: var(--pale-blue-600);
-  --button-border-secondary-disabled: var(--pale-blue-400);
   --button-border-tertiary-active: var(--white-1000);
-  --button-border-tertiary-default: var(--pale-blue-600);
-  --button-border-tertiary-hover: var(--pale-blue-600);
-  --button-border-tertiary-disabled: var(--pale-blue-400);
   --view-bg-primary: var(--blue-500);
   --view-bg-secondary: var(--white-1000);
   --view-bg-top: var(--blue-900);
   --text-primary-default: var(--pale-blue-700);
   --text-secondary-default: var(--pale-blue-500);
-  --game-card-title-bg-concevoir-default: var(--yellow-600);
   --game-card-title-bg-situation-default: var(--blue-500);
   --game-card-title-bg-utilisateur-default: var(--pink-500);
-  --game-card-title-contrast-concevoir-default: var(--yellow-1000);
   --game-card-title-contrast-situation-default: var(--blue-1000);
   --game-card-title-contrast-utilisateur-default: var(--pink-1000);
-  --game-card-bg-concevoir-default: var(--white-1000);
   --game-card-bg-situation-default: var(--white-1000);
   --game-card-bg-utilisateur-default: var(--white-1000);
-  --game-card-principle-text-concevoir-default: var(--yellow-700);
-  --game-card-principle-text-situation-default: var(--blue-700);
-  --game-card-principle-text-utilisateur-default: var(--pink-700);
-  --game-card-text-concevoir-default: var(--pale-blue-700);
   --game-card-text-situation-default: var(--pale-blue-700);
   --game-card-text-utilisateur-default: var(--pale-blue-700);
+  --game-card-principle-text-situation-default: var(--blue-700);
+  --game-card-principle-text-utilisateur-default: var(--pink-700);
   --game-card-border: var(--blue-1000);
   --checkbox-field-text-primary-default: var(--pale-blue-700);
   --checkbox-field-text-primary-disabled: var(--gray-600);
@@ -182,4 +187,12 @@
   --input-field-bg-default: var(--white-1000);
   --input-field-label-default: var(--pale-blue-600);
   --input-field-border-default: var(--pale-blue-600);
+  --progress-bar-bg-top: var(--yellow-500);
+  --progress-bar-bg: var(--blue-400);
+  --step-bg: var(--yellow-600);
+  --step-contrast: var(--white-1000);
+  --timer-bg-primary: var(--pink-100);
+  --timer-bg-alert: var(--red-600);
+  --timer-contrast-primary: var(--pink-600);
+  --timer-contrast-alert: var(--red-100);
 }
