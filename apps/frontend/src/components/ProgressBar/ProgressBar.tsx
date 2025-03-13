@@ -8,8 +8,6 @@ max: number;
 value: number;
 }
 
-
-
 export const ProgressBar: React.FC<ProgressBarProps> = ({
   className,
   max,
@@ -19,9 +17,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 
   return (
     <div className={classes}>
-        <progress id="progress" max={max} value={value} />
+        <progress max={max} value={value} />
     </div>
-
   );
 };
 

@@ -1,6 +1,5 @@
 .blocTextarea {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: var(--space-200);
 }
 

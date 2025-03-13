@@ -26,8 +26,6 @@ const CARD_CONTENT = {
   }
 }
 
-
-
 export const GameCard: React.FC<GameCardProps> = ({
   className,
   type = 'situation',
@@ -58,5 +56,3 @@ export const GameCard: React.FC<GameCardProps> = ({
     </div>
   );
 };
-
-

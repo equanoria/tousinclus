@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import type React from 'react';
-import type { ComponentPropsWithoutRef } from 'react';
+import { useId, type ComponentPropsWithoutRef } from 'react';
 import styles from './Textarea.module.css';
 
 export interface TextareaProps extends ComponentPropsWithoutRef<'div'> {
@@ -16,13 +16,13 @@ export const Textarea: React.FC<TextareaProps> = ({
   placeholder,
 }) => {
   const classes = clsx(styles.blocTextarea, className);
+  const id = useId(); 
 
   return (
     <div className={classes}>
-      <label className={styles.label} htmlFor="">{label}</label>
-      <textarea className={styles.textarea} placeholder={placeholder} />
+      <label className={styles.label} htmlFor={id}>{label}</label>
+      <textarea id={id} className={styles.textarea} placeholder={placeholder} />
     </div>
-
   );
 };
 
