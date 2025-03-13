@@ -19,7 +19,7 @@ export const Textarea: React.FC<TextareaProps> = ({
 
   return (
     <div className={classes}>
-      <label className={styles.label}>{label}</label>
+      <label className={styles.label} htmlFor="">{label}</label>
       <textarea className={styles.textarea} placeholder={placeholder} />
     </div>
 
