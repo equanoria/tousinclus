@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@directus/sdk": "^19.0.0",
+    "@tabler/icons-react": "^3.31.0",
     "@tousinclus/types": "workspace:^",
     "clsx": "^2.1.1",
     "react": "^18.3.1",
