@@ -12,6 +12,6 @@ import { FormatterService } from '../utils/services/formatter.service';
   imports: [CacheConfigModule],
   controllers: [DirectusController],
   providers: [DirectusService, FormatterService, LanguageService],
-  exports: [],
+  exports: [DirectusService],
 })
 export class DirectusModule {}
