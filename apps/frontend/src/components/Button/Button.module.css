@@ -6,6 +6,8 @@
     0.25rem 0.25rem 0 0 var(--button-shadow-primary-default);
 
   font-family: var(--font-cal-sans);
+  box-shadow: 4px 4px 0 0 var(--button-border-primary-default);
+
   /* biome-ignore lint/correctness/noUnknownProperty: <explanation> */
   text-box: trim-both cap alphabetic;
   display: flex;
@@ -21,27 +23,23 @@
   &:hover {
     color: var(--button-contrast-primary-hover);
     background-color: var(--button-bg-primary-hover);
-    box-shadow: unset;
+    box-shadow: 0 0;
   }
 
   &:active {
     color: var(--button-contrast-primary-active);
     background-color: var(--button-bg-primary-active);
     box-shadow: inset 0 0 0 var(--stroke-border-75)
-      var(--button-border-primary-active);
+      var(--button-border-secondary-active);
+    transition: 0;
   }
 
   &:disabled {
     color: var(--button-contrast-primary-disabled);
     background-color: var(--button-bg-primary-disabled);
-    box-shadow:
-      inset 0 0 0 var(--button-shadow-primary-disabled),
-      0.25rem 0.25rem 0 0 var(--button-shadow-primary-disabled);
+    box-shadow: 4px 4px 0 0 var(--button-border-primary-disabled);
+    cursor: not-allowed;
   }
-}
-
-.button.primary {
-  /* Default */
 }
 
 .button.secondary {

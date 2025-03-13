@@ -250,7 +250,7 @@
         "foreign_key_column": "code",
         "constraint_name": "cards_group_translations_languages_code_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "CASCADE"
       }
     }
   ]
