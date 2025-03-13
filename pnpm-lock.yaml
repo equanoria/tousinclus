@@ -201,8 +201,8 @@ importers:
   tools/directus:
     dependencies:
       directus-extension-schema-sync:
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.7
+        version: 3.0.7
 
   tools/style-dictionary:
     dependencies:
@@ -1820,8 +1820,8 @@ packages:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
     engines: {node: '>=0.3.1'}
 
-  directus-extension-schema-sync@3.0.2:
-    resolution: {integrity: sha512-XZNR0NtG7byJRyrgXkEllmuO74EpJ1y+12XMd2lEk2jd71sDkL1GeWXGWlSyPAtlfJPpeZT7YUkF6E5Um0ak4g==}
+  directus-extension-schema-sync@3.0.7:
+    resolution: {integrity: sha512-HDLYzTN+QqIpK3PxhsaQGp1BoCcS9BhLoamUt4WQJbPpiIZZHxN/8/Jd2m3abz+5dgS+jhQXaWiEKB29wLIA7g==}
 
   doctrine@3.0.0:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
@@ -5745,7 +5745,7 @@ snapshots:
 
   diff@4.0.2: {}
 
-  directus-extension-schema-sync@3.0.2:
+  directus-extension-schema-sync@3.0.7:
     dependencies:
       glob: 10.4.5
 
