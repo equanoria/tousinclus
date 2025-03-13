@@ -1,0 +1,6 @@
+.layoutHelp {
+  position: absolute;
+  top: var(--space-600);
+  left: var(--space-1200);
+  z-index: var(--z-popin-help);
+}

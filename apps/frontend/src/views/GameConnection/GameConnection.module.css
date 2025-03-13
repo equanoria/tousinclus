@@ -1,10 +1,36 @@
 .pageConnection {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  gap: var(--space-800);
+  gap: var(--space-2400);
+}
+
+.asset1,
+.asset2 {
+  position: absolute;
+}
+
+.asset1 {
+  bottom: 0;
+  left: 0;
+}
+
+.asset2 {
+  top: 0;
+  right: 0;
+}
+
+.logoTS {
+  margin-top: var(--space-1200);
+  max-width: 345px;
+  height: 18vh;
+}
+
+.logoEquanoria {
+  height: 24px;
 }
 
 .connection {
@@ -31,4 +57,16 @@
 
 .connectionBtn {
   width: 100%;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2400);
+}
+
+.credits {
+  display: flex;
+  gap: var(--space-2400);
+  margin-bottom: var(--space-800);
 }

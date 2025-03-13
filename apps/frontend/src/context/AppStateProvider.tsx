@@ -13,6 +13,14 @@ export interface AppStateContextProps {
   fontManager: FontManager;
   localeManager: LocaleManager;
   contrastManager: ContrastManager;
+  isHelpOpen: boolean;
+  setHelpOpen: (open: boolean) => void;
+  isDeckOpen: boolean;
+  setDeckOpen: (open: boolean) => void;
+  isDeckFirstOpen: boolean; 
+  setDeckFirstOpen: (isFirst: boolean) => void; 
+  currentStep: number;
+  setCurrentStep: (step: number) => void;
 }
 
 const AppStateContext = createContext<AppStateContextProps | undefined>(
@@ -25,6 +33,10 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
   const [currentView, setCurrentView] = useState<JSX.Element>(
     <ErrorView message="Cannot load view." />,
   );
+  const [isHelpOpen, setHelpOpen] = useState<boolean>(false);
+  const [isDeckOpen, setDeckOpen] = useState<boolean>(false);
+  const [isDeckFirstOpen, setDeckFirstOpen] = useState<boolean>(true); 
+  const [currentStep, setCurrentStep] = useState<number>(1);
 
   const themeManager = new ThemeManager();
   const fontManager = new FontManager();
@@ -40,6 +52,14 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
         fontManager,
         localeManager,
         contrastManager,
+        isHelpOpen,
+        setHelpOpen,
+        isDeckOpen,
+        setDeckOpen,
+        isDeckFirstOpen,
+        setDeckFirstOpen,
+        currentStep,
+        setCurrentStep,
       }}
     >
       {children}

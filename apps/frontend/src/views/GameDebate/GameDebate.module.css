@@ -1,0 +1,77 @@
+.pageDebate {
+  position: relative;
+  background-color: var(--blue-500);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: var(--space-2400) var(--space-1200) 0 var(--space-1200);
+  gap: var(--space-800);
+}
+
+.containerTop {
+  z-index: var(--z-content);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  position: relative;
+}
+
+.indicator {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: var(--space-1200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-800);
+}
+
+.indicatorCards {
+  display: flex;
+  gap: var(--space-800);
+}
+
+.indicator > p {
+  max-width: 400px;
+  color: var(--white-1000);
+  font-weight: var(--heading-font-weight);
+  font-size: var(--heading-size-small);
+  text-align: center;
+}
+
+.asset {
+  z-index: var(--z-asset);
+  position: absolute;
+  top: -10%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.form {
+  z-index: var(--z-content);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.containerButtons {
+  display: flex;
+  gap: var(--space-600);
+}
+
+.deck {
+  z-index: var(--z-popin-deck);
+  padding: 0px var(--space-1200);
+  max-width: fit-content;
+}
+
+.buttonDeck {
+  background-color: var(--yellow-500);
+  padding: var(--space-200) var(--space-1200);
+  border-radius: var(--radius-400) var(--radius-400) 0px 0px;
+  max-width: 150px;
+  color: var(--text-primary-default);
+  font-weight: var(--heading-font-weight);
+}

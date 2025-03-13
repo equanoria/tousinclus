@@ -1,0 +1,37 @@
+.card {
+  height: fit-content;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-width: 355px;
+  padding: var(--space-600);
+  border-radius: var(--radius-400);
+  border: var(--pale-blue-700) solid var(--stroke-border-50);
+  gap: var(--space-200);
+  box-shadow: 4px 4px 0 0 var(--white-1000);
+}
+
+.user {
+  background-color: var(--pink-200);
+  color: var(--pink-1000);
+}
+
+.situation {
+  background-color: var(--blue-200);
+  color: var(--blue-1000);
+}
+
+.title {
+  width: fit-content;
+  align-self: center;
+  font-family: var(--subheading-font-family);
+  font-size: var(--subheading-size-small);
+  font-weight: var(--body-font-weight-strong);
+}
+
+.asset {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

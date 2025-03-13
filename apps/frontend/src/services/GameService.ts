@@ -20,7 +20,7 @@ export class GameService {
 
   joining(code: string): this {
     this.socket.emit('joining', {
-      gameCode: code,
+      code,
     });
 
     return this;
@@ -31,10 +31,10 @@ export class GameService {
     this.socket.on('joining-response', callback);
   }
 
-  joinGame({ code, team }: { code: string; team: TTeam }): this {
+  joinGame(code: string, team: TTeam): this {
     this.socket.emit('waiting', {
       action: 'handle-team',
-      gameCode: code,
+      code,
       team,
     });
 
@@ -42,7 +42,7 @@ export class GameService {
   }
 
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  onTeamConnectionUpdated(callback: (data: any) => void): void {
-    this.socket.on('team-connection-updated', callback);
+  waitingResponse(callback: (data: any) => void): void {
+    this.socket.on('waiting-response', callback);
   }
 }

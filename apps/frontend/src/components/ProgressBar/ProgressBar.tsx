@@ -17,6 +17,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 
   return (
     <div className={classes}>
+        <p>{value} sur {max}</p>
         <progress max={max} value={value} />
     </div>
   );

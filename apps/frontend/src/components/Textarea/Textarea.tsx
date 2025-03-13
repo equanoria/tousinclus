@@ -5,7 +5,6 @@ import styles from './Textarea.module.css';
 
 export interface TextareaProps extends ComponentPropsWithoutRef<'div'> {
   label: string;
-  placeholder: string;
 }
 
 
@@ -13,7 +12,6 @@ export interface TextareaProps extends ComponentPropsWithoutRef<'div'> {
 export const Textarea: React.FC<TextareaProps> = ({
   className,
   label,
-  placeholder,
 }) => {
   const classes = clsx(styles.blocTextarea, className);
   const id = useId(); 
@@ -21,7 +19,7 @@ export const Textarea: React.FC<TextareaProps> = ({
   return (
     <div className={classes}>
       <label className={styles.label} htmlFor={id}>{label}</label>
-      <textarea id={id} className={styles.textarea} placeholder={placeholder} />
+      <textarea id={id} className={styles.textarea} placeholder='Écris ton texte ici...' />
     </div>
   );
 };

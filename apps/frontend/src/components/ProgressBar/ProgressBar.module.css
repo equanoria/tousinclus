@@ -13,3 +13,16 @@ progress::-webkit-progress-value {
   background-color: var(--progress-bar-bg-top);
   border-radius: var(--radius-full);
 }
+
+.progressBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-300);
+}
+
+.progressBar > p {
+  color: var(--white-1000);
+  font-weight: var(--heading-font-weight);
+  font-size: var(--heading-size-small);
+}

@@ -12,6 +12,7 @@ export const Input: React.FC<InputProps> = ({
   className,
   label,
   placeholder,
+  ...props
 }) => {
   const classes = clsx(styles.blocInput, className);
   const id = useId(); 
@@ -19,7 +20,7 @@ export const Input: React.FC<InputProps> = ({
   return (
     <div className={classes}>
       <label className={styles.label} htmlFor={id}>{label}</label>
-      <input type="text" id={id} className={styles.input} placeholder={placeholder} />
+      <input type="text" id={id} className={styles.input} placeholder={placeholder} {...props} />
     </div>
 
   );

@@ -1,0 +1,33 @@
+.titleHero {
+  font-family: var(--title-hero-font-family);
+  font-size: var(--title-hero-size);
+  font-weight: var(--title-hero-font-weight);
+}
+
+.titlePage {
+  font-family: var(--title-page-font-family);
+  font-weight: var(--title-page-font-weight);
+  font-size: var(--title-page-size-base);
+}
+
+.titlePage-s {
+  font-size: var(--title-page-size-small);
+}
+
+.titlePage-l {
+  font-size: var(--title-page-size-large);
+}
+
+.heading {
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  font-size: var(--heading-size-base);
+}
+
+.heading-s {
+  font-size: var(--heading-size-small);
+}
+
+.heading-l {
+  font-size: var(--heading-size-large);
+}

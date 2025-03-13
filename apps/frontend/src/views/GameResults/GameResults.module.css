@@ -1,0 +1,105 @@
+.pageResults {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--blue-900);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--space-2400);
+  padding: var(--space-2400) 0;
+}
+
+.bgAsset {
+  z-index: var(--z-asset);
+  width: 100%;
+  position: absolute;
+  bottom: -20%;
+  pointer-events: none;
+}
+
+.winnerAsset {
+  pointer-events: none;
+}
+
+.content {
+  z-index: var(--z-content);
+  color: var(--blue-100);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content > h1 {
+  text-transform: uppercase;
+}
+
+.headingsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-600);
+}
+
+.winner {
+  color: var(--yellow-600);
+}
+
+.score {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.score > p {
+  color: var(--pale-blue-800);
+}
+
+.scoreContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-600);
+  align-items: center;
+}
+
+.scoreDetails {
+  display: flex;
+  align-items: center;
+  gap: var(--space-600);
+}
+
+.scoreDetails > div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-200);
+}
+
+.scoreDetails > div > p {
+  color: var(--blue-900);
+}
+
+.team {
+  max-width: fit-content;
+  background-color: var(--white-1000);
+  border-radius: var(--radius-full);
+  color: var(--blue-900);
+  padding: var(--space-800) var(--space-1200);
+  box-shadow: 4px 4px 0 0 var(--blue-900);
+}
+
+.team1 {
+  border: var(--stroke-border-100) var(--yellow-600) solid;
+}
+
+.team2 {
+  border: var(--stroke-border-100) var(--pink-600) solid;
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: var(--space-1200);
+}

@@ -1,0 +1,18 @@
+.indicatorCard {
+  position: relative;
+  background-color: var(--step-bg);
+  height: 48px;
+  width: 40px;
+  border-radius: var(--radius-200);
+}
+
+.current {
+  border: var(--step-contrast) solid var(--stroke-border-100);
+}
+
+.iconCheck {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+}

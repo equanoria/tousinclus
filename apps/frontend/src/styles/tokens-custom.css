@@ -1,6 +1,12 @@
 :root {
-  --font-gotham: "Gotham", sans-serif;
-  --font-cal-sans: "Cal Sans", sans-serif;
-  --font-comfortaa: "Comfortaa", sans-serif;
-  --font-opendyslexic: "OpenDyslexic", sans-serif;
+  --font-gotham: 'Gotham', sans-serif;
+  --font-cal-sans: 'Cal Sans', sans-serif;
+  --font-comfortaa: 'Comfortaa', sans-serif;
+  --font-opendyslexic: 'OpenDyslexic', sans-serif;
+
+  /* Z-index */
+  --z-asset: 0;
+  --z-content: 10;
+  --z-popin-help: 30;
+  --z-popin-deck: 40;
 }

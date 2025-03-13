@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useAppState } from '../../context/AppStateProvider';
 import { GameService } from '../../services/GameService';
 import styles from './GameConnection.module.css';
 import { Button } from '../../components/Button/Button';
@@ -20,12 +21,12 @@ export const GameConnection = () => {
   const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
   const gameService = new GameService();
+  const { setCurrentStep } = useAppState();
 
-  gameService.onJoiningResponse(({ code, isTeam1Connected, isTeam2Connected }) => {
+  gameService.onJoiningResponse(({ code, team1, team2 }) => {
     setCode(code);
-
-    if (!isTeam1Connected) teamsAvailability.current.push(Team.TEAM1);
-    if (!isTeam2Connected) teamsAvailability.current.push(Team.TEAM2);
+    if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
+    if (!team2.isConnected) teamsAvailability.current.push(Team.TEAM2);
 
     if (teamsAvailability.current.length === 2) {
       setConnectionState(ConnectionState.CODE);
@@ -36,33 +37,44 @@ export const GameConnection = () => {
     setConnectionState(ConnectionState.TEAM);
   });
 
-  gameService.onTeamConnectionUpdated(({ status }) => {
+  gameService.waitingResponse(({ status }) => {
     if (status !== 'success') {
       // handle error
       return;
     }
 
     setConnectionState(ConnectionState.WAITING);
+
+   setTimeout(() => {
+      setCurrentStep(1); 
+    }, 2000); 
   });
 
   // Check teams avails
   const handleJoining = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const form = event.currentTarget;
     const formData = new FormData(form);
     const code = formData.get('code') as string;
 
-    gameService.joining(code)
+    if (code) {
+      gameService.joining(code);
+    } else {
+      console.error('Code is undefined');
+    }
   };
 
   // Join a game
   const handleJoinGame = (team: Team) => {
-    gameService.joinGame({ code, team });
+    gameService.joinGame(code, team);
   }
 
   return (
     <div className={styles.pageConnection}>
-      <h1>tous inclus</h1>
+      <img src="/assets/asset-connection-1.svg" alt="" className={styles.asset1} />
+      <img src="/assets/asset-connection-2.svg" alt="" className={styles.asset2} />
+      <img src="/assets/logo-tous-inclus.svg" alt="logo tous inclus" className={styles.logoTS} />
       {(() => {
         switch (connectionState) {
           case ConnectionState.CODE:
@@ -70,7 +82,7 @@ export const GameConnection = () => {
               <form onSubmit={handleJoining} className={styles.connection}>
                 <Input
                   name="code"
-                  label="Enter the game code"
+                  label="Entrez le code du jeu"
                   type="text"
                   placeholder="123456"
                   pattern="\d{6}"
@@ -111,6 +123,13 @@ export const GameConnection = () => {
             return null;
         }
       })()}
+      <div className={styles.footer}>
+        <img src="/assets/logo-equanoria.svg" alt="logo equanoria" className={styles.logoEquanoria} />
+        <div className={styles.credits}>
+          <a href="/">Mentions légales</a>
+          <a href="https://techlab-handicap.org/" target='blank'>À propos</a>
+        </div>
+      </div>
     </div>
   );
 };

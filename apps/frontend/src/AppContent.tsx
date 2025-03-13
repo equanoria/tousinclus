@@ -1,29 +1,33 @@
 import { useEffect } from 'react';
 import { useAppState } from './context/AppStateProvider';
 import { GameConnection } from './views/GameConnection/GameConnection';
+import { GameReflection } from './views/GameReflection/GameReflection';
+import { GameDebate } from './views/GameDebate/GameDebate';
+import { GameResults } from './views/GameResults/GameResults';
 
 const AppContent = () => {
-  const { currentView, setCurrentView } = useAppState();
+  const { currentStep, setCurrentView, currentView } = useAppState();
 
   useEffect(() => {
-    setCurrentView(<GameConnection />);
-  }, [setCurrentView]);
+    switch (currentStep) {
+      case 0:
+        setCurrentView(<GameConnection />);
+        break;
+      case 1:
+        setCurrentView(<GameReflection />);
+        break;
+      case 2:
+        setCurrentView(<GameDebate />);
+        break;
+      case 3:
+        setCurrentView(<GameResults team={'team1'} />);
+        break;
+      default:
+        setCurrentView(<GameConnection />);
+    }
+  }, [currentStep, setCurrentView]);
 
-  return (
-    <>
-      <nav className="a11y-skip-content">
-        <ul>
-          <li>
-            <a href="#main">Aller au contenu principal</a>
-          </li>
-          <li>
-            <a href="#main">Aller à un autre endroit</a>
-          </li>
-        </ul>
-      </nav>
-      <main id="main">{currentView}</main>
-    </>
-  );
+  return <>{currentView}</>; 
 };
 
 export default AppContent;

@@ -17,7 +17,7 @@
   --color-a11y-skip-content-outline: var(--a11y-400);
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   /* Primitives */
   --a11y-50: #eff6ff;
   --a11y-100: #c7deff;
@@ -36,19 +36,19 @@
   --color-a11y-skip-content-outline: var(--a11y-500);
 }
 
-[data-font="OpenDyslexic"] {
+[data-font='OpenDyslexic'] {
   * {
     font-family: var(--font-opendyslexic) !important;
   }
 }
 
-[data-contrast="more"] {
+[data-contrast='more'] {
   body {
     filter: contrast(120%);
   }
 }
 
-[data-contrast="less"] {
+[data-contrast='less'] {
   body {
     filter: contrast(80%);
   }

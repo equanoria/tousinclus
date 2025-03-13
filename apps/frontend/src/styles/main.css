@@ -50,11 +50,16 @@ img {
 }
 
 a {
-  /* color: var(--color-accent);
+  color: var(--link-default);
+  text-decoration: underline;
+
+  &:hover{
+    color: var(--link-hover);
+  }
 
   &:active {
-    color: var(--color-accent);
-  } */
+    color: var(--link-active);
+  }
 
   &:has(> .icon) {
     display: flex;
