@@ -31,7 +31,7 @@ pnpm run dev
 
 ## Credits
 
-A project orchestrated by Anaïs MICHEL ([website](https://anaismichel.fr/)).
+A project orchestrated by Anaïs MICHEL.
 
 ### Creative Team
 
