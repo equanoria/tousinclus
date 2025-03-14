@@ -10,9 +10,6 @@ export class User extends Document implements IUser {
   @Prop({ required: true })
   lastName: string;
 
-  @Prop({ required: true, unique: true })
-  email: string;
-
   @Prop({ required: true })
   roles: TRole[];
 }

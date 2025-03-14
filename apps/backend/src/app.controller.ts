@@ -29,9 +29,9 @@ export class AppController {
   @Get('/user-test')
   async testMongo() {
     const newUser = await this.userService.create({
-      firstName: 'Léo',
-      lastName: 'Léo',
-      roles: [TRole.ADMIN],
+      firstName: 'Dan',
+      lastName: 'PHAN NGUYEN',
+      roles: [TRole.TRAINER, TRole.ADMIN],
     });
     return newUser;
   }
