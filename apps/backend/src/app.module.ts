@@ -7,6 +7,7 @@ import { RedisModule } from './redis/redis.module';
 import { WebsocketModule } from './websocket/websocket.module';
 import { DirectusModule } from './directus/directus.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     ),
     GameModule,
     DirectusModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
