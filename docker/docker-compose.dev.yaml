@@ -165,6 +165,18 @@ services:
       - ADMINER_DESIGN=hydra
     ports:
       - 3100:8080
+  
+  mongo-express:
+    image: mongo-express
+    environment:
+      ME_CONFIG_MONGODB_AUTH_USERNAME: ${BACKEND_DB_USER}
+      ME_CONFIG_MONGODB_AUTH_PASSWORD: ${BACKEND_DB_PASSWORD}
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_SERVER: mongo-backend
+      ME_CONFIG_BASICAUTH: false
+    ports:
+      - 3101:8081
 
 volumes:
   mongo-backend:
