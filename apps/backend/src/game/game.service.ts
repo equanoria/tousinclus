@@ -49,7 +49,9 @@ export class GameService {
     const groupId = await this.getRandomGroupId(deckId);
 
     if (groupId === null) {
-      throw new NotFoundException(`Deck with id ${deckIdData} not found`);
+      throw new NotFoundException(
+        `Specified deck with id ${deckIdData} not found`,
+      );
     }
 
     const newGame: IGameDTO = {

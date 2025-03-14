@@ -1,3 +1,4 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IGame, ITeam, IAnswer } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {
@@ -9,73 +10,122 @@ import {
 } from 'class-validator';
 
 // ========== DTO ==========
-export class IGameDTO implements IGame {
-  @IsString()
-  @IsNotEmpty()
-  @Expose()
-  code: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @Expose()
-  status: string;
-
+export class CreateGameDTO {
   @IsNumber()
   @IsOptional()
-  @Expose()
-  cardGroupId?: number;
+  @ApiProperty({
+    description: 'Identifier of the associated deck (optional)',
+    example: 1,
+  })
+  readonly deckId?: number;
+}
 
-  @IsNotEmpty()
+export class IAnswerDTO implements IAnswer {
+  @IsString()
+  @IsOptional()
   @Expose()
-  @Type(() => ITeamDTO)
-  team1?: ITeam;
+  @ApiProperty({
+    description: 'Answer 1',
+    example: 'example answer 1',
+    nullable: true,
+  })
+  input1: string | null;
 
-  @IsNotEmpty()
+  @IsString()
+  @IsOptional()
   @Expose()
-  @Type(() => ITeamDTO) // Permet de satisfaire le ITeamDTO et d'appliquer les expose groups
-  team2?: ITeam;
+  @ApiProperty({
+    description: 'Answer 2',
+    example: 'example answer 2',
+    nullable: true,
+  })
+  input2: string | null;
+
+  @IsString()
+  @IsOptional()
+  @Expose()
+  @ApiProperty({
+    description: 'Answer 3',
+    example: 'example answer 3',
+    nullable: true,
+  })
+  input3: string | null;
+
+  @IsString()
+  @IsOptional()
+  @Expose()
+  @ApiProperty({
+    description: 'Answer 4',
+    example: 'example answer 4',
+    nullable: true,
+  })
+  input4: string | null;
 }
 
 export class ITeamDTO implements ITeam {
   @IsBoolean()
   @IsNotEmpty()
   @Expose()
+  @ApiProperty({ description: 'Is the team connected?', example: true })
   isConnected: boolean;
 
   @IsString()
   @IsOptional()
   @Expose({ groups: ['room'] })
-  clientId?: string;
+  @ApiPropertyOptional({
+    description: 'Socket IO client ID',
+    example: 'aqzsedrftgyhujikolp',
+    nullable: true,
+  })
+  clientId?: string | null;
 
   @IsOptional()
   @Expose()
-  answer?: Record<string, IAnswer>; // Clés dynamiques correspondant aux IDs
+  @ApiPropertyOptional({
+    description: 'Answers associated with the team',
+    type: IAnswerDTO,
+  })
+  answer?: Record<string, IAnswer>; // Dynamic keys corresponding to IDs
 }
 
-export class IAnswerDTO implements IAnswer {
+export class IGameDTO implements IGame {
   @IsString()
   @IsNotEmpty()
   @Expose()
-  input1: string;
+  @ApiProperty({ description: 'Game code', example: '119949' })
+  code: string;
 
   @IsString()
   @IsNotEmpty()
   @Expose()
-  input2: string;
+  @ApiProperty({ description: 'Game status', example: 'waiting' })
+  status: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @Expose()
-  input3: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @Expose()
-  input4: string;
-}
-
-export class CreateGameDTO {
-  @IsString()
+  @IsNumber()
   @IsOptional()
-  readonly deckId?: number;
+  @Expose()
+  @ApiPropertyOptional({
+    description: 'Card group identifier',
+    example: 14,
+  })
+  cardGroupId?: number;
+
+  @IsOptional()
+  @Expose()
+  @Type(() => ITeamDTO)
+  @ApiPropertyOptional({
+    description: 'First team information',
+    type: ITeamDTO,
+  })
+  team1?: ITeam;
+
+  @IsOptional()
+  @Expose()
+  @Type(() => ITeamDTO)
+  @ApiPropertyOptional({
+    description: 'Second team information',
+    type: ITeamDTO,
+  })
+  team2?: ITeam;
 }
