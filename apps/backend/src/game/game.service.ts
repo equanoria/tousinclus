@@ -1,26 +1,61 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { createDirectus, rest, staticToken } from '@directus/sdk';
 
 // ========== DTO Import ==========
 import { CreateGameDTO, IGameDTO } from './dto/game.dto';
 
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
+import { DirectusService } from 'src/directus/directus.service';
+
+const client = createDirectus(
+  process.env.DIRECTUS_URL || 'http://127.0.0.1:3002',
+)
+  .with(
+    staticToken(
+      process.env.DIRECTUS_ADMIN_TOKEN || 'ssHmmuIXSHHbnsxsTTKeSqIuc1e66diF',
+    ),
+  )
+  .with(rest());
 
 @Injectable()
 export class GameService {
-  constructor(private readonly redisService: RedisService) {}
+  constructor(
+    private readonly redisService: RedisService,
+    private readonly directusService: DirectusService,
+  ) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private getRandomGroupId(deckIdData: number) {}
+  private async getRandomGroupId(deckIdData: number): Promise<number> {
+    const deckData = await this.directusService.getDeckById(client, deckIdData);
+
+    if (!Array.isArray(deckData) || deckData.length === 0) {
+      return null; // Retourne null si aucun ID disponible
+    }
+
+    const randomIndex = Math.floor(Math.random() * deckData.length); // Génère un index aléatoire
+    return deckData[randomIndex] as number; // Retourne l'ID aléatoire
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private generateNewGameData(deckIdData): IGameDTO {
-    // const groupdId = getRandomGroupId(deckIdData)
+  private async generateNewGameData(deckIdData): Promise<IGameDTO> {
+    let deckId: number = null;
+    if (deckIdData || deckIdData != null) {
+      deckId = deckIdData;
+    } else {
+      deckId = await this.directusService.getDeckDefault(client);
+    }
+
+    const groupId = await this.getRandomGroupId(deckId);
+
+    if (groupId === null) {
+      throw new NotFoundException(`Deck with id ${deckIdData} not found`);
+    }
 
     const newGame: IGameDTO = {
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: 'waiting',
-      cardGroupId: 1,
+      cardGroupId: groupId,
       team1: {
         isConnected: false,
       },
@@ -33,7 +68,7 @@ export class GameService {
 
   async createGame(createGameDto: CreateGameDTO): Promise<IGameDTO> {
     const newGame = this.generateNewGameData(createGameDto.deckId || null);
-    await this.redisService.setGame(newGame.code, newGame); // add new game data to redis db
+    await this.redisService.setGame((await newGame).code, await newGame); // add new game data to redis db
     return newGame; // Return the game create as JSON
   }
 
@@ -43,7 +78,9 @@ export class GameService {
   ): Promise<IGameDTO[]> {
     const newGames: IGameDTO[] = [];
     for (let step = 0; step < i; step++) {
-      const newGame = this.generateNewGameData(createGameDto.deckId || null); // Generate i game data
+      const newGame = await this.generateNewGameData(
+        createGameDto.deckId || null,
+      ); // Generate i game data
       newGames.push(newGame);
       await this.redisService.setGame(newGame.code, newGame); // add new game data to redis db
     }

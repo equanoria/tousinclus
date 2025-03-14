@@ -77,5 +77,5 @@ export class IAnswerDTO implements IAnswer {
 export class CreateGameDTO {
   @IsString()
   @IsOptional()
-  readonly deckId?: string;
+  readonly deckId?: number;
 }

@@ -290,7 +290,7 @@ export class DirectusService {
       }
 
       // Make an explicit request for users (allows filtering fields)
-      let groupData = await client.request(
+      let deckData = await client.request(
         // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('decks', {
           filter,
@@ -414,11 +414,70 @@ export class DirectusService {
       );
 
       // Formatting data
-      groupData = this.formatterService.directusDeckFormatter(groupData);
+      deckData = this.formatterService.directusDeckFormatter(deckData);
 
-      return groupData;
+      return deckData;
     } catch (error) {
       throw new Error(error);
+    }
+  }
+
+  async getDeckById(
+    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+    client: any,
+    id: IGroupDTO['id'],
+  ): Promise<Array<unknown>> {
+    try {
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+      const filter: any = {};
+
+      // Add the filter for `id` only if `id` is not null
+      if (id !== null) {
+        filter.id = { _eq: id };
+      }
+      // Make an explicit request for users (allows filtering fields)
+      let deckData = await client.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+        readItems<any, any, any>('decks', {
+          filter,
+          deep: {
+            group: {},
+          },
+          fields: [
+            'id',
+            {
+              group: ['id'],
+            },
+            {
+              translations: ['title'],
+            },
+          ],
+        }),
+      );
+
+      // Formatting data
+      deckData = this.formatterService.directusGetDeckByIdFormatter(deckData);
+
+      return deckData;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+  async getDeckDefault(client: any): Promise<number> {
+    try {
+      // Make an explicit request for users (allows filtering fields)
+      const deckData = await client.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+        readItems<any, any, any>('config', {
+          fields: ['deck_default'],
+        }),
+      );
+
+      return deckData.deck_default;
+    } catch (error) {
+      return error;
     }
   }
 
