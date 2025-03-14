@@ -26,7 +26,7 @@ import { CreateGameDTO, IGameDTO } from './dto/game.dto';
 import { GameService } from './game.service';
 import { IHTTPResponseDTO } from 'src/utils/dto/response.dto';
 
-@ApiTags('game')
+@ApiTags('Game')
 @Controller('game')
 export class GameController {
   constructor(private readonly gameService: GameService) {}
@@ -49,11 +49,6 @@ export class GameController {
     status: 201,
     description: 'The game has been successfully created',
     type: IGameDTO,
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Internal server error',
-    type: IHTTPResponseDTO,
   })
   createGame(@Body() createGameDto: CreateGameDTO): Promise<IGameDTO> {
     const game = this.gameService.createGame({ ...createGameDto });
@@ -88,11 +83,6 @@ export class GameController {
   @ApiResponse({
     status: 404,
     description: 'Specified Deck with the given id not found',
-    type: IHTTPResponseDTO,
-  })
-  @ApiResponse({
-    status: 500,
-    description: 'Internal server error',
     type: IHTTPResponseDTO,
   })
   createManyGame(

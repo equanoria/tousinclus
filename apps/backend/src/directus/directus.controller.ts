@@ -11,10 +11,18 @@ import { createDirectus, staticToken, rest } from '@directus/sdk';
 import { DirectusService } from './directus.service';
 
 // ========== DTO Import ==========
-import type { ICardDTO, IGroupDTO, IDeckDTO } from './dto/directus.dto';
+import { ICardDTO, IGroupDTO, IDeckDTO } from './dto/directus.dto';
 
 // ========== Services Import ==========
 import { LanguageService } from '../utils/services/language.service';
+import {
+  ApiHeader,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { IHTTPResponseDTO } from 'src/utils/dto/response.dto';
 
 // ? Typing to add for Directus https://docs.directus.io/guides/sdk/types.html
 
@@ -28,6 +36,7 @@ const client = createDirectus(
   )
   .with(rest());
 
+@ApiTags('Directus')
 @Controller('directus')
 export class DirectusController {
   constructor(
@@ -37,6 +46,33 @@ export class DirectusController {
 
   // ========== CARD ==========
   @Get('card/:type/:id')
+  @ApiOperation({ summary: 'Retrieve a specific card by Type and ID' })
+  @ApiHeader({
+    name: 'accept-language',
+    required: true,
+    enum: ['en-US', 'fr-FR'],
+    example: 'en-US',
+  })
+  @ApiParam({
+    name: 'type',
+    description: 'Type of the card',
+    enum: ['users', 'situations'],
+    example: 'users',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID of the card',
+    example: 42,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Card retrieved successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No card found with the given ID or invalid type',
+    type: IHTTPResponseDTO,
+  })
   async getOneCard(
     @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
     @Param('type') type: ICardDTO['type'],
@@ -68,6 +104,28 @@ export class DirectusController {
   }
 
   @Get('card/:type')
+  @ApiOperation({ summary: 'Retrieve all cards by Type' })
+  @ApiHeader({
+    name: 'accept-language',
+    required: true,
+    enum: ['en-US', 'fr-FR'],
+    example: 'en-US',
+  })
+  @ApiParam({
+    name: 'type',
+    description: 'Type of the card',
+    enum: ['users', 'situations'],
+    example: 'users',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Cards retrieved successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No card found or invalid type',
+    type: IHTTPResponseDTO,
+  })
   async getAllCard(
     @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
     @Param('type') type: ICardDTO['type'],
@@ -101,6 +159,27 @@ export class DirectusController {
 
   // ========== GROUP ==========
   @Get('group/:id')
+  @ApiOperation({ summary: 'Retrieve group by ID' })
+  @ApiHeader({
+    name: 'accept-language',
+    required: true,
+    enum: ['en-US', 'fr-FR'],
+    example: 'en-US',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID of the group',
+    example: 42,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Group retrieved successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No group found with given ID',
+    type: IHTTPResponseDTO,
+  })
   async getOneGroup(
     @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
     @Param('id') id: IGroupDTO['id'],
@@ -124,6 +203,22 @@ export class DirectusController {
   }
 
   @Get('group')
+  @ApiOperation({ summary: 'Retrieve all group' })
+  @ApiHeader({
+    name: 'accept-language',
+    required: true,
+    enum: ['en-US', 'fr-FR'],
+    example: 'en-US',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Groups retrieved successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No group found',
+    type: IHTTPResponseDTO,
+  })
   async getAllGroup(
     @Headers('accept-language') requestLanguage: IGroupDTO['requestLanguage'],
   ): Promise<unknown> {
@@ -147,6 +242,27 @@ export class DirectusController {
 
   // ========== DECK ==========
   @Get('deck/:id')
+  @ApiOperation({ summary: 'Retrieve deck by ID' })
+  @ApiHeader({
+    name: 'accept-language',
+    required: true,
+    enum: ['en-US', 'fr-FR'],
+    example: 'en-US',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID of the deck',
+    example: 42,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Deck retrieved successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No deck found with given ID',
+    type: IHTTPResponseDTO,
+  })
   async getOneDeck(
     @Headers('accept-language') requestLanguage: IDeckDTO['requestLanguage'],
     @Param('id') id: IDeckDTO['id'],
@@ -170,6 +286,22 @@ export class DirectusController {
   }
 
   @Get('deck')
+  @ApiOperation({ summary: 'Retrieve all deck' })
+  @ApiHeader({
+    name: 'accept-language',
+    required: true,
+    enum: ['en-US', 'fr-FR'],
+    example: 'en-US',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Decks retrieved successfully',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No deck found',
+    type: IHTTPResponseDTO,
+  })
   async getAllDeck(
     @Headers('accept-language') requestLanguage: IDeckDTO['requestLanguage'],
   ): Promise<unknown> {
