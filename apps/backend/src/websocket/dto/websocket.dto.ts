@@ -1,13 +1,22 @@
-import { IWSData, IWSWaiting } from '@tousinclus/types';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IWSData, IWSWaiting, IWSGameStatus } from '@tousinclus/types';
+import { Type } from 'class-transformer';
+import { AnswerDTO } from '../../game/dto/game.dto';
 
-export class IWSDataDTO implements IWSData {
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+
+export class WSDataDTO implements IWSData {
   @IsString()
   @IsNotEmpty()
   code: string;
 }
 
-export class IWaitingDataDTO extends IWSDataDTO implements IWSWaiting {
+export class WaitingDataDTO extends WSDataDTO implements IWSWaiting {
   @IsString()
   @IsNotEmpty()
   action: string;
@@ -17,7 +26,19 @@ export class IWaitingDataDTO extends IWSDataDTO implements IWSWaiting {
   team: string;
 }
 
-export class IWSGameStatus extends IWSDataDTO implements IWSData {
+export class ReflectionDataDTO {
+  @IsNumber()
+  @IsOptional()
+  cardId?: number;
+
+  @IsNumber()
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => AnswerDTO)
+  answer?: Record<string, AnswerDTO>;
+}
+
+export class WSGameStatus implements IWSGameStatus {
   @IsString()
   @IsNotEmpty()
   gameStatus: string;

@@ -22,7 +22,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { IHTTPResponseDTO } from 'src/utils/dto/response.dto';
+import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 
 // ? Typing to add for Directus https://docs.directus.io/guides/sdk/types.html
 
@@ -71,7 +71,7 @@ export class DirectusController {
   @ApiResponse({
     status: 404,
     description: 'No card found with the given ID or invalid type',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
   async getOneCard(
     @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
@@ -124,7 +124,7 @@ export class DirectusController {
   @ApiResponse({
     status: 404,
     description: 'No card found or invalid type',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
   async getAllCard(
     @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
@@ -178,7 +178,7 @@ export class DirectusController {
   @ApiResponse({
     status: 404,
     description: 'No group found with given ID',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
   async getOneGroup(
     @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
@@ -217,7 +217,7 @@ export class DirectusController {
   @ApiResponse({
     status: 404,
     description: 'No group found',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
   async getAllGroup(
     @Headers('accept-language') requestLanguage: IGroupDTO['requestLanguage'],
@@ -261,7 +261,7 @@ export class DirectusController {
   @ApiResponse({
     status: 404,
     description: 'No deck found with given ID',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
   async getOneDeck(
     @Headers('accept-language') requestLanguage: IDeckDTO['requestLanguage'],
@@ -300,7 +300,7 @@ export class DirectusController {
   @ApiResponse({
     status: 404,
     description: 'No deck found',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
   async getAllDeck(
     @Headers('accept-language') requestLanguage: IDeckDTO['requestLanguage'],

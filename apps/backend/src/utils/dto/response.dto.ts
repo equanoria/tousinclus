@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsNotEmpty, IsObject, IsString } from 'class-validator';
 
-export class IResponseDTO {
+export class ResponseDTO {
   @IsString()
   @ApiPropertyOptional({
     description: 'Response message',
@@ -24,7 +24,7 @@ export class IResponseDTO {
   data?: object;
 }
 
-export class IHTTPResponseDTO extends IResponseDTO {
+export class HTTPResponseDTO extends ResponseDTO {
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty({
@@ -34,7 +34,7 @@ export class IHTTPResponseDTO extends IResponseDTO {
   statusCode: number;
 }
 
-export class IWSResponseDTO extends IResponseDTO {
+export class WSResponseDTO extends ResponseDTO {
   @IsNotEmpty()
   @ApiProperty({
     description: 'WebSocket response status',

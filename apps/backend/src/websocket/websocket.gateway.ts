@@ -16,7 +16,7 @@ import { WaitingService } from './service/waiting.service';
 import { ReflectionService } from './service/reflection.service';
 import { DebateService } from './service/debate.service';
 import { DisconnectService } from './service/disconnect.service';
-import { IWSDataDTO, IWaitingDataDTO } from './dto/websocket.dto';
+import { WSDataDTO, WaitingDataDTO } from './dto/websocket.dto';
 
 // Init websocket
 @WebSocketGateway({
@@ -54,7 +54,7 @@ export class WebsocketGateway
   // ? Handle Client join a game
   @SubscribeMessage('joining')
   async handleJoining(
-    @MessageBody() data: IWSDataDTO,
+    @MessageBody() data: WSDataDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
     await this.joiningService.handleJoiningLogic(client, { ...data });
@@ -63,7 +63,7 @@ export class WebsocketGateway
   // ? Handle Client choose a team
   @SubscribeMessage('waiting')
   async handleWaiting(
-    @MessageBody() data: IWaitingDataDTO,
+    @MessageBody() data: WaitingDataDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
     await this.waitingService.handleWaitingLogic(this.server, client, {
@@ -71,13 +71,15 @@ export class WebsocketGateway
     });
   }
 
-  @SubscribeMessage('reflexion')
-  async handleReflexion(
+  @SubscribeMessage('reflection')
+  async handleReflection(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
-    await this.reflectionService.handleReflectionLogic(client, { ...data });
+    await this.reflectionService.handleReflectionLogic(this.server, client, {
+      ...data,
+    });
   }
 
   @SubscribeMessage('debat')

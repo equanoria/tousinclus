@@ -7,6 +7,7 @@ import {
   IsNumber,
   IsNotEmpty,
   IsBoolean,
+  ValidateNested,
 } from 'class-validator';
 
 // ========== DTO ==========
@@ -21,7 +22,7 @@ export class CreateGameDTO {
   readonly deckId?: number;
 }
 
-export class IAnswerDTO implements IAnswer {
+export class AnswerDTO implements IAnswer {
   @IsString()
   @IsOptional()
   @Expose()
@@ -63,7 +64,7 @@ export class IAnswerDTO implements IAnswer {
   input4: string | null;
 }
 
-export class ITeamDTO implements ITeam {
+export class TeamDTO implements ITeam {
   @IsBoolean()
   @IsNotEmpty()
   @Expose()
@@ -82,14 +83,16 @@ export class ITeamDTO implements ITeam {
 
   @IsOptional()
   @Expose()
+  @ValidateNested({ each: true })
+  @Type(() => AnswerDTO)
   @ApiPropertyOptional({
     description: 'Answers associated with the team',
-    type: IAnswerDTO,
+    type: AnswerDTO,
   })
   answer?: Record<string, IAnswer>; // Dynamic keys corresponding to IDs
 }
 
-export class IGameDTO implements IGame {
+export class GameDTO implements IGame {
   @IsString()
   @IsNotEmpty()
   @Expose()
@@ -113,19 +116,19 @@ export class IGameDTO implements IGame {
 
   @IsOptional()
   @Expose()
-  @Type(() => ITeamDTO)
+  @Type(() => TeamDTO)
   @ApiPropertyOptional({
     description: 'First team information',
-    type: ITeamDTO,
+    type: TeamDTO,
   })
   team1?: ITeam;
 
   @IsOptional()
   @Expose()
-  @Type(() => ITeamDTO)
+  @Type(() => TeamDTO)
   @ApiPropertyOptional({
     description: 'Second team information',
-    type: ITeamDTO,
+    type: TeamDTO,
   })
   team2?: ITeam;
 }

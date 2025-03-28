@@ -6,18 +6,18 @@ import { Socket } from 'socket.io';
 import { GameService } from 'src/game/game.service';
 
 // ========== DTO Import ==========
-import { IWSResponseDTO } from 'src/utils/dto/response.dto';
-import { IWSDataDTO } from '../dto/websocket.dto';
+import { WSResponseDTO } from 'src/utils/dto/response.dto';
+import { WSDataDTO } from '../dto/websocket.dto';
 import { plainToInstance } from 'class-transformer';
-import { IGameDTO } from 'src/game/dto/game.dto';
+import { GameDTO } from 'src/game/dto/game.dto';
 
 @Injectable()
 export class JoiningService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
 
-  async handleJoiningLogic(client: Socket, data: IWSDataDTO): Promise<void> {
+  async handleJoiningLogic(client: Socket, data: WSDataDTO): Promise<void> {
     if (!data.code) {
-      const responseData: IWSResponseDTO = {
+      const responseData: WSResponseDTO = {
         status: 'error',
         error: 'No game code specified',
         message: 'Please specify it in the JSON with key "code"',
@@ -33,7 +33,7 @@ export class JoiningService {
       const findOneGameData = await this.gameService.findOneGame(data.code);
 
       if (!findOneGameData) {
-        const responseData: IWSResponseDTO = {
+        const responseData: WSResponseDTO = {
           status: 'error',
           error: 'No game found',
           message: `There is no game found with code "${data.code}"`,
@@ -43,7 +43,7 @@ export class JoiningService {
       }
 
       // Transformer l'objet en excluant les clés marquées
-      const modifiedGameData = plainToInstance(IGameDTO, findOneGameData, {
+      const modifiedGameData = plainToInstance(GameDTO, findOneGameData, {
         excludeExtraneousValues: true,
       });
 
@@ -51,7 +51,7 @@ export class JoiningService {
     } catch (error) {
       // Gérer l'erreur, par exemple en journalisant ou en envoyant une réponse d'erreur
       console.error('Error handling joining logic:', error);
-      const responseData: IWSResponseDTO = {
+      const responseData: WSResponseDTO = {
         status: 'error',
         error: 'Internal server error',
         message: 'An error occurred while processing your request.',
