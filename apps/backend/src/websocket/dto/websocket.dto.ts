@@ -35,7 +35,7 @@ export class ReflectionDataDTO {
   @IsOptional()
   @ValidateNested()
   @Type(() => AnswerDTO)
-  answer?: Record<string, AnswerDTO>;
+  answer?: Record<string, Array<AnswerDTO>>;
 }
 
 export class WSGameStatus implements IWSGameStatus {

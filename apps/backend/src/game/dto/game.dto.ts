@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IGame, ITeam, IAnswer } from '@tousinclus/types';
+import { IGame, ITeam, IAnswer, IAnswerData } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {
   IsString,
@@ -22,46 +22,63 @@ export class CreateGameDTO {
   readonly deckId?: number;
 }
 
-export class AnswerDTO implements IAnswer {
+export class AnswerDataDTO implements IAnswerData {
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 1',
     example: 'example answer 1',
-    nullable: true,
   })
-  input1: string | null;
+  input1: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 2',
     example: 'example answer 2',
-    nullable: true,
   })
-  input2: string | null;
+  input2: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 3',
     example: 'example answer 3',
-    nullable: true,
   })
-  input3: string | null;
+  input3: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 4',
     example: 'example answer 4',
+  })
+  input4: string;
+}
+
+export class AnswerDTO implements IAnswer {
+  @IsNumber()
+  @Expose()
+  @ApiProperty({
+    description: 'Card ID',
+    example: 42,
+  })
+  cardId: number;
+
+  @IsOptional()
+  @ValidateNested() // Permet la validation de l'objet imbriqué `data`
+  @Type(() => AnswerDataDTO) // Transforme `data` en instance de `AnswerDataDTO`
+  @Expose()
+  @ApiPropertyOptional({
+    description: 'Answer data',
+    type: AnswerDataDTO,
     nullable: true,
   })
-  input4: string | null;
+  data?: AnswerDataDTO;
 }
 
 export class TeamDTO implements ITeam {
@@ -89,7 +106,7 @@ export class TeamDTO implements ITeam {
     description: 'Answers associated with the team',
     type: AnswerDTO,
   })
-  answer?: Record<string, IAnswer>; // Dynamic keys corresponding to IDs
+  answer?: Record<string, Array<AnswerDTO>>; // Dynamic keys corresponding to IDs
 }
 
 export class GameDTO implements IGame {

@@ -11,12 +11,12 @@ export class ReflectionService {
     const { action, ...CData } = data;
 
     switch (action) {
-      case 'get-sheet':
+      case 'get-answer':
         // Call the method to get sheet
         console.log(CData);
         break;
 
-      case 'update-sheet':
+      case 'update-answer':
         // Call the method to get sheet
         console.log(CData);
         break;

@@ -8,9 +8,13 @@ export interface IGame {
 export interface ITeam {
     isConnected: boolean;
     clientId?: string;
-    answer?: Record<string, IAnswer>;
+    answer?: Record<string, Array<IAnswer>>;
 }
 export interface IAnswer {
+    cardId: number;
+    data?: IAnswerData;
+}
+export interface IAnswerData {
     input1: string;
     input2: string;
     input3: string;
