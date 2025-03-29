@@ -1,6 +1,12 @@
+export declare enum EnumGameStatus {
+    Waiting = "waiting",
+    Reflection = "reflection",
+    Debate = "debate",
+    Result = "result"
+}
 export interface IGame {
     code: string;
-    status: string;
+    status: EnumGameStatus;
     cardGroupId?: number;
     team1?: ITeam;
     team2?: ITeam;
@@ -8,11 +14,11 @@ export interface IGame {
 export interface ITeam {
     isConnected: boolean;
     clientId?: string;
-    answer?: Record<string, Array<IAnswer>>;
+    answers?: Array<IAnswer>;
 }
 export interface IAnswer {
     cardId: number;
-    data?: IAnswerData;
+    answer?: IAnswerData;
 }
 export interface IAnswerData {
     input1: string;

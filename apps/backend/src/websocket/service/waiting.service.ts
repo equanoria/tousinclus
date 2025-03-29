@@ -5,10 +5,11 @@ import { Server, Socket } from 'socket.io';
 import { GameService } from '../../game/game.service';
 
 // ========== DTO Import ==========
-import { WaitingDataDTO, WSGameStatus } from '../dto/websocket.dto';
+import { WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
 import { WSResponseDTO } from 'src/utils/dto/response.dto';
 import { GameDTO } from 'src/game/dto/game.dto';
 import { plainToInstance } from 'class-transformer';
+import { EnumGameStatus } from '@tousinclus/types';
 
 @Injectable()
 export class WaitingService {
@@ -17,7 +18,7 @@ export class WaitingService {
   async handleWaitingLogic(
     server: Server,
     client: Socket,
-    data: WaitingDataDTO,
+    data: WSDataDTO,
   ): Promise<void> {
     // Checking the action
     const { action, ...CData } = data;
@@ -44,8 +45,8 @@ export class WaitingService {
   async handleTeamConnection(
     server: Server,
     client: Socket,
-    code: WaitingDataDTO['code'],
-    team: WaitingDataDTO['team'],
+    code: WSDataDTO['code'],
+    team: WSDataDTO['team'],
     clientId: string,
   ): Promise<void> {
     try {
@@ -86,6 +87,7 @@ export class WaitingService {
       if (isReadyToStart) {
         const responseData: WSGameStatus = { gameStatus: 'reflection' };
         // Send a message to all participants in the room
+        this.gameService.updateGameStatus(code, EnumGameStatus.Reflection);
         server.to(code).emit('game-status', responseData);
 
         // TODO: Move the status to the next status

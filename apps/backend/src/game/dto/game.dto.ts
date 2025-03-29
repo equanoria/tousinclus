@@ -1,5 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IGame, ITeam, IAnswer, IAnswerData } from '@tousinclus/types';
+import {
+  IGame,
+  ITeam,
+  IAnswer,
+  IAnswerData,
+  EnumGameStatus,
+} from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {
   IsString,
@@ -78,7 +84,7 @@ export class AnswerDTO implements IAnswer {
     type: AnswerDataDTO,
     nullable: true,
   })
-  data?: AnswerDataDTO;
+  answer: AnswerDataDTO;
 }
 
 export class TeamDTO implements ITeam {
@@ -99,14 +105,14 @@ export class TeamDTO implements ITeam {
   clientId?: string | null;
 
   @IsOptional()
-  @Expose()
   @ValidateNested({ each: true })
   @Type(() => AnswerDTO)
+  @Expose({ groups: ['room'] })
   @ApiPropertyOptional({
     description: 'Answers associated with the team',
     type: AnswerDTO,
   })
-  answer?: Record<string, Array<AnswerDTO>>; // Dynamic keys corresponding to IDs
+  answers?: Array<AnswerDTO>; // Dynamic keys corresponding to IDs
 }
 
 export class GameDTO implements IGame {
@@ -119,8 +125,12 @@ export class GameDTO implements IGame {
   @IsString()
   @IsNotEmpty()
   @Expose()
-  @ApiProperty({ description: 'Game status', example: 'waiting' })
-  status: string;
+  @ApiProperty({
+    description: 'Game status',
+    example: 'waiting',
+    enum: EnumGameStatus,
+  })
+  status: EnumGameStatus;
 
   @IsNumber()
   @IsOptional()

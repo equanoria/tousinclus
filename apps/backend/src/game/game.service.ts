@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { createDirectus, rest, staticToken } from '@directus/sdk';
+import { EnumGameStatus } from '@tousinclus/types';
 
 // ========== DTO Import ==========
-import { CreateGameDTO, GameDTO } from './dto/game.dto';
+import { AnswerDTO, CreateGameDTO, GameDTO } from './dto/game.dto';
 
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
@@ -56,13 +57,17 @@ export class GameService {
 
     const newGame: GameDTO = {
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
-      status: 'waiting',
+      status: EnumGameStatus.Waiting,
       cardGroupId: groupId,
       team1: {
         isConnected: false,
+        clientId: null,
+        answers: [],
       },
       team2: {
         isConnected: false,
+        clientId: null,
+        answers: [],
       },
     };
     return newGame;
@@ -181,12 +186,96 @@ export class GameService {
 
   async checkIfReadyToStart(code: GameDTO['code']): Promise<boolean> {
     const game = await this.findOneGame(code);
+    if (!game) {
+      throw new Error(`Game with code ${code} not found`);
+    }
 
     if (game.team1.isConnected && game.team2.isConnected) {
-      game.status = 'start';
       await this.redisService.setGame(code, game); // Update the game state in Redis
       return true;
     }
     return false;
+  }
+
+  async updateGameStatus(
+    code: GameDTO['code'],
+    status: GameDTO['status'],
+  ): Promise<void> {
+    const game = await this.findOneGame(code);
+    if (!game) {
+      throw new Error(`Game with code ${code} not found`);
+    }
+
+    game.status = status;
+    await this.redisService.setGame(code, game); // Update the game state in Redis
+  }
+
+  async updateTeamAnswer(
+    code: GameDTO['code'],
+    team: string,
+    clientId: string,
+    data: AnswerDTO,
+  ): Promise<GameDTO> {
+    const game = await this.findOneGame(code);
+    console.log(
+      'Received data in updateTeamAnswer',
+      JSON.stringify(data, null, 2),
+    );
+    if (!game) {
+      // If game is not found
+      throw new Error(`Game with code ${code} not found`);
+    }
+
+    if (game.status !== 'reflection') {
+      // If game status doesn't match with action
+      throw new Error(
+        `Forbidden game with code ${code} is not in the 'reflection' status`,
+      );
+    }
+
+    if (team === 'team1') {
+      if (game.team1.clientId !== clientId) {
+        throw new Error(`Client ID ${clientId} is not connected to Team 1`);
+      }
+
+      const existingAnswerIndex = game.team1.answers.findIndex(
+        (entry) => entry.cardId === data.cardId,
+      );
+
+      if (existingAnswerIndex !== -1) {
+        // Mettre à jour la réponse existante
+        game.team1.answers[existingAnswerIndex].answer = data.answer;
+      } else {
+        // Ajouter une nouvelle réponse
+        game.team1.answers.push({
+          cardId: data.cardId,
+          answer: data.answer,
+        });
+      }
+    } else if (team === 'team2') {
+      if (game.team2.clientId !== clientId) {
+        throw new Error(`Client ID ${clientId} is not connected to Team 2`);
+      }
+
+      const existingAnswerIndex = game.team2.answers.findIndex(
+        (entry) => entry.cardId === data.cardId,
+      );
+
+      if (existingAnswerIndex !== -1) {
+        // Mettre à jour la réponse existante
+        game.team2.answers[existingAnswerIndex].answer = data.answer;
+      } else {
+        // Ajouter une nouvelle réponse
+        game.team2.answers.push({
+          cardId: data.cardId,
+          answer: data.answer,
+        });
+      }
+    } else {
+      throw new Error(`Invalid team specified: ${team}`);
+    }
+
+    await this.redisService.setGame(code, game); // Update the game state in Redis
+    return game;
   }
 }

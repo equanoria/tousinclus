@@ -16,7 +16,7 @@ import { WaitingService } from './service/waiting.service';
 import { ReflectionService } from './service/reflection.service';
 import { DebateService } from './service/debate.service';
 import { DisconnectService } from './service/disconnect.service';
-import { WSDataDTO, WaitingDataDTO } from './dto/websocket.dto';
+import { WSDataDTO } from './dto/websocket.dto';
 
 // Init websocket
 @WebSocketGateway({
@@ -63,7 +63,7 @@ export class WebsocketGateway
   // ? Handle Client choose a team
   @SubscribeMessage('waiting')
   async handleWaiting(
-    @MessageBody() data: WaitingDataDTO,
+    @MessageBody() data: WSDataDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
     await this.waitingService.handleWaitingLogic(this.server, client, {

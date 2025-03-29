@@ -1,9 +1,8 @@
-export interface IWSData {
-    code: string;
-}
+import type { IAnswer } from "./IGame";
 
-export interface IWSController extends IWSData {
-    action: string;
+export interface IWSData {
+    code?: string;
+    action?: string;
 }
 
 export interface IWSGameStatus {
@@ -12,4 +11,9 @@ export interface IWSGameStatus {
 
 export interface IWSWaiting extends IWSData {
     team: string;
+}
+
+export interface IWSReflection extends IWSData {
+    cardId?: number;
+    answer?: Record<string, Array<IAnswer>>; // Clés dynamiques correspondant aux IDs
 }
