@@ -24,7 +24,7 @@ export class JoiningService {
       };
       client.emit('joining-response', responseData);
       throw new WsException(
-        'No game code specified in the JSON with key `code`',
+        'No game code specified in the JSON with key "code"',
       );
     }
 
@@ -49,6 +49,11 @@ export class JoiningService {
 
       client.emit('joining-response', modifiedGameData);
     } catch (error) {
+      if (error instanceof WsException) {
+        // Si c'est une erreur custom, ne rien faire (elle a déjà été gérée)
+        return;
+      }
+
       // Gérer l'erreur, par exemple en journalisant ou en envoyant une réponse d'erreur
       console.error('Error handling joining logic:', error);
       const responseData: WSResponseDTO = {

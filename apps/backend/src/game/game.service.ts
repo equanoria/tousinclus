@@ -115,42 +115,52 @@ export class GameService {
     team: string,
     clientId: string,
   ): Promise<GameDTO> {
-    const game = await this.findOneGame(code);
+    try {
+      const game = await this.findOneGame(code);
 
-    if (!game) {
-      throw new Error(`Game with code ${code} not found`);
-    }
-
-    const response: GameDTO = {
-      code: game.code,
-      status: game.status,
-      cardGroupId: game.cardGroupId,
-    };
-
-    if (team === 'team1') {
-      if (game.team1.isConnected) {
-        throw new Error(
-          `Team 1 is already connected with client ID ${game.team1.clientId}`,
-        );
+      if (!game) {
+        throw new Error(`Game with code ${code} not found`);
       }
-      game.team1.isConnected = true;
-      game.team1.clientId = clientId; // Assign the uuid of the client
-      response.team1 = game.team1; // Return only team1 data
-    } else if (team === 'team2') {
-      if (game.team2.isConnected) {
-        throw new Error(
-          `Team 2 is already connected with client ID ${game.team2.isConnected}`,
-        );
-      }
-      game.team2.isConnected = true;
-      game.team2.clientId = clientId; // Assign the uuid of the client
-      response.team2 = game.team2; // Return only team2 data
-    } else {
-      throw new Error(`Invalid team specified: ${team}`);
-    }
 
-    await this.redisService.setGame(code, game); // Update the game state in Redis
-    return response;
+      const response: GameDTO = {
+        code: game.code,
+        status: game.status,
+        cardGroupId: game.cardGroupId,
+      };
+
+      if (team === 'team1') {
+        if (game.team1.isConnected) {
+          throw new Error(
+            `Team 1 is already connected with client ID ${game.team1.clientId}`,
+          );
+        }
+        game.team1.isConnected = true;
+        game.team1.clientId = clientId; // Assign the uuid of the client
+        response.team1 = game.team1; // Return only team1 data
+      } else if (team === 'team2') {
+        if (game.team2.isConnected) {
+          throw new Error(
+            `Team 2 is already connected with client ID ${game.team2.isConnected}`,
+          );
+        }
+        game.team2.isConnected = true;
+        game.team2.clientId = clientId; // Assign the uuid of the client
+        response.team2 = game.team2; // Return only team2 data
+      } else {
+        throw new Error(`Invalid team specified: ${team}`);
+      }
+
+      await this.redisService.setGame(code, game); // Update the game state in Redis
+      return response;
+    } catch (error) {
+      if (error instanceof Error && error.message) {
+        throw new Error(error.message);
+      }
+
+      throw new Error(
+        'Failed to update team connection status. Please try again.',
+      );
+    }
   }
 
   async updateTeamDisconnectStatus(
@@ -216,66 +226,74 @@ export class GameService {
     clientId: string,
     data: AnswerDTO,
   ): Promise<GameDTO> {
-    const game = await this.findOneGame(code);
-    console.log(
-      'Received data in updateTeamAnswer',
-      JSON.stringify(data, null, 2),
-    );
-    if (!game) {
-      // If game is not found
-      throw new Error(`Game with code ${code} not found`);
-    }
+    try {
+      const game = await this.findOneGame(code);
 
-    if (game.status !== 'reflection') {
-      // If game status doesn't match with action
+      if (!game) {
+        // If game is not found
+        throw new Error(`Game with code ${code} not found`);
+      }
+
+      if (game.status !== 'reflection') {
+        // If game status doesn't match with action
+        throw new Error(
+          `Forbidden game with code ${code} is not in the 'reflection' status`,
+        );
+      }
+
+      if (team === 'team1') {
+        if (game.team1.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 1`);
+        }
+
+        const existingAnswerIndex = game.team1.answers.findIndex(
+          (entry) => entry.cardId === data.cardId,
+        );
+
+        if (existingAnswerIndex !== -1) {
+          // Update the existing answer
+          game.team1.answers[existingAnswerIndex].answer = data.answer;
+        } else {
+          // Add a new answer
+          game.team1.answers.push({
+            cardId: data.cardId,
+            answer: data.answer,
+          });
+        }
+      } else if (team === 'team2') {
+        if (game.team2.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 2`);
+        }
+
+        const existingAnswerIndex = game.team2.answers.findIndex(
+          (entry) => entry.cardId === data.cardId,
+        );
+
+        if (existingAnswerIndex !== -1) {
+          // Update the existing answer
+          game.team2.answers[existingAnswerIndex].answer = data.answer;
+        } else {
+          // Add a new answer
+          game.team2.answers.push({
+            cardId: data.cardId,
+            answer: data.answer,
+          });
+        }
+      } else {
+        throw new Error(`Invalid team specified: ${team}`);
+      }
+
+      await this.redisService.setGame(code, game); // Update the game state in Redis
+      return game;
+    } catch (error) {
+      if (error instanceof Error && error.message) {
+        throw new Error(error.message);
+      }
+
+      // Handle the error gracefully to avoid websocket disconnection
       throw new Error(
-        `Forbidden game with code ${code} is not in the 'reflection' status`,
+        'Failed to update team answer. Please check "game.service.ts".',
       );
     }
-
-    if (team === 'team1') {
-      if (game.team1.clientId !== clientId) {
-        throw new Error(`Client ID ${clientId} is not connected to Team 1`);
-      }
-
-      const existingAnswerIndex = game.team1.answers.findIndex(
-        (entry) => entry.cardId === data.cardId,
-      );
-
-      if (existingAnswerIndex !== -1) {
-        // Mettre à jour la réponse existante
-        game.team1.answers[existingAnswerIndex].answer = data.answer;
-      } else {
-        // Ajouter une nouvelle réponse
-        game.team1.answers.push({
-          cardId: data.cardId,
-          answer: data.answer,
-        });
-      }
-    } else if (team === 'team2') {
-      if (game.team2.clientId !== clientId) {
-        throw new Error(`Client ID ${clientId} is not connected to Team 2`);
-      }
-
-      const existingAnswerIndex = game.team2.answers.findIndex(
-        (entry) => entry.cardId === data.cardId,
-      );
-
-      if (existingAnswerIndex !== -1) {
-        // Mettre à jour la réponse existante
-        game.team2.answers[existingAnswerIndex].answer = data.answer;
-      } else {
-        // Ajouter une nouvelle réponse
-        game.team2.answers.push({
-          cardId: data.cardId,
-          answer: data.answer,
-        });
-      }
-    } else {
-      throw new Error(`Invalid team specified: ${team}`);
-    }
-
-    await this.redisService.setGame(code, game); // Update the game state in Redis
-    return game;
   }
 }

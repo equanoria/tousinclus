@@ -3,13 +3,14 @@ import { Server, Socket } from 'socket.io';
 import { WSResponseDTO } from 'src/utils/dto/response.dto';
 import { GameService } from 'src/game/game.service';
 import { ReflectionDataDTO } from '../dto/websocket.dto';
+import { WsException } from '@nestjs/websockets';
 
 @Injectable()
 export class ReflectionService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
 
   async handleReflectionLogic(
-    server: Server,
+    Server: Server,
     client: Socket,
     data: ReflectionDataDTO,
   ): Promise<void> {
@@ -28,7 +29,11 @@ export class ReflectionService {
 
       default:
         // Emit an error in case of unrecognized action
-        client.emit('error', { message: 'Action non reconnue', action });
+        client.emit('reflection-response', {
+          status: 'error',
+          message: 'Action non reconnue',
+          action,
+        });
     }
   }
 
@@ -40,10 +45,10 @@ export class ReflectionService {
       );
 
       if (!data.data.cardId || !data.data.answer) {
-        throw new Error('Missing required fields: cardId or answer');
+        throw new WsException('Missing required fields: cardId or answer');
       }
 
-      this.gameService.updateTeamAnswer(
+      await this.gameService.updateTeamAnswer(
         data.code,
         data.team,
         client.id,
@@ -63,7 +68,9 @@ export class ReflectionService {
       let errorCode = 'GENERIC_ERROR';
       if (error.message.includes('Missing required fields')) {
         errorCode = 'MISSING_FIELDS';
-      } else if (error.message.includes('Forbidden')) {
+      } else if (error.message.includes('not found')) {
+        errorCode = 'NOT_FOUND';
+      } else if (error.message.includes('forbidden')) {
         errorCode = 'FORBIDDEN';
       }
 

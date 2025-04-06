@@ -38,7 +38,11 @@ export class WaitingService {
 
       default:
         // Emit an error in case of unrecognized action
-        client.emit('error', { message: 'Action non reconnue', action });
+        client.emit('reflection-response', {
+          status: 'error',
+          message: 'Action non reconnue',
+          action,
+        });
     }
   }
 
@@ -89,8 +93,6 @@ export class WaitingService {
         // Send a message to all participants in the room
         this.gameService.updateGameStatus(code, EnumGameStatus.Reflection);
         server.to(code).emit('game-status', responseData);
-
-        // TODO: Move the status to the next status
       }
     } catch (error) {
       console.error(`Error updating team connection: ${error.message}`);
