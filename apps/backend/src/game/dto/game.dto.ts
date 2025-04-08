@@ -25,7 +25,15 @@ export class CreateGameDTO {
     description: 'Identifier of the associated deck (optional)',
     example: 1,
   })
-  readonly deckId?: number;
+  deckId?: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'Duration of the reflection part',
+    example: 15,
+  })
+  reflectionDuration: number;
 }
 
 export class AnswerDataDTO implements IAnswerData {
@@ -68,6 +76,7 @@ export class AnswerDataDTO implements IAnswerData {
 
 export class AnswerDTO implements IAnswer {
   @IsNumber()
+  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Card ID',
@@ -131,6 +140,15 @@ export class GameDTO implements IGame {
     enum: EnumGameStatus,
   })
   status: EnumGameStatus;
+
+  @IsNumber()
+  @IsOptional()
+  @Expose()
+  @ApiPropertyOptional({
+    description: 'Time for Reflection phase in minutes',
+    example: 60,
+  })
+  reflectionDuration?: number;
 
   @IsNumber()
   @IsOptional()

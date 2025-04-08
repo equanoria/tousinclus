@@ -77,7 +77,7 @@ export class WebsocketGateway
     @MessageBody() data: any,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
-    await this.reflectionService.handleReflectionLogic(this.server, client, {
+    await this.reflectionService.handleReflectionLogic(client, {
       ...data,
     });
   }

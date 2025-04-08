@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Server, Socket } from 'socket.io';
+import { Socket } from 'socket.io';
 import { WSResponseDTO } from 'src/utils/dto/response.dto';
 import { GameService } from 'src/game/game.service';
 import { ReflectionDataDTO } from '../dto/websocket.dto';
@@ -10,7 +10,6 @@ export class ReflectionService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
 
   async handleReflectionLogic(
-    server: Server,
     client: Socket,
     data: ReflectionDataDTO,
   ): Promise<void> {

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { createDirectus, rest, staticToken } from '@directus/sdk';
-import { EnumGameStatus } from '@tousinclus/types';
 
-// ========== DTO Import ==========
+// ========== DTO / Types Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO } from './dto/game.dto';
+import { EnumGameStatus } from '@tousinclus/types';
 
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
@@ -38,25 +38,29 @@ export class GameService {
     return deckData[randomIndex] as number; // Retourne l'ID aléatoire
   }
 
-  private async generateNewGameData(deckIdData): Promise<GameDTO> {
-    let deckId: number = null;
-    if (deckIdData || deckIdData != null) {
-      deckId = deckIdData;
-    } else {
-      deckId = await this.directusService.getDeckDefault(client);
-    }
+  private async generateNewGameData(
+    createGameData: CreateGameDTO,
+  ): Promise<GameDTO> {
+    const deckId =
+      createGameData.deckId ??
+      (await this.directusService.getDeckDefault(client));
+
+    const reflectionDuration =
+      createGameData.reflectionDuration ??
+      (await this.directusService.getReflectionDurationDefault(client));
 
     const groupId = await this.getRandomGroupId(deckId);
 
     if (groupId === null) {
       throw new NotFoundException(
-        `Specified deck with id ${deckIdData} not found`,
+        `Specified deck with id ${createGameData.deckId} not found`,
       );
     }
 
     const newGame: GameDTO = {
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EnumGameStatus.Waiting,
+      reflectionDuration: reflectionDuration,
       cardGroupId: groupId,
       team1: {
         isConnected: false,
@@ -69,11 +73,12 @@ export class GameService {
         answers: [],
       },
     };
+
     return newGame;
   }
 
   async createGame(createGameDto: CreateGameDTO): Promise<GameDTO> {
-    const newGame = this.generateNewGameData(createGameDto.deckId || null);
+    const newGame = this.generateNewGameData(createGameDto || null);
     await this.redisService.setGame((await newGame).code, await newGame); // add new game data to redis db
     return newGame; // Return the game create as JSON
   }
@@ -84,9 +89,7 @@ export class GameService {
   ): Promise<GameDTO[]> {
     const newGames: GameDTO[] = [];
     for (let step = 0; step < i; step++) {
-      const newGame = await this.generateNewGameData(
-        createGameDto.deckId || null,
-      ); // Generate i game data
+      const newGame = await this.generateNewGameData(createGameDto || null); // Generate i game data
       newGames.push(newGame);
       await this.redisService.setGame(newGame.code, newGame); // add new game data to redis db
     }
@@ -124,6 +127,7 @@ export class GameService {
       const response: GameDTO = {
         code: game.code,
         status: game.status,
+        reflectionDuration: game.reflectionDuration,
         cardGroupId: game.cardGroupId,
       };
 

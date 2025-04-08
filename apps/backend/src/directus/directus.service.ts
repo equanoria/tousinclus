@@ -481,6 +481,23 @@ export class DirectusService {
     }
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+  async getReflectionDurationDefault(client: any): Promise<number> {
+    try {
+      // Make an explicit request for users (allows filtering fields)
+      const reflectionDuration = await client.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+        readItems<any, any, any>('config', {
+          fields: ['reflection_duration_default'],
+        }),
+      );
+
+      return reflectionDuration;
+    } catch (error) {
+      return error;
+    }
+  }
+
   // ========== LANGUAGES ==========
   async languageRequest(
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type

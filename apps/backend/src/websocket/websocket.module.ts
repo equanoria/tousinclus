@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GameModule } from 'src/game/game.module';
 import { WebsocketGateway } from './websocket.gateway';
+import { ScheduleModule } from '@nestjs/schedule';
 
 // ========== Service Import ==========
 import { DebateService } from './service/debate.service';
@@ -10,7 +11,7 @@ import { WaitingService } from './service/waiting.service';
 import { JoiningService } from './service/joining.service';
 
 @Module({
-  imports: [GameModule],
+  imports: [GameModule, ScheduleModule.forRoot()],
   providers: [
     WebsocketGateway,
     WaitingService,

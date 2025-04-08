@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
+import { SchedulerRegistry } from '@nestjs/schedule';
+import { setTimeout } from 'node:timers';
 
 // ========== Service Import ==========
 import { GameService } from '../../game/game.service';
@@ -13,7 +15,10 @@ import { EnumGameStatus } from '@tousinclus/types';
 
 @Injectable()
 export class WaitingService {
-  constructor(private readonly gameService: GameService) {} // Injection of GameService
+  constructor(
+    private readonly gameService: GameService,
+    private schedulerRegistry: SchedulerRegistry,
+  ) {} // Injection of GameService
 
   async handleWaitingLogic(
     server: Server,
@@ -86,13 +91,33 @@ export class WaitingService {
 
       console.log(`Updated game (Team Choice): ${JSON.stringify(updatedGame)}`);
 
-      const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
+      // Vérifie que la partie n'a pas déjà commencé
+      if (dataGame.status === EnumGameStatus.Waiting) {
+        const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
 
-      if (isReadyToStart) {
-        const responseData: WSGameStatus = { gameStatus: 'reflection' };
-        // Send a message to all participants in the room
-        this.gameService.updateGameStatus(code, EnumGameStatus.Reflection);
-        server.to(code).emit('game-status', responseData);
+        if (isReadyToStart) {
+          const responseData: WSGameStatus = { gameStatus: 'reflection' };
+          // Send a message to all participants in the room
+          this.gameService.updateGameStatus(code, EnumGameStatus.Reflection);
+
+          // Convert reflectionDuration from minutes to milliseconds
+          const reflectionDuration = dataGame.reflectionDuration * 60 * 1000;
+
+          const timeout = setTimeout(() => {
+            this.executeReflectionLogic(server, code);
+          }, reflectionDuration);
+
+          this.schedulerRegistry.addTimeout(
+            `reflection-${dataGame.code}`,
+            timeout,
+          );
+
+          console.log(
+            `Dans ${dataGame.reflectionDuration} min je vais passer en phase débat`,
+          );
+
+          server.to(code).emit('game-status', responseData);
+        }
       }
     } catch (error) {
       console.error(`Error updating team connection: ${error.message}`);
@@ -113,5 +138,15 @@ export class WaitingService {
       // Send a structured error response to the client
       client.emit('team-connection-error', responseData);
     }
+  }
+
+  private executeReflectionLogic(server: Server, code: string) {
+    const responseData: WSGameStatus = { gameStatus: 'debate' };
+
+    this.gameService.updateGameStatus(code, EnumGameStatus.Debate);
+
+    console.log('Je suis en phase débat');
+
+    server.to(code).emit('game-status', responseData);
   }
 }
