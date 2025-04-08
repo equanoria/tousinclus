@@ -38,7 +38,7 @@ export class WaitingService {
 
       default:
         // Emit an error in case of unrecognized action
-        client.emit('reflection-response', {
+        client.emit('waiting-response', {
           status: 'error',
           message: 'Action non reconnue',
           action,

@@ -10,7 +10,7 @@ export class ReflectionService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
 
   async handleReflectionLogic(
-    Server: Server,
+    server: Server,
     client: Socket,
     data: ReflectionDataDTO,
   ): Promise<void> {
