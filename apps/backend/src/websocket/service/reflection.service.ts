@@ -46,6 +46,7 @@ export class ReflectionService {
 
       if (!data.data.cardId || !data.data.answer) {
         throw new WsException('Missing required fields: cardId or answer');
+        // TODO Renvoyer le client dans l'exception pour directement renvoyer un socket
       }
 
       await this.gameService.updateTeamAnswer(

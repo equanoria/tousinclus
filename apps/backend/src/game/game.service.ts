@@ -38,7 +38,6 @@ export class GameService {
     return deckData[randomIndex] as number; // Retourne l'ID aléatoire
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private async generateNewGameData(deckIdData): Promise<GameDTO> {
     let deckId: number = null;
     if (deckIdData || deckIdData != null) {
