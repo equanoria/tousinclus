@@ -20,11 +20,11 @@ import {
 } from '@nestjs/swagger';
 
 // ========== DTO Import ==========
-import { CreateGameDTO, IGameDTO } from './dto/game.dto';
+import { CreateGameDTO, GameDTO } from './dto/game.dto';
 
 // ========== Service Import ==========
 import { GameService } from './game.service';
-import { IHTTPResponseDTO } from 'src/utils/dto/response.dto';
+import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 
 @ApiTags('Game')
 @Controller('game')
@@ -43,14 +43,14 @@ export class GameController {
   @ApiResponse({
     status: 404,
     description: 'Specified Deck with id xxx not found',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
   @ApiResponse({
     status: 201,
     description: 'The game has been successfully created',
-    type: IGameDTO,
+    type: GameDTO,
   })
-  createGame(@Body() createGameDto: CreateGameDTO): Promise<IGameDTO> {
+  createGame(@Body() createGameDto: CreateGameDTO): Promise<GameDTO> {
     const game = this.gameService.createGame({ ...createGameDto });
     if (!game) {
       throw new HttpException(
@@ -78,18 +78,18 @@ export class GameController {
   @ApiResponse({
     status: 201,
     description: 'The games have been successfully created',
-    type: [IGameDTO],
+    type: [GameDTO],
   })
   @ApiResponse({
     status: 404,
     description: 'Specified Deck with the given id not found',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
   createManyGame(
     @Body() createGameDto: CreateGameDTO,
     @Param('numberOfGame', ParseIntPipe)
     numberOfGame: number,
-  ): Promise<IGameDTO[]> {
+  ): Promise<GameDTO[]> {
     const games = this.gameService.createManyGame(numberOfGame, {
       ...createGameDto,
     });
@@ -112,14 +112,14 @@ export class GameController {
   @ApiResponse({
     status: 200,
     description: 'The game was found and returned successfully',
-    type: IGameDTO,
+    type: GameDTO,
   })
   @ApiResponse({
     status: 404,
     description: 'Game not found',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
-  async getOneGame(@Param('code') code: IGameDTO['code']): Promise<IGameDTO> {
+  async getOneGame(@Param('code') code: GameDTO['code']): Promise<GameDTO> {
     const game = await this.gameService.findOneGame(code);
     if (!game) {
       throw new NotFoundException(`Game with code ${code} not found`);
@@ -132,14 +132,14 @@ export class GameController {
   @ApiResponse({
     status: 200,
     description: 'Successfully retrieved all games',
-    type: [IGameDTO],
+    type: [GameDTO],
   })
   @ApiResponse({
     status: 404,
     description: 'No games found in the database',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
-  async getAllGames(): Promise<IGameDTO[]> {
+  async getAllGames(): Promise<GameDTO[]> {
     const allGames = await this.gameService.findAllGames();
     if (!allGames || allGames.length === 0) {
       throw new NotFoundException('Database is empty');
@@ -157,14 +157,14 @@ export class GameController {
   @ApiResponse({
     status: 200,
     description: 'The game has been successfully deleted',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
   @ApiResponse({
     status: 404,
     description: 'Game not found',
-    type: IHTTPResponseDTO,
+    type: HTTPResponseDTO,
   })
-  async deleteOneGame(@Param('code') code: string): Promise<IHTTPResponseDTO> {
+  async deleteOneGame(@Param('code') code: string): Promise<HTTPResponseDTO> {
     const game = await this.gameService.deleteOneGame(code);
     if (!game) {
       throw new NotFoundException(`Game with code ${code} not found`);

@@ -5,10 +5,11 @@ import { Server, Socket } from 'socket.io';
 import { GameService } from '../../game/game.service';
 
 // ========== DTO Import ==========
-import { IWaitingDataDTO, IWSGameStatus } from '../dto/websocket.dto';
-import { IWSResponseDTO } from 'src/utils/dto/response.dto';
-import { IGameDTO } from 'src/game/dto/game.dto';
+import { WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
+import { WSResponseDTO } from 'src/utils/dto/response.dto';
+import { GameDTO } from 'src/game/dto/game.dto';
 import { plainToInstance } from 'class-transformer';
+import { EnumGameStatus } from '@tousinclus/types';
 
 @Injectable()
 export class WaitingService {
@@ -17,10 +18,10 @@ export class WaitingService {
   async handleWaitingLogic(
     server: Server,
     client: Socket,
-    data: IWaitingDataDTO,
+    data: WSDataDTO,
   ): Promise<void> {
     // Checking the action
-    const action = data?.action;
+    const { action, ...CData } = data;
 
     // Trigger the appropriate logic based on the action
     switch (action) {
@@ -29,23 +30,27 @@ export class WaitingService {
         await this.handleTeamConnection(
           server,
           client,
-          data.code,
-          data.team,
+          CData.code,
+          CData.team,
           client.id,
         );
         break;
 
       default:
         // Emit an error in case of unrecognized action
-        client.emit('error', { message: 'Action non reconnue', action });
+        client.emit('waiting-response', {
+          status: 'error',
+          message: 'Action non reconnue',
+          action,
+        });
     }
   }
 
   async handleTeamConnection(
     server: Server,
     client: Socket,
-    code: IWaitingDataDTO['code'],
-    team: IWaitingDataDTO['team'],
+    code: WSDataDTO['code'],
+    team: WSDataDTO['team'],
     clientId: string,
   ): Promise<void> {
     try {
@@ -67,7 +72,7 @@ export class WaitingService {
       client.join(code);
 
       // Transformer l'objet en excluant les clés marquées
-      const dataGame = plainToInstance(IGameDTO, updatedGame, {
+      const dataGame = plainToInstance(GameDTO, updatedGame, {
         excludeExtraneousValues: true,
         groups: ['room'],
       });
@@ -84,11 +89,10 @@ export class WaitingService {
       const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
 
       if (isReadyToStart) {
-        const responseData: IWSGameStatus = { gameStatus: 'start', code };
+        const responseData: WSGameStatus = { gameStatus: 'reflection' };
         // Send a message to all participants in the room
+        this.gameService.updateGameStatus(code, EnumGameStatus.Reflection);
         server.to(code).emit('game-status', responseData);
-
-        // TODO: Move the status to the next status
       }
     } catch (error) {
       console.error(`Error updating team connection: ${error.message}`);
@@ -101,7 +105,7 @@ export class WaitingService {
         errorCode = 'TEAM_ALREADY_ASSIGNED';
       }
 
-      const responseData: IWSResponseDTO = {
+      const responseData: WSResponseDTO = {
         status: 'error',
         message: error.message,
         error: errorCode,
