@@ -2,7 +2,12 @@ import { IWSData, IWSGameStatus } from '@tousinclus/types';
 import { Type } from 'class-transformer';
 import { AnswerDTO } from '../../game/dto/game.dto';
 
-import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
 export class WSDataDTO implements IWSData {
   @IsString()
@@ -10,11 +15,11 @@ export class WSDataDTO implements IWSData {
   code: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   action?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   team?: string;
 }
 
