@@ -13,6 +13,7 @@ import { GameDTO } from 'src/game/dto/game.dto';
 import { plainToInstance } from 'class-transformer';
 import { EnumGameStatus } from '@tousinclus/types';
 
+// TODO Refactor des erreurs
 @Injectable()
 export class WaitingService {
   constructor(
@@ -133,7 +134,7 @@ export class WaitingService {
       const responseData: WSResponseDTO = {
         status: 'error',
         message: error.message,
-        error: errorCode,
+        errorCode: errorCode,
       };
       // Send a structured error response to the client
       client.emit('team-connection-error', responseData);

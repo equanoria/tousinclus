@@ -1,6 +1,14 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsNotEmpty, IsObject, IsString } from 'class-validator';
 
+export enum ErrorCode {
+  NOT_FOUND = 'NOT_FOUND',
+  UNAUTHORIZED = 'UNAUTHORIZED',
+  FORBIDDEN = 'FORBIDDEN',
+  INTERNAL_ERROR = 'INTERNAL_ERROR',
+  VALIDATION_FAILED = 'VALIDATION_FAILED',
+}
+
 export class ResponseDTO {
   @IsString()
   @ApiPropertyOptional({
@@ -11,17 +19,18 @@ export class ResponseDTO {
 
   @IsString()
   @ApiPropertyOptional({
-    description: 'Error message if any error occurred',
-    example: 'Internal error',
+    description: 'Error code if any error occurred',
+    example: 'NOT_FOUND',
+    enum: ErrorCode,
   })
-  error?: string;
+  errorCode?: ErrorCode | string;
 
   @IsObject()
   @ApiPropertyOptional({
     description: 'Additional data returned',
     example: { id: 1, value: 'example' },
   })
-  data?: object;
+  errors?: object;
 }
 
 export class HTTPResponseDTO extends ResponseDTO {
@@ -42,4 +51,5 @@ export class WSResponseDTO extends ResponseDTO {
     enum: ['success', 'error', 'failed', 'forbidden'],
   })
   status: 'success' | 'error' | 'failed' | 'forbidden';
+  responseChannel?: string;
 }

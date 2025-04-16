@@ -5,6 +5,7 @@ import { GameService } from 'src/game/game.service';
 import { ReflectionDataDTO } from '../dto/websocket.dto';
 import { WsException } from '@nestjs/websockets';
 
+// TODO Refactor des erreurs
 @Injectable()
 export class ReflectionService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
@@ -77,7 +78,7 @@ export class ReflectionService {
       const responseData: WSResponseDTO = {
         status: 'error',
         message: error.message,
-        error: errorCode,
+        errorCode: errorCode,
       };
       // Send a structured error response to the client
       client.emit('reflection-response', responseData);

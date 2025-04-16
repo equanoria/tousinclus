@@ -17,6 +17,9 @@ import { ReflectionService } from './service/reflection.service';
 import { DebateService } from './service/debate.service';
 import { DisconnectService } from './service/disconnect.service';
 import { WSDataDTO } from './dto/websocket.dto';
+import { WebsocketValidationPipe } from 'src/utils/pipes/websocket-validation.pipe';
+import { WebsocketExceptionFilter } from 'src/utils/filters/websocket-exception.filter';
+import { UseFilters } from '@nestjs/common';
 
 // Init websocket
 @WebSocketGateway({
@@ -25,6 +28,7 @@ import { WSDataDTO } from './dto/websocket.dto';
   },
   serveClient: false,
 })
+@UseFilters(new WebsocketExceptionFilter())
 export class WebsocketGateway
   implements OnGatewayConnection, OnGatewayDisconnect
 {
@@ -54,7 +58,8 @@ export class WebsocketGateway
   // ? Handle Client join a game
   @SubscribeMessage('joining')
   async handleJoining(
-    @MessageBody() data: WSDataDTO,
+    @MessageBody(new WebsocketValidationPipe('joining-response'))
+    data: WSDataDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
     await this.joiningService.handleJoiningLogic(client, { ...data });

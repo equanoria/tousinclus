@@ -6,7 +6,7 @@ import { Socket } from 'socket.io';
 import { GameService } from 'src/game/game.service';
 
 // ========== DTO Import ==========
-import { WSResponseDTO } from 'src/utils/dto/response.dto';
+import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { WSDataDTO } from '../dto/websocket.dto';
 import { plainToInstance } from 'class-transformer';
 import { GameDTO } from 'src/game/dto/game.dto';
@@ -16,53 +16,24 @@ export class JoiningService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
 
   async handleJoiningLogic(client: Socket, data: WSDataDTO): Promise<void> {
-    if (!data.code) {
+    // Appeler le service pour récupérer les données du jeu
+    const findOneGameData = await this.gameService.findOneGame(data.code);
+
+    if (!findOneGameData) {
       const responseData: WSResponseDTO = {
         status: 'error',
-        error: 'No game code specified',
-        message: 'Please specify it in the JSON with key "code"',
+        errorCode: ErrorCode.NOT_FOUND,
+        message: `There is no game found with code "${data.code}"`,
+        responseChannel: 'joining-response',
       };
-      client.emit('joining-response', responseData);
-      throw new WsException(
-        'No game code specified in the JSON with key "code"',
-      );
+      throw new WsException(responseData);
     }
 
-    try {
-      // Appeler le service pour récupérer les données du jeu
-      const findOneGameData = await this.gameService.findOneGame(data.code);
+    // Transformer l'objet en excluant les clés marquées
+    const modifiedGameData = plainToInstance(GameDTO, findOneGameData, {
+      excludeExtraneousValues: true,
+    });
 
-      if (!findOneGameData) {
-        const responseData: WSResponseDTO = {
-          status: 'error',
-          error: 'No game found',
-          message: `There is no game found with code "${data.code}"`,
-        };
-        client.emit('joining-response', responseData);
-        throw new WsException(`No game found with code "${data.code}"`);
-      }
-
-      // Transformer l'objet en excluant les clés marquées
-      const modifiedGameData = plainToInstance(GameDTO, findOneGameData, {
-        excludeExtraneousValues: true,
-      });
-
-      client.emit('joining-response', modifiedGameData);
-    } catch (error) {
-      if (error instanceof WsException) {
-        // Si c'est une erreur custom, ne rien faire (elle a déjà été gérée)
-        return;
-      }
-
-      // Gérer l'erreur, par exemple en journalisant ou en envoyant une réponse d'erreur
-      console.error('Error handling joining logic:', error);
-      const responseData: WSResponseDTO = {
-        status: 'error',
-        error: 'Internal server error',
-        message: 'An error occurred while processing your request.',
-      };
-      client.emit('joining-response', responseData);
-      throw new WsException('An error occurred while processing your request.');
-    }
+    client.emit('joining-response', modifiedGameData);
   }
 }
