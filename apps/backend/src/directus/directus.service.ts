@@ -477,7 +477,7 @@ export class DirectusService {
 
       return deckData.deck_default;
     } catch (error) {
-      return error;
+      throw new Error(`Failed to fetch deck default: ${error}`);
     }
   }
 
@@ -494,7 +494,7 @@ export class DirectusService {
 
       return reflectionDuration;
     } catch (error) {
-      return error;
+      throw new Error(`Failed to fetch reflection duration default: ${error}`);
     }
   }
 

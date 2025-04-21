@@ -48,7 +48,7 @@ export class ReflectionService {
 
       if (!data.data.answer) {
         throw new BadRequestException(
-          'Please provide filed "Data" to update answers',
+          'Please provide field "Data" to update answers',
         );
       }
 

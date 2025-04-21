@@ -149,7 +149,7 @@ export class WaitingService {
         status: 'error',
         errorCode: errorCode,
         message: error.message,
-        responseChannel: 'joining-response',
+        responseChannel: 'waiting-response',
       };
       throw new WsException(responseData);
     }
