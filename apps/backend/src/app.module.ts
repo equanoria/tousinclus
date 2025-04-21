@@ -8,8 +8,6 @@ import { WebsocketModule } from './websocket/websocket.module';
 import { DirectusModule } from './directus/directus.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
-import { APP_FILTER } from '@nestjs/core';
-import { WebsocketExceptionFilter } from './utils/filters/websocket-exception.filter';
 
 @Module({
   imports: [
@@ -26,13 +24,6 @@ import { WebsocketExceptionFilter } from './utils/filters/websocket-exception.fi
     UserModule,
   ],
   controllers: [AppController],
-  // TODO Voir si on enlève ça si ça casse ou pas
-  providers: [
-    AppService,
-    {
-      provide: APP_FILTER,
-      useClass: WebsocketExceptionFilter,
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}

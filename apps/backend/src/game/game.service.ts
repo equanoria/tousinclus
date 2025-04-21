@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { createDirectus, rest, staticToken } from '@directus/sdk';
 
 // ========== DTO / Types Import ==========
@@ -117,53 +122,43 @@ export class GameService {
     team: string,
     clientId: string,
   ): Promise<GameDTO> {
-    try {
-      const game = await this.findOneGame(code);
+    const game = await this.findOneGame(code);
 
-      if (!game) {
-        throw new Error(`Game with code ${code} not found`);
-      }
-
-      const response: GameDTO = {
-        code: game.code,
-        status: game.status,
-        reflectionDuration: game.reflectionDuration,
-        cardGroupId: game.cardGroupId,
-      };
-
-      if (team === 'team1') {
-        if (game.team1.isConnected) {
-          throw new Error(
-            `Team 1 is already connected with client ID ${game.team1.clientId}`,
-          );
-        }
-        game.team1.isConnected = true;
-        game.team1.clientId = clientId; // Assign the uuid of the client
-        response.team1 = game.team1; // Return only team1 data
-      } else if (team === 'team2') {
-        if (game.team2.isConnected) {
-          throw new Error(
-            `Team 2 is already connected with client ID ${game.team2.isConnected}`,
-          );
-        }
-        game.team2.isConnected = true;
-        game.team2.clientId = clientId; // Assign the uuid of the client
-        response.team2 = game.team2; // Return only team2 data
-      } else {
-        throw new Error(`Invalid team specified: ${team}`);
-      }
-
-      await this.redisService.setGame(code, game); // Update the game state in Redis
-      return response;
-    } catch (error) {
-      if (error instanceof Error && error.message) {
-        throw new Error(error.message);
-      }
-
-      throw new Error(
-        'Failed to update team connection status. Please try again.',
-      );
+    if (!game) {
+      throw new NotFoundException(`Game with code ${code} not found`);
     }
+
+    const response: GameDTO = {
+      code: game.code,
+      status: game.status,
+      reflectionDuration: game.reflectionDuration,
+      cardGroupId: game.cardGroupId,
+    };
+
+    if (team === 'team1') {
+      if (game.team1.isConnected) {
+        throw new ForbiddenException(
+          `Team 1 is already connected with client ID ${game.team1.clientId}`,
+        );
+      }
+      game.team1.isConnected = true;
+      game.team1.clientId = clientId; // Assign the uuid of the client
+      response.team1 = game.team1; // Return only team1 data
+    } else if (team === 'team2') {
+      if (game.team2.isConnected) {
+        throw new ForbiddenException(
+          `Team 2 is already connected with client ID ${game.team2.isConnected}`,
+        );
+      }
+      game.team2.isConnected = true;
+      game.team2.clientId = clientId; // Assign the uuid of the client
+      response.team2 = game.team2; // Return only team2 data
+    } else {
+      throw new BadRequestException(`Invalid team specified: ${team}`);
+    }
+
+    await this.redisService.setGame(code, game); // Update the game state in Redis
+    return response;
   }
 
   async updateTeamDisconnectStatus(
@@ -216,7 +211,7 @@ export class GameService {
   ): Promise<void> {
     const game = await this.findOneGame(code);
     if (!game) {
-      throw new Error(`Game with code ${code} not found`);
+      throw new NotFoundException(`Game with code ${code} not found`);
     }
 
     game.status = status;

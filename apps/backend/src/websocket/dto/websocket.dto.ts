@@ -16,19 +16,20 @@ export class WSDataDTO implements IWSData {
 
   @IsString()
   @IsOptional()
-  action?: string;
-
-  @IsString()
-  @IsOptional()
   team?: string;
+
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => AnswerDTO)
+  data?: AnswerDTO;
 }
 
-export class ReflectionDataDTO extends WSDataDTO {
-  @ValidateNested()
+export class WSControllerDTO extends WSDataDTO {
+  @IsString()
   @IsNotEmpty()
-  @Type(() => AnswerDTO)
-  data: AnswerDTO;
+  action: string;
 }
+
 export class WSGameStatus implements IWSGameStatus {
   @IsString()
   @IsNotEmpty()

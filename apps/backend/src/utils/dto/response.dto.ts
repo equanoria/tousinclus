@@ -2,11 +2,14 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsNotEmpty, IsObject, IsString } from 'class-validator';
 
 export enum ErrorCode {
+  GENERIC_ERROR = 'GENERIC_ERROR',
   NOT_FOUND = 'NOT_FOUND',
   UNAUTHORIZED = 'UNAUTHORIZED',
   FORBIDDEN = 'FORBIDDEN',
   INTERNAL_ERROR = 'INTERNAL_ERROR',
   VALIDATION_FAILED = 'VALIDATION_FAILED',
+  CONFLICT_ERROR = 'CONFLICT_ERROR',
+  BAD_REQUEST = 'BAD_REQUEST'
 }
 
 export class ResponseDTO {
