@@ -1,16 +1,10 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Socket } from 'socket.io';
 import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { GameService } from 'src/game/game.service';
 import { WSControllerDTO, WSDataDTO } from '../dto/websocket.dto';
 import { WsException } from '@nestjs/websockets';
 
-// TODO Refactor des erreurs
 @Injectable()
 export class ReflectionService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
