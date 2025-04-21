@@ -1,15 +1,16 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { CacheService } from '../../cache/cache.service';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { DirectusService } from '../../directus/directus.service';
 import { ITranslationDTO } from '../../directus/dto/directus.dto';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class LanguageService {
   private readonly LANGUAGE_CODE_TTL = 86400;
 
   constructor(
-    private readonly cacheService: CacheService,
     private readonly directusService: DirectusService,
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
 
   async getPreferredLanguage(
@@ -22,15 +23,14 @@ export class LanguageService {
     }
 
     // First, check in the cache
-    let cachedLanguages =
-      await this.cacheService.getCache<string[]>('languages');
+    let cachedLanguages = await this.cacheManager.get<string[]>('languages');
 
     // If not found, retrieve and store the languages
     if (!cachedLanguages?.length) {
       cachedLanguages = (await this.directusService.languageRequest(
         client,
       )) as string[];
-      await this.cacheService.setCache(
+      await this.cacheManager.set(
         'languages',
         cachedLanguages,
         this.LANGUAGE_CODE_TTL,

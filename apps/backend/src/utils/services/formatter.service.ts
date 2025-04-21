@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 export class FormatterService {
   // Formatter for better readability of JSON
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async directusUsersFormatter(usersData: any) {
+  directusUsersFormatter(usersData: any) {
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     return usersData.map((user: any) => ({
       id: user.id,
@@ -19,7 +19,7 @@ export class FormatterService {
   }
 
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async directusSituationsFormatter(situationsData: any) {
+  directusSituationsFormatter(situationsData: any) {
     if (Array.isArray(situationsData)) {
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       return situationsData.map((situation: any) => ({
@@ -46,7 +46,7 @@ export class FormatterService {
 
   // Formatter for groups
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async directusGroupFormatter(groupData: any) {
+  directusGroupFormatter(groupData: any) {
     return Promise.all(
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       groupData.map(async (group: any) => {
@@ -76,7 +76,7 @@ export class FormatterService {
 
   // Formatter for decks
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async directusDeckFormatter(deckData: any) {
+  directusDeckFormatter(deckData: any) {
     return Promise.all(
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       deckData.map(async (deck: any) => {
@@ -100,9 +100,23 @@ export class FormatterService {
     );
   }
 
+  // Formatter for decks
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+  directusGetDeckByIdFormatter(deckData: any) {
+    if (!Array.isArray(deckData)) {
+      console.error('Invalid data format: expected an array.');
+      return [];
+    }
+
+    return deckData
+      .flatMap((deck) => deck.group || []) // Récupère tous les groupes
+      .map((group) => group.id) // Extrait uniquement les IDs
+      .filter((id) => id !== undefined); // Filtre les valeurs undefined au cas où
+  }
+
   // Formatter for language
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async directusLanguageFormatter(languageData: any[]): Promise<string[]> {
+  directusLanguageFormatter(languageData: any[]): string[] {
     return languageData.map((lang) => lang.code);
   }
 }

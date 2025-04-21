@@ -65,7 +65,7 @@ Event : game-status
 Data Reçu : 
 ```
 {
-    "gameStatus" : "start",
+    "gameStatus" : "reflection",
     "gameCode" : "V2J47H"
 }
 ```

@@ -68,15 +68,7 @@
             "translation": "Extreme users"
           }
         ],
-        "validation": {
-          "_and": [
-            {
-              "extreme_user": {
-                "_eq": "6"
-              }
-            }
-          ]
-        },
+        "validation": null,
         "validation_message": "$t:validation_translations",
         "width": "full"
       }

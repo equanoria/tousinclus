@@ -4,6 +4,12 @@
 Type : PUT
 Root : /game
 Cela va créer une game et renvoyer les données sous format JSON
+- Data : 
+```
+{
+    "deckId": 14
+}
+```
 - Success :
 ```
 {
@@ -20,6 +26,12 @@ Type : PUT
 Root : /game/:numberOfGame
 (:numberOfGame -> int)
 Cela va créer plusieurs games et renvoyer les données sous format JSON
+- Data : 
+```
+{
+    "deckId": 14
+}
+```
 - Success :
 ```
 [
