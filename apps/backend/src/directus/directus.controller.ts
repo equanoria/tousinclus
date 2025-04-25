@@ -7,7 +7,6 @@ import {
 } from '@nestjs/common';
 
 // ========== Directus SDK Import ==========
-import { createDirectus, staticToken, rest } from '@directus/sdk';
 import { DirectusService } from './directus.service';
 
 // ========== DTO Import ==========
@@ -25,16 +24,6 @@ import {
 import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 
 // ? Typing to add for Directus https://docs.directus.io/guides/sdk/types.html
-
-const client = createDirectus(
-  process.env.DIRECTUS_URL || 'http://127.0.0.1:3002',
-)
-  .with(
-    staticToken(
-      process.env.DIRECTUS_ADMIN_TOKEN || 'ssHmmuIXSHHbnsxsTTKeSqIuc1e66diF',
-    ),
-  )
-  .with(rest());
 
 @ApiTags('Directus')
 @Controller('directus')
@@ -78,17 +67,14 @@ export class DirectusController {
     @Param('type') type: ICardDTO['type'],
     @Param('id') id: ICardDTO['id'],
   ): Promise<unknown> {
-    const languageCode = await this.languageService.getPreferredLanguage(
-      requestLanguage,
-      client,
-    );
+    const languageCode =
+      await this.languageService.getPreferredLanguage(requestLanguage);
 
     if (!(type === 'users' || type === 'situations')) {
       throw new NotFoundException(`Type ${type} don't exist`);
     }
 
     const card = await this.directusService.handleCardRequest(
-      client,
       languageCode,
       type,
       id,
@@ -130,17 +116,14 @@ export class DirectusController {
     @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
     @Param('type') type: ICardDTO['type'],
   ): Promise<unknown> {
-    const languageCode = await this.languageService.getPreferredLanguage(
-      requestLanguage,
-      client,
-    );
+    const languageCode =
+      await this.languageService.getPreferredLanguage(requestLanguage);
 
     if (!(type === 'users' || type === 'situations')) {
       throw new NotFoundException(`Type ${type} don't exist`);
     }
 
     const cards = await this.directusService.handleCardRequest(
-      client,
       languageCode,
       type,
       null,
@@ -184,13 +167,10 @@ export class DirectusController {
     @Headers('accept-language') requestLanguage: ICardDTO['requestLanguage'],
     @Param('id') id: IGroupDTO['id'],
   ): Promise<unknown> {
-    const languageCode = await this.languageService.getPreferredLanguage(
-      requestLanguage,
-      client,
-    );
+    const languageCode =
+      await this.languageService.getPreferredLanguage(requestLanguage);
 
     const group = await this.directusService.handleGroupRequest(
-      client,
       languageCode,
       id,
     );
@@ -222,13 +202,10 @@ export class DirectusController {
   async getAllGroup(
     @Headers('accept-language') requestLanguage: IGroupDTO['requestLanguage'],
   ): Promise<unknown> {
-    const languageCode = await this.languageService.getPreferredLanguage(
-      requestLanguage,
-      client,
-    );
+    const languageCode =
+      await this.languageService.getPreferredLanguage(requestLanguage);
 
     const group = await this.directusService.handleGroupRequest(
-      client,
       languageCode,
       null,
     );
@@ -267,13 +244,10 @@ export class DirectusController {
     @Headers('accept-language') requestLanguage: IDeckDTO['requestLanguage'],
     @Param('id') id: IDeckDTO['id'],
   ): Promise<unknown> {
-    const languageCode = await this.languageService.getPreferredLanguage(
-      requestLanguage,
-      client,
-    );
+    const languageCode =
+      await this.languageService.getPreferredLanguage(requestLanguage);
 
     const group = await this.directusService.handleDeckRequest(
-      client,
       languageCode,
       id,
     );
@@ -305,13 +279,10 @@ export class DirectusController {
   async getAllDeck(
     @Headers('accept-language') requestLanguage: IDeckDTO['requestLanguage'],
   ): Promise<unknown> {
-    const languageCode = await this.languageService.getPreferredLanguage(
-      requestLanguage,
-      client,
-    );
+    const languageCode =
+      await this.languageService.getPreferredLanguage(requestLanguage);
 
     const group = await this.directusService.handleDeckRequest(
-      client,
       languageCode,
       null,
     );

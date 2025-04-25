@@ -15,8 +15,6 @@ export class LanguageService {
 
   async getPreferredLanguage(
     acceptLanguage: ITranslationDTO['requestLanguage'],
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
   ): Promise<string> {
     if (!acceptLanguage) {
       throw new BadRequestException('Accept-Language header is missing');
@@ -27,9 +25,8 @@ export class LanguageService {
 
     // If not found, retrieve and store the languages
     if (!cachedLanguages?.length) {
-      cachedLanguages = (await this.directusService.languageRequest(
-        client,
-      )) as string[];
+      cachedLanguages =
+        (await this.directusService.languageRequest()) as string[];
       await this.cacheManager.set(
         'languages',
         cachedLanguages,

@@ -4,7 +4,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { createDirectus, rest, staticToken } from '@directus/sdk';
 
 // ========== DTO / Types Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO } from './dto/game.dto';
@@ -13,16 +12,6 @@ import { EnumGameStatus } from '@tousinclus/types';
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
 import { DirectusService } from 'src/directus/directus.service';
-
-const client = createDirectus(
-  process.env.DIRECTUS_URL || 'http://127.0.0.1:3002',
-)
-  .with(
-    staticToken(
-      process.env.DIRECTUS_ADMIN_TOKEN || 'ssHmmuIXSHHbnsxsTTKeSqIuc1e66diF',
-    ),
-  )
-  .with(rest());
 
 @Injectable()
 export class GameService {
@@ -33,7 +22,7 @@ export class GameService {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private async getRandomGroupId(deckIdData: number): Promise<number> {
-    const deckData = await this.directusService.getDeckById(client, deckIdData);
+    const deckData = await this.directusService.getDeckById(deckIdData);
 
     if (!Array.isArray(deckData) || deckData.length === 0) {
       return null; // Retourne null si aucun ID disponible
@@ -47,12 +36,11 @@ export class GameService {
     createGameData: CreateGameDTO,
   ): Promise<GameDTO> {
     const deckId =
-      createGameData.deckId ??
-      (await this.directusService.getDeckDefault(client));
+      createGameData.deckId ?? (await this.directusService.getDeckDefault());
 
     const reflectionDuration =
       createGameData.reflectionDuration ??
-      (await this.directusService.getReflectionDurationDefault(client));
+      (await this.directusService.getReflectionDurationDefault());
 
     const groupId = await this.getRandomGroupId(deckId);
 
