@@ -16,7 +16,10 @@ import { WaitingService } from './service/waiting.service';
 import { ReflectionService } from './service/reflection.service';
 import { DebateService } from './service/debate.service';
 import { DisconnectService } from './service/disconnect.service';
-import { WSDataDTO } from './dto/websocket.dto';
+import { WSControllerDTO } from './dto/websocket.dto';
+import { WebsocketValidationPipe } from 'src/utils/pipes/websocket-validation.pipe';
+import { WebsocketExceptionFilter } from 'src/utils/filters/websocket-exception.filter';
+import { UseFilters } from '@nestjs/common';
 
 // Init websocket
 @WebSocketGateway({
@@ -25,6 +28,7 @@ import { WSDataDTO } from './dto/websocket.dto';
   },
   serveClient: false,
 })
+@UseFilters(new WebsocketExceptionFilter())
 export class WebsocketGateway
   implements OnGatewayConnection, OnGatewayDisconnect
 {
@@ -54,7 +58,8 @@ export class WebsocketGateway
   // ? Handle Client join a game
   @SubscribeMessage('joining')
   async handleJoining(
-    @MessageBody() data: WSDataDTO,
+    @MessageBody(new WebsocketValidationPipe('joining-response'))
+    data: WSControllerDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
     await this.joiningService.handleJoiningLogic(client, { ...data });
@@ -63,7 +68,8 @@ export class WebsocketGateway
   // ? Handle Client choose a team
   @SubscribeMessage('waiting')
   async handleWaiting(
-    @MessageBody() data: WSDataDTO,
+    @MessageBody(new WebsocketValidationPipe('waiting-response'))
+    data: WSControllerDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
     await this.waitingService.handleWaitingLogic(this.server, client, {
@@ -73,11 +79,11 @@ export class WebsocketGateway
 
   @SubscribeMessage('reflection')
   async handleReflection(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    @MessageBody() data: any,
+    @MessageBody(new WebsocketValidationPipe('reflection-response'))
+    data: WSControllerDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
-    await this.reflectionService.handleReflectionLogic(this.server, client, {
+    await this.reflectionService.handleReflectionLogic(client, {
       ...data,
     });
   }

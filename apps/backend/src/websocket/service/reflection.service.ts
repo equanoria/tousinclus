@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { Server, Socket } from 'socket.io';
-import { WSResponseDTO } from 'src/utils/dto/response.dto';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { Socket } from 'socket.io';
+import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { GameService } from 'src/game/game.service';
-import { ReflectionDataDTO } from '../dto/websocket.dto';
+import { WSControllerDTO, WSDataDTO } from '../dto/websocket.dto';
 import { WsException } from '@nestjs/websockets';
 
 @Injectable()
@@ -10,9 +10,8 @@ export class ReflectionService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
 
   async handleReflectionLogic(
-    server: Server,
     client: Socket,
-    data: ReflectionDataDTO,
+    data: WSControllerDTO,
   ): Promise<void> {
     const { action, ...CData } = data;
 
@@ -27,25 +26,30 @@ export class ReflectionService {
         await this.updateAnswer(client, CData);
         break;
 
-      default:
+      default: {
         // Emit an error in case of unrecognized action
-        client.emit('reflection-response', {
+        const responseData: WSResponseDTO = {
           status: 'error',
-          message: 'Action non reconnue',
-          action,
-        });
+          errorCode: ErrorCode.VALIDATION_FAILED,
+          message: `Unrecognized action "${action}"`,
+          responseChannel: 'reflection-response',
+        };
+        throw new WsException(responseData);
+      }
     }
   }
 
-  async updateAnswer(client: Socket, data: ReflectionDataDTO) {
+  async updateAnswer(client: Socket, data: WSDataDTO) {
     try {
       console.log(
         'Received data in updateAnswer',
         JSON.stringify(data, null, 2),
       );
 
-      if (!data.data.cardId || !data.data.answer) {
-        throw new WsException('Missing required fields: cardId or answer');
+      if (!data.data.answer) {
+        throw new BadRequestException(
+          'Please provide field "Data" to update answers',
+        );
       }
 
       await this.gameService.updateTeamAnswer(
@@ -62,25 +66,19 @@ export class ReflectionService {
         data: data.data,
       });
     } catch (error) {
-      console.error(`Error updating team connection: ${error.message}`);
+      let errorCode = ErrorCode.GENERIC_ERROR;
 
-      // Handle specific cases
-      let errorCode = 'GENERIC_ERROR';
-      if (error.message.includes('Missing required fields')) {
-        errorCode = 'MISSING_FIELDS';
-      } else if (error.message.includes('not found')) {
-        errorCode = 'NOT_FOUND';
-      } else if (error.message.includes('forbidden')) {
-        errorCode = 'FORBIDDEN';
+      if (error instanceof BadRequestException) {
+        errorCode = ErrorCode.BAD_REQUEST;
       }
 
       const responseData: WSResponseDTO = {
         status: 'error',
+        errorCode: errorCode,
         message: error.message,
-        error: errorCode,
+        responseChannel: 'reflection-response',
       };
-      // Send a structured error response to the client
-      client.emit('reflection-response', responseData);
+      throw new WsException(responseData);
     }
   }
 }

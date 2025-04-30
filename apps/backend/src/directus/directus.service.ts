@@ -1,16 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import type { ICardDTO, IGroupDTO } from './dto/directus.dto';
 import { FormatterService } from '../utils/services/formatter.service';
-import { readItems } from '@directus/sdk';
+import { createDirectus, readItems, rest, staticToken } from '@directus/sdk';
 
 @Injectable()
 export class DirectusService {
+  // For information directusClient type is DirectusClient<unknown> & RestClient<unknown> & StaticTokenClient<unknown>
+  private readonly directusClient = createDirectus(
+    process.env.DIRECTUS_URL || 'http://127.0.0.1:3002',
+  )
+    .with(
+      staticToken(
+        process.env.DIRECTUS_ADMIN_TOKEN || 'ssHmmuIXSHHbnsxsTTKeSqIuc1e66diF',
+      ),
+    )
+    .with(rest());
+
   constructor(private readonly formatterService: FormatterService) {}
 
   // ========== CARD ==========
   async handleCardRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
     languageCode: ICardDTO['requestLanguage'],
     type: ICardDTO['type'],
     id: ICardDTO['id'],
@@ -21,10 +30,10 @@ export class DirectusService {
 
       switch (type) {
         case 'users':
-          result = await this.usersRequest(client, languageCode, id);
+          result = await this.usersRequest(languageCode, id);
           break;
         case 'situations':
-          result = await this.situationsRequest(client, languageCode, id);
+          result = await this.situationsRequest(languageCode, id);
           break;
         default:
           throw new Error(`Unknown type: ${type}`);
@@ -38,8 +47,6 @@ export class DirectusService {
 
   // Card Request & formatter Function
   async usersRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
     languageCode: ICardDTO['requestLanguage'],
     id: ICardDTO['id'],
   ) {
@@ -52,7 +59,7 @@ export class DirectusService {
     }
 
     // Make an explicit request for users (allows filtering fields)
-    let usersData = await client.request(
+    let usersData = await this.directusClient.request(
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       readItems<any, any, any>('cards_users', {
         filter,
@@ -96,8 +103,6 @@ export class DirectusService {
   }
 
   async situationsRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
     languageCode: ICardDTO['requestLanguage'],
     id: ICardDTO['id'],
   ) {
@@ -110,7 +115,7 @@ export class DirectusService {
     }
 
     // Make an explicit request for users (allows filtering fields)
-    let situationsData = await client.request(
+    let situationsData = await this.directusClient.request(
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       readItems<any, any, any>('cards_situations', {
         filter,
@@ -158,8 +163,6 @@ export class DirectusService {
 
   // ========== GROUP ==========
   async handleGroupRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
     languageCode: IGroupDTO['requestLanguage'],
     id: IGroupDTO['id'],
   ): Promise<Array<unknown>> {
@@ -173,7 +176,7 @@ export class DirectusService {
       }
 
       // Make an explicit request for users (allows filtering fields)
-      let groupData = await client.request(
+      let groupData = await this.directusClient.request(
         // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('cards_group', {
           filter,
@@ -275,8 +278,6 @@ export class DirectusService {
 
   // ========== DECK ==========
   async handleDeckRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
     languageCode: IGroupDTO['requestLanguage'],
     id: IGroupDTO['id'],
   ): Promise<Array<unknown>> {
@@ -290,7 +291,7 @@ export class DirectusService {
       }
 
       // Make an explicit request for users (allows filtering fields)
-      let deckData = await client.request(
+      let deckData = await this.directusClient.request(
         // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('decks', {
           filter,
@@ -422,11 +423,7 @@ export class DirectusService {
     }
   }
 
-  async getDeckById(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
-    id: IGroupDTO['id'],
-  ): Promise<Array<unknown>> {
+  async getDeckById(id: IGroupDTO['id']): Promise<Array<unknown>> {
     try {
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       const filter: any = {};
@@ -436,7 +433,7 @@ export class DirectusService {
         filter.id = { _eq: id };
       }
       // Make an explicit request for users (allows filtering fields)
-      let deckData = await client.request(
+      let deckData = await this.directusClient.request(
         // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('decks', {
           filter,
@@ -464,11 +461,10 @@ export class DirectusService {
     }
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  async getDeckDefault(client: any): Promise<number> {
+  async getDeckDefault(): Promise<number> {
     try {
       // Make an explicit request for users (allows filtering fields)
-      const deckData = await client.request(
+      const deckData = await this.directusClient.request(
         // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('config', {
           fields: ['deck_default'],
@@ -477,18 +473,31 @@ export class DirectusService {
 
       return deckData.deck_default;
     } catch (error) {
-      return error;
+      throw new Error(`Failed to fetch deck default: ${error}`);
+    }
+  }
+
+  async getReflectionDurationDefault(): Promise<number> {
+    try {
+      // Make an explicit request for users (allows filtering fields)
+      const reflectionDuration = await this.directusClient.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+        readItems<any, any, any>('config', {
+          fields: ['reflection_duration_default'],
+        }),
+      );
+
+      return reflectionDuration;
+    } catch (error) {
+      throw new Error(`Failed to fetch reflection duration default: ${error}`);
     }
   }
 
   // ========== LANGUAGES ==========
-  async languageRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
-  ): Promise<Array<unknown>> {
+  async languageRequest(): Promise<Array<unknown>> {
     try {
       // Get Language Data
-      let languageData = await client.request(
+      let languageData = await this.directusClient.request(
         // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('languages'),
       );

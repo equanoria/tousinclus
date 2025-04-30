@@ -1,8 +1,13 @@
-import { IWSData, IWSGameStatus } from '@tousinclus/types';
+import { IWSData, IWSGameStatus, IWSController } from '@tousinclus/types';
 import { Type } from 'class-transformer';
 import { AnswerDTO } from '../../game/dto/game.dto';
 
-import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
 export class WSDataDTO implements IWSData {
   @IsString()
@@ -10,20 +15,21 @@ export class WSDataDTO implements IWSData {
   code: string;
 
   @IsString()
-  @IsNotEmpty()
-  action?: string;
+  @IsOptional()
+  team?: string;
 
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => AnswerDTO)
+  data?: AnswerDTO;
+}
+
+export class WSControllerDTO extends WSDataDTO implements IWSController {
   @IsString()
   @IsNotEmpty()
-  team?: string;
+  action: string;
 }
 
-export class ReflectionDataDTO extends WSDataDTO {
-  @ValidateNested()
-  @IsNotEmpty()
-  @Type(() => AnswerDTO)
-  data: AnswerDTO;
-}
 export class WSGameStatus implements IWSGameStatus {
   @IsString()
   @IsNotEmpty()

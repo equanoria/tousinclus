@@ -1,23 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { createDirectus, rest, staticToken } from '@directus/sdk';
-import { EnumGameStatus } from '@tousinclus/types';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
-// ========== DTO Import ==========
+// ========== DTO / Types Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO } from './dto/game.dto';
+import { EnumGameStatus } from '@tousinclus/types';
 
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
 import { DirectusService } from 'src/directus/directus.service';
-
-const client = createDirectus(
-  process.env.DIRECTUS_URL || 'http://127.0.0.1:3002',
-)
-  .with(
-    staticToken(
-      process.env.DIRECTUS_ADMIN_TOKEN || 'ssHmmuIXSHHbnsxsTTKeSqIuc1e66diF',
-    ),
-  )
-  .with(rest());
 
 @Injectable()
 export class GameService {
@@ -28,7 +22,7 @@ export class GameService {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private async getRandomGroupId(deckIdData: number): Promise<number> {
-    const deckData = await this.directusService.getDeckById(client, deckIdData);
+    const deckData = await this.directusService.getDeckById(deckIdData);
 
     if (!Array.isArray(deckData) || deckData.length === 0) {
       return null; // Retourne null si aucun ID disponible
@@ -38,26 +32,28 @@ export class GameService {
     return deckData[randomIndex] as number; // Retourne l'ID aléatoire
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async generateNewGameData(deckIdData): Promise<GameDTO> {
-    let deckId: number = null;
-    if (deckIdData || deckIdData != null) {
-      deckId = deckIdData;
-    } else {
-      deckId = await this.directusService.getDeckDefault(client);
-    }
+  private async generateNewGameData(
+    createGameData: CreateGameDTO,
+  ): Promise<GameDTO> {
+    const deckId =
+      createGameData.deckId ?? (await this.directusService.getDeckDefault());
+
+    const reflectionDuration =
+      createGameData.reflectionDuration ??
+      (await this.directusService.getReflectionDurationDefault());
 
     const groupId = await this.getRandomGroupId(deckId);
 
     if (groupId === null) {
       throw new NotFoundException(
-        `Specified deck with id ${deckIdData} not found`,
+        `Specified deck with id ${createGameData.deckId} not found`,
       );
     }
 
     const newGame: GameDTO = {
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EnumGameStatus.Waiting,
+      reflectionDuration: reflectionDuration,
       cardGroupId: groupId,
       team1: {
         isConnected: false,
@@ -70,11 +66,12 @@ export class GameService {
         answers: [],
       },
     };
+
     return newGame;
   }
 
   async createGame(createGameDto: CreateGameDTO): Promise<GameDTO> {
-    const newGame = this.generateNewGameData(createGameDto.deckId || null);
+    const newGame = this.generateNewGameData(createGameDto || null);
     await this.redisService.setGame((await newGame).code, await newGame); // add new game data to redis db
     return newGame; // Return the game create as JSON
   }
@@ -85,9 +82,7 @@ export class GameService {
   ): Promise<GameDTO[]> {
     const newGames: GameDTO[] = [];
     for (let step = 0; step < i; step++) {
-      const newGame = await this.generateNewGameData(
-        createGameDto.deckId || null,
-      ); // Generate i game data
+      const newGame = await this.generateNewGameData(createGameDto || null); // Generate i game data
       newGames.push(newGame);
       await this.redisService.setGame(newGame.code, newGame); // add new game data to redis db
     }
@@ -115,52 +110,43 @@ export class GameService {
     team: string,
     clientId: string,
   ): Promise<GameDTO> {
-    try {
-      const game = await this.findOneGame(code);
+    const game = await this.findOneGame(code);
 
-      if (!game) {
-        throw new Error(`Game with code ${code} not found`);
-      }
-
-      const response: GameDTO = {
-        code: game.code,
-        status: game.status,
-        cardGroupId: game.cardGroupId,
-      };
-
-      if (team === 'team1') {
-        if (game.team1.isConnected) {
-          throw new Error(
-            `Team 1 is already connected with client ID ${game.team1.clientId}`,
-          );
-        }
-        game.team1.isConnected = true;
-        game.team1.clientId = clientId; // Assign the uuid of the client
-        response.team1 = game.team1; // Return only team1 data
-      } else if (team === 'team2') {
-        if (game.team2.isConnected) {
-          throw new Error(
-            `Team 2 is already connected with client ID ${game.team2.isConnected}`,
-          );
-        }
-        game.team2.isConnected = true;
-        game.team2.clientId = clientId; // Assign the uuid of the client
-        response.team2 = game.team2; // Return only team2 data
-      } else {
-        throw new Error(`Invalid team specified: ${team}`);
-      }
-
-      await this.redisService.setGame(code, game); // Update the game state in Redis
-      return response;
-    } catch (error) {
-      if (error instanceof Error && error.message) {
-        throw new Error(error.message);
-      }
-
-      throw new Error(
-        'Failed to update team connection status. Please try again.',
-      );
+    if (!game) {
+      throw new NotFoundException(`Game with code ${code} not found`);
     }
+
+    const response: GameDTO = {
+      code: game.code,
+      status: game.status,
+      reflectionDuration: game.reflectionDuration,
+      cardGroupId: game.cardGroupId,
+    };
+
+    if (team === 'team1') {
+      if (game.team1.isConnected) {
+        throw new ForbiddenException(
+          `Team 1 is already connected with client ID ${game.team1.clientId}`,
+        );
+      }
+      game.team1.isConnected = true;
+      game.team1.clientId = clientId; // Assign the uuid of the client
+      response.team1 = game.team1; // Return only team1 data
+    } else if (team === 'team2') {
+      if (game.team2.isConnected) {
+        throw new ForbiddenException(
+          `Team 2 is already connected with client ID ${game.team2.isConnected}`,
+        );
+      }
+      game.team2.isConnected = true;
+      game.team2.clientId = clientId; // Assign the uuid of the client
+      response.team2 = game.team2; // Return only team2 data
+    } else {
+      throw new BadRequestException(`Invalid team specified: ${team}`);
+    }
+
+    await this.redisService.setGame(code, game); // Update the game state in Redis
+    return response;
   }
 
   async updateTeamDisconnectStatus(
@@ -213,7 +199,7 @@ export class GameService {
   ): Promise<void> {
     const game = await this.findOneGame(code);
     if (!game) {
-      throw new Error(`Game with code ${code} not found`);
+      throw new NotFoundException(`Game with code ${code} not found`);
     }
 
     game.status = status;

@@ -1,24 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
+import { SchedulerRegistry } from '@nestjs/schedule';
+import { setTimeout } from 'node:timers';
 
 // ========== Service Import ==========
 import { GameService } from '../../game/game.service';
 
 // ========== DTO Import ==========
-import { WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
-import { WSResponseDTO } from 'src/utils/dto/response.dto';
+import { WSControllerDTO, WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
+import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { GameDTO } from 'src/game/dto/game.dto';
 import { plainToInstance } from 'class-transformer';
 import { EnumGameStatus } from '@tousinclus/types';
+import { WsException } from '@nestjs/websockets';
 
 @Injectable()
 export class WaitingService {
-  constructor(private readonly gameService: GameService) {} // Injection of GameService
+  constructor(
+    private readonly gameService: GameService,
+    private schedulerRegistry: SchedulerRegistry,
+  ) {} // Injection of GameService
 
   async handleWaitingLogic(
     server: Server,
     client: Socket,
-    data: WSDataDTO,
+    data: WSControllerDTO,
   ): Promise<void> {
     // Checking the action
     const { action, ...CData } = data;
@@ -36,13 +47,16 @@ export class WaitingService {
         );
         break;
 
-      default:
+      default: {
         // Emit an error in case of unrecognized action
-        client.emit('waiting-response', {
+        const responseData: WSResponseDTO = {
           status: 'error',
-          message: 'Action non reconnue',
-          action,
-        });
+          errorCode: ErrorCode.VALIDATION_FAILED,
+          message: `Unrecognized action "${action}"`,
+          responseChannel: 'joining-response',
+        };
+        throw new WsException(responseData);
+      }
     }
   }
 
@@ -54,6 +68,12 @@ export class WaitingService {
     clientId: string,
   ): Promise<void> {
     try {
+      if (!team) {
+        throw new BadRequestException(
+          `No team specified. Please provide either 'team1' or 'team2'.`,
+        );
+      }
+
       // Format the team field correctly
       const formattedTeam = team.toLowerCase().replace(/\s/g, '');
 
@@ -86,32 +106,62 @@ export class WaitingService {
 
       console.log(`Updated game (Team Choice): ${JSON.stringify(updatedGame)}`);
 
-      const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
+      // Vérifie que la partie n'a pas déjà commencé
+      if (dataGame.status === EnumGameStatus.Waiting) {
+        const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
 
-      if (isReadyToStart) {
-        const responseData: WSGameStatus = { gameStatus: 'reflection' };
-        // Send a message to all participants in the room
-        this.gameService.updateGameStatus(code, EnumGameStatus.Reflection);
-        server.to(code).emit('game-status', responseData);
+        if (isReadyToStart) {
+          const responseData: WSGameStatus = { gameStatus: 'reflection' };
+          // Send a message to all participants in the room
+          this.gameService.updateGameStatus(code, EnumGameStatus.Reflection);
+
+          // Convert reflectionDuration from minutes to milliseconds
+          const reflectionDuration = dataGame.reflectionDuration * 60 * 1000;
+
+          const timeout = setTimeout(() => {
+            this.executeDebateLogic(server, code);
+          }, reflectionDuration);
+
+          this.schedulerRegistry.addTimeout(
+            `reflection-${dataGame.code}`,
+            timeout,
+          );
+
+          console.log(
+            `Dans ${dataGame.reflectionDuration} min je vais passer en phase débat`,
+          );
+
+          server.to(code).emit('game-status', responseData);
+        }
       }
     } catch (error) {
-      console.error(`Error updating team connection: ${error.message}`);
+      let errorCode = ErrorCode.GENERIC_ERROR;
 
-      // Handle specific cases
-      let errorCode = 'GENERIC_ERROR';
-      if (error.message.includes('not found')) {
-        errorCode = 'GAME_NOT_FOUND';
-      } else if (error.message.includes('already connected')) {
-        errorCode = 'TEAM_ALREADY_ASSIGNED';
+      if (error instanceof NotFoundException) {
+        errorCode = ErrorCode.NOT_FOUND;
+      } else if (error instanceof ForbiddenException) {
+        errorCode = ErrorCode.FORBIDDEN;
+      } else if (error instanceof BadRequestException) {
+        errorCode = ErrorCode.BAD_REQUEST;
       }
 
       const responseData: WSResponseDTO = {
         status: 'error',
+        errorCode: errorCode,
         message: error.message,
-        error: errorCode,
+        responseChannel: 'waiting-response',
       };
-      // Send a structured error response to the client
-      client.emit('team-connection-error', responseData);
+      throw new WsException(responseData);
     }
+  }
+
+  private executeDebateLogic(server: Server, code: string) {
+    const responseData: WSGameStatus = { gameStatus: 'debate' };
+
+    this.gameService.updateGameStatus(code, EnumGameStatus.Debate);
+
+    console.log('Je suis en phase débat');
+
+    server.to(code).emit('game-status', responseData);
   }
 }

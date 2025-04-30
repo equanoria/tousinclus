@@ -6,8 +6,8 @@ import { Socket } from 'socket.io';
 import { GameService } from 'src/game/game.service';
 
 // ========== DTO Import ==========
-import { WSResponseDTO } from 'src/utils/dto/response.dto';
-import { WSDataDTO } from '../dto/websocket.dto';
+import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
+import { WSControllerDTO, WSDataDTO } from '../dto/websocket.dto';
 import { plainToInstance } from 'class-transformer';
 import { GameDTO } from 'src/game/dto/game.dto';
 
@@ -15,54 +15,52 @@ import { GameDTO } from 'src/game/dto/game.dto';
 export class JoiningService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
 
-  async handleJoiningLogic(client: Socket, data: WSDataDTO): Promise<void> {
-    if (!data.code) {
-      const responseData: WSResponseDTO = {
-        status: 'error',
-        error: 'No game code specified',
-        message: 'Please specify it in the JSON with key "code"',
-      };
-      client.emit('joining-response', responseData);
-      throw new WsException(
-        'No game code specified in the JSON with key "code"',
-      );
-    }
+  async handleJoiningLogic(
+    client: Socket,
+    data: WSControllerDTO,
+  ): Promise<void> {
+    // Checking the action
+    const { action, ...CData } = data;
 
-    try {
-      // Appeler le service pour récupérer les données du jeu
-      const findOneGameData = await this.gameService.findOneGame(data.code);
+    // Trigger the appropriate logic based on the action
+    switch (action) {
+      case 'joining-game':
+        // Call the method to handle team connection
+        await this.handleJoiningGame(client, CData);
+        break;
 
-      if (!findOneGameData) {
+      default: {
+        // Emit an error in case of unrecognized action
         const responseData: WSResponseDTO = {
           status: 'error',
-          error: 'No game found',
-          message: `There is no game found with code "${data.code}"`,
+          errorCode: ErrorCode.VALIDATION_FAILED,
+          message: `Unrecognized action "${action}"`,
+          responseChannel: 'joining-response',
         };
-        client.emit('joining-response', responseData);
-        throw new WsException(`No game found with code "${data.code}"`);
+        throw new WsException(responseData);
       }
+    }
+  }
 
-      // Transformer l'objet en excluant les clés marquées
-      const modifiedGameData = plainToInstance(GameDTO, findOneGameData, {
-        excludeExtraneousValues: true,
-      });
+  async handleJoiningGame(client: Socket, data: WSDataDTO): Promise<void> {
+    // Appeler le service pour récupérer les données du jeu
+    const findOneGameData = await this.gameService.findOneGame(data.code);
 
-      client.emit('joining-response', modifiedGameData);
-    } catch (error) {
-      if (error instanceof WsException) {
-        // Si c'est une erreur custom, ne rien faire (elle a déjà été gérée)
-        return;
-      }
-
-      // Gérer l'erreur, par exemple en journalisant ou en envoyant une réponse d'erreur
-      console.error('Error handling joining logic:', error);
+    if (!findOneGameData) {
       const responseData: WSResponseDTO = {
         status: 'error',
-        error: 'Internal server error',
-        message: 'An error occurred while processing your request.',
+        errorCode: ErrorCode.NOT_FOUND,
+        message: `There is no game found with code "${data.code}"`,
+        responseChannel: 'joining-response',
       };
-      client.emit('joining-response', responseData);
-      throw new WsException('An error occurred while processing your request.');
+      throw new WsException(responseData);
     }
+
+    // Transformer l'objet en excluant les clés marquées
+    const modifiedGameData = plainToInstance(GameDTO, findOneGameData, {
+      excludeExtraneousValues: true,
+    });
+
+    client.emit('joining-response', modifiedGameData);
   }
 }
