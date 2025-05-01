@@ -237,14 +237,13 @@ export class GameService {
           throw new Error(`Client ID ${clientId} is not connected to Team 1`);
         }
 
-        const existingAnswerIndex = game.answers.findIndex(
-          (entry) =>
-            entry.cardId === data.cardId && entry.team === ETeam.team1,
+        const existingAnswer = game.answers.find(
+          (entry) => entry.cardId === data.cardId && entry.team === ETeam.team1,
         );
 
-        if (existingAnswerIndex !== -1) {
+        if (existingAnswer) {
           // Update the existing answer
-          game.answers[existingAnswerIndex].answer = data.answer;
+          existingAnswer.answer = data.answer;
         } else {
           // Add a new answer
           game.answers.push({
@@ -258,14 +257,13 @@ export class GameService {
           throw new Error(`Client ID ${clientId} is not connected to Team 2`);
         }
 
-        const existingAnswerIndex = game.answers.findIndex(
-          (entry) =>
-            entry.cardId === data.cardId && entry.team === ETeam.team2,
+        const existingAnswer = game.answers.find(
+          (entry) => entry.cardId === data.cardId && entry.team === ETeam.team2,
         );
 
-        if (existingAnswerIndex !== -1) {
+        if (existingAnswer) {
           // Update the existing answer
-          game.answers[existingAnswerIndex].answer = data.answer;
+          existingAnswer.answer = data.answer;
         } else {
           // Add a new answer
           game.answers.push({
@@ -279,11 +277,11 @@ export class GameService {
       }
 
       // Check if data.cardId already exist in votes
-      const existingVotesIndex = game.votes.findIndex(
+      const existingVote = game.votes.find(
         (entry) => entry.cardId === data.cardId,
       );
 
-      if (existingVotesIndex === -1) {
+      if (existingVote) {
         // Add a new vote entry if it doesn't exist
         game.votes.push({
           cardId: data.cardId,
