@@ -4,8 +4,8 @@ import {
   ITeam,
   IAnswer,
   IAnswerData,
-  EnumGameStatus,
-  EnumTeam,
+  EGameStatus,
+  ETeam,
   IVote,
 } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
@@ -90,9 +90,9 @@ export class AnswerDTO implements IAnswer {
   @Expose()
   @ApiPropertyOptional({
     description: 'Team information team1 | team2',
-    enum: EnumTeam,
+    enum: ETeam,
   })
-  team: EnumTeam;
+  team: ETeam;
 
   @IsNotEmpty()
   @ValidateNested() // Permet la validation de l'objet imbriqué `data`
@@ -120,9 +120,9 @@ export class VoteDTO implements IVote {
   @Expose()
   @ApiPropertyOptional({
     description: 'Team information team1 | team2',
-    enum: EnumTeam,
+    enum: ETeam,
   })
-  team: EnumTeam;
+  team: ETeam;
 
   @IsNotEmpty()
   @Expose()
@@ -130,7 +130,7 @@ export class VoteDTO implements IVote {
     description: 'team who votes',
     example: 'team1',
   })
-  vote?: Array<EnumTeam>;
+  vote?: Array<ETeam>;
 }
 
 export class TeamDTO implements ITeam {
@@ -164,9 +164,9 @@ export class GameDTO implements IGame {
   @ApiProperty({
     description: 'Game status',
     example: 'waiting',
-    enum: EnumGameStatus,
+    enum: EGameStatus,
   })
-  status: EnumGameStatus;
+  status: EGameStatus;
 
   @IsNumber()
   @IsOptional()

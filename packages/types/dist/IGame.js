@@ -1,16 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EnumTeam = exports.EnumGameStatus = void 0;
-var EnumGameStatus;
-(function (EnumGameStatus) {
-    EnumGameStatus["Waiting"] = "waiting";
-    EnumGameStatus["Reflection"] = "reflection";
-    EnumGameStatus["Debate"] = "debate";
-    EnumGameStatus["Result"] = "result";
-})(EnumGameStatus || (exports.EnumGameStatus = EnumGameStatus = {}));
-var EnumTeam;
-(function (EnumTeam) {
-    EnumTeam["team1"] = "team1";
-    EnumTeam["team2"] = "team2";
-})(EnumTeam || (exports.EnumTeam = EnumTeam = {}));
+exports.ETeam = exports.EGameStatus = void 0;
+var EGameStatus;
+(function (EGameStatus) {
+    EGameStatus["Waiting"] = "waiting";
+    EGameStatus["Reflection"] = "reflection";
+    EGameStatus["Debate"] = "debate";
+    EGameStatus["Result"] = "result";
+})(EGameStatus || (exports.EGameStatus = EGameStatus = {}));
+var ETeam;
+(function (ETeam) {
+    ETeam["team1"] = "team1";
+    ETeam["team2"] = "team2";
+})(ETeam || (exports.ETeam = ETeam = {}));
 //# sourceMappingURL=IGame.js.map

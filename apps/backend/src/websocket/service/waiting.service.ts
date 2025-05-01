@@ -16,7 +16,7 @@ import { WSControllerDTO, WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
 import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { GameDTO } from 'src/game/dto/game.dto';
 import { plainToInstance } from 'class-transformer';
-import { EnumGameStatus } from '@tousinclus/types';
+import { EGameStatus } from '@tousinclus/types';
 import { WsException } from '@nestjs/websockets';
 
 @Injectable()
@@ -107,7 +107,7 @@ export class WaitingService {
       console.log(`Updated game (Team Choice): ${JSON.stringify(updatedGame)}`);
 
       // Vérifie que la partie n'a pas déjà commencé
-      if (dataGame.status === EnumGameStatus.Waiting) {
+      if (dataGame.status === EGameStatus.Waiting) {
         const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
 
         if (isReadyToStart) {
@@ -116,7 +116,7 @@ export class WaitingService {
             timeStamp: new Date(),
           };
           // Send a message to all participants in the room
-          this.gameService.updateGameStatus(code, EnumGameStatus.Reflection);
+          this.gameService.updateGameStatus(code, EGameStatus.Reflection);
 
           // Convert reflectionDuration from minutes to milliseconds
           const reflectionDuration = dataGame.reflectionDuration * 60 * 1000;
@@ -161,7 +161,7 @@ export class WaitingService {
   private executeDebateLogic(server: Server, code: string) {
     const responseData: WSGameStatus = { gameStatus: 'debate' };
 
-    this.gameService.updateGameStatus(code, EnumGameStatus.Debate);
+    this.gameService.updateGameStatus(code, EGameStatus.Debate);
 
     console.log('Je suis en phase débat');
 
