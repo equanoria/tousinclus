@@ -33,15 +33,17 @@ export class FormatterService {
 
     if (situationsData && typeof situationsData === 'object') {
       // If it's a single object, format it directly
-      return {
-        id: situationsData.id,
-        image: situationsData.image,
-        context: situationsData.context_translations?.[0]?.context || null,
-        description:
-          situationsData.description_translations?.[0]?.description || null,
-      };
+      return [
+        {
+          id: situationsData.id,
+          image: situationsData.image,
+          context: situationsData.context_translations?.[0]?.context || null,
+          description:
+            situationsData.description_translations?.[0]?.description || null,
+        },
+      ];
     }
-    return null; // If the data is null or invalid
+    return []; // If the data is null or invalid
   }
 
   // Formatter for groups
@@ -116,7 +118,7 @@ export class FormatterService {
 
   // Formatter for language
   // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-  directusLanguageFormatter(languageData: any[]): string[] {
-    return languageData.map((lang) => lang.code);
+  directusLanguageFormatter(languageData: any[]): Record<string, any>[] {
+    return languageData.map((lang) => ({ code: lang.code }));
   }
 }
