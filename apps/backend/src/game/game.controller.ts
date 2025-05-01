@@ -189,7 +189,7 @@ export class GameController {
   })
   async deleteAllGames(): Promise<GameDTO[]> {
     const deleteAllGames = await this.gameService.deleteAllGames();
-    if (!deleteAllGames) {
+    if (deleteAllGames.length === 0) {
       throw new NotFoundException('Database is empty');
     }
     return deleteAllGames;

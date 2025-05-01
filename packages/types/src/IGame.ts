@@ -27,14 +27,14 @@ export interface ITeam {
 
 export interface IAnswer {
   cardId: number;
-  team: EnumTeam
+  team: EnumTeam;
   answer?: IAnswerData;
 }
 
 export interface IVote {
   cardId: number;
-  team: EnumTeam
-  vote?: Array<EnumTeam>
+  team: EnumTeam;
+  vote?: Array<EnumTeam>;
 }
 
 export interface IAnswerData {

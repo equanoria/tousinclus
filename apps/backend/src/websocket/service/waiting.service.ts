@@ -16,7 +16,7 @@ import { WSControllerDTO, WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
 import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { GameDTO } from 'src/game/dto/game.dto';
 import { plainToInstance } from 'class-transformer';
-import { EnumGameStatus, EnumTeam } from '@tousinclus/types';
+import { EnumGameStatus } from '@tousinclus/types';
 import { WsException } from '@nestjs/websockets';
 
 @Injectable()
