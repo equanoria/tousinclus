@@ -64,6 +64,28 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     return result > 0;
   }
 
+  async deleteAllGames(): Promise<GameDTO[]> {
+    const keys = await this.redisClient.keys('*');
+
+    if (keys.length === 0) {
+      return []; // No games to delete
+    }
+
+    const gameDataArray = await this.redisClient.mget(keys); // Retrieve all values before deletion
+    await this.redisClient.del(keys); // Delete all keys
+
+    return gameDataArray
+      .map((gameData) => {
+        try {
+          return JSON.parse(gameData) as GameDTO;
+        } catch (error) {
+          console.error('Error parsing game data:', error);
+          return null;
+        }
+      })
+      .filter((game) => game !== null); // Remove null entries
+  }
+
   onModuleDestroy() {
     this.redisClient.disconnect();
     console.log('Redis client disconnected');

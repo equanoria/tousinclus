@@ -268,7 +268,7 @@ export class DirectusService {
       );
 
       // Formatting data
-      groupData = this.formatterService.directusGroupFormatter(groupData);
+      groupData = await this.formatterService.directusGroupFormatter(groupData);
 
       return groupData;
     } catch (error) {
@@ -415,7 +415,7 @@ export class DirectusService {
       );
 
       // Formatting data
-      deckData = this.formatterService.directusDeckFormatter(deckData);
+      deckData = await this.formatterService.directusDeckFormatter(deckData);
 
       return deckData;
     } catch (error) {
@@ -471,7 +471,7 @@ export class DirectusService {
         }),
       );
 
-      return deckData.deck_default;
+      return deckData[0]?.deck_default;
     } catch (error) {
       throw new Error(`Failed to fetch deck default: ${error}`);
     }
@@ -487,7 +487,7 @@ export class DirectusService {
         }),
       );
 
-      return reflectionDuration;
+      return reflectionDuration[0]?.duration;
     } catch (error) {
       throw new Error(`Failed to fetch reflection duration default: ${error}`);
     }
