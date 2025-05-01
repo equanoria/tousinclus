@@ -5,6 +5,11 @@ export enum EnumGameStatus {
   Result = "result",
 }
 
+export enum Team {
+  team1 = "team1",
+  team2 = "team2"
+}
+
 export interface IGame {
   code: string;
   status: EnumGameStatus;
@@ -21,7 +26,14 @@ export interface ITeam {
 
 export interface IAnswer {
   cardId: number;
+  team: Team
   answer?: IAnswerData;
+}
+
+export interface IVote {
+  cardId: number;
+  team: Team
+  vote?: Array<Team>
 }
 
 export interface IAnswerData {

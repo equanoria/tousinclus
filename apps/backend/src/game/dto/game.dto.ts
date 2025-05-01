@@ -5,6 +5,8 @@ import {
   IAnswer,
   IAnswerData,
   EnumGameStatus,
+  Team,
+  IVote,
 } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {
@@ -84,7 +86,15 @@ export class AnswerDTO implements IAnswer {
   })
   cardId: number;
 
-  @IsOptional()
+  @IsNotEmpty()
+  @Expose()
+  @ApiPropertyOptional({
+    description: 'Team information team1 | team2',
+    enum: Team,
+  })
+  team: Team;
+
+  @IsNotEmpty()
   @ValidateNested() // Permet la validation de l'objet imbriqué `data`
   @Type(() => AnswerDataDTO) // Transforme `data` en instance de `AnswerDataDTO`
   @Expose()
@@ -94,6 +104,33 @@ export class AnswerDTO implements IAnswer {
     nullable: true,
   })
   answer: AnswerDataDTO;
+}
+
+export class VoteDTO implements IVote {
+  @IsNumber()
+  @IsNotEmpty()
+  @Expose()
+  @ApiProperty({
+    description: 'Card ID',
+    example: 42,
+  })
+  cardId: number;
+
+  @IsNotEmpty()
+  @Expose()
+  @ApiPropertyOptional({
+    description: 'Team information team1 | team2',
+    enum: Team,
+  })
+  team: Team;
+
+  @IsNotEmpty()
+  @Expose()
+  @ApiProperty({
+    description: 'team who votes',
+    example: 'team1',
+  })
+  vote?: Array<Team>;
 }
 
 export class TeamDTO implements ITeam {
@@ -112,16 +149,6 @@ export class TeamDTO implements ITeam {
     nullable: true,
   })
   clientId?: string | null;
-
-  @IsOptional()
-  @ValidateNested({ each: true })
-  @Type(() => AnswerDTO)
-  @Expose({ groups: ['room'] })
-  @ApiPropertyOptional({
-    description: 'Answers associated with the team',
-    type: AnswerDTO,
-  })
-  answers?: Array<AnswerDTO>; // Dynamic keys corresponding to IDs
 }
 
 export class GameDTO implements IGame {
@@ -176,4 +203,20 @@ export class GameDTO implements IGame {
     type: TeamDTO,
   })
   team2?: ITeam;
+
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => AnswerDTO)
+  @Expose({ groups: ['room'] })
+  @ApiPropertyOptional({
+    description: 'Answers associated with the team',
+    type: AnswerDTO,
+  })
+  answers?: Array<AnswerDTO>; // Dynamic keys corresponding to IDs
+
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => VoteDTO)
+  @Expose({ groups: ['room'] })
+  votes?: Array<VoteDTO>
 }

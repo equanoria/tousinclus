@@ -111,7 +111,10 @@ export class WaitingService {
         const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
 
         if (isReadyToStart) {
-          const responseData: WSGameStatus = { gameStatus: 'reflection' };
+          const responseData: WSGameStatus = {
+            gameStatus: 'reflection',
+            timeStamp: new Date(),
+          };
           // Send a message to all participants in the room
           this.gameService.updateGameStatus(code, EnumGameStatus.Reflection);
 

@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import { AnswerDTO } from '../../game/dto/game.dto';
 
 import {
+  IsDate,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -34,4 +35,8 @@ export class WSGameStatus implements IWSGameStatus {
   @IsString()
   @IsNotEmpty()
   gameStatus: string;
+
+  @IsDate()
+  @IsOptional()
+  timeStamp?: Date;
 }

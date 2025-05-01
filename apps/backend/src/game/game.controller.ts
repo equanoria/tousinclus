@@ -174,4 +174,24 @@ export class GameController {
       message: `The game ${code} has been successfully deleted`,
     };
   }
+
+  @Delete()
+  @ApiOperation({ summary: 'Delete all games' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully delete all games',
+    type: [GameDTO],
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No games found in the database',
+    type: HTTPResponseDTO,
+  })
+  async deleteAllGames(): Promise<GameDTO[]> {
+    const deleteAllGames = await this.gameService.deleteAllGames();
+    if (!deleteAllGames) {
+      throw new NotFoundException('Database is empty');
+    }
+    return deleteAllGames;
+  }
 }

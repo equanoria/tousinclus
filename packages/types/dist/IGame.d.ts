@@ -4,6 +4,10 @@ export declare enum EnumGameStatus {
     Debate = "debate",
     Result = "result"
 }
+export declare enum Team {
+    team1 = "team1",
+    team2 = "team2"
+}
 export interface IGame {
     code: string;
     status: EnumGameStatus;
@@ -18,7 +22,13 @@ export interface ITeam {
 }
 export interface IAnswer {
     cardId: number;
+    team: Team;
     answer?: IAnswerData;
+}
+export interface IVote {
+    cardId: number;
+    team: Team;
+    vote?: Array<Team>;
 }
 export interface IAnswerData {
     input1: string;
