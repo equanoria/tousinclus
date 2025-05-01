@@ -5,7 +5,7 @@ export enum EnumGameStatus {
   Result = "result",
 }
 
-export enum Team {
+export enum EnumTeam {
   team1 = "team1",
   team2 = "team2"
 }
@@ -16,24 +16,25 @@ export interface IGame {
   cardGroupId?: number;
   team1?: ITeam;
   team2?: ITeam;
+  answers?: Array<IAnswer>;
+  votes?: Array<IVote>;
 }
 
 export interface ITeam {
   isConnected: boolean;
   clientId?: string;
-  answers?: Array<IAnswer>; // Clés dynamiques correspondant aux IDs
 }
 
 export interface IAnswer {
   cardId: number;
-  team: Team
+  team: EnumTeam
   answer?: IAnswerData;
 }
 
 export interface IVote {
   cardId: number;
-  team: Team
-  vote?: Array<Team>
+  team: EnumTeam
+  vote?: Array<EnumTeam>
 }
 
 export interface IAnswerData {

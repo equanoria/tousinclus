@@ -7,7 +7,7 @@ import {
 
 // ========== DTO / Types Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO } from './dto/game.dto';
-import { EnumGameStatus, Team } from '@tousinclus/types';
+import { EnumGameStatus, EnumTeam } from '@tousinclus/types';
 
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
@@ -128,7 +128,7 @@ export class GameService {
       cardGroupId: game.cardGroupId,
     };
 
-    if (team === Team.team1) {
+    if (team === EnumTeam.team1) {
       if (game.team1.isConnected) {
         throw new ForbiddenException(
           `Team 1 is already connected with client ID ${game.team1.clientId}`,
@@ -137,7 +137,7 @@ export class GameService {
       game.team1.isConnected = true;
       game.team1.clientId = clientId; // Assign the uuid of the client
       response.team1 = game.team1; // Return only team1 data
-    } else if (team === Team.team2) {
+    } else if (team === EnumTeam.team2) {
       if (game.team2.isConnected) {
         throw new ForbiddenException(
           `Team 2 is already connected with client ID ${game.team2.isConnected}`,
@@ -165,13 +165,13 @@ export class GameService {
       throw new Error(`Game with code ${code} not found`);
     }
 
-    if (team === Team.team1) {
+    if (team === EnumTeam.team1) {
       if (game.team1.clientId !== clientId) {
         throw new Error(`Client ID ${clientId} is not connected to Team 1`);
       }
       game.team1.isConnected = false;
       game.team1.clientId = null; // Remove the client ID from team 1
-    } else if (team === Team.team2) {
+    } else if (team === EnumTeam.team2) {
       if (game.team2.clientId !== clientId) {
         throw new Error(`Client ID ${clientId} is not connected to Team 2`);
       }
@@ -232,13 +232,14 @@ export class GameService {
         );
       }
 
-      if (team === Team.team1) {
+      if (team === EnumTeam.team1) {
         if (game.team1.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 1`);
         }
 
         const existingAnswerIndex = game.answers.findIndex(
-          (entry) => entry.cardId === data.cardId && entry.team === Team.team1,
+          (entry) =>
+            entry.cardId === data.cardId && entry.team === EnumTeam.team1,
         );
 
         if (existingAnswerIndex !== -1) {
@@ -252,13 +253,14 @@ export class GameService {
             answer: data.answer,
           });
         }
-      } else if (team === Team.team2) {
+      } else if (team === EnumTeam.team2) {
         if (game.team2.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 2`);
         }
 
         const existingAnswerIndex = game.answers.findIndex(
-          (entry) => entry.cardId === data.cardId && entry.team === Team.team2,
+          (entry) =>
+            entry.cardId === data.cardId && entry.team === EnumTeam.team2,
         );
 
         if (existingAnswerIndex !== -1) {

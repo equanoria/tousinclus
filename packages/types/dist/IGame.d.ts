@@ -4,7 +4,7 @@ export declare enum EnumGameStatus {
     Debate = "debate",
     Result = "result"
 }
-export declare enum Team {
+export declare enum EnumTeam {
     team1 = "team1",
     team2 = "team2"
 }
@@ -14,21 +14,22 @@ export interface IGame {
     cardGroupId?: number;
     team1?: ITeam;
     team2?: ITeam;
+    answers?: Array<IAnswer>;
+    votes?: Array<IVote>;
 }
 export interface ITeam {
     isConnected: boolean;
     clientId?: string;
-    answers?: Array<IAnswer>;
 }
 export interface IAnswer {
     cardId: number;
-    team: Team;
+    team: EnumTeam;
     answer?: IAnswerData;
 }
 export interface IVote {
     cardId: number;
-    team: Team;
-    vote?: Array<Team>;
+    team: EnumTeam;
+    vote?: Array<EnumTeam>;
 }
 export interface IAnswerData {
     input1: string;
