@@ -1,226 +1,78 @@
 {
-  "collection": "config",
+  "collection": "views_gameboard",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "config",
-    "color": null,
+    "collection": "views_gameboard",
+    "color": "#81E1EE",
     "display_template": null,
-    "group": null,
+    "group": "views",
     "hidden": false,
     "icon": null,
     "item_duplication_fields": null,
     "note": null,
     "preview_url": null,
     "singleton": true,
-    "sort": 10,
+    "sort": 3,
     "sort_field": null,
     "translations": [
       {
-        "language": "fr-FR",
-        "translation": "Configuration des cartes et des règles"
+        "language": "en-US",
+        "translation": "View game board"
       },
       {
-        "language": "en-US",
-        "translation": "Cards and rules configuration"
+        "language": "fr-FR",
+        "translation": "Page plateau de jeu"
       }
     ],
     "unarchive_value": null,
     "versioning": false
   },
   "schema": {
-    "name": "config"
+    "name": "views_gameboard"
   },
   "fields": [
     {
-      "field": "cards_designing_all_color",
+      "field": "GAMEBOARD_BUTTON",
       "type": "string",
       "meta": {
-        "collection": "config",
+        "collection": "views_gameboard",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "cards_designing_all_color",
+        "field": "GAMEBOARD_BUTTON",
         "group": null,
         "hidden": false,
-        "interface": "select-color",
+        "interface": "input",
         "note": null,
         "options": null,
         "readonly": false,
-        "required": false,
+        "required": true,
         "sort": 6,
         "special": null,
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Couleur cartes concevoir pour tous"
+            "translation": "Bouton commencer partie"
           },
           {
             "language": "en-US",
-            "translation": "Color cards design for all"
+            "translation": "Start game button"
           }
         ],
-        "validation": null,
-        "validation_message": null,
-        "width": "half"
-      },
-      "schema": {
-        "name": "cards_designing_all_color",
-        "table": "config",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "cards_situation_color",
-      "type": "string",
-      "meta": {
-        "collection": "config",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "cards_situation_color",
-        "group": null,
-        "hidden": false,
-        "interface": "select-color",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": false,
-        "sort": 4,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Couleur cartes situation d'usage"
-          },
-          {
-            "language": "en-US",
-            "translation": "Color usage situation cards"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "half"
-      },
-      "schema": {
-        "name": "cards_situation_color",
-        "table": "config",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "cards_user_color",
-      "type": "string",
-      "meta": {
-        "collection": "config",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "cards_user_color",
-        "group": null,
-        "hidden": false,
-        "interface": "select-color",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": false,
-        "sort": 5,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Couleur cartes utilisateurs extrêmes"
-          },
-          {
-            "language": "en-US",
-            "translation": "Color extreme users cards"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "half"
-      },
-      "schema": {
-        "name": "cards_user_color",
-        "table": "config",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "date_updated",
-      "type": "timestamp",
-      "meta": {
-        "collection": "config",
-        "conditions": null,
-        "display": "datetime",
-        "display_options": {
-          "relative": true
-        },
-        "field": "date_updated",
-        "group": null,
-        "hidden": true,
-        "interface": "datetime",
-        "note": null,
-        "options": null,
-        "readonly": true,
-        "required": false,
-        "sort": 2,
-        "special": [
-          "date-updated"
-        ],
-        "translations": null,
         "validation": null,
         "validation_message": null,
         "width": "full"
       },
       "schema": {
-        "name": "date_updated",
-        "table": "config",
-        "data_type": "timestamp with time zone",
+        "name": "GAMEBOARD_BUTTON",
+        "table": "views_gameboard",
+        "data_type": "character varying",
         "default_value": null,
-        "max_length": null,
+        "max_length": 255,
         "numeric_precision": null,
         "numeric_scale": null,
         "is_nullable": true,
@@ -235,38 +87,45 @@
       }
     },
     {
-      "field": "deck_default",
-      "type": "integer",
+      "field": "GAMEBOARD_INSTRUCTION_DESIGN",
+      "type": "string",
       "meta": {
-        "collection": "config",
+        "collection": "views_gameboard",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "deck_default",
+        "field": "GAMEBOARD_INSTRUCTION_DESIGN",
         "group": null,
         "hidden": false,
-        "interface": "select-dropdown-m2o",
+        "interface": "input",
         "note": null,
         "options": null,
         "readonly": false,
-        "required": false,
-        "sort": 7,
-        "special": [
-          "m2o"
+        "required": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Consignes cartes concevoir pour tous"
+          },
+          {
+            "language": "en-US",
+            "translation": "Design for all cards instructions"
+          }
         ],
-        "translations": null,
         "validation": null,
         "validation_message": null,
-        "width": "half"
+        "width": "full"
       },
       "schema": {
-        "name": "deck_default",
-        "table": "config",
-        "data_type": "integer",
+        "name": "GAMEBOARD_INSTRUCTION_DESIGN",
+        "table": "views_gameboard",
+        "data_type": "character varying",
         "default_value": null,
-        "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -274,15 +133,168 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": "decks",
-        "foreign_key_column": "id"
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "GAMEBOARD_INSTRUCTION_SITUATION",
+      "type": "string",
+      "meta": {
+        "collection": "views_gameboard",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "GAMEBOARD_INSTRUCTION_SITUATION",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Consigne cartes situation d'usage"
+          },
+          {
+            "language": "en-US",
+            "translation": "Situation cards instructions "
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "GAMEBOARD_INSTRUCTION_SITUATION",
+        "table": "views_gameboard",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "GAMEBOARD_INSTRUCTION_USER",
+      "type": "string",
+      "meta": {
+        "collection": "views_gameboard",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "GAMEBOARD_INSTRUCTION_USER",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Consignes cartes utilisateur extrême"
+          },
+          {
+            "language": "en-US",
+            "translation": "User cards instructions"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "GAMEBOARD_INSTRUCTION_USER",
+        "table": "views_gameboard",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "GAMEBOARD_TITLE",
+      "type": "string",
+      "meta": {
+        "collection": "views_gameboard",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "GAMEBOARD_TITLE",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Titre de la page"
+          },
+          {
+            "language": "en-US",
+            "translation": "Page title"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "GAMEBOARD_TITLE",
+        "table": "views_gameboard",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
       }
     },
     {
       "field": "id",
       "type": "integer",
       "meta": {
-        "collection": "config",
+        "collection": "views_gameboard",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -303,7 +315,7 @@
       },
       "schema": {
         "name": "id",
-        "table": "config",
+        "table": "views_gameboard",
         "data_type": "integer",
         "default_value": null,
         "max_length": null,
@@ -319,62 +331,7 @@
         "foreign_key_table": null,
         "foreign_key_column": null
       }
-    },
-    {
-      "field": "translations",
-      "type": "alias",
-      "meta": {
-        "collection": "config",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "translations",
-        "group": null,
-        "hidden": false,
-        "interface": "translations",
-        "note": null,
-        "options": {
-          "defaultLanguage": "en-US",
-          "languageField": "name",
-          "userLanguage": true
-        },
-        "readonly": false,
-        "required": false,
-        "sort": 3,
-        "special": [
-          "translations"
-        ],
-        "translations": null,
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      }
     }
   ],
-  "relations": [
-    {
-      "field": "deck_default",
-      "related_collection": "decks",
-      "meta": {
-        "junction_field": null,
-        "many_collection": "config",
-        "many_field": "deck_default",
-        "one_allowed_collections": null,
-        "one_collection": "decks",
-        "one_collection_field": null,
-        "one_deselect_action": "nullify",
-        "one_field": null,
-        "sort_field": null
-      },
-      "schema": {
-        "table": "config",
-        "column": "deck_default",
-        "foreign_key_table": "decks",
-        "foreign_key_column": "id",
-        "constraint_name": "config_deck_default_foreign",
-        "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
-      }
-    }
-  ]
+  "relations": []
 }
