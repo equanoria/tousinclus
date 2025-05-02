@@ -10,4 +10,5 @@ export interface IWSController extends IWSData {
 
 export interface IWSGameStatus {
     gameStatus: string;
+    timeStamp?: Date;
 }
