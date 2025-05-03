@@ -1,0 +1,11 @@
+{
+  "name": "@tousinclus/styles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.css",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+  }
+}
