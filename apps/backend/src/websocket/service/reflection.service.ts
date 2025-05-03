@@ -54,7 +54,7 @@ export class ReflectionService {
 
       await this.gameService.updateTeamAnswer(
         data.code,
-        data.team,
+        data.data.team,
         client.id,
         data.data,
       );
