@@ -2,21 +2,35 @@ import { Injectable } from '@nestjs/common';
 import type { ICardDTO, IGroupDTO } from './dto/directus.dto';
 import { FormatterService } from '../utils/services/formatter.service';
 import { createDirectus, readItems, rest, staticToken } from '@directus/sdk';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class DirectusService {
   // For information directusClient type is DirectusClient<unknown> & RestClient<unknown> & StaticTokenClient<unknown>
-  private readonly directusClient = createDirectus(
-    process.env.DIRECTUS_URL || 'http://127.0.0.1:3002',
-  )
+  private readonly directusClient = createDirectus(this.getDirectusUrl())
     .with(
       staticToken(
-        process.env.DIRECTUS_ADMIN_TOKEN || 'ssHmmuIXSHHbnsxsTTKeSqIuc1e66diF',
+        this.configService.getOrThrow<string>('DIRECTUS_ADMIN_TOKEN'),
       ),
     )
     .with(rest());
 
-  constructor(private readonly formatterService: FormatterService) {}
+  constructor(
+    private readonly formatterService: FormatterService,
+    private readonly configService: ConfigService,
+  ) {}
+
+  private getDirectusUrl(): string {
+    const hostname = this.configService.getOrThrow<string>('DIRECTUS_HOSTNAME');
+    const port = this.configService.get<string>('DIRECTUS_PORT');
+
+    const url = new URL(`http://${hostname}`);
+    if (port) {
+      url.port = port;
+    }
+
+    return url.toString();
+  }
 
   // ========== CARD ==========
   async handleCardRequest(
