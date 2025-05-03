@@ -3,8 +3,8 @@ export class LocalStorageManager {
     localStorage.setItem(key, JSON.stringify(item));
   }
 
-  public getItem<T>(key: string): T {
+  public getItem<T>(key: string): T | undefined {
     const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : null;
+    return item ? JSON.parse(item) : undefined;
   }
 }
