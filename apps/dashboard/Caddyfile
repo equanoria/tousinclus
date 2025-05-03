@@ -1,0 +1,6 @@
+:3000 {
+	templates
+	root * /app/apps/dashboard/dist
+	file_server
+	try_files {path} /index.html
+}

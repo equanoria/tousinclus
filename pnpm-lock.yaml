@@ -148,6 +148,73 @@ importers:
         specifier: ^5.1.3
         version: 5.7.3
 
+  apps/dashboard:
+    dependencies:
+      '@directus/sdk':
+        specifier: ^19.0.0
+        version: 19.0.0
+      '@tabler/icons-react':
+        specifier: ^3.31.0
+        version: 3.31.0(react@18.3.1)
+      '@tousinclus/managers':
+        specifier: workspace:^
+        version: link:../../packages/managers
+      '@tousinclus/styles':
+        specifier: workspace:^
+        version: link:../../packages/styles
+      '@tousinclus/types':
+        specifier: workspace:^
+        version: link:../../packages/types
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
+      react-i18next:
+        specifier: ^15.4.0
+        version: 15.4.0(i18next@24.2.2(typescript@5.6.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      socket.io-client:
+        specifier: ^4.8.1
+        version: 4.8.1
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.17.0
+        version: 9.19.0
+      '@types/react':
+        specifier: ^18.3.18
+        version: 18.3.18
+      '@types/react-dom':
+        specifier: ^18.3.5
+        version: 18.3.5(@types/react@18.3.18)
+      '@vitejs/plugin-react':
+        specifier: ^4.3.4
+        version: 4.3.4(vite@6.0.11(@types/node@20.17.16)(terser@5.37.0)(yaml@2.7.0))
+      eslint:
+        specifier: ^9.17.0
+        version: 9.19.0
+      eslint-plugin-react-hooks:
+        specifier: ^5.0.0
+        version: 5.1.0(eslint@9.19.0)
+      eslint-plugin-react-refresh:
+        specifier: ^0.4.16
+        version: 0.4.18(eslint@9.19.0)
+      globals:
+        specifier: ^15.14.0
+        version: 15.14.0
+      typescript:
+        specifier: ~5.6.2
+        version: 5.6.3
+      typescript-eslint:
+        specifier: ^8.18.2
+        version: 8.22.0(eslint@9.19.0)(typescript@5.6.3)
+      vite:
+        specifier: ^6.0.5
+        version: 6.0.11(@types/node@20.17.16)(terser@5.37.0)(yaml@2.7.0)
+
   apps/frontend:
     dependencies:
       '@directus/sdk':
