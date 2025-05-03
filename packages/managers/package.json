@@ -1,0 +1,20 @@
+{
+  "name": "@tousinclus/managers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start:dev": "tsc --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tousinclus/types": "workspace:^"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
