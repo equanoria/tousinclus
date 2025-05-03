@@ -3,6 +3,7 @@ import {
   type OnModuleDestroy,
   type OnModuleInit,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
 import { GameDTO } from 'src/game/dto/game.dto';
 
@@ -10,10 +11,12 @@ import { GameDTO } from 'src/game/dto/game.dto';
 export class RedisService implements OnModuleInit, OnModuleDestroy {
   private redisClient: Redis;
 
+  constructor(private readonly configService: ConfigService) {}
+
   onModuleInit() {
     this.redisClient = new Redis({
-      host: process.env.REDIS_HOSTNAME || 'localhost',
-      port: Number.parseInt(process.env.REDIS_PORT, 10) || 3004,
+      host: this.configService.get('REDIS_HOSTNAME'),
+      port: this.configService.get<number>('REDIS_PORT'),
     });
     console.log('Redis client initialized');
   }
