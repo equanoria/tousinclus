@@ -5,9 +5,9 @@ import { WebsocketGateway } from './websocket.gateway';
 // ========== Service Import ==========
 import { DebateService } from './service/debate.service';
 import { DisconnectService } from './service/disconnect.service';
+import { JoiningService } from './service/joining.service';
 import { ReflectionService } from './service/reflection.service';
 import { WaitingService } from './service/waiting.service';
-import { JoiningService } from './service/joining.service';
 
 @Module({
   imports: [GameModule],

@@ -22,9 +22,9 @@ import {
 // ========== DTO Import ==========
 import { CreateGameDTO, GameDTO } from './dto/game.dto';
 
+import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 // ========== Service Import ==========
 import { GameService } from './game.service';
-import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 
 @ApiTags('Game')
 @Controller('game')

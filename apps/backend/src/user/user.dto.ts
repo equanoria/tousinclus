@@ -1,11 +1,11 @@
+import { IUser, TRole } from '@tousinclus/types';
 import {
-  IsNotEmpty,
-  IsArray,
   ArrayNotEmpty,
+  IsArray,
   IsEnum,
+  IsNotEmpty,
   IsOptional,
 } from 'class-validator';
-import { IUser, TRole } from '@tousinclus/types';
 
 export class UserDto implements IUser {
   @IsOptional()

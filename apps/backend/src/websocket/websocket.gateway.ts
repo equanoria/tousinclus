@@ -10,13 +10,13 @@ import {
 
 import { Server, Socket } from 'socket.io';
 
-// ========== Service Import ==========
-import { JoiningService } from './service/joining.service';
-import { WaitingService } from './service/waiting.service';
-import { ReflectionService } from './service/reflection.service';
+import { WSDataDTO } from './dto/websocket.dto';
 import { DebateService } from './service/debate.service';
 import { DisconnectService } from './service/disconnect.service';
-import { WSDataDTO } from './dto/websocket.dto';
+// ========== Service Import ==========
+import { JoiningService } from './service/joining.service';
+import { ReflectionService } from './service/reflection.service';
+import { WaitingService } from './service/waiting.service';
 
 // Init websocket
 @WebSocketGateway({

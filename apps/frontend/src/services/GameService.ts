@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { io, type Socket } from 'socket.io-client';
-import { isValidUrl } from '../utils/isValidUrl';
 import type { TTeam } from '@tousinclus/types';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { type Socket, io } from 'socket.io-client';
+import { isValidUrl } from '../utils/isValidUrl';
 
 export class GameService {
   private socket: Socket;

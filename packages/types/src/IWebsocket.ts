@@ -1,19 +1,19 @@
-import type { IAnswer } from "./IGame";
+import type { IAnswer } from './IGame';
 
 export interface IWSData {
-    code?: string;
-    action?: string;
+  code?: string;
+  action?: string;
 }
 
 export interface IWSGameStatus {
-    gameStatus: string;
+  gameStatus: string;
 }
 
 export interface IWSWaiting extends IWSData {
-    team: string;
+  team: string;
 }
 
 export interface IWSReflection extends IWSData {
-    cardId?: number;
-    answer?: Record<string, Array<IAnswer>>; // Clés dynamiques correspondant aux IDs
+  cardId?: number;
+  answer?: Record<string, Array<IAnswer>>; // Clés dynamiques correspondant aux IDs
 }

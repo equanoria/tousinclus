@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useAppState } from './context/AppStateProvider';
 import { GameConnection } from './views/GameConnection/GameConnection';
-import { GameReflection } from './views/GameReflection/GameReflection';
 import { GameDebate } from './views/GameDebate/GameDebate';
+import { GameReflection } from './views/GameReflection/GameReflection';
 import { GameResults } from './views/GameResults/GameResults';
 
 const AppContent = () => {
@@ -27,7 +27,7 @@ const AppContent = () => {
     }
   }, [currentStep, setCurrentView]);
 
-  return <>{currentView}</>; 
+  return <>{currentView}</>;
 };
 
 export default AppContent;

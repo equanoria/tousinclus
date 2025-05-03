@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import type React from 'react';
-import { useId, type ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef, useId } from 'react';
 import styles from './Input.module.css';
 
 export interface InputProps extends ComponentPropsWithoutRef<'input'> {
@@ -15,15 +15,20 @@ export const Input: React.FC<InputProps> = ({
   ...props
 }) => {
   const classes = clsx(styles.blocInput, className);
-  const id = useId(); 
+  const id = useId();
 
   return (
     <div className={classes}>
-      <label className={styles.label} htmlFor={id}>{label}</label>
-      <input type="text" id={id} className={styles.input} placeholder={placeholder} {...props} />
+      <label className={styles.label} htmlFor={id}>
+        {label}
+      </label>
+      <input
+        type="text"
+        id={id}
+        className={styles.input}
+        placeholder={placeholder}
+        {...props}
+      />
     </div>
-
   );
 };
-
-

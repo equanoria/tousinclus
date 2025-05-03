@@ -1,18 +1,18 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  IGame,
-  ITeam,
+  EnumGameStatus,
   IAnswer,
   IAnswerData,
-  EnumGameStatus,
+  IGame,
+  ITeam,
 } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {
-  IsString,
-  IsOptional,
-  IsNumber,
-  IsNotEmpty,
   IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
   ValidateNested,
 } from 'class-validator';
 

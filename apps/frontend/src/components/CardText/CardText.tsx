@@ -4,20 +4,18 @@ import type { ComponentPropsWithoutRef } from 'react';
 import styles from './CardText.module.css';
 
 export interface CardTextProps extends ComponentPropsWithoutRef<'div'> {
-  type:
-    | 'situation'
-    | 'user';
+  type: 'situation' | 'user';
   content: string;
 }
 
 const CARD_CONTENT = {
   situation: {
-    title: "Situation d'usage"
+    title: "Situation d'usage",
   },
   user: {
-    title: "Utilisateur extrême",
-  }
-}
+    title: 'Utilisateur extrême',
+  },
+};
 
 export const CardText: React.FC<CardTextProps> = ({
   className,
@@ -30,10 +28,14 @@ export const CardText: React.FC<CardTextProps> = ({
 
   return (
     <div className={classes} {...props}>
-      <img src={`/assets/circle-cardText-${type}.svg`} alt="" className={styles.asset}/>
+      <img
+        src={`/assets/circle-cardText-${type}.svg`}
+        alt=""
+        className={styles.asset}
+      />
       <p className={styles.title}>{title}</p>
       <div className={styles.content}>
-      {content && <p className={styles.description}>{content}</p>}
+        {content && <p className={styles.description}>{content}</p>}
       </div>
     </div>
   );

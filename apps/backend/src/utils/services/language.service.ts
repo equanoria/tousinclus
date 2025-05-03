@@ -1,8 +1,8 @@
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Cache } from 'cache-manager';
 import { DirectusService } from '../../directus/directus.service';
 import { ITranslationDTO } from '../../directus/dto/directus.dto';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
 
 @Injectable()
 export class LanguageService {

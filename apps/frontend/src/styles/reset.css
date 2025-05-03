@@ -130,7 +130,7 @@ blockquote::before,
 blockquote::after,
 q::before,
 q::after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -148,7 +148,7 @@ input,
 optgroup,
 select,
 textarea,
-[role='button'] {
+[role="button"] {
   padding: 0;
   cursor: pointer;
   font-family: inherit;
@@ -168,15 +168,15 @@ select {
 }
 
 button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+[type="button"],
+[type="reset"],
+[type="submit"] {
   background-color: transparent;
   appearance: none;
   border: 0;
 }
 
-input[type='number'] {
+input[type="number"] {
   appearance: textfield;
 }
 

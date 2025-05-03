@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
-import { useAppState } from '../context/AppStateProvider';
+import { IconInfoCircle } from '@tabler/icons-react';
+import type { ReactNode } from 'react';
 import { Button } from '../components/Button/Button';
 import { Help } from '../components/Help/Help';
-import { IconInfoCircle } from '@tabler/icons-react';
+import { useAppState } from '../context/AppStateProvider';
 import styles from './Layout.module.css';
 
 interface LayoutProps {
@@ -14,9 +14,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   // Règles du jeu en fonction de l'étape actuelle
   const gameRules: Record<number, string> = {
-    0: "Bienvenue dans le jeu ! Voici comment commencer.",
-    1: "Règles de jeu de réflexion",
-    2: "Règles de jeu de débat",
+    0: 'Bienvenue dans le jeu ! Voici comment commencer.',
+    1: 'Règles de jeu de réflexion',
+    2: 'Règles de jeu de débat',
   };
 
   return (
@@ -43,11 +43,14 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         </Button>
       )}
 
-      {isHelpOpen && currentStep !== 3 && <Help title="Aide" content={gameRules[currentStep] || "Aucune règle disponible."} />}
-      
-      <main id="main">
-        {children}
-      </main>
+      {isHelpOpen && currentStep !== 3 && (
+        <Help
+          title="Aide"
+          content={gameRules[currentStep] || 'Aucune règle disponible.'}
+        />
+      )}
+
+      <main id="main">{children}</main>
     </div>
   );
 };

@@ -11,10 +11,10 @@ export class DirectusService {
 
   public constructor() {
     const directusBaseUrl = isValidUrl(window.env.DIRECTUS_URL)
-    ? window.env.DIRECTUS_URL
-    : 'http://127.0.0.1:3002';
+      ? window.env.DIRECTUS_URL
+      : 'http://127.0.0.1:3002';
 
-    this.directus = createDirectus<Schema>(directusBaseUrl).with(rest())
+    this.directus = createDirectus<Schema>(directusBaseUrl).with(rest());
   }
 
   public async getLanguages(): Promise<TLanguage[]> {

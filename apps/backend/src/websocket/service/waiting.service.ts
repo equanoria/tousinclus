@@ -4,12 +4,12 @@ import { Server, Socket } from 'socket.io';
 // ========== Service Import ==========
 import { GameService } from '../../game/game.service';
 
+import { EnumGameStatus } from '@tousinclus/types';
+import { plainToInstance } from 'class-transformer';
+import { GameDTO } from 'src/game/dto/game.dto';
+import { WSResponseDTO } from 'src/utils/dto/response.dto';
 // ========== DTO Import ==========
 import { WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
-import { WSResponseDTO } from 'src/utils/dto/response.dto';
-import { GameDTO } from 'src/game/dto/game.dto';
-import { plainToInstance } from 'class-transformer';
-import { EnumGameStatus } from '@tousinclus/types';
 
 @Injectable()
 export class WaitingService {

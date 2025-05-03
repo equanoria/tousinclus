@@ -4,8 +4,8 @@ import type { ComponentPropsWithoutRef } from 'react';
 import styles from './ProgressBar.module.css';
 
 export interface ProgressBarProps extends ComponentPropsWithoutRef<'div'> {
-max: number;
-value: number;
+  max: number;
+  value: number;
 }
 
 export const ProgressBar: React.FC<ProgressBarProps> = ({
@@ -17,10 +17,10 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 
   return (
     <div className={classes}>
-        <p>{value} sur {max}</p>
-        <progress max={max} value={value} />
+      <p>
+        {value} sur {max}
+      </p>
+      <progress max={max} value={value} />
     </div>
   );
 };
-
-

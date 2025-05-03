@@ -1,13 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
 import { createDirectus, rest, staticToken } from '@directus/sdk';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { EnumGameStatus } from '@tousinclus/types';
 
 // ========== DTO Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO } from './dto/game.dto';
 
+import { DirectusService } from 'src/directus/directus.service';
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
-import { DirectusService } from 'src/directus/directus.service';
 
 const client = createDirectus(
   process.env.DIRECTUS_URL || 'http://127.0.0.1:3002',

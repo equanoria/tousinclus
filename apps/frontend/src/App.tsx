@@ -5,9 +5,9 @@ import { Layout } from './layouts/Layout';
 const App = () => {
   return (
     <AppStateProvider>
-     <Layout>
-      <AppContent />
-     </Layout>
+      <Layout>
+        <AppContent />
+      </Layout>
     </AppStateProvider>
   );
 };

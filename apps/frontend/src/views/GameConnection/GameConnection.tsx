@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
+import { Button } from '../../components/Button/Button';
+import { Input } from '../../components/Input/Input';
 import { useAppState } from '../../context/AppStateProvider';
 import { GameService } from '../../services/GameService';
 import styles from './GameConnection.module.css';
-import { Button } from '../../components/Button/Button';
-import { Input } from '../../components/Input/Input';
 
 enum ConnectionState {
   CODE = 'code',
@@ -17,7 +17,9 @@ enum Team {
 }
 
 export const GameConnection = () => {
-  const [connectionState, setConnectionState] = useState<ConnectionState>(ConnectionState.CODE);
+  const [connectionState, setConnectionState] = useState<ConnectionState>(
+    ConnectionState.CODE,
+  );
   const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
   const gameService = new GameService();
@@ -45,9 +47,9 @@ export const GameConnection = () => {
 
     setConnectionState(ConnectionState.WAITING);
 
-   setTimeout(() => {
-      setCurrentStep(1); 
-    }, 2000); 
+    setTimeout(() => {
+      setCurrentStep(1);
+    }, 2000);
   });
 
   // Check teams avails
@@ -68,13 +70,25 @@ export const GameConnection = () => {
   // Join a game
   const handleJoinGame = (team: Team) => {
     gameService.joinGame(code, team);
-  }
+  };
 
   return (
     <div className={styles.pageConnection}>
-      <img src="/assets/asset-connection-1.svg" alt="" className={styles.asset1} />
-      <img src="/assets/asset-connection-2.svg" alt="" className={styles.asset2} />
-      <img src="/assets/logo-tous-inclus.svg" alt="logo tous inclus" className={styles.logoTS} />
+      <img
+        src="/assets/asset-connection-1.svg"
+        alt=""
+        className={styles.asset1}
+      />
+      <img
+        src="/assets/asset-connection-2.svg"
+        alt=""
+        className={styles.asset2}
+      />
+      <img
+        src="/assets/logo-tous-inclus.svg"
+        alt="logo tous inclus"
+        className={styles.logoTS}
+      />
       {(() => {
         switch (connectionState) {
           case ConnectionState.CODE:
@@ -87,7 +101,11 @@ export const GameConnection = () => {
                   placeholder="123456"
                   pattern="\d{6}"
                 />
-                <Button className={styles.connectionBtn} variant="primary" type="submit">
+                <Button
+                  className={styles.connectionBtn}
+                  variant="primary"
+                  type="submit"
+                >
                   Rejoindre la partie
                 </Button>
               </form>
@@ -124,10 +142,16 @@ export const GameConnection = () => {
         }
       })()}
       <div className={styles.footer}>
-        <img src="/assets/logo-equanoria.svg" alt="logo equanoria" className={styles.logoEquanoria} />
+        <img
+          src="/assets/logo-equanoria.svg"
+          alt="logo equanoria"
+          className={styles.logoEquanoria}
+        />
         <div className={styles.credits}>
           <a href="/">Mentions légales</a>
-          <a href="https://techlab-handicap.org/" target='blank'>À propos</a>
+          <a href="https://techlab-handicap.org/" target="blank">
+            À propos
+          </a>
         </div>
       </div>
     </div>

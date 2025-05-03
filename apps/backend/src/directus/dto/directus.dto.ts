@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ICard, IDeck, IGroup, ITranslation } from '@tousinclus/types';
-import { IsString, IsInt, IsNotEmpty } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 // ========== DTO ==========
 

@@ -113,9 +113,7 @@
         "readonly": false,
         "required": false,
         "sort": 3,
-        "special": [
-          "translations"
-        ],
+        "special": ["translations"],
         "translations": [
           {
             "language": "fr-FR",
@@ -156,9 +154,7 @@
         "readonly": false,
         "required": true,
         "sort": 4,
-        "special": [
-          "translations"
-        ],
+        "special": ["translations"],
         "translations": [
           {
             "language": "fr-FR",
@@ -233,9 +229,7 @@
         "readonly": false,
         "required": true,
         "sort": 2,
-        "special": [
-          "file"
-        ],
+        "special": ["file"],
         "translations": [
           {
             "language": "fr-FR",

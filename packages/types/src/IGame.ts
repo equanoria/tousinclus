@@ -1,8 +1,8 @@
 export enum EnumGameStatus {
-  Waiting = "waiting",
-  Reflection = "reflection",
-  Debate = "debate",
-  Result = "result",
+  Waiting = 'waiting',
+  Reflection = 'reflection',
+  Debate = 'debate',
+  Result = 'result',
 }
 
 export interface IGame {

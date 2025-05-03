@@ -17,8 +17,8 @@ export interface AppStateContextProps {
   setHelpOpen: (open: boolean) => void;
   isDeckOpen: boolean;
   setDeckOpen: (open: boolean) => void;
-  isDeckFirstOpen: boolean; 
-  setDeckFirstOpen: (isFirst: boolean) => void; 
+  isDeckFirstOpen: boolean;
+  setDeckFirstOpen: (isFirst: boolean) => void;
   currentStep: number;
   setCurrentStep: (step: number) => void;
 }
@@ -35,7 +35,7 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
   );
   const [isHelpOpen, setHelpOpen] = useState<boolean>(false);
   const [isDeckOpen, setDeckOpen] = useState<boolean>(false);
-  const [isDeckFirstOpen, setDeckFirstOpen] = useState<boolean>(true); 
+  const [isDeckFirstOpen, setDeckFirstOpen] = useState<boolean>(true);
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const themeManager = new ThemeManager();

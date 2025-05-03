@@ -5,9 +5,8 @@
   padding: var(--space-400);
   border-radius: var(--radius-200);
   border: var(--pale-blue-600) solid var(--stroke-border-50);
-  box-shadow:
-    inset 0 0 0 var(--pale-blue-600),
-    0.25rem 0.25rem 0 0 var(--pale-blue-600);
+  box-shadow: inset 0 0 0 var(--pale-blue-600), 0.25rem 0.25rem 0 0
+    var(--pale-blue-600);
 }
 
 .textarea {

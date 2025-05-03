@@ -2,11 +2,11 @@
   color-scheme: light dark;
 }
 
-[data-theme='light'] {
+[data-theme="light"] {
   color-scheme: light;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   color-scheme: dark;
 }
 
@@ -53,7 +53,7 @@ a {
   color: var(--link-default);
   text-decoration: underline;
 
-  &:hover{
+  &:hover {
     color: var(--link-hover);
   }
 

@@ -51,16 +51,13 @@
 
 .team1 {
   border: solid var(--stroke-border-75) var(--pale-blue-600);
-  box-shadow:
-    inset 0 0 0 var(--pale-blue-600),
-    0.25rem 0.25rem 0 0 var(--pale-blue-600);
+  box-shadow: inset 0 0 0 var(--pale-blue-600), 0.25rem 0.25rem 0 0
+    var(--pale-blue-600);
 }
 
 .team2 {
   border: solid var(--stroke-border-75) var(--pink-600);
-  box-shadow:
-    inset 0 0 0 var(--pink-600),
-    0.25rem 0.25rem 0 0 var(--pink-600);
+  box-shadow: inset 0 0 0 var(--pink-600), 0.25rem 0.25rem 0 0 var(--pink-600);
 }
 
 .votingButton {
@@ -78,9 +75,8 @@
 
 .team1 .votingButton {
   border: solid var(--stroke-border-75) var(--pale-blue-600);
-  box-shadow:
-    inset 0 0 0 var(--pale-blue-600),
-    0.25rem 0.25rem 0 0 var(--pale-blue-600);
+  box-shadow: inset 0 0 0 var(--pale-blue-600), 0.25rem 0.25rem 0 0
+    var(--pale-blue-600);
 
   &:hover {
     .heart {
@@ -105,9 +101,7 @@
 
 .team2 .votingButton {
   border: solid var(--stroke-border-75) var(--pink-600);
-  box-shadow:
-    inset 0 0 0 var(--pink-600),
-    0.25rem 0.25rem 0 0 var(--pink-600);
+  box-shadow: inset 0 0 0 var(--pink-600), 0.25rem 0.25rem 0 0 var(--pink-600);
 
   &:hover {
     .heart {
