@@ -1,10 +1,8 @@
 import type React from 'react';
 import { type ReactNode, createContext, useContext, useState } from 'react';
-import { ContrastManager } from '../managers/ContrastManager';
-import { FontManager } from '../managers/FontManager';
-import { LocaleManager } from '../managers/LocaleManager';
-import { ThemeManager } from '../managers/ThemeManager';
 import { ErrorView } from '../views/Error/ErrorView';
+import { ContrastManager, FontManager, LocaleManager, ThemeManager } from '@tousinclus/managers';
+import { DirectusService } from '../services/DirectusService';
 
 export interface AppStateContextProps {
   currentView: JSX.Element;
@@ -14,6 +12,9 @@ export interface AppStateContextProps {
   localeManager: LocaleManager;
   contrastManager: ContrastManager;
 }
+
+const directusService = new DirectusService();
+const supportedLocales = await directusService.getLanguages();
 
 const AppStateContext = createContext<AppStateContextProps | undefined>(
   undefined,
@@ -28,7 +29,7 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
 
   const themeManager = new ThemeManager();
   const fontManager = new FontManager();
-  const localeManager = new LocaleManager();
+  const localeManager = new LocaleManager(supportedLocales);
   const contrastManager = new ContrastManager();
 
   return (

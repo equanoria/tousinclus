@@ -156,6 +156,9 @@ importers:
       '@tabler/icons-react':
         specifier: ^3.31.0
         version: 3.31.0(react@18.3.1)
+      '@tousinclus/managers':
+        specifier: workspace:^
+        version: link:../../packages/managers
       '@tousinclus/types':
         specifier: workspace:^
         version: link:../../packages/types
@@ -210,6 +213,16 @@ importers:
         version: 6.0.11(@types/node@20.17.16)(terser@5.37.0)(yaml@2.7.0)
 
   docker: {}
+
+  packages/managers:
+    dependencies:
+      '@tousinclus/types':
+        specifier: workspace:^
+        version: link:../types
+    devDependencies:
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
   packages/types:
     devDependencies:
@@ -3794,6 +3807,11 @@ packages:
 
   typescript@5.7.3:
     resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -8120,6 +8138,8 @@ snapshots:
   typescript@5.7.2: {}
 
   typescript@5.7.3: {}
+
+  typescript@5.8.3: {}
 
   uid@2.0.2:
     dependencies:
