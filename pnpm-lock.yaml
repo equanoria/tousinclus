@@ -159,6 +159,9 @@ importers:
       '@tousinclus/managers':
         specifier: workspace:^
         version: link:../../packages/managers
+      '@tousinclus/styles':
+        specifier: workspace:^
+        version: link:../../packages/styles
       '@tousinclus/types':
         specifier: workspace:^
         version: link:../../packages/types
@@ -223,6 +226,8 @@ importers:
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
+
+  packages/styles: {}
 
   packages/types:
     devDependencies:
