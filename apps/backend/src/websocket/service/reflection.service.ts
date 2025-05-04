@@ -82,25 +82,25 @@ export class ReflectionService {
 
   async updateAnswer(client: Socket, data: WSDataDTO) {
     try {
-      if (!data.data.answer) {
+      if ('answer' in data.data && !data.data.answer) {
+        await this.gameService.updateTeamAnswer(
+          data.code,
+          data.data.team,
+          client.id,
+          data.data,
+        );
+
+        // Emit success response to all connected clients
+        client.emit('reflection-response', {
+          status: 'success',
+          message: `You successfully saved answer for card id: ${data.data.cardId}`,
+          data: data.data,
+        });
+      } else {
         throw new BadRequestException(
           'Please provide field "Data" to update answers',
         );
       }
-
-      await this.gameService.updateTeamAnswer(
-        data.code,
-        data.data.team,
-        client.id,
-        data.data,
-      );
-
-      // Emit success response to all connected clients
-      client.emit('reflection-response', {
-        status: 'success',
-        message: `You successfully saved answer for card id: ${data.data.cardId}`,
-        data: data.data,
-      });
     } catch (error) {
       let errorCode = ErrorCode.GENERIC_ERROR;
 
