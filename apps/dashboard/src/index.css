@@ -1,4 +1,1 @@
-@import "@tousinclus/styles/src/tokens.css";
-@import "@tousinclus/styles/src/tokens-theme-dark.css";
-@import "@tousinclus/styles/src/tokens-custom.css";
-@import "@tousinclus/styles/src/accessibility.css";
+@import "@tousinclus/styles";
