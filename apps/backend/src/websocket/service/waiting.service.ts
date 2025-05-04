@@ -94,7 +94,7 @@ export class WaitingService {
       // Transformer l'objet en excluant les clés marquées
       const dataGame = plainToInstance(GameDTO, updatedGame, {
         excludeExtraneousValues: true,
-        groups: ['room'],
+        groups: ['room', client.data.team],
       });
 
       // Notify the client that the state has been updated

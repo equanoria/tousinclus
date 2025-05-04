@@ -59,6 +59,7 @@ export class JoiningService {
     // Transformer l'objet en excluant les clés marquées
     const modifiedGameData = plainToInstance(GameDTO, findOneGameData, {
       excludeExtraneousValues: true,
+      groups: ['joining'],
     });
 
     client.emit('joining-response', modifiedGameData);

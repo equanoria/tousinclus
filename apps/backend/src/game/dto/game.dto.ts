@@ -187,27 +187,27 @@ export class GameDTO implements IGame {
   cardGroupId?: number;
 
   @IsOptional()
-  @Expose()
+  @Expose({ groups: ['team1', 'joining'] })
   @Type(() => TeamDTO)
   @ApiPropertyOptional({
     description: 'First team information',
     type: TeamDTO,
   })
-  team1?: ITeam;
+  team1?: TeamDTO;
 
   @IsOptional()
-  @Expose()
+  @Expose({ groups: ['team2', 'joining'] })
   @Type(() => TeamDTO)
   @ApiPropertyOptional({
     description: 'Second team information',
     type: TeamDTO,
   })
-  team2?: ITeam;
+  team2?: TeamDTO;
 
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => AnswerDTO)
-  @Expose({ groups: ['room'] })
+  @Expose({ groups: ['reflection'] })
   @ApiPropertyOptional({
     description: 'Answers associated with the team',
     type: AnswerDTO,
@@ -217,6 +217,6 @@ export class GameDTO implements IGame {
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => VoteDTO)
-  @Expose({ groups: ['room'] })
+  @Expose({ groups: ['debate'] })
   votes?: Array<VoteDTO>;
 }

@@ -91,6 +91,12 @@ export class GameService {
 
   async findOneGame(code: GameDTO['code']): Promise<GameDTO> {
     const game = await this.redisService.getGame(code); // Find game with the code as redis key
+
+    if (!game) {
+      // If game is not found
+      throw new Error(`Game with code ${code} not found`);
+    }
+
     return game; // Return it with the good format
   }
 
@@ -117,17 +123,6 @@ export class GameService {
   ): Promise<GameDTO> {
     const game = await this.findOneGame(code);
 
-    if (!game) {
-      throw new NotFoundException(`Game with code ${code} not found`);
-    }
-
-    const response: GameDTO = {
-      code: game.code,
-      status: game.status,
-      reflectionDuration: game.reflectionDuration,
-      cardGroupId: game.cardGroupId,
-    };
-
     if (team === ETeam.team1) {
       if (game.team1.isConnected) {
         throw new ForbiddenException(
@@ -136,7 +131,6 @@ export class GameService {
       }
       game.team1.isConnected = true;
       game.team1.clientId = clientId; // Assign the uuid of the client
-      response.team1 = game.team1; // Return only team1 data
     } else if (team === ETeam.team2) {
       if (game.team2.isConnected) {
         throw new ForbiddenException(
@@ -145,13 +139,13 @@ export class GameService {
       }
       game.team2.isConnected = true;
       game.team2.clientId = clientId; // Assign the uuid of the client
-      response.team2 = game.team2; // Return only team2 data
     } else {
       throw new BadRequestException(`Invalid team specified: ${team}`);
     }
 
     await this.redisService.setGame(code, game); // Update the game state in Redis
-    return response;
+
+    return game;
   }
 
   async updateTeamDisconnectStatus(
@@ -211,6 +205,53 @@ export class GameService {
     await this.redisService.setGame(code, game); // Update the game state in Redis
   }
 
+  async getTeamAnswer(
+    code: GameDTO['code'],
+    team: string,
+    clientId: string,
+  ): Promise<GameDTO> {
+    try {
+      console.log(team);
+      const game = await this.findOneGame(code);
+
+      if (game.status !== 'reflection') {
+        // If game status doesn't match with action
+        throw new Error(
+          `Forbidden game with code ${code} is not in the 'reflection' status`,
+        );
+      }
+
+      if (team === ETeam.team1) {
+        if (game.team1.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 1`);
+        }
+
+        // Filter only team1 answers
+        game.answers = game.answers.filter((answer) => answer.team !== ETeam.team2);
+      } else if (team === ETeam.team2) {
+        if (game.team2.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 2`);
+        }
+
+        // Filter only team2 answers
+        game.answers = game.answers.filter((answer) => answer.team !== ETeam.team1);
+      } else {
+        throw new Error(`Invalid team specified: ${team}`);
+      }
+
+      return game;
+    } catch (error) {
+      if (error instanceof Error && error.message) {
+        throw new Error(error.message);
+      }
+
+      // Handle the error gracefully to avoid websocket disconnection
+      throw new Error(
+        'Failed to update team answer. Please check "game.service.ts".',
+      );
+    }
+  }
+
   async updateTeamAnswer(
     code: GameDTO['code'],
     team: string,
@@ -219,11 +260,6 @@ export class GameService {
   ): Promise<GameDTO> {
     try {
       const game = await this.findOneGame(code);
-
-      if (!game) {
-        // If game is not found
-        throw new Error(`Game with code ${code} not found`);
-      }
 
       if (game.status !== 'reflection') {
         // If game status doesn't match with action
