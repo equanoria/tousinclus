@@ -12,6 +12,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { JwtService } from '@nestjs/jwt';
 import { createHash } from 'node:crypto';
+import { JwtPayload } from 'jsonwebtoken';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -45,12 +46,12 @@ export class AuthGuard implements CanActivate {
       return true;
     }
 
-    const decodedJwt = this.jwtService.decode(accessToken);
-    if (
-      typeof decodedJwt !== 'object' ||
-      !decodedJwt ||
-      !('exp' in decodedJwt)
-    ) {
+    let decodedJwt: JwtPayload;
+
+    try {
+      decodedJwt = this.jwtService.decode<JwtPayload>(accessToken);
+    } catch (error) {
+      this.logger.error('Error decoding JWT', error);
       throw new UnauthorizedException('Invalid token');
     }
 
