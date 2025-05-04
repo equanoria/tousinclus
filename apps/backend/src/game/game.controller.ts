@@ -29,15 +29,10 @@ import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 import { AuthGuard } from './auth/auth.guard';
 
 @ApiTags('Game')
+@UseGuards(AuthGuard)
 @Controller('game')
 export class GameController {
   constructor(private readonly gameService: GameService) {}
-
-  @Get('/auth')
-  @UseGuards(AuthGuard)
-  async testAuth(): Promise<string> {
-    return 'Je suis une route protégée';
-  }
 
   @Put()
   @HttpCode(201)
