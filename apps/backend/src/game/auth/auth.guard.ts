@@ -39,8 +39,7 @@ export class AuthGuard implements CanActivate {
 
     if (id) {
       this.logger.log('Token retrieved from cache', id);
-      // biome-ignore lint/complexity/useLiteralKeys: <explanation>
-      request['userId'] = id;
+      request.user = { id };
       return true;
     }
 
@@ -71,8 +70,7 @@ export class AuthGuard implements CanActivate {
       );
       this.logger.log('Access token cached', id);
 
-      // biome-ignore lint/complexity/useLiteralKeys: <explanation>
-      request['userId'] = id;
+      request.user = { id };
 
       return true;
     } catch (error) {
