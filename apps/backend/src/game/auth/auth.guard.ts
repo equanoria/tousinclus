@@ -11,6 +11,7 @@ import { AuthService } from './auth.service';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { JwtService } from '@nestjs/jwt';
+import { createHash } from 'node:crypto';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -32,9 +33,10 @@ export class AuthGuard implements CanActivate {
     }
 
     const accessToken = authHeader.split(' ')[1];
+    const tokenHash = this.hashToken(accessToken);
 
     const id = await this.cacheManager.get<string>(
-      `${this.TOKEN_CACHE_KEY}:${accessToken}`,
+      `${this.TOKEN_CACHE_KEY}:${tokenHash}`,
     );
 
     if (id) {
@@ -64,7 +66,7 @@ export class AuthGuard implements CanActivate {
       const ttl = decodedJwt.exp - currentTimestamp;
 
       await this.cacheManager.set(
-        `${this.TOKEN_CACHE_KEY}:${accessToken}`,
+        `${this.TOKEN_CACHE_KEY}:${tokenHash}`,
         id,
         ttl,
       );
@@ -77,5 +79,9 @@ export class AuthGuard implements CanActivate {
       this.logger.error(error);
       throw new UnauthorizedException('Unable to verify your credentials');
     }
+  }
+
+  private hashToken(token: string): string {
+    return createHash('sha256').update(token).digest('hex');
   }
 }
