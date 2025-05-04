@@ -20,7 +20,7 @@ export class DirectusService {
     private readonly configService: ConfigService,
   ) {}
 
-  private getDirectusUrl(): string {
+  getDirectusUrl(): string {
     const hostname = this.configService.getOrThrow<string>('DIRECTUS_HOSTNAME');
     const port = this.configService.get<string>('DIRECTUS_PORT');
 
