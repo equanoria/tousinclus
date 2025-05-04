@@ -1,5 +1,3 @@
-import { useAppState } from '../../context/AppStateProvider';
-import styles from './GamesList.module.css';
 import {
   Button,
   Form,
@@ -12,7 +10,6 @@ const messages = {
 };
 
 export const GamesList = () => {
-  const { directusService } = useAppState();
   const [form] = Form.useForm();
 
   const onFinish = (values: unknown) => {
