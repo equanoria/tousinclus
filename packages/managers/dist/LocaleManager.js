@@ -1,6 +1,5 @@
 import { LocalStorageManager } from './LocalStorageManager';
 export class LocaleManager {
-    supportedLocales;
     localStorageManager = new LocalStorageManager();
     static LOCAL_STORAGE_KEY = 'locale';
     static FALLBACK_LOCALE = {
@@ -9,10 +8,7 @@ export class LocaleManager {
         direction: 'ltr',
     };
     locale = LocaleManager.FALLBACK_LOCALE;
-    constructor(supportedLocales = [LocaleManager.FALLBACK_LOCALE]) {
-        this.supportedLocales = supportedLocales;
-        this.init();
-    }
+    supportedLocales = [LocaleManager.FALLBACK_LOCALE];
     async switch(localeCode) {
         if (localeCode === 'system') {
             this.setDefaultLocale('system');
@@ -38,7 +34,10 @@ export class LocaleManager {
     getLocale() {
         return this.locale;
     }
-    async init() {
+    async init(supportedLocales) {
+        if (supportedLocales) {
+            this.supportedLocales = supportedLocales;
+        }
         const storedLocaleCode = this.localStorageManager.getItem(LocaleManager.LOCAL_STORAGE_KEY);
         if (storedLocaleCode) {
             if (storedLocaleCode === 'system') {

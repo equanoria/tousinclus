@@ -1,10 +1,11 @@
 import type React from 'react';
-import { type ReactNode, createContext, useContext, useState } from 'react';
+import { type ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { ErrorView } from '../views/Error/ErrorView';
 import { ContrastManager, FontManager, LocaleManager, ThemeManager } from '@tousinclus/managers';
 import { DirectusService } from '../services/DirectusService';
 
 export interface AppStateContextProps {
+  directusService: DirectusService;
   currentView: JSX.Element;
   setCurrentView: (view: JSX.Element) => void;
   themeManager: ThemeManager;
@@ -12,9 +13,6 @@ export interface AppStateContextProps {
   localeManager: LocaleManager;
   contrastManager: ContrastManager;
 }
-
-const directusService = new DirectusService();
-const supportedLocales = await directusService.getLanguages();
 
 const AppStateContext = createContext<AppStateContextProps | undefined>(
   undefined,
@@ -27,14 +25,26 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
     <ErrorView message="Cannot load view." />,
   );
 
-  const themeManager = new ThemeManager();
-  const fontManager = new FontManager();
-  const localeManager = new LocaleManager(supportedLocales);
-  const contrastManager = new ContrastManager();
+  const directusService = useMemo(() => new DirectusService(), []);
+
+  const themeManager = useMemo(() => new ThemeManager(), []);
+  const fontManager = useMemo(() => new FontManager(), []);
+  const localeManager = useMemo(() => new LocaleManager(), []);
+  const contrastManager = useMemo(() => new ContrastManager(), []);
+
+  useEffect(() => {
+    const initializeLocaleManager = async () => {
+      const languages = await directusService.getLanguages();
+      localeManager.init(languages);
+    };
+
+    initializeLocaleManager();
+  }, [directusService, localeManager]);
 
   return (
     <AppStateContext.Provider
       value={{
+        directusService,
         currentView,
         setCurrentView,
         themeManager,

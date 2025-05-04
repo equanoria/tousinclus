@@ -12,12 +12,7 @@ export class LocaleManager {
   };
 
   private locale: TLanguage = LocaleManager.FALLBACK_LOCALE;
-
-  constructor(
-    private supportedLocales: TLanguage[] = [LocaleManager.FALLBACK_LOCALE]
-  ) {
-    this.init();
-  }
+  private supportedLocales: TLanguage[] = [LocaleManager.FALLBACK_LOCALE]
 
   /**
    * Change the active language.
@@ -58,7 +53,11 @@ export class LocaleManager {
    * Initializes the active language based on localStorage or the system.
    * If the locale in localStorage is incompatible, it will be replaced by "system".
    */
-  private async init(): Promise<void> {
+  async init(supportedLocales?: TLanguage[]): Promise<void> {
+    if (supportedLocales) {
+      this.supportedLocales = supportedLocales;
+    }
+
     const storedLocaleCode = this.localStorageManager.getItem<string>(
       LocaleManager.LOCAL_STORAGE_KEY,
     );
