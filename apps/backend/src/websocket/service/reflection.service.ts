@@ -1,9 +1,15 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Socket } from 'socket.io';
-import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
+
+// ========== Service Import ==========
 import { GameService } from 'src/game/game.service';
-import { WSControllerDTO, WSDataDTO } from '../dto/websocket.dto';
+
+// ========== WebSocket Import ==========
+import { Socket } from 'socket.io';
 import { WsException } from '@nestjs/websockets';
+
+// ========== DTO Import ==========
+import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
+import { WSControllerDTO, WSDataDTO } from '../dto/websocket.dto';
 import { GameDTO } from 'src/game/dto/game.dto';
 import { plainToInstance } from 'class-transformer';
 

@@ -90,8 +90,8 @@ export class WebsocketGateway
 
   @SubscribeMessage('debat')
   async handleDebate(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    @MessageBody() data: any,
+    @MessageBody(new WebsocketValidationPipe('debate-response'))
+    data: WSControllerDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
     await this.debatService.handleDebateLogic(client, { ...data });
