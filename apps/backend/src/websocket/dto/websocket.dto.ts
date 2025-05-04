@@ -1,6 +1,6 @@
 import { IWSData, IWSGameStatus, IWSController } from '@tousinclus/types';
 import { Type } from 'class-transformer';
-import { AnswerDTO } from '../../game/dto/game.dto';
+import { AnswerDTO, VoteDTO } from '../../game/dto/game.dto';
 
 import {
   IsDate,
@@ -21,8 +21,8 @@ export class WSDataDTO implements IWSData {
 
   @ValidateNested()
   @IsOptional()
-  @Type(() => AnswerDTO)
-  data?: AnswerDTO;
+  @Type(() => AnswerDTO || VoteDTO)
+  data?: AnswerDTO | VoteDTO;
 }
 
 export class WSControllerDTO extends WSDataDTO implements IWSController {

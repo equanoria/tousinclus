@@ -227,14 +227,18 @@ export class GameService {
         }
 
         // Filter only team1 answers
-        game.answers = game.answers.filter((answer) => answer.team !== ETeam.team2);
+        game.answers = game.answers.filter(
+          (answer) => answer.team !== ETeam.team2,
+        );
       } else if (team === ETeam.team2) {
         if (game.team2.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 2`);
         }
 
         // Filter only team2 answers
-        game.answers = game.answers.filter((answer) => answer.team !== ETeam.team1);
+        game.answers = game.answers.filter(
+          (answer) => answer.team !== ETeam.team1,
+        );
       } else {
         throw new Error(`Invalid team specified: ${team}`);
       }
