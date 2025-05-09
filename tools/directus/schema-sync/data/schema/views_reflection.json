@@ -36,6 +36,261 @@
   },
   "fields": [
     {
+      "field": "FORM_QUESTION1",
+      "type": "string",
+      "meta": {
+        "collection": "views_reflection",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "FORM_QUESTION1",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Question 1"
+          },
+          {
+            "language": "en-US",
+            "translation": "Question 1"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "FORM_QUESTION1",
+        "table": "views_reflection",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "FORM_QUESTION2",
+      "type": "string",
+      "meta": {
+        "collection": "views_reflection",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "FORM_QUESTION2",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Question 2"
+          },
+          {
+            "language": "en-US",
+            "translation": "Question 2"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "FORM_QUESTION2",
+        "table": "views_reflection",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "FORM_QUESTION3",
+      "type": "string",
+      "meta": {
+        "collection": "views_reflection",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "FORM_QUESTION3",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Question 3"
+          },
+          {
+            "language": "en-US",
+            "translation": "Question 3"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "FORM_QUESTION3",
+        "table": "views_reflection",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "FORM_QUESTION4",
+      "type": "string",
+      "meta": {
+        "collection": "views_reflection",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "FORM_QUESTION4",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Question 4"
+          },
+          {
+            "language": "en-US",
+            "translation": "Question 4"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "FORM_QUESTION4",
+        "table": "views_reflection",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "FORM_TITLE",
+      "type": "string",
+      "meta": {
+        "collection": "views_reflection",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "FORM_TITLE",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Titre du formulaire"
+          },
+          {
+            "language": "en-US",
+            "translation": "Form title"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "FORM_TITLE",
+        "table": "views_reflection",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
       "field": "id",
       "type": "integer",
       "meta": {
@@ -78,320 +333,14 @@
       }
     },
     {
-      "field": "REFLECTION_DECK_TITLE",
+      "field": "INSTRUCTION",
       "type": "string",
       "meta": {
         "collection": "views_reflection",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "REFLECTION_DECK_TITLE",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 9,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Titre deck de cartes"
-          },
-          {
-            "language": "en-US",
-            "translation": "Cards deck title"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "REFLECTION_DECK_TITLE",
-        "table": "views_reflection",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "REFLECTION_FORM_QUESTION1",
-      "type": "string",
-      "meta": {
-        "collection": "views_reflection",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "REFLECTION_FORM_QUESTION1",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 5,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Question 1"
-          },
-          {
-            "language": "en-US",
-            "translation": "Question 1"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "REFLECTION_FORM_QUESTION1",
-        "table": "views_reflection",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "REFLECTION_FORM_QUESTION2",
-      "type": "string",
-      "meta": {
-        "collection": "views_reflection",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "REFLECTION_FORM_QUESTION2",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 6,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Question 2"
-          },
-          {
-            "language": "en-US",
-            "translation": "Question 2"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "REFLECTION_FORM_QUESTION2",
-        "table": "views_reflection",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "REFLECTION_FORM_QUESTION3",
-      "type": "string",
-      "meta": {
-        "collection": "views_reflection",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "REFLECTION_FORM_QUESTION3",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 7,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Question 3"
-          },
-          {
-            "language": "en-US",
-            "translation": "Question 3"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "REFLECTION_FORM_QUESTION3",
-        "table": "views_reflection",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "REFLECTION_FORM_QUESTION4",
-      "type": "string",
-      "meta": {
-        "collection": "views_reflection",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "REFLECTION_FORM_QUESTION4",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 8,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Question 4"
-          },
-          {
-            "language": "en-US",
-            "translation": "Question 4"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "REFLECTION_FORM_QUESTION4",
-        "table": "views_reflection",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "REFLECTION_FORM_TITLE",
-      "type": "string",
-      "meta": {
-        "collection": "views_reflection",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "REFLECTION_FORM_TITLE",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 4,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Titre du formulaire"
-          },
-          {
-            "language": "en-US",
-            "translation": "Form title"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "REFLECTION_FORM_TITLE",
-        "table": "views_reflection",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "REFLECTION_INSTRUCTION",
-      "type": "string",
-      "meta": {
-        "collection": "views_reflection",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "REFLECTION_INSTRUCTION",
+        "field": "INSTRUCTION",
         "group": null,
         "hidden": false,
         "interface": "input",
@@ -416,7 +365,7 @@
         "width": "full"
       },
       "schema": {
-        "name": "REFLECTION_INSTRUCTION",
+        "name": "INSTRUCTION",
         "table": "views_reflection",
         "data_type": "character varying",
         "default_value": null,
@@ -435,14 +384,65 @@
       }
     },
     {
-      "field": "REFLECTION_TITLE",
+      "field": "PANEL_TITLE",
       "type": "string",
       "meta": {
         "collection": "views_reflection",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "REFLECTION_TITLE",
+        "field": "PANEL_TITLE",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Titre du deck de cartes"
+          },
+          {
+            "language": "en-US",
+            "translation": "Cards deck title"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "PANEL_TITLE",
+        "table": "views_reflection",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "TITLE",
+      "type": "string",
+      "meta": {
+        "collection": "views_reflection",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "TITLE",
         "group": null,
         "hidden": false,
         "interface": "input",
@@ -459,7 +459,7 @@
           },
           {
             "language": "en-US",
-            "translation": "Title view"
+            "translation": "Page title"
           }
         ],
         "validation": null,
@@ -467,7 +467,7 @@
         "width": "full"
       },
       "schema": {
-        "name": "REFLECTION_TITLE",
+        "name": "TITLE",
         "table": "views_reflection",
         "data_type": "character varying",
         "default_value": null,

@@ -36,21 +36,21 @@
   },
   "fields": [
     {
-      "field": "GAMEBOARD_BUTTON",
+      "field": "BUTTON",
       "type": "string",
       "meta": {
         "collection": "views_gameboard",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "GAMEBOARD_BUTTON",
+        "field": "BUTTON",
         "group": null,
         "hidden": false,
         "interface": "input",
         "note": null,
         "options": null,
         "readonly": false,
-        "required": true,
+        "required": false,
         "sort": 6,
         "special": null,
         "translations": [
@@ -68,211 +68,7 @@
         "width": "full"
       },
       "schema": {
-        "name": "GAMEBOARD_BUTTON",
-        "table": "views_gameboard",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "GAMEBOARD_INSTRUCTION_DESIGN",
-      "type": "string",
-      "meta": {
-        "collection": "views_gameboard",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "GAMEBOARD_INSTRUCTION_DESIGN",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 5,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Consignes cartes concevoir pour tous"
-          },
-          {
-            "language": "en-US",
-            "translation": "Design for all cards instructions"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "GAMEBOARD_INSTRUCTION_DESIGN",
-        "table": "views_gameboard",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "GAMEBOARD_INSTRUCTION_SITUATION",
-      "type": "string",
-      "meta": {
-        "collection": "views_gameboard",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "GAMEBOARD_INSTRUCTION_SITUATION",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 3,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Consigne cartes situation d'usage"
-          },
-          {
-            "language": "en-US",
-            "translation": "Situation cards instructions "
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "GAMEBOARD_INSTRUCTION_SITUATION",
-        "table": "views_gameboard",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "GAMEBOARD_INSTRUCTION_USER",
-      "type": "string",
-      "meta": {
-        "collection": "views_gameboard",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "GAMEBOARD_INSTRUCTION_USER",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 4,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Consignes cartes utilisateur extrême"
-          },
-          {
-            "language": "en-US",
-            "translation": "User cards instructions"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "GAMEBOARD_INSTRUCTION_USER",
-        "table": "views_gameboard",
-        "data_type": "character varying",
-        "default_value": null,
-        "max_length": 255,
-        "numeric_precision": null,
-        "numeric_scale": null,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": null,
-        "foreign_key_column": null
-      }
-    },
-    {
-      "field": "GAMEBOARD_TITLE",
-      "type": "string",
-      "meta": {
-        "collection": "views_gameboard",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "GAMEBOARD_TITLE",
-        "group": null,
-        "hidden": false,
-        "interface": "input",
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": true,
-        "sort": 2,
-        "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Titre de la page"
-          },
-          {
-            "language": "en-US",
-            "translation": "Page title"
-          }
-        ],
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "GAMEBOARD_TITLE",
+        "name": "BUTTON",
         "table": "views_gameboard",
         "data_type": "character varying",
         "default_value": null,
@@ -328,6 +124,210 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": true,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "INSTRUCTION_DESIGN",
+      "type": "string",
+      "meta": {
+        "collection": "views_gameboard",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "INSTRUCTION_DESIGN",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Consignes cartes concevoir pour tous"
+          },
+          {
+            "language": "en-US",
+            "translation": "Design for all cards instructions"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "INSTRUCTION_DESIGN",
+        "table": "views_gameboard",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "INSTRUCTION_SITUATION",
+      "type": "string",
+      "meta": {
+        "collection": "views_gameboard",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "INSTRUCTION_SITUATION",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Consignes cartes situation d'usage"
+          },
+          {
+            "language": "en-US",
+            "translation": "Situation cards instructions"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "INSTRUCTION_SITUATION",
+        "table": "views_gameboard",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "INSTRUCTION_USER",
+      "type": "string",
+      "meta": {
+        "collection": "views_gameboard",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "INSTRUCTION_USER",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Consignes cartes utilisateur extrême"
+          },
+          {
+            "language": "en-US",
+            "translation": "User cards instructions"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "INSTRUCTION_USER",
+        "table": "views_gameboard",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "TITLE",
+      "type": "string",
+      "meta": {
+        "collection": "views_gameboard",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "TITLE",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Titre de la page"
+          },
+          {
+            "language": "en-US",
+            "translation": "Page title"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "TITLE",
+        "table": "views_gameboard",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
         "foreign_key_table": null,
         "foreign_key_column": null
       }
