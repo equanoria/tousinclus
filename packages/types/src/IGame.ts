@@ -33,8 +33,8 @@ export interface IAnswer {
 
 export interface IVote {
   cardId: number;
-  team: ETeam;
-  vote?: Array<ETeam>;
+  locked?: boolean;
+  votes: Array<{ team: ETeam; vote: ETeam }>;
 }
 
 export interface IAnswerData {

@@ -88,7 +88,7 @@ export class WebsocketGateway
     });
   }
 
-  @SubscribeMessage('debat')
+  @SubscribeMessage('debate')
   async handleDebate(
     @MessageBody(new WebsocketValidationPipe('debate-response'))
     data: WSControllerDTO,

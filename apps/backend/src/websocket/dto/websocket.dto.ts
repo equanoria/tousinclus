@@ -21,7 +21,16 @@ export class WSDataDTO implements IWSData {
 
   @ValidateNested()
   @IsOptional()
-  @Type(() => AnswerDTO || VoteDTO)
+  @Type(({ object }) => {
+    // discrimination basée sur la présence d'un champ unique
+    if ('answer' in object.data) {
+      return AnswerDTO;
+    }
+    if ('votes' in object.data) {
+      return VoteDTO;
+    }
+    throw new Error('Unsupported data type'); // throw une erreur si le type est inconnu
+  })
   data?: AnswerDTO | VoteDTO;
 }
 

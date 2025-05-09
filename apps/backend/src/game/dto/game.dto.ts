@@ -116,21 +116,22 @@ export class VoteDTO implements IVote {
   })
   cardId: number;
 
-  @IsNotEmpty()
+  @IsBoolean()
+  @IsOptional()
   @Expose()
-  @ApiPropertyOptional({
-    description: 'Team information team1 | team2',
-    enum: ETeam,
-  })
-  team: ETeam;
+  locked?: boolean;
 
   @IsNotEmpty()
   @Expose()
   @ApiProperty({
-    description: 'team who votes',
-    example: 'team1',
+    description:
+      'Votes cast by each team. Each vote contains the team who voted and the team they voted for.',
+    example: [
+      { team: 'team1', vote: 'team2' },
+      { team: 'team2', vote: 'team1' },
+    ],
   })
-  vote?: Array<ETeam>;
+  votes: Array<{ team: ETeam; vote: ETeam }>;
 }
 
 export class TeamDTO implements ITeam {

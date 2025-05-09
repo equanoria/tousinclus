@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 
 // ========== DTO / Types Import ==========
-import { AnswerDTO, CreateGameDTO, GameDTO } from './dto/game.dto';
+import { AnswerDTO, CreateGameDTO, GameDTO, VoteDTO } from './dto/game.dto';
 import { EGameStatus, ETeam } from '@tousinclus/types';
 
 // ========== Service Import ==========
@@ -115,6 +115,10 @@ export class GameService {
     return result;
   }
 
+  async findVoteByCardID(votes: VoteDTO[], cardId: number): Promise<VoteDTO> {
+    return votes.find((entry) => entry.cardId === cardId);
+  }
+
   // Update the status of a connected team
   async updateTeamConnectionStatus(
     code: GameDTO['code'],
@@ -211,7 +215,6 @@ export class GameService {
     clientId: string,
   ): Promise<GameDTO> {
     try {
-      console.log(team);
       const game = await this.findOneGame(code);
 
       if (game.status !== 'reflection') {
@@ -316,18 +319,93 @@ export class GameService {
         throw new Error(`Invalid team specified: ${team}`);
       }
 
-      // Check if data.cardId already exist in votes
-      const existingVote = game.votes.find(
-        (entry) => entry.cardId === data.cardId,
-      );
+      // Check if data.cardId already exists in votes
+      const existingVote = await this.findVoteByCardID(game.votes, data.cardId);
 
-      if (existingVote) {
+      if (!existingVote) {
         // Add a new vote entry if it doesn't exist
         game.votes.push({
           cardId: data.cardId,
-          team: team,
-          vote: [],
+          locked: false,
+          votes: [],
         });
+      }
+
+      await this.redisService.setGame(code, game); // Update the game state in Redis
+      return game;
+    } catch (error) {
+      if (error instanceof Error && error.message) {
+        throw new Error(error.message);
+      }
+
+      // Handle the error gracefully to avoid websocket disconnection
+      throw new Error(
+        'Failed to update team answer. Please check "game.service.ts".',
+      );
+    }
+  }
+
+  async updateTeamVote(
+    code: GameDTO['code'],
+    clientId: string,
+    data: VoteDTO,
+  ): Promise<GameDTO> {
+    try {
+      const game = await this.findOneGame(code);
+
+      if (!data.votes || data.votes.length === 0) {
+        throw new Error('No votes provided.');
+      }
+
+      let userTeam = data.votes[0].team;
+      const voteForTeam = data.votes[0].vote;
+
+      if (game.status !== 'debate') {
+        // If game status doesn't match with action
+        throw new Error(
+          `Forbidden game with code ${code} is not in the 'debate' status`,
+        );
+      }
+
+      // Check if data.cardId already exists in votes
+      const existingVote = await this.findVoteByCardID(game.votes, data.cardId);
+
+      if (existingVote.locked) {
+        throw new Error(
+          `Forbidden game with code ${code} is not in the 'debate' status`,
+        );
+      }
+
+      if (userTeam === ETeam.team1) {
+        if (game.team1.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 1`);
+        }
+        userTeam = ETeam.team1;
+      } else if (userTeam === ETeam.team2) {
+        if (game.team2.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 2`);
+        }
+        userTeam = ETeam.team2;
+      }
+
+      // Vérifier si un vote existe déjà pour cette team, et le modifier si besoin
+      const voteIndex = existingVote.votes.findIndex(
+        (v) => v.team === userTeam,
+      );
+      if (voteIndex >= 0) {
+        existingVote.votes[voteIndex].vote = voteForTeam;
+      } else {
+        existingVote.votes.push(data.votes[0]); // ← ici aussi on corrige
+      }
+
+      // Vérifie si les deux équipes ont voté la même chose → lock
+      const allVotes = existingVote.votes.map((v) => v.vote);
+      if (
+        existingVote.votes.length === 2 &&
+        allVotes.every((v) => v === allVotes[0])
+      ) {
+        existingVote.locked = true;
+        // TODO vérifier qu'un vote est changeable
       }
 
       await this.redisService.setGame(code, game); // Update the game state in Redis

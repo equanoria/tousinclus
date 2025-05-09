@@ -82,7 +82,7 @@ export class ReflectionService {
 
   async updateAnswer(client: Socket, data: WSDataDTO) {
     try {
-      if ('answer' in data.data && !data.data.answer) {
+      if ('answer' in data.data) {
         await this.gameService.updateTeamAnswer(
           data.code,
           data.data.team,
@@ -98,7 +98,7 @@ export class ReflectionService {
         });
       } else {
         throw new BadRequestException(
-          'Please provide field "Data" to update answers',
+          'Please provide field "data" to update answers',
         );
       }
     } catch (error) {
