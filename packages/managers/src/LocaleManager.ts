@@ -1,10 +1,8 @@
 import type { TLanguage } from '@tousinclus/types';
-import { DirectusService } from '../services/DirectusService';
 import { LocalStorageManager } from './LocalStorageManager';
 
 export class LocaleManager {
   private localStorageManager = new LocalStorageManager();
-  private directusService = new DirectusService();
 
   static readonly LOCAL_STORAGE_KEY = 'locale';
   static readonly FALLBACK_LOCALE: TLanguage = {
@@ -14,11 +12,7 @@ export class LocaleManager {
   };
 
   private locale: TLanguage = LocaleManager.FALLBACK_LOCALE;
-  private supportedLocales: TLanguage[] = [LocaleManager.FALLBACK_LOCALE];
-
-  constructor() {
-    this.init();
-  }
+  private supportedLocales: TLanguage[] = [LocaleManager.FALLBACK_LOCALE]
 
   /**
    * Change the active language.
@@ -59,11 +53,9 @@ export class LocaleManager {
    * Initializes the active language based on localStorage or the system.
    * If the locale in localStorage is incompatible, it will be replaced by "system".
    */
-  private async init(): Promise<void> {
-    try {
-      this.supportedLocales = await this.directusService.getLanguages();
-    } catch {
-      console.warn('Using fallback locale due to error fetching locales.');
+  async init(supportedLocales?: TLanguage[]): Promise<void> {
+    if (supportedLocales) {
+      this.supportedLocales = supportedLocales;
     }
 
     const storedLocaleCode = this.localStorageManager.getItem<string>(
