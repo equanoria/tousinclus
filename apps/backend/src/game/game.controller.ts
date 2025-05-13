@@ -27,9 +27,13 @@ import { CreateGameDTO, GameDTO } from './dto/game.dto';
 import { GameService } from './game.service';
 import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 import { AuthGuard } from './auth/auth.guard';
+import { Roles } from './auth/roles.decorator';
+import { ERole } from '@tousinclus/types';
+import { RolesGuard } from './auth/roles.guard';
 
 @ApiTags('Game')
-@UseGuards(AuthGuard)
+@Roles(ERole.HOST)
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('game')
 export class GameController {
   constructor(private readonly gameService: GameService) {}

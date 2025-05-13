@@ -1,6 +1,13 @@
 import { createDirectus, readMe, rest, withToken } from '@directus/sdk';
-import { Injectable } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Cache } from 'cache-manager';
+import { JwtService } from '@nestjs/jwt';
+import { createHash } from 'node:crypto';
+import { JwtPayload } from 'jsonwebtoken';
+import { UnauthorizedException } from '@nestjs/common';
 import { DirectusService } from 'src/directus/directus.service';
+import { IUser } from '@tousinclus/types';
 
 interface IReadme {
   id: string;
@@ -8,17 +15,74 @@ interface IReadme {
 
 @Injectable()
 export class AuthService {
-  private readonly directusClient = createDirectus(
-    this.directusService.getDirectusUrl(),
-  ).with(rest());
+  private readonly logger = new Logger(AuthService.name);
+  private readonly TOKEN_CACHE_KEY = 'AUTH_TOKEN';
 
-  constructor(private readonly directusService: DirectusService) {}
+  constructor(
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+    private readonly jwtService: JwtService,
+    private readonly directusService: DirectusService,
+  ) {}
 
   async getUserId(accessToken: string): Promise<IReadme> {
-    const user = await this.directusClient.request<IReadme>(
+    const customDirectusClient = createDirectus(
+      this.directusService.getDirectusUrl(),
+    ).with(rest());
+
+    const user = await customDirectusClient.request<IReadme>(
       withToken(accessToken, readMe()),
     );
 
     return user;
+  }
+
+  private hashToken(token: string): string {
+    return createHash('sha256').update(token).digest('hex');
+  }
+
+  async validateAccessToken(accessToken: string): Promise<IUser> {
+    const tokenHash = this.hashToken(accessToken);
+
+    const user = await this.cacheManager.get<IUser>(
+      `${this.TOKEN_CACHE_KEY}:${tokenHash}`,
+    );
+    if (user) {
+      this.logger.log('Token retrieved from cache', user);
+      return user;
+    }
+
+    let decodedJwt: JwtPayload;
+    try {
+      decodedJwt = this.jwtService.decode<JwtPayload>(accessToken);
+    } catch (error) {
+      this.logger.error('Error decoding JWT', error);
+      throw new UnauthorizedException('Invalid token');
+    }
+
+    decodedJwt.exp *= 1000; // Convert to milliseconds
+
+    const now = Date.now();
+    if (decodedJwt.exp < now) {
+      throw new UnauthorizedException('Token has expired');
+    }
+
+    const { id } = await this.getUserId(accessToken);
+    const roles = await this.directusService.getUserRoles(id);
+
+    const newUser = {
+      id,
+      roles,
+    };
+
+    const ttl = decodedJwt.exp - now;
+    await this.cacheManager.set<IUser>(
+      `${this.TOKEN_CACHE_KEY}:${tokenHash}`,
+      newUser,
+      ttl,
+    );
+
+    this.logger.log('Access token cached', id);
+
+    return newUser;
   }
 }

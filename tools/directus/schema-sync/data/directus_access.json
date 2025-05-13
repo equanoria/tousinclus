@@ -1,0 +1,20 @@
+[
+  {
+    "policy": "0925542c-dd24-4ade-876e-24a357789967",
+    "role": "645a2c84-0484-44ee-b4e8-88f06a982826",
+    "sort": null,
+    "user": null
+  },
+  {
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "role": null,
+    "sort": 1,
+    "user": null
+  },
+  {
+    "policy": "d6a12173-84db-44b2-aae5-7b56f1118f72",
+    "role": "bb7e10b6-fc68-4cf0-a859-c95f03884839",
+    "sort": 1,
+    "user": null
+  }
+]

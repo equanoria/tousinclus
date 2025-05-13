@@ -7,6 +7,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
+import { RolesGuard } from './auth/roles.guard';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { JwtModule } from '@nestjs/jwt';
     JwtModule.register({}),
   ],
   controllers: [GameController],
-  providers: [GameService, AuthService, AuthGuard],
+  providers: [GameService, AuthService, AuthGuard, RolesGuard],
   exports: [GameService],
 })
 export class GameModule {}
