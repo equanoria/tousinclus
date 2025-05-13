@@ -326,7 +326,6 @@ export class GameService {
         // Add a new vote entry if it doesn't exist
         game.votes.push({
           cardId: data.cardId,
-          locked: false,
           votes: [],
         });
       }
@@ -358,7 +357,6 @@ export class GameService {
       }
 
       let userTeam = data.votes[0].team;
-      const voteForTeam = data.votes[0].vote;
 
       if (game.status !== 'debate') {
         // If game status doesn't match with action
@@ -370,12 +368,7 @@ export class GameService {
       // Check if data.cardId already exists in votes
       const existingVote = await this.findVoteByCardID(game.votes, data.cardId);
 
-      if (existingVote.locked) {
-        throw new Error(
-          `Forbidden game with code ${code} is not in the 'debate' status`,
-        );
-      }
-
+      // Check if the client connected is truely the one who want's to update
       if (userTeam === ETeam.team1) {
         if (game.team1.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 1`);
@@ -393,19 +386,11 @@ export class GameService {
         (v) => v.team === userTeam,
       );
       if (voteIndex >= 0) {
-        existingVote.votes[voteIndex].vote = voteForTeam;
+        throw new Error(
+          `Forbidden you already have voted for this game (code : ${code})`,
+        );
       } else {
-        existingVote.votes.push(data.votes[0]); // ← ici aussi on corrige
-      }
-
-      // Vérifie si les deux équipes ont voté la même chose → lock
-      const allVotes = existingVote.votes.map((v) => v.vote);
-      if (
-        existingVote.votes.length === 2 &&
-        allVotes.every((v) => v === allVotes[0])
-      ) {
-        existingVote.locked = true;
-        // TODO vérifier qu'un vote est changeable
+        existingVote.votes.push(data.votes[0]);
       }
 
       await this.redisService.setGame(code, game); // Update the game state in Redis
@@ -419,6 +404,69 @@ export class GameService {
       throw new Error(
         'Failed to update team answer. Please check "game.service.ts".',
       );
+    }
+  }
+
+  async checkConsensusVote(code: GameDTO['code'], cardId: VoteDTO['cardId']) {
+    const game = await this.findOneGame(code);
+
+    // Sort the votes by cardId in ascending order
+    const sortedVotes = game.votes.sort((a, b) => a.cardId - b.cardId);
+
+    if (cardId) {
+      // If a specific card ID is provided, find the corresponding vote
+      const existingVote = sortedVotes.find((vote) => vote.cardId === cardId);
+
+      // Check if both teams agree on the same vote
+      if (existingVote && existingVote.votes.length === 2) {
+        const allVotes = existingVote.votes.map((vote) => vote.vote);
+
+        // If both teams voted the same, consensus is reached
+        if (allVotes.every((vote) => vote === allVotes[0])) {
+          //Find the nextCard
+          const nextCard = sortedVotes.find((vote) => vote.cardId > cardId);
+          if (nextCard) {
+            return {
+              message:
+                'Consensus reached for the current card. Proceed to the next card.',
+              nextCardId: nextCard.cardId,
+            };
+          } else {
+            return {
+              message:
+                'Consensus reached for the current card. No more cards remaining.',
+            };
+          }
+        } else {
+          // If teams didn't vote the same, consensus is not reached
+          // So return error message with the same cardId to retry
+          return {
+            message:
+              'Consensus not reached for the current card. Please you need to vote again.',
+            nextCardId: cardId,
+          };
+        }
+      }
+    } else {
+      // Find the first card without consensus
+      const firstWithoutConsensus = sortedVotes.find(
+        (vote) =>
+          vote.votes.length < 2 || // Not enough votes
+          !vote.votes.every((v) => v.vote === vote.votes[0].vote), // Votes are not unanimous
+      );
+
+      if (firstWithoutConsensus) {
+        return {
+          message:
+            'Consensus reached for the current card. Proceed to the next card.',
+          nextCardId: firstWithoutConsensus.cardId,
+        };
+      } else {
+        return {
+          message:
+            'Consensus reached for the current card. No more cards remaining.',
+        };
+      }
     }
   }
 }

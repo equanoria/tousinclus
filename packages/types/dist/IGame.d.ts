@@ -28,7 +28,6 @@ export interface IAnswer {
 }
 export interface IVote {
     cardId: number;
-    locked?: boolean;
     votes: Array<{
         team: ETeam;
         vote: ETeam;

@@ -1,5 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNumber, IsNotEmpty, IsObject, IsString } from 'class-validator';
+import {
+  IsNumber,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+  IsOptional,
+} from 'class-validator';
 
 export enum ErrorCode {
   GENERIC_ERROR = 'GENERIC_ERROR',
@@ -14,6 +20,7 @@ export enum ErrorCode {
 
 export class ResponseDTO {
   @IsString()
+  @IsOptional()
   @ApiPropertyOptional({
     description: 'Response message',
     example: 'Operation completed successfully',
@@ -21,6 +28,7 @@ export class ResponseDTO {
   message?: string;
 
   @IsString()
+  @IsOptional()
   @ApiPropertyOptional({
     description: 'Error code if any error occurred',
     example: 'NOT_FOUND',
@@ -29,11 +37,16 @@ export class ResponseDTO {
   errorCode?: ErrorCode | string;
 
   @IsObject()
+  @IsOptional()
   @ApiPropertyOptional({
     description: 'Additional data returned',
     example: { id: 1, value: 'example' },
   })
   errors?: object;
+
+  @IsObject()
+  @IsOptional()
+  data?: any;
 }
 
 export class HTTPResponseDTO extends ResponseDTO {

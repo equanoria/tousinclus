@@ -116,11 +116,6 @@ export class VoteDTO implements IVote {
   })
   cardId: number;
 
-  @IsBoolean()
-  @IsOptional()
-  @Expose()
-  locked?: boolean;
-
   @IsNotEmpty()
   @Expose()
   @ApiProperty({

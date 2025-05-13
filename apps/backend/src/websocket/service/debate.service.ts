@@ -4,7 +4,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { GameService } from 'src/game/game.service';
 
 // ========== WebSocket Import ==========
-import { Socket } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { WsException } from '@nestjs/websockets';
 
 // ========== DTO Import ==========
@@ -16,6 +16,7 @@ export class DebateService {
   constructor(private readonly gameService: GameService) {} // Injection of GameService
 
   async handleDebateLogic(
+    server: Server,
     client: Socket,
     data: WSControllerDTO,
   ): Promise<void> {
@@ -34,7 +35,7 @@ export class DebateService {
 
       case 'update-vote':
         // Call the method to get all vote
-        await this.updateVote(client, CData);
+        await this.updateVote(server, client, CData);
         break;
 
       default: {
@@ -50,21 +51,41 @@ export class DebateService {
     }
   }
 
-  async updateVote(client: Socket, data: WSDataDTO): Promise<void> {
+  async updateVote(
+    server: Server,
+    client: Socket,
+    data: WSDataDTO,
+  ): Promise<void> {
     try {
       if ('votes' in data.data) {
         await this.gameService.updateTeamVote(data.code, client.id, data.data);
+        client.emit('debate-response', {
+          status: 'success',
+          message: `You successfully update vote from card ${data.data.cardId}`,
+          data: data,
+        });
+
+        const nextCardToVote = await this.gameService.checkConsensusVote(
+          data.code,
+          data.data.cardId,
+        );
+
+        // Send websockets only if a consensus is found
+        if (nextCardToVote) {
+          const responseData: WSResponseDTO = {
+            status: 'success',
+            message: nextCardToVote.message,
+            data: nextCardToVote.nextCardId
+              ? { nextCardId: nextCardToVote.nextCardId }
+              : null,
+          };
+          server.to(data.code).emit('debate-response', responseData);
+        }
       } else {
         throw new BadRequestException(
           'Please provide field "voteData" to update vote',
         );
       }
-
-      client.emit('debate-response', {
-        status: 'success',
-        message: `You successfully update vote from ${data.data.cardId}`,
-        data: data,
-      });
     } catch (error) {
       let errorCode = ErrorCode.GENERIC_ERROR;
 

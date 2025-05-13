@@ -94,6 +94,6 @@ export class WebsocketGateway
     data: WSControllerDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
-    await this.debatService.handleDebateLogic(client, { ...data });
+    await this.debatService.handleDebateLogic(this.server, client, { ...data });
   }
 }
