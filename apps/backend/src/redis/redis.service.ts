@@ -3,17 +3,20 @@ import {
   type OnModuleDestroy,
   type OnModuleInit,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
-import type { IGame } from '../game/interfaces/game.interface';
+import { GameDTO } from 'src/game/dto/game.dto';
 
 @Injectable()
 export class RedisService implements OnModuleInit, OnModuleDestroy {
   private redisClient: Redis;
 
+  constructor(private readonly configService: ConfigService) {}
+
   onModuleInit() {
     this.redisClient = new Redis({
-      host: process.env.REDIS_HOSTNAME || 'localhost',
-      port: Number.parseInt(process.env.REDIS_PORT, 10) || 3004,
+      host: this.configService.get('REDIS_HOSTNAME'),
+      port: this.configService.get<number>('REDIS_PORT'),
     });
     console.log('Redis client initialized');
   }
@@ -28,16 +31,16 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
 
   // ========== Game ==========
 
-  async setGame(key: string, value: IGame) {
+  async setGame(key: string, value: GameDTO) {
     return this.redisClient.set(key, JSON.stringify(value));
   }
 
-  async getGame(key: string): Promise<IGame> {
+  async getGame(key: string): Promise<GameDTO> {
     const gameData = await this.redisClient.get(key);
-    return JSON.parse(gameData) as IGame;
+    return JSON.parse(gameData) as GameDTO;
   }
 
-  async getAllGames(): Promise<IGame[]> {
+  async getAllGames(): Promise<GameDTO[]> {
     const keys = await this.redisClient.keys('*');
 
     // If no games are recorded
@@ -62,6 +65,28 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
   async deleteOneGame(key: string): Promise<boolean> {
     const result = await this.redisClient.del(key);
     return result > 0;
+  }
+
+  async deleteAllGames(): Promise<GameDTO[]> {
+    const keys = await this.redisClient.keys('*');
+
+    if (keys.length === 0) {
+      return []; // No games to delete
+    }
+
+    const gameDataArray = await this.redisClient.mget(keys); // Retrieve all values before deletion
+    await this.redisClient.del(keys); // Delete all keys
+
+    return gameDataArray
+      .map((gameData) => {
+        try {
+          return JSON.parse(gameData) as GameDTO;
+        } catch (error) {
+          console.error('Error parsing game data:', error);
+          return null;
+        }
+      })
+      .filter((game) => game !== null); // Remove null entries
   }
 
   onModuleDestroy() {

@@ -1,2 +1,11 @@
 export * from './TLanguage';
+export * from './ITranslation';
+export * from './IDirectus';
+export * from './IGame';
+export * from './IUser';
+export * from './IWebsocket';
+export * from './ERole';
+export * from './TTeam';
+export * from './TWaiting';
+export * from './ENodeEnv';
 //# sourceMappingURL=index.d.ts.map

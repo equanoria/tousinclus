@@ -1,0 +1,19 @@
+.blocInput {
+  display: grid;
+  gap: var(--space-200);
+}
+
+.input {
+  color: var(--input-field-contrast-default);
+  background-color: var(--input-field-bg-default);
+  border: var(--input-field-border-default) var(--stroke-border-50) solid;
+  border-radius: var(--radius-200);
+  padding: var(--space-300) var(--space-400);
+}
+
+.label {
+  color: var(--input-field-contrast-default);
+  font-family: var(--font-gotham);
+  font-size: var(--body-size-medium);
+  font-weight: var(--weight-medium);
+}

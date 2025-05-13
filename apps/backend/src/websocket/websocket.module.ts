@@ -1,19 +1,30 @@
 import { Module } from '@nestjs/common';
 import { GameModule } from 'src/game/game.module';
-import { DebateService } from './debate.service';
-import { DisconnectService } from './disconnect.service';
-import { ReflectionService } from './reflection.service';
-import { WaitingService } from './waiting.service';
 import { WebsocketGateway } from './websocket.gateway';
+import { ScheduleModule } from '@nestjs/schedule';
+import { APP_FILTER } from '@nestjs/core';
+import { WebsocketExceptionFilter } from '../utils/filters/websocket-exception.filter';
+
+// ========== Service Import ==========
+import { DebateService } from './service/debate.service';
+import { DisconnectService } from './service/disconnect.service';
+import { ReflectionService } from './service/reflection.service';
+import { WaitingService } from './service/waiting.service';
+import { JoiningService } from './service/joining.service';
 
 @Module({
-  imports: [GameModule],
+  imports: [GameModule, ScheduleModule.forRoot()],
   providers: [
     WebsocketGateway,
     WaitingService,
     ReflectionService,
     DebateService,
     DisconnectService,
+    JoiningService,
+    {
+      provide: APP_FILTER,
+      useClass: WebsocketExceptionFilter,
+    },
   ],
 })
 export class WebsocketModule {}

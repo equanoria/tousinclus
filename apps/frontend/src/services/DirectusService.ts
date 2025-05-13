@@ -1,36 +1,30 @@
-import { createDirectus, readItems, rest } from '@directus/sdk';
+import { createDirectus, readItem, readItems, rest } from '@directus/sdk';
 import type { TLanguage } from '@tousinclus/types';
 import { isValidUrl } from '../utils/isValidUrl';
 
-interface Schema {
-  languages: TLanguage[];
-}
-
 export class DirectusService {
-  private static instance: DirectusService;
-  private directus;
+  private readonly directusClient;
 
-  private constructor() {
-    const directusUrl = isValidUrl(window.env.DIRECTUS_URL)
-      ? window.env.DIRECTUS_URL
-      : 'http://127.0.0.1:3002';
+  public constructor() {
+    const directusBaseUrl = isValidUrl(window.env.DIRECTUS_URL)
+    ? window.env.DIRECTUS_URL
+    : 'http://127.0.0.1:3002';
 
-    this.directus = createDirectus<Schema>(directusUrl).with(rest());
-  }
-
-  public static getInstance(): DirectusService {
-    if (!DirectusService.instance) {
-      DirectusService.instance = new DirectusService();
-    }
-    return DirectusService.instance;
+    this.directusClient = createDirectus(directusBaseUrl).with(rest());
   }
 
   public async getLanguages(): Promise<TLanguage[]> {
     try {
-      return await this.directus.request(readItems('languages'));
+      return await this.directusClient.request<TLanguage[]>(readItems('languages'));
     } catch (error) {
       console.error('Cannot get Languages from Directus.', error);
       return [];
     }
+  }
+
+  public async getCardsGroup(id: string): Promise<unknown> {
+    return this.directusClient.request(
+      readItem('cards_groups', id)
+    );
   }
 }

@@ -1,19 +1,49 @@
 import { Injectable } from '@nestjs/common';
-import type { ICard, IGroup } from './interfaces/directus.interface';
-import { FormatterService } from './formatter.service';
-import { readItems } from '@directus/sdk';
+import type { ICardDTO, IGroupDTO } from './dto/directus.dto';
+import { FormatterService } from '../utils/services/formatter.service';
+import {
+  createDirectus,
+  readItems,
+  readRoles,
+  rest,
+  staticToken,
+} from '@directus/sdk';
+import { ConfigService } from '@nestjs/config';
+import { ERole } from '@tousinclus/types';
 
 @Injectable()
 export class DirectusService {
-  constructor(private readonly formatterService: FormatterService) {}
+  // For information directusClient type is DirectusClient<unknown> & RestClient<unknown> & StaticTokenClient<unknown>
+  private readonly directusClient = createDirectus(this.getDirectusUrl())
+    .with(
+      staticToken(
+        this.configService.getOrThrow<string>('DIRECTUS_ADMIN_TOKEN'),
+      ),
+    )
+    .with(rest());
+
+  constructor(
+    private readonly formatterService: FormatterService,
+    private readonly configService: ConfigService,
+  ) {}
+
+  getDirectusUrl(): string {
+    const hostname = this.configService.getOrThrow<string>('DIRECTUS_HOSTNAME');
+    const port = this.configService.get<string>('DIRECTUS_PORT');
+
+    const url = new URL(`http://${hostname}`);
+    if (port) {
+      url.port = port;
+    }
+
+    return url.toString();
+  }
 
   // ========== CARD ==========
   async handleCardRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
-    languageCode: ICard['languageCode'],
-    type: ICard['type'],
-    id: ICard['id'],
+    languageCode: ICardDTO['requestLanguage'],
+    type: ICardDTO['type'],
+    id: ICardDTO['id'],
   ): Promise<Array<unknown>> {
     try {
       // biome-ignore lint/suspicious/noImplicitAnyLet: TODO any type
@@ -21,10 +51,10 @@ export class DirectusService {
 
       switch (type) {
         case 'users':
-          result = await this.usersRequest(client, languageCode, id);
+          result = await this.usersRequest(languageCode, id);
           break;
         case 'situations':
-          result = await this.situationsRequest(client, languageCode, id);
+          result = await this.situationsRequest(languageCode, id);
           break;
         default:
           throw new Error(`Unknown type: ${type}`);
@@ -38,10 +68,8 @@ export class DirectusService {
 
   // Card Request & formatter Function
   async usersRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
-    languageCode: ICard['languageCode'],
-    id: ICard['id'],
+    languageCode: ICardDTO['requestLanguage'],
+    id: ICardDTO['id'],
   ) {
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     const filter: any = {};
@@ -52,7 +80,7 @@ export class DirectusService {
     }
 
     // Make an explicit request for users (allows filtering fields)
-    let usersData = await client.request(
+    let usersData = await this.directusClient.request(
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       readItems<any, any, any>('cards_users', {
         filter,
@@ -72,6 +100,7 @@ export class DirectusService {
         },
         fields: [
           // Allows filtering the fields we want
+          'id',
           {
             handicap_category: [
               'icon',
@@ -89,16 +118,14 @@ export class DirectusService {
     );
 
     // Formatting data
-    usersData = this.formatterService.usersFormatter(usersData);
+    usersData = this.formatterService.directusUsersFormatter(usersData);
 
     return usersData;
   }
 
   async situationsRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
-    languageCode: ICard['languageCode'],
-    id: ICard['id'],
+    languageCode: ICardDTO['requestLanguage'],
+    id: ICardDTO['id'],
   ) {
     // biome-ignore lint/suspicious/noExplicitAny: TODO any type
     const filter: any = {};
@@ -109,7 +136,7 @@ export class DirectusService {
     }
 
     // Make an explicit request for users (allows filtering fields)
-    let situationsData = await client.request(
+    let situationsData = await this.directusClient.request(
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
       readItems<any, any, any>('cards_situations', {
         filter,
@@ -135,6 +162,7 @@ export class DirectusService {
           },
         },
         fields: [
+          'id',
           // Allows filtering the fields we want
           'image',
           {
@@ -148,17 +176,16 @@ export class DirectusService {
     );
 
     // Formatting data
-    situationsData = this.formatterService.situationsFormatter(situationsData);
+    situationsData =
+      this.formatterService.directusSituationsFormatter(situationsData);
 
     return situationsData;
   }
 
   // ========== GROUP ==========
   async handleGroupRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
-    languageCode: IGroup['languageCode'],
-    id: IGroup['id'],
+    languageCode: IGroupDTO['requestLanguage'],
+    id: IGroupDTO['id'],
   ): Promise<Array<unknown>> {
     try {
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
@@ -170,7 +197,7 @@ export class DirectusService {
       }
 
       // Make an explicit request for users (allows filtering fields)
-      let groupData = await client.request(
+      let groupData = await this.directusClient.request(
         // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('cards_group', {
           filter,
@@ -224,6 +251,7 @@ export class DirectusService {
             },
           },
           fields: [
+            'id',
             {
               usage_situation: [
                 'image',
@@ -261,7 +289,7 @@ export class DirectusService {
       );
 
       // Formatting data
-      groupData = this.formatterService.groupFormatter(groupData);
+      groupData = await this.formatterService.directusGroupFormatter(groupData);
 
       return groupData;
     } catch (error) {
@@ -271,10 +299,8 @@ export class DirectusService {
 
   // ========== DECK ==========
   async handleDeckRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
-    languageCode: IGroup['languageCode'],
-    id: IGroup['id'],
+    languageCode: IGroupDTO['requestLanguage'],
+    id: IGroupDTO['id'],
   ): Promise<Array<unknown>> {
     try {
       // biome-ignore lint/suspicious/noExplicitAny: TODO any type
@@ -286,12 +312,11 @@ export class DirectusService {
       }
 
       // Make an explicit request for users (allows filtering fields)
-      let groupData = await client.request(
+      let deckData = await this.directusClient.request(
         // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('decks', {
           filter,
           deep: {
-            //
             translations: {
               _filter: {
                 _and: [
@@ -362,6 +387,7 @@ export class DirectusService {
             },
           },
           fields: [
+            'id',
             {
               group: [
                 {
@@ -410,32 +436,118 @@ export class DirectusService {
       );
 
       // Formatting data
-      groupData = this.formatterService.deckFormatter(groupData);
+      deckData = await this.formatterService.directusDeckFormatter(deckData);
 
-      return groupData;
+      return deckData;
     } catch (error) {
       throw new Error(error);
     }
   }
 
+  async getDeckById(id: IGroupDTO['id']): Promise<Array<unknown>> {
+    try {
+      // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+      const filter: any = {};
+
+      // Add the filter for `id` only if `id` is not null
+      if (id !== null) {
+        filter.id = { _eq: id };
+      }
+      // Make an explicit request for users (allows filtering fields)
+      let deckData = await this.directusClient.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+        readItems<any, any, any>('decks', {
+          filter,
+          deep: {
+            group: {},
+          },
+          fields: [
+            'id',
+            {
+              group: ['id'],
+            },
+            {
+              translations: ['title'],
+            },
+          ],
+        }),
+      );
+
+      // Formatting data
+      deckData = this.formatterService.directusGetDeckByIdFormatter(deckData);
+
+      return deckData;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getDeckDefault(): Promise<number> {
+    try {
+      // Make an explicit request for users (allows filtering fields)
+      const deckData = await this.directusClient.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+        readItems<any, any, any>('config', {
+          fields: ['deck_default'],
+        }),
+      );
+
+      return deckData[0]?.deck_default;
+    } catch (error) {
+      throw new Error(`Failed to fetch deck default: ${error}`);
+    }
+  }
+
+  async getReflectionDurationDefault(): Promise<number> {
+    try {
+      // Make an explicit request for users (allows filtering fields)
+      const reflectionDuration = await this.directusClient.request(
+        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
+        readItems<any, any, any>('config', {
+          fields: ['reflection_duration_default'],
+        }),
+      );
+
+      return reflectionDuration[0]?.duration;
+    } catch (error) {
+      throw new Error(`Failed to fetch reflection duration default: ${error}`);
+    }
+  }
+
   // ========== LANGUAGES ==========
-  async languageRequest(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    client: any,
-  ): Promise<Array<unknown>> {
+  async languageRequest(): Promise<Array<unknown>> {
     try {
       // Get Language Data
-      let languageData = await client.request(
+      let languageData = await this.directusClient.request(
         // biome-ignore lint/suspicious/noExplicitAny: TODO any type
         readItems<any, any, any>('languages'),
       );
 
       // Formatter for Language Data
-      languageData = this.formatterService.languageFormatter(languageData);
+      languageData =
+        this.formatterService.directusLanguageFormatter(languageData);
 
       return languageData;
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  // ========== ROLES ==========
+  async getUserRoles(userId: string): Promise<ERole[]> {
+    const roles = await this.directusClient.request(
+      readRoles({
+        fields: ['name'],
+        filter: {
+          users: { id: { _eq: userId } },
+        },
+      }),
+    );
+
+    return roles
+      .map((role) => role.name)
+      .filter((roleName): roleName is ERole =>
+        Object.values(ERole).includes(roleName as ERole),
+      );
   }
 }
