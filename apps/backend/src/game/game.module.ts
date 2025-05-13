@@ -3,11 +3,21 @@ import { RedisModule } from '../redis/redis.module';
 import { GameController } from './game.controller';
 import { GameService } from './game.service';
 import { DirectusModule } from 'src/directus/directus.module';
+import { CacheModule } from '@nestjs/cache-manager';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthService } from './auth/auth.service';
+import { JwtModule } from '@nestjs/jwt';
+import { RolesGuard } from './auth/roles.guard';
 
 @Module({
-  imports: [RedisModule, DirectusModule],
+  imports: [
+    RedisModule,
+    DirectusModule,
+    CacheModule.register(),
+    JwtModule.register({}),
+  ],
   controllers: [GameController],
-  providers: [GameService],
+  providers: [GameService, AuthService, AuthGuard, RolesGuard],
   exports: [GameService],
 })
 export class GameModule {}
