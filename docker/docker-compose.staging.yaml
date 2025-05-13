@@ -37,6 +37,7 @@ services:
         - traefik.http.middlewares.tousinclus-backend_staging-auth.basicauth.users=${STAGING_USERS}
         - traefik.http.routers.tousinclus-backend_staging.middlewares=tousinclus-backend_staging-auth
     environment:
+      - TZ=${TZ}
       - REDIS_HOSTNAME=valkey-backend
       - REDIS_PORT=6379
       - MONGO_HOSTNAME=mongo-backend
