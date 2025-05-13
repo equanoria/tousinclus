@@ -1,8 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import type { ICardDTO, IGroupDTO } from './dto/directus.dto';
 import { FormatterService } from '../utils/services/formatter.service';
-import { createDirectus, readItems, rest, staticToken } from '@directus/sdk';
+import {
+  createDirectus,
+  readItems,
+  readRoles,
+  rest,
+  staticToken,
+} from '@directus/sdk';
 import { ConfigService } from '@nestjs/config';
+import { ERole } from '@tousinclus/types';
 
 @Injectable()
 export class DirectusService {
@@ -20,7 +27,7 @@ export class DirectusService {
     private readonly configService: ConfigService,
   ) {}
 
-  private getDirectusUrl(): string {
+  getDirectusUrl(): string {
     const hostname = this.configService.getOrThrow<string>('DIRECTUS_HOSTNAME');
     const port = this.configService.get<string>('DIRECTUS_PORT');
 
@@ -524,5 +531,23 @@ export class DirectusService {
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  // ========== ROLES ==========
+  async getUserRoles(userId: string): Promise<ERole[]> {
+    const roles = await this.directusClient.request(
+      readRoles({
+        fields: ['name'],
+        filter: {
+          users: { id: { _eq: userId } },
+        },
+      }),
+    );
+
+    return roles
+      .map((role) => role.name)
+      .filter((roleName): roleName is ERole =>
+        Object.values(ERole).includes(roleName as ERole),
+      );
   }
 }

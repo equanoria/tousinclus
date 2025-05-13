@@ -3,6 +3,8 @@ import {
   Form,
   Input,
 } from 'antd';
+import type { ICredentials } from '../../services/DirectusService';
+import { useAppState } from '../../context/AppStateProvider';
 
 const messages = {
   email: 'Veuillez entrer une adresse e-mail valide',
@@ -10,16 +12,19 @@ const messages = {
 };
 
 export const GamesList = () => {
+  const { directusService } = useAppState();
+
   const [form] = Form.useForm();
 
-  const onFinish = (values: unknown) => {
-    console.log('Received values of form: ', values);
+  const onFinish = (credentials: ICredentials) => {
+    directusService.login(credentials);
+    console.log('Received values of form: ', credentials);
   };
 
   return (
     <Form
       form={form}
-      name="register"
+      name="login"
       onFinish={onFinish}
       scrollToFirstError
     >
@@ -42,7 +47,7 @@ export const GamesList = () => {
 
       <Form.Item
         name="password"
-        label="Password"
+        label="Mot de passe"
         rules={[
           {
             required: true,
@@ -55,7 +60,7 @@ export const GamesList = () => {
 
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Log In
+          Se connecter
         </Button>
       </Form.Item>
     </Form>
