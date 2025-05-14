@@ -71,7 +71,7 @@ export class AnswerDataDTO implements IAnswerData {
   @Expose()
   @ApiProperty({
     description: 'Checkboxes answer',
-    example: '[1,2,8]',
+    example: [1, 2, 8],
   })
   inputCheckboxes: number[];
 }
