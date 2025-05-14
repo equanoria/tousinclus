@@ -12,14 +12,14 @@ http://localhost:3002/admin/content/cards_situations
 Rendez-vous dans Directus > Cards > Handicaps category > Import : categories_handicaps.csv > Start Import
 http://localhost:3002/admin/content/categories_handicaps 
 
-4) Import  de la table "Extreme user cards"
+4) Import de la table "Extreme user cards"
 Rendez-vous dans Directus > Cards > Extreme user cards > Import : cards_users.csv > Start Import
 http://localhost:3002/admin/content/cards_users
 
-5) Import  de la table "Cards groups"
+5) Import de la table "Cards groups"
 Rendez-vous dans Directus > Cards > Cards groups > Import : cards_group.csv > Start Import
 http://localhost:3002/admin/content/cards_group
 
-6) Import  de la table "Decks"
+6) Import de la table "Decks"
 Rendez-vous dans Directus > Cards > Decks > Import : decks.csv > Start Import
 http://localhost:3002/admin/content/decks
