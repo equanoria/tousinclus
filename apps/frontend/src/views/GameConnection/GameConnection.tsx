@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
+import { GameService } from '../../services/GameService';
 import styles from './GameConnection.module.css';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
-import { useAppState } from '../../context/AppStateProvider';
 
 enum ConnectionState {
   CODE = 'code',
@@ -16,30 +16,27 @@ enum Team {
 }
 
 export const GameConnection = () => {
-  const { gameService, setGameCode, setTeam } = useAppState();
-  const [connectionState, setConnectionState] = useState<ConnectionState>(
-    ConnectionState.CODE,
-  );
-  const [code] = useState<string>('');
+  const [connectionState, setConnectionState] = useState<ConnectionState>(ConnectionState.CODE);
+  const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
+  const gameService = new GameService();
 
-  gameService.onJoiningResponse(
-    ({ code, isTeam1Connected, isTeam2Connected }) => {
-      setGameCode(code);
+  gameService.onJoiningResponse(({ code, isTeam1Connected, isTeam2Connected }) => {
+    setCode(code);
+    console.log('code onJoiningResponse', code)
+    if (!isTeam1Connected) teamsAvailability.current.push(Team.TEAM1);
+    if (!isTeam2Connected) teamsAvailability.current.push(Team.TEAM2);
 
-      if (!isTeam1Connected) teamsAvailability.current.push(Team.TEAM1);
-      if (!isTeam2Connected) teamsAvailability.current.push(Team.TEAM2);
-
-      if (teamsAvailability.current.length === 2) {
-        setConnectionState(ConnectionState.CODE);
-        // handle error
-        return;
-      }
+    if (teamsAvailability.current.length === 2) {
+      setConnectionState(ConnectionState.CODE);
+      // handle error
+      return;
+    }
 
     setConnectionState(ConnectionState.TEAM);
   });
 
-  gameService.onTeamConnectionUpdated(({ status }) => {
+  gameService.waitingResponse(({ status }) => {
     if (status !== 'success') {
       // handle error
       return;
@@ -54,15 +51,15 @@ export const GameConnection = () => {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const code = formData.get('code') as string;
-
-    gameService.joining(code);
+    console.log('code handleJoining', code);
+    gameService.joining(code)
   };
 
   // Join a game
   const handleJoinGame = (team: Team) => {
-    setTeam(team);
+    console.log('handleJoinGame', { code, team });
     gameService.joinGame({ code, team });
-  };
+  }
 
   return (
     <div className={styles.pageConnection}>

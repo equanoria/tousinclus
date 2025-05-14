@@ -27,9 +27,9 @@ export class GameService {
 
   joining(code: string): this {
     this.socket.emit('joining', {
-      gameCode: code,
+      action: 'joining-game',
+      code: code,
     });
-
     return this;
   }
 
@@ -41,14 +41,14 @@ export class GameService {
   joinGame({ code, team }: { code: string; team: TTeam }): this {
     this.socket.emit('waiting', {
       action: 'handle-team',
-      gameCode: code,
+      code,
       team,
     });
     return this;
   }
 
-  onTeamConnectionUpdated(callback: (data: { status: 'success' | 'error'; message?: string }) => void): void {
-    this.socket.on('team-connection-updated', callback);
+  waitingResponse(callback: (data: { status: 'success' | 'error'; message?: string }) => void): void {
+    this.socket.on('waiting-response', callback);
   }
 
   sendReflection(data: ReflectionPayload): void {

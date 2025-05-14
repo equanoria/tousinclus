@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useAppState } from './context/AppStateProvider';
-import { GameReflection } from './views/GameReflection/GameReflection';
-// import { GameConnection } from './views/GameConnection/GameConnection';
+// import { GameReflection } from './views/GameReflection/GameReflection';
+import { GameConnection } from './views/GameConnection/GameConnection';
 
 const AppContent = () => {
   const { currentView, setCurrentView } = useAppState();
 
   useEffect(() => {
-    setCurrentView(<GameReflection />);
+    setCurrentView(<GameConnection />);
   }, [setCurrentView]);
 
   return (
