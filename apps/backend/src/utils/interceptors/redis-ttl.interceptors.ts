@@ -15,6 +15,7 @@ export class RedisTtlInterceptor implements NestInterceptor {
 
   constructor(private readonly redisService: RedisService) {}
 
+  // biome-ignore lint/suspicious/noExplicitAny: TODO any type
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     // Vérifier qu'on est bien dans un contexte WebSocket
     const ctxType = context.getType<'ws' | 'rpc' | 'http'>();
