@@ -1,5 +1,12 @@
 import type React from 'react';
-import { type ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  type ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { ErrorView } from '../views/Error/ErrorView';
 import { ContrastManager, FontManager, LocaleManager, ThemeManager } from '@tousinclus/managers';
 import { DirectusService } from '../services/directus/DirectusService';
@@ -9,6 +16,8 @@ export interface AppStateContextProps {
   directusService: DirectusService;
   currentView: JSX.Element;
   setCurrentView: (view: JSX.Element) => void;
+  cardGroupId: string | null;
+  setCardGroupId: (id: string | null) => void;
   themeManager: ThemeManager;
   fontManager: FontManager;
   localeManager: LocaleManager;
@@ -21,7 +30,9 @@ const AppStateContext = createContext<AppStateContextProps | undefined>(
   undefined,
 );
 
-export const AppStateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [currentView, setCurrentView] = useState<JSX.Element>(
     <ErrorView message="Cannot load view." />,
   );
@@ -50,6 +61,8 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({ children }
         directusService,
         currentView,
         setCurrentView,
+        cardGroupId,
+        setCardGroupId,
         themeManager,
         fontManager,
         localeManager,
