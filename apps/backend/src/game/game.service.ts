@@ -461,14 +461,12 @@ export class GameService {
 
       if (firstWithoutConsensus) {
         return {
-          message:
-            'Consensus reached for the current card. Proceed to the next card.',
+          message: 'Next card to vote on identified.',
           nextCardId: firstWithoutConsensus.cardId,
         };
       } else {
         return {
-          message:
-            'Consensus reached for the current card. No more cards remaining.',
+          message: 'All cards have reached consensus.',
         };
       }
     }

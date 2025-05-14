@@ -106,8 +106,6 @@ export class WaitingService {
         data: dataGame,
       });
 
-      console.log(`Updated game (Team Choice): ${JSON.stringify(updatedGame)}`);
-
       // Vérifie que la partie n'a pas déjà commencé
       if (dataGame.status === EGameStatus.Waiting) {
         const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
