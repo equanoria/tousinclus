@@ -439,6 +439,10 @@ export class GameService {
           }
         } else {
           // If teams didn't vote the same, consensus is not reached
+          // Reset votes (flush votes)
+          existingVote.votes = [];
+          await this.redisService.setGame(code, game); // Update the game state in Redis
+
           // So return error message with the same cardId to retry
           return {
             message:
