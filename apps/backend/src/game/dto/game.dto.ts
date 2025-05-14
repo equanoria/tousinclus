@@ -70,10 +70,10 @@ export class AnswerDataDTO implements IAnswerData {
   @IsNotEmpty()
   @Expose()
   @ApiProperty({
-    description: 'Answer 4',
-    example: 'example answer 4',
+    description: 'Checkboxes answer',
+    example: [1, 2, 8],
   })
-  input4: string;
+  inputCheckboxes: number[];
 }
 
 export class AnswerDTO implements IAnswer {
