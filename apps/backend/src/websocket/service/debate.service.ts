@@ -55,7 +55,7 @@ export class DebateService {
 
       // Send websockets only if a consensus is found
       if (nextCardToVote) {
-        const responseData: WSResponseDTO = {
+        const responseData = {
           status: 'success',
           message: nextCardToVote.message,
           data: nextCardToVote.nextCardId

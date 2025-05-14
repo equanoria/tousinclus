@@ -392,9 +392,8 @@ export class GameService {
         throw new Error(
           `Forbidden you already have voted for this game (code : ${code})`,
         );
-      } else {
-        existingVote.votes.push(data.votes[0]);
       }
+      existingVote.votes.push(data.votes[0]);
 
       await this.redisService.setGame(code, game); // Update the game state in Redis
       return game;
@@ -434,25 +433,23 @@ export class GameService {
                 'Consensus reached for the current card. Proceed to the next card.',
               nextCardId: nextCard.cardId,
             };
-          } else {
-            return {
-              message:
-                'Consensus reached for the current card. No more cards remaining.',
-            };
           }
-        } else {
-          // If teams didn't vote the same, consensus is not reached
-          // Reset votes (flush votes)
-          existingVote.votes = [];
-          await this.redisService.setGame(code, game); // Update the game state in Redis
-
-          // So return error message with the same cardId to retry
           return {
             message:
-              'Consensus not reached for the current card. Please you need to vote again.',
-            nextCardId: cardId,
+              'Consensus reached for the current card. No more cards remaining.',
           };
         }
+        // If teams didn't vote the same, consensus is not reached
+        // Reset votes (flush votes)
+        existingVote.votes = [];
+        await this.redisService.setGame(code, game); // Update the game state in Redis
+
+        // So return error message with the same cardId to retry
+        return {
+          message:
+            'Consensus not reached for the current card. Please you need to vote again.',
+          nextCardId: cardId,
+        };
       }
     } else {
       // Find the first card without consensus
@@ -467,11 +464,10 @@ export class GameService {
           message: 'Next card to vote on identified.',
           nextCardId: firstWithoutConsensus.cardId,
         };
-      } else {
-        return {
-          message: 'All cards have reached consensus.',
-        };
       }
+      return {
+        message: 'All cards have reached consensus.',
+      };
     }
   }
 }

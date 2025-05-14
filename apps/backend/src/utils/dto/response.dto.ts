@@ -43,10 +43,6 @@ export class ResponseDTO {
     example: { id: 1, value: 'example' },
   })
   errors?: object;
-
-  @IsObject()
-  @IsOptional()
-  data?: any;
 }
 
 export class HTTPResponseDTO extends ResponseDTO {
@@ -67,5 +63,11 @@ export class WSResponseDTO extends ResponseDTO {
     enum: ['success', 'error', 'failed', 'forbidden'],
   })
   status: 'success' | 'error' | 'failed' | 'forbidden';
+
+  @IsOptional()
   responseChannel?: string;
+
+  @IsObject()
+  @IsOptional()
+  data?: object;
 }
