@@ -39,7 +39,7 @@ export class DebateService {
           status: 'error',
           errorCode: ErrorCode.VALIDATION_FAILED,
           message: `Unrecognized action "${action}"`,
-          responseChannel: 'joining-response',
+          responseChannel: 'debate-response',
         };
         throw new WsException(responseData);
       }
