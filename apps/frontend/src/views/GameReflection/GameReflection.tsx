@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Checkbox } from '../../components/Checkbox/Checkbox';
 import { Input } from '../../components/Input/Input';
+import { useAppState } from '../../context/AppStateProvider';
+import type { IAnswerData } from '@tousinclus/types';
 
 const checkboxOptions = [
   { id: 12, label: 'Je suis réponse 1' },
@@ -11,32 +13,42 @@ const checkboxOptions = [
 ];
 
 export const GameReflection = () => {
-  const [answers, setAnswers] = useState({
+  const { gameService, gameCode, team } = useAppState();
+
+  const [answers, setAnswers] = useState<IAnswerData>({
     input1: '',
     input2: '',
     input3: '',
+    inputCheckboxes: [],
   });
 
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState<number[]>([]);
-
-  const handleChange = (key: string, value: string) => {
-    setAnswers((prev) => ({ ...prev, [key]: value }));
+  const handleChange = (key: keyof IAnswerData, value: string) => {
+    setAnswers((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
   };
 
   const handleCheckboxChange = (id: number, checked: boolean) => {
-    setSelectedCheckboxes((prev) =>
-      checked ? [...prev, id] : prev.filter((item) => item !== id)
-    );
+    setAnswers((prev) => ({
+      ...prev,
+      inputCheckboxes: checked
+        ? [...prev.inputCheckboxes, id]
+        : prev.inputCheckboxes.filter((item) => item !== id),
+    }));
   };
 
   const handleSubmit = () => {
+    if (!gameCode || !team) return;
+
     const payload = {
-      answer: {
-        ...answers,
-        inputCheckboxes: selectedCheckboxes,
-      },
+      code: gameCode,
+      team,
+      cardId: 1,
+      answer: answers,
     };
-    console.log(payload);
+
+    gameService.sendReflection(payload);
   };
 
   return (
@@ -65,7 +77,7 @@ export const GameReflection = () => {
           <Checkbox
             key={id}
             label={label}
-            checked={selectedCheckboxes.includes(id)}
+            checked={answers.inputCheckboxes.includes(id)}
             onChange={(e) => handleCheckboxChange(id, e.target.checked)}
           />
         ))}

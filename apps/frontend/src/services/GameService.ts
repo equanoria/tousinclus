@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { io, type Socket } from 'socket.io-client';
 import { isValidUrl } from '../utils/isValidUrl';
-import type { TTeam } from '@tousinclus/types';
+import type { TTeam, IAnswerData, ETeam } from '@tousinclus/types';
+
+interface ReflectionPayload {
+  code: string;
+  team: ETeam;
+  cardId: number;
+  answer: IAnswerData;
+}
 
 export class GameService {
   private socket: Socket;
@@ -37,12 +44,21 @@ export class GameService {
       gameCode: code,
       team,
     });
-
     return this;
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  onTeamConnectionUpdated(callback: (data: any) => void): void {
+  onTeamConnectionUpdated(callback: (data: { status: 'success' | 'error'; message?: string }) => void): void {
     this.socket.on('team-connection-updated', callback);
+  }
+
+  sendReflection(data: ReflectionPayload): void {
+    this.socket.emit('reflection', {
+      action: 'update-answer',
+      ...data,
+    });
+  }
+
+  onReflectionResponse(callback: (data: { status: string; message?: string; data?: IAnswerData }) => void): void {
+    this.socket.on('reflection-response', callback);
   }
 }
