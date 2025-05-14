@@ -1,28 +1,76 @@
-import type { IDirectusCardsGroup } from '@tousinclus/types';
-import { useState, useEffect } from 'react';
-import { useAppState } from '../../context/AppStateProvider';
+import { useState } from 'react';
+import { Checkbox } from '../../components/Checkbox/Checkbox';
+import { Input } from '../../components/Input/Input';
+
+const checkboxOptions = [
+  { id: 12, label: 'Je suis réponse 1' },
+  { id: 14, label: 'Je suis réponse 2' },
+  { id: 54, label: 'Je suis réponse 3' },
+  { id: 47, label: 'Je suis réponse 4' },
+  { id: 89, label: 'Je suis réponse 5' },
+];
 
 export const GameReflection = () => {
-  const { directusService, localeManager, gameData } = useAppState();
-  const [data, setData] = useState<IDirectusCardsGroup>();
+  const [answers, setAnswers] = useState({
+    input1: '',
+    input2: '',
+    input3: '',
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!gameData?.cardsGroupId) return;
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<number[]>([]);
 
-      setData(
-        await directusService.getCardsGroup(gameData?.cardsGroupId, localeManager.getLocale()),
-      );
+  const handleChange = (key: string, value: string) => {
+    setAnswers((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const handleCheckboxChange = (id: number, checked: boolean) => {
+    setSelectedCheckboxes((prev) =>
+      checked ? [...prev, id] : prev.filter((item) => item !== id)
+    );
+  };
+
+  const handleSubmit = () => {
+    const payload = {
+      answer: {
+        ...answers,
+        inputCheckboxes: selectedCheckboxes,
+      },
     };
-
-    fetchData();
-  }, [directusService, localeManager, gameData]);
+    console.log(payload);
+  };
 
   return (
-    <>
-      <h1>Game Reflection</h1>
-      <img src={data ? directusService.getAssetUrl(data.usage_situation.image) : ''} alt="" />
-      <code>{data ? JSON.stringify(data) : 'Chargement...'}</code>
-    </>
+    <form onSubmit={(e) => e.preventDefault()}>
+      <Input
+        label="Question 1"
+        placeholder=""
+        value={answers.input1}
+        onChange={(e) => handleChange('input1', e.target.value)}
+      />
+      <Input
+        label="Question 2"
+        placeholder=""
+        value={answers.input2}
+        onChange={(e) => handleChange('input2', e.target.value)}
+      />
+      <Input
+        label="Question 3"
+        placeholder=""
+        value={answers.input3}
+        onChange={(e) => handleChange('input3', e.target.value)}
+      />
+      <div>
+        <p>Pour quelles réponses ?</p>
+        {checkboxOptions.map(({ id, label }) => (
+          <Checkbox
+            key={id}
+            label={label}
+            checked={selectedCheckboxes.includes(id)}
+            onChange={(e) => handleCheckboxChange(id, e.target.checked)}
+          />
+        ))}
+      </div>
+      <input type="button" value="Submit" onClick={handleSubmit} />
+    </form>
   );
 };
