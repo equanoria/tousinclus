@@ -367,6 +367,9 @@ export class GameService {
 
       // Check if data.cardId already exists in votes
       const existingVote = await this.findVoteByCardID(game.votes, data.cardId);
+      if (!existingVote) {
+        throw new Error(`No existing vote found for card ID: ${data.cardId}`);
+      }
 
       // Check if the client connected is truely the one who want's to update
       if (userTeam === ETeam.team1) {
