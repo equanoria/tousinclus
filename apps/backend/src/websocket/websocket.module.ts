@@ -11,6 +11,8 @@ import { DisconnectService } from './service/disconnect.service';
 import { ReflectionService } from './service/reflection.service';
 import { WaitingService } from './service/waiting.service';
 import { JoiningService } from './service/joining.service';
+import { RedisService } from 'src/redis/redis.service';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [GameModule, ScheduleModule.forRoot()],
@@ -21,6 +23,8 @@ import { JoiningService } from './service/joining.service';
     DebateService,
     DisconnectService,
     JoiningService,
+    RedisService,
+    ConfigService,
     {
       provide: APP_FILTER,
       useClass: WebsocketExceptionFilter,
