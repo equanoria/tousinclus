@@ -1,17 +1,16 @@
 import { createDirectus, readItem, readItems, readSingleton, rest } from '@directus/sdk';
-import type { IDirectusConfig, TLanguage } from '@tousinclus/types';
+import type { IDirectusCardsGroup, IDirectusConfig, TLanguage } from '@tousinclus/types';
 import { isValidUrl } from '../../utils/isValidUrl';
 import { cardsGroupQuery } from './queries/cardsGroupQuery';
 
 export class DirectusService {
   private readonly directusClient;
+  private readonly directusBaseUrl = isValidUrl(window.env.DIRECTUS_URL)
+  ? window.env.DIRECTUS_URL
+  : 'http://127.0.0.1:3002';
 
   public constructor() {
-    const directusBaseUrl = isValidUrl(window.env.DIRECTUS_URL)
-    ? window.env.DIRECTUS_URL
-    : 'http://127.0.0.1:3002';
-
-    this.directusClient = createDirectus(directusBaseUrl).with(rest());
+    this.directusClient = createDirectus(this.directusBaseUrl).with(rest());
   }
 
   public async getLanguages(): Promise<TLanguage[]> {
@@ -33,9 +32,13 @@ export class DirectusService {
     );
   }
 
-  public async getCardsGroup(id: string, locale: TLanguage): Promise<unknown> {
-    return this.directusClient.request(
-      readItem('cards_groups', id, cardsGroupQuery(locale.code)),
+  public async getCardsGroup(id: string, locale: TLanguage): Promise<IDirectusCardsGroup> {
+    return this.directusClient.request<IDirectusCardsGroup>(
+      readItem('cards_group', id, cardsGroupQuery(locale.code)),
     );
+  }
+
+  public getAssetUrl(id: string): string {
+    return `${this.directusBaseUrl}/assets/${id}`;
   }
 }

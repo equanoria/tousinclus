@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 import { useAppState } from './context/AppStateProvider';
 import { GameConnection } from './views/GameConnection/GameConnection';
-import { TestView } from './views/Test/TestView';
 
 const AppContent = () => {
   const { currentView, setCurrentView } = useAppState();
 
   useEffect(() => {
-    // setCurrentView(<GameConnection />);
-    setCurrentView(<TestView />);
+    setCurrentView(<GameConnection />);
   }, [setCurrentView]);
 
   return (
