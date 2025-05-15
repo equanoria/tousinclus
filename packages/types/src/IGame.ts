@@ -33,13 +33,12 @@ export interface IAnswer {
 
 export interface IVote {
   cardId: number;
-  team: ETeam;
-  vote?: Array<ETeam>;
+  votes: { team: ETeam; vote: ETeam }[];
 }
 
 export interface IAnswerData {
   input1: string;
   input2: string;
   input3: string;
-  input4: string;
+  inputCheckboxes: number[];
 }

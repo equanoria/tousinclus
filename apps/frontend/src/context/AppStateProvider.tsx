@@ -2,7 +2,8 @@ import type React from 'react';
 import { type ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { ErrorView } from '../views/Error/ErrorView';
 import { ContrastManager, FontManager, LocaleManager, ThemeManager } from '@tousinclus/managers';
-import { DirectusService } from '../services/DirectusService';
+import { DirectusService } from '../services/directus/DirectusService';
+import type { IGameData } from '../types/IGameData';
 
 export interface AppStateContextProps {
   directusService: DirectusService;
@@ -12,6 +13,8 @@ export interface AppStateContextProps {
   fontManager: FontManager;
   localeManager: LocaleManager;
   contrastManager: ContrastManager;
+  gameData?: IGameData;
+  setGameData: (gameData: IGameData) => void;
 }
 
 const AppStateContext = createContext<AppStateContextProps | undefined>(
@@ -22,6 +25,8 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({ children }
   const [currentView, setCurrentView] = useState<JSX.Element>(
     <ErrorView message="Cannot load view." />,
   );
+
+  const [gameData, setGameData] = useState<IGameData>();
 
   const directusService = useMemo(() => new DirectusService(), []);
 
@@ -49,6 +54,8 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({ children }
         fontManager,
         localeManager,
         contrastManager,
+        gameData,
+        setGameData,
       }}
     >
       {children}
@@ -60,7 +67,7 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({ children }
 export const useAppState = (): AppStateContextProps => {
   const context = useContext(AppStateContext);
   if (!context) {
-    throw new Error('useAppState doit être utilisé dans un AppStateProvider');
+    throw new Error('useAppState must be used within AppStateProvider');
   }
   return context;
 };

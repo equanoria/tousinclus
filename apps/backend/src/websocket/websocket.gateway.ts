@@ -19,7 +19,8 @@ import { DisconnectService } from './service/disconnect.service';
 import { WSControllerDTO } from './dto/websocket.dto';
 import { WebsocketValidationPipe } from 'src/utils/pipes/websocket-validation.pipe';
 import { WebsocketExceptionFilter } from 'src/utils/filters/websocket-exception.filter';
-import { UseFilters } from '@nestjs/common';
+import { Logger, UseFilters, UseInterceptors } from '@nestjs/common';
+import { RedisTtlInterceptor } from 'src/utils/interceptors/redis-ttl.interceptors';
 
 // Init websocket
 @WebSocketGateway({
@@ -41,21 +42,23 @@ export class WebsocketGateway
     private readonly reflectionService: ReflectionService,
     private readonly debatService: DebateService,
     private readonly disconnectService: DisconnectService,
+    private readonly logger = new Logger(WebsocketGateway.name),
   ) {}
 
   // ? Handle Websocket connection
   async handleConnection(client: Socket): Promise<void> {
-    console.log(`Client connected ${client.id}`);
+    this.logger.log(`Client connected ${client.id}`);
   }
 
   // ? Handle Websocket disconnect
   async handleDisconnect(client: Socket): Promise<void> {
-    console.log(`Client disconnected ${client.id}`);
+    this.logger.log(`Client disconnected ${client.id}`);
     // Search for client.id in the Redis DB and delete the value
     await this.disconnectService.handleDisconnectLogic(client);
   }
 
   // ? Handle Client join a game
+  @UseInterceptors(RedisTtlInterceptor)
   @SubscribeMessage('joining')
   async handleJoining(
     @MessageBody(new WebsocketValidationPipe('joining-response'))
@@ -66,6 +69,7 @@ export class WebsocketGateway
   }
 
   // ? Handle Client choose a team
+  @UseInterceptors(RedisTtlInterceptor)
   @SubscribeMessage('waiting')
   async handleWaiting(
     @MessageBody(new WebsocketValidationPipe('waiting-response'))
@@ -77,6 +81,7 @@ export class WebsocketGateway
     });
   }
 
+  @UseInterceptors(RedisTtlInterceptor)
   @SubscribeMessage('reflection')
   async handleReflection(
     @MessageBody(new WebsocketValidationPipe('reflection-response'))
@@ -88,12 +93,13 @@ export class WebsocketGateway
     });
   }
 
+  @UseInterceptors(RedisTtlInterceptor)
   @SubscribeMessage('debat')
   async handleDebate(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    @MessageBody() data: any,
+    @MessageBody(new WebsocketValidationPipe('debate-response'))
+    data: WSControllerDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
-    await this.debatService.handleDebateLogic(client, { ...data });
+    await this.debatService.handleDebateLogic(this.server, client, { ...data });
   }
 }
