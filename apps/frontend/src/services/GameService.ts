@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { io, type Socket } from 'socket.io-client';
 import { isValidUrl } from '../utils/isValidUrl';
-import type { TTeam, IAnswerData, ETeam } from '@tousinclus/types';
+import type { TTeam, IAnswerData, ETeam, EGameStatus } from '@tousinclus/types';
 
 interface ReflectionPayload {
   code: string;
@@ -47,8 +47,21 @@ export class GameService {
     return this;
   }
 
-  waitingResponse(callback: (data: { status: 'success' | 'error'; message?: string }) => void): void {
+  waitingResponse(
+    callback: (data: {
+      status: 'success' | 'error';
+      message?: string;
+    }) => void,
+  ): void {
     this.socket.on('waiting-response', callback);
+  }
+
+  readyGame(
+    callback: (data: {
+      status?: EGameStatus; 
+    }) => void,
+  ): void {
+    this.socket.on('game-status', callback);
   }
 
   sendReflection(data: ReflectionPayload): void {
@@ -58,7 +71,13 @@ export class GameService {
     });
   }
 
-  onReflectionResponse(callback: (data: { status: string; message?: string; data?: IAnswerData }) => void): void {
+  onReflectionResponse(
+    callback: (data: {
+      status: string;
+      message?: string;
+      data?: IAnswerData;
+    }) => void,
+  ): void {
     this.socket.on('reflection-response', callback);
   }
 }

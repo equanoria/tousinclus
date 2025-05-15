@@ -3,6 +3,8 @@ import { GameService } from '../../services/GameService';
 import styles from './GameConnection.module.css';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
+import { useAppState } from '../../context/AppStateProvider';
+import { GameReflection } from '../GameReflection/GameReflection';
 
 enum ConnectionState {
   CODE = 'code',
@@ -16,16 +18,19 @@ enum Team {
 }
 
 export const GameConnection = () => {
-  const [connectionState, setConnectionState] = useState<ConnectionState>(ConnectionState.CODE);
+  const [connectionState, setConnectionState] = useState<ConnectionState>(
+    ConnectionState.CODE,
+  );
   const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
   const gameService = new GameService();
+  const { setCurrentView } = useAppState();
 
-  gameService.onJoiningResponse(({ code, isTeam1Connected, isTeam2Connected }) => {
+  gameService.onJoiningResponse(({ code, team1, team2 }) => {
     setCode(code);
-    console.log('code onJoiningResponse', code)
-    if (!isTeam1Connected) teamsAvailability.current.push(Team.TEAM1);
-    if (!isTeam2Connected) teamsAvailability.current.push(Team.TEAM2);
+    // console.log('code onJoiningResponse', code);
+    if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
+    if (!team2.isConnected) teamsAvailability.current.push(Team.TEAM2);
 
     if (teamsAvailability.current.length === 2) {
       setConnectionState(ConnectionState.CODE);
@@ -37,6 +42,7 @@ export const GameConnection = () => {
   });
 
   gameService.waitingResponse(({ status }) => {
+    // console.log('status waitingResponse', status);
     if (status !== 'success') {
       // handle error
       return;
@@ -45,19 +51,29 @@ export const GameConnection = () => {
     setConnectionState(ConnectionState.WAITING);
   });
 
+  gameService.readyGame(({ status }) => {
+    // console.log('status readyGame', status);
+    if (status !== 'reflection') {
+      // handle error
+      return;
+    }
+
+    setCurrentView(<GameReflection />);
+  });
+
   // Check teams avails
   const handleJoining = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
     const code = formData.get('code') as string;
-    console.log('code handleJoining', code);
+    // console.log('code handleJoining', code);
     gameService.joining(code)
   };
 
   // Join a game
   const handleJoinGame = (team: Team) => {
-    console.log('handleJoinGame', { code, team });
+    // console.log('handleJoinGame', { code, team });
     gameService.joinGame({ code, team });
   }
 
