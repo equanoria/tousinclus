@@ -96,10 +96,10 @@ export class WebsocketGateway
   @UseInterceptors(RedisTtlInterceptor)
   @SubscribeMessage('debat')
   async handleDebate(
-    // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-    @MessageBody() data: any,
+    @MessageBody(new WebsocketValidationPipe('debate-response'))
+    data: WSControllerDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
-    await this.debatService.handleDebateLogic(client, { ...data });
+    await this.debatService.handleDebateLogic(this.server, client, { ...data });
   }
 }

@@ -1,6 +1,6 @@
 import { IWSData, IWSGameStatus, IWSController } from '@tousinclus/types';
 import { Type } from 'class-transformer';
-import { AnswerDTO } from '../../game/dto/game.dto';
+import { AnswerDTO, VoteDTO } from '../../game/dto/game.dto';
 
 import {
   IsDate,
@@ -21,8 +21,17 @@ export class WSDataDTO implements IWSData {
 
   @ValidateNested()
   @IsOptional()
-  @Type(() => AnswerDTO)
-  data?: AnswerDTO;
+  @Type(({ object }) => {
+    // discrimination basée sur la présence d'un champ unique
+    if ('answer' in object.data) {
+      return AnswerDTO;
+    }
+    if ('votes' in object.data) {
+      return VoteDTO;
+    }
+    throw new Error('Unsupported data type'); // throw une erreur si le type est inconnu
+  })
+  data?: AnswerDTO | VoteDTO;
 }
 
 export class WSControllerDTO extends WSDataDTO implements IWSController {
