@@ -18,11 +18,8 @@ export interface AppStateContextProps {
   setCurrentView: (view: JSX.Element) => void;
   cardGroupId: string | null;
   setCardGroupId: (id: string | null) => void;
-  gameService: GameService;
   gameCode: string;
   setGameCode: (code: string) => void;
-  teamsConnected: string[];
-  setTeamsConnected: (teams: string[]) => void;
   team: string;
   setTeam: (team: string) => void;
   themeManager: ThemeManager;
@@ -70,11 +67,8 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
         setCurrentView,
         cardGroupId,
         setCardGroupId,
-        gameService,
         gameCode,
         setGameCode,
-        teamsConnected,
-        setTeamsConnected,
         team,
         setTeam,
         themeManager,

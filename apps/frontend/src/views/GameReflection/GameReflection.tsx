@@ -13,7 +13,7 @@ const checkboxOptions = [
 ];
 
 export const GameReflection = () => {
-  const { gameService, gameCode, team } = useAppState();
+  const { gameCode, team } = useAppState();
 
   const [answers, setAnswers] = useState<IAnswerData>({
     input1: '',
@@ -39,7 +39,7 @@ export const GameReflection = () => {
   };
 
   const handleSubmit = () => {
-    if (!gameCode || !team) return;
+    // if (!gameCode || !team) return;
 
     const payload = {
       code: gameCode,
@@ -48,7 +48,9 @@ export const GameReflection = () => {
       answer: answers,
     };
 
-    gameService.sendReflection(payload);
+    console.log('payload', payload);
+
+    // gameService.sendReflection(payload);
   };
 
   return (
