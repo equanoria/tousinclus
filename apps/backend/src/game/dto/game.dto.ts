@@ -126,7 +126,7 @@ export class VoteDTO implements IVote {
       { team: 'team2', vote: 'team1' },
     ],
   })
-  votes: Array<{ team: ETeam; vote: ETeam }>;
+  votes: { team: ETeam; vote: ETeam }[];
 }
 
 export class TeamDTO implements ITeam {

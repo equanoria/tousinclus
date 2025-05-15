@@ -248,14 +248,12 @@ export class GameService {
 
       return game;
     } catch (error) {
-      if (error instanceof Error && error.message) {
-        throw new Error(error.message);
+      if (!error.message) {
+        error.message =
+          'Failed to update team answer. Please check "game.service.ts".';
       }
 
-      // Handle the error gracefully to avoid websocket disconnection
-      throw new Error(
-        'Failed to update team answer. Please check "game.service.ts".',
-      );
+      throw error;
     }
   }
 
@@ -333,14 +331,12 @@ export class GameService {
       await this.redisService.setGame(code, game); // Update the game state in Redis
       return game;
     } catch (error) {
-      if (error instanceof Error && error.message) {
-        throw new Error(error.message);
+      if (!error.message) {
+        error.message =
+          'Failed to update team answer. Please check "game.service.ts".';
       }
 
-      // Handle the error gracefully to avoid websocket disconnection
-      throw new Error(
-        'Failed to update team answer. Please check "game.service.ts".',
-      );
+      throw error;
     }
   }
 
@@ -351,10 +347,6 @@ export class GameService {
   ): Promise<GameDTO> {
     try {
       const game = await this.findOneGame(code);
-
-      if (!data.votes || data.votes.length === 0) {
-        throw new Error('No votes provided.');
-      }
 
       let userTeam = data.votes[0].team;
 
@@ -398,14 +390,12 @@ export class GameService {
       await this.redisService.setGame(code, game); // Update the game state in Redis
       return game;
     } catch (error) {
-      if (error instanceof Error && error.message) {
-        throw new Error(error.message);
+      if (!error.message) {
+        error.message =
+          'Failed to update team answer. Please check "game.service.ts".';
       }
 
-      // Handle the error gracefully to avoid websocket disconnection
-      throw new Error(
-        'Failed to update team answer. Please check "game.service.ts".',
-      );
+      throw error;
     }
   }
 
