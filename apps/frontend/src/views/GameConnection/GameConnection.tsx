@@ -1,11 +1,8 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { connectionService } from '../../services/ConnectionService';
-import { gameService } from '../../services/GameService';
 import styles from './GameConnection.module.css';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
-import { useAppState } from '../../context/AppStateProvider';
-import { GameReflection } from '../GameReflection/GameReflection';
 
 enum ConnectionState {
   CODE = 'code',
@@ -24,43 +21,30 @@ export const GameConnection = () => {
   );
   const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
-  const { setCurrentView } = useAppState();
 
-  useEffect(() => {
-    connectionService.onJoiningResponse(({ code, team1, team2 }) => {
-      setCode(code);
-      teamsAvailability.current = [];
+  connectionService.onJoiningResponse(({ code, team1, team2 }) => {
+    setCode(code);
+    teamsAvailability.current = [];
 
-      if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
-      if (!team2.isConnected) teamsAvailability.current.push(Team.TEAM2);
+    if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
+    if (!team2.isConnected) teamsAvailability.current.push(Team.TEAM2);
 
-      if (teamsAvailability.current.length === 0) {
-        setConnectionState(ConnectionState.CODE); // No team available
-        // handle error
-        return;
-      }
+    if (teamsAvailability.current.length === 0) {
+      setConnectionState(ConnectionState.CODE); // No team available
+      // handle error
+      return;
+    }
 
-      setConnectionState(ConnectionState.TEAM);
-    });
+    setConnectionState(ConnectionState.TEAM);
+  });
 
-    connectionService.waitingResponse(({ status }) => {
-      if (status !== 'success') {
-        // handle error
-        return;
-      }
-      setConnectionState(ConnectionState.WAITING);
-    });
-
-    gameService.gameStatus(({ status }) => {
-      if (status === 'reflection') {
-        setCurrentView(<GameReflection />);
-      }
-    });
-
-    return () => {
-      // Clean listeners if needed
-    };
-  }, [setCurrentView]);
+  connectionService.waitingResponse(({ status }) => {
+    if (status !== 'success') {
+      // handle error
+      return;
+    }
+    setConnectionState(ConnectionState.WAITING);
+  });
 
   const handleJoining = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -89,7 +73,11 @@ export const GameConnection = () => {
                   placeholder="123456"
                   pattern="\d{6}"
                 />
-                <Button className={styles.connectionBtn} variant="primary" type="submit">
+                <Button
+                  className={styles.connectionBtn}
+                  variant="primary"
+                  type="submit"
+                >
                   Rejoindre la partie
                 </Button>
               </form>

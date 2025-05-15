@@ -3,7 +3,7 @@ import { io, type Socket } from 'socket.io-client';
 import { isValidUrl } from '../utils/isValidUrl';
 import type { EGameStatus } from '@tousinclus/types';
 
-class GameService {
+export class GameService {
   private socket: Socket;
 
   constructor() {
@@ -27,4 +27,3 @@ class GameService {
   }
 }
 
-export const gameService = new GameService();

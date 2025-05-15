@@ -11,6 +11,7 @@ import { ErrorView } from '../views/Error/ErrorView';
 import { ContrastManager, FontManager, LocaleManager, ThemeManager } from '@tousinclus/managers';
 import { DirectusService } from '../services/directus/DirectusService';
 import type { IGameData } from '../types/IGameData';
+import { GameService } from '../services/GameService';
 
 export interface AppStateContextProps {
   directusService: DirectusService;
@@ -38,6 +39,7 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
   const [gameData, setGameData] = useState<IGameData>();
 
   const directusService = useMemo(() => new DirectusService(), []);
+  const gameService = useMemo(() => new GameService(), []);
 
   const themeManager = useMemo(() => new ThemeManager(), []);
   const fontManager = useMemo(() => new FontManager(), []);
@@ -57,6 +59,7 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
     <AppStateContext.Provider
       value={{
         directusService,
+        gameService,
         currentView,
         setCurrentView,
         themeManager,

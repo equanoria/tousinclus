@@ -1,12 +1,20 @@
 import { useEffect } from 'react';
 import { useAppState } from './context/AppStateProvider';
 import { GameConnection } from './views/GameConnection/GameConnection';
+import { GameReflection } from './views/GameReflection/GameReflection';
 
 const AppContent = () => {
   const { currentView, setCurrentView } = useAppState();
 
   useEffect(() => {
-    setCurrentView(<section><GameConnection /></section>);
+    gameService.gameStatus(({ status }) => {
+      if (status === 'waiting') {
+        setCurrentView(<GameConnection />);
+      }
+      if (status === 'reflection') {
+        setCurrentView(<GameReflection />);
+      }
+    });
   }, [setCurrentView]);
 
   return (
