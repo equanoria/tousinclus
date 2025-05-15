@@ -18,7 +18,7 @@ class GameService {
     this.socket.disconnect();
   }
 
-  readyGame(callback: (data: { status?: EGameStatus }) => void): void {
+  gameStatus(callback: (data: { status?: EGameStatus }) => void): void {
     this.socket.on('game-status', callback);
   }
 

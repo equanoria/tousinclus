@@ -52,7 +52,7 @@ export const GameConnection = () => {
       setConnectionState(ConnectionState.WAITING);
     });
 
-    gameService.readyGame(({ status }) => {
+    gameService.gameStatus(({ status }) => {
       if (status === 'reflection') {
         setCurrentView(<GameReflection />);
       }
