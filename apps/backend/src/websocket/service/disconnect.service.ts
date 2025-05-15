@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Socket } from 'socket.io';
 
 // ========== Service Import ==========
 import { GameService } from '../../game/game.service';
+
+// ========== WebSocket Import ==========
+import { Socket } from 'socket.io';
 
 @Injectable()
 export class DisconnectService {
