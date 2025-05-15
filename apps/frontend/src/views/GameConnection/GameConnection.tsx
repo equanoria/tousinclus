@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react';
-import { GameService } from '../../services/GameService';
+import { useRef, useState, useEffect } from 'react';
+import { connectionService } from '../../services/ConnectionService';
+import { gameService } from '../../services/GameService';
 import styles from './GameConnection.module.css';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
@@ -23,59 +24,57 @@ export const GameConnection = () => {
   );
   const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
-  const gameService = new GameService();
-  const { setCurrentView } = useAppState();
+  const { setCurrentView, setGameCode, setTeam } = useAppState();
 
-  gameService.onJoiningResponse(({ code, team1, team2 }) => {
-    setCode(code);
-    // console.log('code onJoiningResponse', code);
-    if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
-    if (!team2.isConnected) teamsAvailability.current.push(Team.TEAM2);
+  useEffect(() => {
+    connectionService.onJoiningResponse(({ code, team1, team2 }) => {
+      setCode(code);
+      setGameCode(code);
+      teamsAvailability.current = [];
 
-    if (teamsAvailability.current.length === 2) {
-      setConnectionState(ConnectionState.CODE);
-      // handle error
-      return;
-    }
+      if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
+      if (!team2.isConnected) teamsAvailability.current.push(Team.TEAM2);
 
-    setConnectionState(ConnectionState.TEAM);
-  });
+      if (teamsAvailability.current.length === 0) {
+        setConnectionState(ConnectionState.CODE); // No team available
+        // handle error
+        return;
+      }
 
-  gameService.waitingResponse(({ status }) => {
-    // console.log('status waitingResponse', status);
-    if (status !== 'success') {
-      // handle error
-      return;
-    }
+      setConnectionState(ConnectionState.TEAM);
+    });
 
-    setConnectionState(ConnectionState.WAITING);
-  });
+    connectionService.waitingResponse(({ status }) => {
+      if (status !== 'success') {
+        // handle error
+        return;
+      }
+      setConnectionState(ConnectionState.WAITING);
+    });
 
-  gameService.readyGame(({ status }) => {
-    // console.log('status readyGame', status);
-    if (status !== 'reflection') {
-      // handle error
-      return;
-    }
+    gameService.readyGame(({ status }) => {
+      if (status === 'reflection') {
+        setCurrentView(<GameReflection />);
+      }
+    });
 
-    setCurrentView(<GameReflection />);
-  });
+    return () => {
+      // Clean listeners if needed
+    };
+  }, [setCurrentView, setGameCode]);
 
-  // Check teams avails
   const handleJoining = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const code = formData.get('code') as string;
-    // console.log('code handleJoining', code);
-    gameService.joining(code)
+    const inputCode = formData.get('code') as string;
+    connectionService.joining(inputCode);
   };
 
-  // Join a game
   const handleJoinGame = (team: Team) => {
-    // console.log('handleJoinGame', { code, team });
-    gameService.joinGame({ code, team });
-  }
+    connectionService.joinGame({ code, team });
+    setTeam(team);
+  };
 
   return (
     <div className={styles.pageConnection}>

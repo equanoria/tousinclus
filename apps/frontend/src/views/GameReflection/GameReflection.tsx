@@ -3,6 +3,7 @@ import { Checkbox } from '../../components/Checkbox/Checkbox';
 import { Input } from '../../components/Input/Input';
 import { useAppState } from '../../context/AppStateProvider';
 import type { IAnswerData } from '@tousinclus/types';
+// import { reflectionService } from '../../services/ReflectionService';
 
 const checkboxOptions = [
   { id: 12, label: 'Je suis réponse 1' },
@@ -39,7 +40,7 @@ export const GameReflection = () => {
   };
 
   const handleSubmit = () => {
-    // if (!gameCode || !team) return;
+    if (!gameCode || !team) return;
 
     const payload = {
       code: gameCode,
@@ -50,7 +51,7 @@ export const GameReflection = () => {
 
     console.log('payload', payload);
 
-    // gameService.sendReflection(payload);
+    // reflectionService.sendReflection(payload);
   };
 
   return (

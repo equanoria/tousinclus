@@ -1,16 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { io, type Socket } from 'socket.io-client';
 import { isValidUrl } from '../utils/isValidUrl';
-import type { TTeam, IAnswerData, ETeam, EGameStatus } from '@tousinclus/types';
+import type { EGameStatus } from '@tousinclus/types';
 
-interface ReflectionPayload {
-  code: string;
-  team: ETeam;
-  cardId: number;
-  answer: IAnswerData;
-}
-
-export class GameService {
+class GameService {
   private socket: Socket;
 
   constructor() {
@@ -25,59 +18,13 @@ export class GameService {
     this.socket.disconnect();
   }
 
-  joining(code: string): this {
-    this.socket.emit('joining', {
-      action: 'joining-game',
-      code: code,
-    });
-    return this;
-  }
-
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  onJoiningResponse(callback: (data: any) => void): void {
-    this.socket.on('joining-response', callback);
-  }
-
-  joinGame({ code, team }: { code: string; team: TTeam }): this {
-    this.socket.emit('waiting', {
-      action: 'handle-team',
-      code,
-      team,
-    });
-    return this;
-  }
-
-  waitingResponse(
-    callback: (data: {
-      status: 'success' | 'error';
-      message?: string;
-    }) => void,
-  ): void {
-    this.socket.on('waiting-response', callback);
-  }
-
-  readyGame(
-    callback: (data: {
-      status?: EGameStatus; 
-    }) => void,
-  ): void {
+  readyGame(callback: (data: { status?: EGameStatus }) => void): void {
     this.socket.on('game-status', callback);
   }
 
-  sendReflection(data: ReflectionPayload): void {
-    this.socket.emit('reflection', {
-      action: 'update-answer',
-      ...data,
-    });
-  }
-
-  onReflectionResponse(
-    callback: (data: {
-      status: string;
-      message?: string;
-      data?: IAnswerData;
-    }) => void,
-  ): void {
-    this.socket.on('reflection-response', callback);
+  getSocket(): Socket {
+    return this.socket;
   }
 }
+
+export const gameService = new GameService();
