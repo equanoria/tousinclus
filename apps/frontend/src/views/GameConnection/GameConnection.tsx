@@ -24,12 +24,11 @@ export const GameConnection = () => {
   );
   const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
-  const { setCurrentView, setGameCode, setTeam } = useAppState();
+  const { setCurrentView } = useAppState();
 
   useEffect(() => {
     connectionService.onJoiningResponse(({ code, team1, team2 }) => {
       setCode(code);
-      setGameCode(code);
       teamsAvailability.current = [];
 
       if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
@@ -61,7 +60,7 @@ export const GameConnection = () => {
     return () => {
       // Clean listeners if needed
     };
-  }, [setCurrentView, setGameCode]);
+  }, [setCurrentView]);
 
   const handleJoining = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -73,7 +72,6 @@ export const GameConnection = () => {
 
   const handleJoinGame = (team: Team) => {
     connectionService.joinGame({ code, team });
-    setTeam(team);
   };
 
   return (

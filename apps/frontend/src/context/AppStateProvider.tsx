@@ -16,12 +16,6 @@ export interface AppStateContextProps {
   directusService: DirectusService;
   currentView: JSX.Element;
   setCurrentView: (view: JSX.Element) => void;
-  cardGroupId: string | null;
-  setCardGroupId: (id: string | null) => void;
-  gameCode: string;
-  setGameCode: (code: string) => void;
-  team: string;
-  setTeam: (team: string) => void;
   themeManager: ThemeManager;
   fontManager: FontManager;
   localeManager: LocaleManager;
@@ -65,12 +59,6 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
         directusService,
         currentView,
         setCurrentView,
-        cardGroupId,
-        setCardGroupId,
-        gameCode,
-        setGameCode,
-        team,
-        setTeam,
         themeManager,
         fontManager,
         localeManager,
