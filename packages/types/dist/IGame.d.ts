@@ -28,10 +28,10 @@ export interface IAnswer {
 }
 export interface IVote {
     cardId: number;
-    votes: Array<{
+    votes: {
         team: ETeam;
         vote: ETeam;
-    }>;
+    }[];
 }
 export interface IAnswerData {
     input1: string;

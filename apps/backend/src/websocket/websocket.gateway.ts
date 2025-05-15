@@ -7,6 +7,8 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
+import { Logger, UseFilters, UseInterceptors } from '@nestjs/common';
+import { RedisTtlInterceptor } from 'src/utils/interceptors/redis-ttl.interceptor';
 
 import { Server, Socket } from 'socket.io';
 
@@ -15,12 +17,11 @@ import { JoiningService } from './service/joining.service';
 import { WaitingService } from './service/waiting.service';
 import { ReflectionService } from './service/reflection.service';
 import { DebateService } from './service/debate.service';
+import { ResultService } from './service/result.service';
 import { DisconnectService } from './service/disconnect.service';
 import { WSControllerDTO } from './dto/websocket.dto';
 import { WebsocketValidationPipe } from 'src/utils/pipes/websocket-validation.pipe';
 import { WebsocketExceptionFilter } from 'src/utils/filters/websocket-exception.filter';
-import { Logger, UseFilters, UseInterceptors } from '@nestjs/common';
-import { RedisTtlInterceptor } from 'src/utils/interceptors/redis-ttl.interceptors';
 
 // Init websocket
 @WebSocketGateway({
@@ -41,6 +42,7 @@ export class WebsocketGateway
     private readonly waitingService: WaitingService,
     private readonly reflectionService: ReflectionService,
     private readonly debatService: DebateService,
+    private readonly resultService: ResultService,
     private readonly disconnectService: DisconnectService,
     private readonly logger = new Logger(WebsocketGateway.name),
   ) {}
@@ -96,10 +98,17 @@ export class WebsocketGateway
   @UseInterceptors(RedisTtlInterceptor)
   @SubscribeMessage('debat')
   async handleDebate(
-    @MessageBody(new WebsocketValidationPipe('debate-response'))
-    data: WSControllerDTO,
+    @MessageBody() data: WSControllerDTO,
     @ConnectedSocket() client: Socket,
   ): Promise<void> {
     await this.debatService.handleDebateLogic(this.server, client, { ...data });
+  }
+
+  @SubscribeMessage('result')
+  async handleResult(
+    @MessageBody() data: WSControllerDTO,
+    @ConnectedSocket() client: Socket,
+  ): Promise<void> {
+    await this.resultService.handleResultLogic(client, { ...data });
   }
 }

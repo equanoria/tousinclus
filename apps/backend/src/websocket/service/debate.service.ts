@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { EGameStatus } from '@tousinclus/types';
 
 // ========== Service Import ==========
 import { GameService } from 'src/game/game.service';
@@ -9,7 +10,7 @@ import { WsException } from '@nestjs/websockets';
 
 // ========== DTO Import ==========
 import { WSResponseDTO, ErrorCode } from 'src/utils/dto/response.dto';
-import { WSControllerDTO, WSDataDTO } from '../dto/websocket.dto';
+import { WSControllerDTO, WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
 
 @Injectable()
 export class DebateService {
@@ -100,8 +101,15 @@ export class DebateService {
           data.data.cardId,
         );
 
+        // If displayResult change game phase to result
+        if (nextCardToVote.displayResult) {
+          const responseData: WSGameStatus = { gameStatus: 'result' };
+          this.gameService.updateGameStatus(data.code, EGameStatus.Result);
+          server.to(data.code).emit('game-status', responseData);
+        }
+
         // Send websockets only if a consensus is found
-        if (nextCardToVote) {
+        if (nextCardToVote.message) {
           const responseData: WSResponseDTO = {
             status: 'success',
             message: nextCardToVote.message,

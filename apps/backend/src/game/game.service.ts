@@ -405,6 +405,20 @@ export class GameService {
     // Sort the votes by cardId in ascending order
     const sortedVotes = game.votes.sort((a, b) => a.cardId - b.cardId);
 
+    // Condition to result phase
+    if (sortedVotes.length === 6) {
+      // Check if all cards have 2 votes
+      const allHaveTwoVotes = sortedVotes.every(
+        (vote) => vote.votes.length === 2,
+      );
+
+      if (allHaveTwoVotes) {
+        return {
+          displayResult: true,
+        };
+      }
+    }
+
     if (cardId) {
       // If a specific card ID is provided, find the corresponding vote
       const existingVote = sortedVotes.find((vote) => vote.cardId === cardId);
