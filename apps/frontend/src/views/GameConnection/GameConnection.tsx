@@ -86,7 +86,7 @@ export const GameConnection = () => {
               <form onSubmit={handleJoining} className={styles.connection}>
                 <Input
                   name="code"
-                  label="Enter the game code"
+                  label="Entrez le code de la partie"
                   type="text"
                   placeholder="123456"
                   pattern="\d{6}"
