@@ -15,6 +15,7 @@ import { GameService } from '../services/GameService';
 
 export interface AppStateContextProps {
   directusService: DirectusService;
+  gameService: GameService;
   currentView: JSX.Element;
   setCurrentView: (view: JSX.Element) => void;
   themeManager: ThemeManager;

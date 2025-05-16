@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
-import { connectionService } from '../../services/ConnectionService';
 import styles from './GameConnection.module.css';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
+import { useAppState } from '../../context/AppStateProvider';
 
 enum ConnectionState {
   CODE = 'code',
@@ -21,8 +21,9 @@ export const GameConnection = () => {
   );
   const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
+  const { gameService } = useAppState();
 
-  connectionService.onJoiningResponse(({ code, team1, team2 }) => {
+  gameService.onJoiningResponse(({ code, team1, team2 }) => {
     setCode(code);
     teamsAvailability.current = [];
 
@@ -38,7 +39,7 @@ export const GameConnection = () => {
     setConnectionState(ConnectionState.TEAM);
   });
 
-  connectionService.waitingResponse(({ status }) => {
+  gameService.waitingResponse(({ status }) => {
     if (status !== 'success') {
       // handle error
       return;
@@ -51,11 +52,11 @@ export const GameConnection = () => {
     const form = event.currentTarget;
     const formData = new FormData(form);
     const inputCode = formData.get('code') as string;
-    connectionService.joining(inputCode);
+    gameService.joining(inputCode);
   };
 
   const handleJoinGame = (team: Team) => {
-    connectionService.joinGame({ code, team });
+    gameService.joinGame({ code, team });
   };
 
   return (
