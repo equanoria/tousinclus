@@ -11,6 +11,7 @@ import { DisconnectService } from './service/disconnect.service';
 import { ReflectionService } from './service/reflection.service';
 import { WaitingService } from './service/waiting.service';
 import { JoiningService } from './service/joining.service';
+import { ResultService } from './service/result.service';
 import { RedisService } from 'src/redis/redis.service';
 import { ConfigService } from '@nestjs/config';
 
@@ -21,6 +22,7 @@ import { ConfigService } from '@nestjs/config';
     WaitingService,
     ReflectionService,
     DebateService,
+    ResultService,
     DisconnectService,
     JoiningService,
     RedisService,
