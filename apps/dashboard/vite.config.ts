@@ -6,7 +6,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3006,
+    port: Number.parseInt('{{env "PORT"}}', 10) || 3006,
     strictPort: true,
   },
 });
