@@ -37,6 +37,8 @@ export class WebsocketGateway
   @WebSocketServer()
   server: Server;
 
+  private readonly logger = new Logger(WebsocketGateway.name);
+
   constructor(
     private readonly joiningService: JoiningService,
     private readonly waitingService: WaitingService,
@@ -44,7 +46,6 @@ export class WebsocketGateway
     private readonly debatService: DebateService,
     private readonly resultService: ResultService,
     private readonly disconnectService: DisconnectService,
-    private readonly logger = new Logger(WebsocketGateway.name),
   ) {}
 
   // ? Handle Websocket connection
@@ -96,7 +97,7 @@ export class WebsocketGateway
   }
 
   @UseInterceptors(RedisTtlInterceptor)
-  @SubscribeMessage('debat')
+  @SubscribeMessage('debate')
   async handleDebate(
     @MessageBody() data: WSControllerDTO,
     @ConnectedSocket() client: Socket,

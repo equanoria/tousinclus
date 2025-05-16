@@ -102,14 +102,14 @@ export class DebateService {
         );
 
         // If displayResult change game phase to result
-        if (nextCardToVote.displayResult) {
+        if (nextCardToVote?.displayResult) {
           const responseData: WSGameStatus = { gameStatus: 'result' };
           this.gameService.updateGameStatus(data.code, EGameStatus.Result);
           server.to(data.code).emit('game-status', responseData);
         }
 
         // Send websockets only if a consensus is found
-        if (nextCardToVote.message) {
+        if (nextCardToVote?.message) {
           const responseData: WSResponseDTO = {
             status: 'success',
             message: nextCardToVote.message,

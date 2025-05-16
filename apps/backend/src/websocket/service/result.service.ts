@@ -76,6 +76,13 @@ export class ResultService {
     // Call the service to retrieve game data
     const findOneGameData = await this.gameService.findOneGame(data.code);
 
+    if (findOneGameData.status !== 'result') {
+      // If game status doesn't match with action
+      throw new Error(
+        `Forbidden game with code ${data.code} is not in the 'result' status`,
+      );
+    }
+
     if (!findOneGameData) {
       const responseData: WSResponseDTO = {
         status: 'error',
