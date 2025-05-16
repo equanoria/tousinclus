@@ -105,6 +105,7 @@ export class WebsocketGateway
     await this.debatService.handleDebateLogic(this.server, client, { ...data });
   }
 
+  @UseInterceptors(RedisTtlInterceptor)
   @SubscribeMessage('result')
   async handleResult(
     @MessageBody() data: WSControllerDTO,
