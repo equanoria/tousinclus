@@ -18,16 +18,18 @@ export class GameService {
       ? window.env.SOCKET_IO_URL
       : 'http://127.0.0.1:3001';
 
-    this.socket = io(socketIoUrl);  
+    this.socket = io(socketIoUrl);
   }
 
   disconnect() {
     this.socket.disconnect();
   }
 
-  requestGameStatus(callback: (data: { status?: EGameStatus }) => void): void {
-    console.log(`requestGameStatus ${status}`);
-    this.socket.on('game-status', callback);
+  requestGameStatus(callback: (data: { status: EGameStatus }) => void): void {
+    this.socket.on('game-status', (data) => {
+      console.log('📩 game-status reçu:', data);
+      callback(data);
+    });
   }
 
   getSocket(): Socket {
@@ -59,20 +61,20 @@ export class GameService {
     this.socket.on('waiting-response', callback);
   }
 
-    sendReflection(data: ReflectionPayload): void {
-      this.socket.emit('reflection', {
-        action: 'update-answer',
-        ...data,
-      });
-    }
-  
-    onReflectionResponse(
-      callback: (data: {
-        status: string;
-        message?: string;
-        data?: IAnswerData;
-      }) => void,
-    ): void {
-      this.socket.on('reflection-response', callback);
-    }
+  sendReflection(data: ReflectionPayload): void {
+    this.socket.emit('reflection', {
+      action: 'update-answer',
+      ...data,
+    });
+  }
+
+  onReflectionResponse(
+    callback: (data: {
+      status: string;
+      message?: string;
+      data?: IAnswerData;
+    }) => void,
+  ): void {
+    this.socket.on('reflection-response', callback);
+  }
 }

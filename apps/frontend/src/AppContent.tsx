@@ -7,35 +7,35 @@ const AppContent = () => {
   const { currentView, setCurrentView, gameService } = useAppState();
 
   useEffect(() => {
-    const handleStatus = ({ status }: { status?: string}) => {
+    setCurrentView(<GameConnection />);
+
+    const handleStatus = ({ status }: { status?: string }) => {
       switch (status) {
-        case 'waiting':
-          setCurrentView(<GameConnection />);
-          break;
-        case  'reflection':
+        case 'reflection':
           setCurrentView(<GameReflection />);
           break;
         default:
+          setCurrentView(<GameConnection />);
           break;
       }
     };
-
     gameService.requestGameStatus(handleStatus);
 
     return () => {
       gameService.getSocket().off('game-status', handleStatus);
     };
+  }, [setCurrentView]);
 
-    
-  }, [gameService, setCurrentView]);
-
-  
   return (
     <>
       <nav className="a11y-skip-content">
         <ul>
-          <li><a href="#main">Aller au contenu principal</a></li>
-          <li><a href="#main">Aller à un autre endroit</a></li>
+          <li>
+            <a href="#main">Aller au contenu principal</a>
+          </li>
+          <li>
+            <a href="#main">Aller à un autre endroit</a>
+          </li>
         </ul>
       </nav>
       <main id="main">{currentView}</main>
