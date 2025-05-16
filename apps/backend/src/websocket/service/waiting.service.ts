@@ -112,7 +112,7 @@ export class WaitingService {
 
         if (isReadyToStart) {
           const responseData: WSGameStatus = {
-            gameStatus: 'reflection',
+            gameStatus: EGameStatus.Reflection,
             timeStamp: new Date(),
           };
           // Send a message to all participants in the room
@@ -159,7 +159,7 @@ export class WaitingService {
   }
 
   private executeDebateLogic(server: Server, code: string) {
-    const responseData: WSGameStatus = { gameStatus: 'debate' };
+    const responseData: WSGameStatus = { gameStatus: EGameStatus.Debate };
 
     this.gameService.updateGameStatus(code, EGameStatus.Debate);
 
