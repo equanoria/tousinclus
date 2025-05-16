@@ -31,7 +31,7 @@ services:
         - traefik.http.routers.tousinclus-dashboard_staging.entrypoints=websecure
         - traefik.http.routers.tousinclus-dashboard_staging.rule=Host(`dashboard.staging.tousinclus.org`)
         - traefik.http.services.tousinclus-dashboard_staging.loadbalancer.server.port=3000
-        - traefik.http.routers.tousinclus-frodashboard_stagingntend_staging.tls=true
+        - traefik.http.routers.tousinclus-dashboard_staging.tls=true
         - traefik.http.routers.tousinclus-dashboard_staging.tls.certresolver=letsencrypt
         - traefik.http.middlewares.tousinclus-dashboard_staging-auth.basicauth.users=${STAGING_USERS}
         - traefik.http.routers.tousinclus-dashboard_staging.middlewares=tousinclus-dashboard_staging-auth
