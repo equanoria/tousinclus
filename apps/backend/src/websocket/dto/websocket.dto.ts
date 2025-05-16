@@ -1,4 +1,9 @@
-import { IWSData, IWSGameStatus, IWSController } from '@tousinclus/types';
+import {
+  IWSData,
+  IWSGameStatus,
+  IWSController,
+  EGameStatus,
+} from '@tousinclus/types';
 import { Type } from 'class-transformer';
 import { AnswerDTO, VoteDTO } from '../../game/dto/game.dto';
 
@@ -43,7 +48,7 @@ export class WSControllerDTO extends WSDataDTO implements IWSController {
 export class WSGameStatus implements IWSGameStatus {
   @IsString()
   @IsNotEmpty()
-  gameStatus: string;
+  gameStatus: EGameStatus;
 
   @IsDate()
   @IsOptional()

@@ -1,13 +1,13 @@
 export enum EGameStatus {
-  Waiting = "waiting",
-  Reflection = "reflection",
-  Debate = "debate",
-  Result = "result",
+  WAITING = 'waiting',
+  REFLECTION = 'reflection',
+  DEBATE = 'debate',
+  RESULT = 'result',
 }
 
 export enum ETeam {
-  team1 = "team1",
-  team2 = "team2"
+  TEAM1 = 'team1',
+  TEAM2 = 'team2'
 }
 
 export interface IGame {

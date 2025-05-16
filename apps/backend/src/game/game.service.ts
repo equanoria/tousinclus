@@ -52,7 +52,7 @@ export class GameService {
 
     const newGame: GameDTO = {
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
-      status: EGameStatus.Waiting,
+      status: EGameStatus.WAITING,
       reflectionDuration: reflectionDuration,
       cardGroupId: groupId,
       team1: {
@@ -127,7 +127,7 @@ export class GameService {
   ): Promise<GameDTO> {
     const game = await this.findOneGame(code);
 
-    if (team === ETeam.team1) {
+    if (team === ETeam.TEAM1) {
       if (game.team1.isConnected) {
         throw new ForbiddenException(
           `Team 1 is already connected with client ID ${game.team1.clientId}`,
@@ -135,7 +135,7 @@ export class GameService {
       }
       game.team1.isConnected = true;
       game.team1.clientId = clientId; // Assign the uuid of the client
-    } else if (team === ETeam.team2) {
+    } else if (team === ETeam.TEAM2) {
       if (game.team2.isConnected) {
         throw new ForbiddenException(
           `Team 2 is already connected with client ID ${game.team2.isConnected}`,
@@ -163,13 +163,13 @@ export class GameService {
       throw new Error(`Game with code ${code} not found`);
     }
 
-    if (team === ETeam.team1) {
+    if (team === ETeam.TEAM1) {
       if (game.team1.clientId !== clientId) {
         throw new Error(`Client ID ${clientId} is not connected to Team 1`);
       }
       game.team1.isConnected = false;
       game.team1.clientId = null; // Remove the client ID from team 1
-    } else if (team === ETeam.team2) {
+    } else if (team === ETeam.TEAM2) {
       if (game.team2.clientId !== clientId) {
         throw new Error(`Client ID ${clientId} is not connected to Team 2`);
       }
@@ -224,23 +224,23 @@ export class GameService {
         );
       }
 
-      if (team === ETeam.team1) {
+      if (team === ETeam.TEAM1) {
         if (game.team1.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 1`);
         }
 
         // Filter only team1 answers
         game.answers = game.answers.filter(
-          (answer) => answer.team !== ETeam.team2,
+          (answer) => answer.team !== ETeam.TEAM2,
         );
-      } else if (team === ETeam.team2) {
+      } else if (team === ETeam.TEAM2) {
         if (game.team2.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 2`);
         }
 
         // Filter only team2 answers
         game.answers = game.answers.filter(
-          (answer) => answer.team !== ETeam.team1,
+          (answer) => answer.team !== ETeam.TEAM1,
         );
       } else {
         throw new Error(`Invalid team specified: ${team}`);
@@ -273,13 +273,13 @@ export class GameService {
         );
       }
 
-      if (team === ETeam.team1) {
+      if (team === ETeam.TEAM1) {
         if (game.team1.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 1`);
         }
 
         const existingAnswer = game.answers.find(
-          (entry) => entry.cardId === data.cardId && entry.team === ETeam.team1,
+          (entry) => entry.cardId === data.cardId && entry.team === ETeam.TEAM1,
         );
 
         if (existingAnswer) {
@@ -293,13 +293,13 @@ export class GameService {
             answer: data.answer,
           });
         }
-      } else if (team === ETeam.team2) {
+      } else if (team === ETeam.TEAM2) {
         if (game.team2.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 2`);
         }
 
         const existingAnswer = game.answers.find(
-          (entry) => entry.cardId === data.cardId && entry.team === ETeam.team2,
+          (entry) => entry.cardId === data.cardId && entry.team === ETeam.TEAM2,
         );
 
         if (existingAnswer) {
@@ -364,16 +364,16 @@ export class GameService {
       }
 
       // Check if the client connected is truely the one who want's to update
-      if (userTeam === ETeam.team1) {
+      if (userTeam === ETeam.TEAM1) {
         if (game.team1.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 1`);
         }
-        userTeam = ETeam.team1;
-      } else if (userTeam === ETeam.team2) {
+        userTeam = ETeam.TEAM1;
+      } else if (userTeam === ETeam.TEAM2) {
         if (game.team2.clientId !== clientId) {
           throw new Error(`Client ID ${clientId} is not connected to Team 2`);
         }
-        userTeam = ETeam.team2;
+        userTeam = ETeam.TEAM2;
       }
 
       // Vérifier si un vote existe déjà pour cette team, et le modifier si besoin
