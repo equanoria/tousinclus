@@ -103,8 +103,8 @@ export class DebateService {
 
         // If displayResult change game phase to result
         if (nextCardToVote?.displayResult) {
-          const responseData: WSGameStatus = { gameStatus: 'result' };
-          this.gameService.updateGameStatus(data.code, EGameStatus.Result);
+          const responseData: WSGameStatus = { gameStatus: EGameStatus.RESULT };
+          this.gameService.updateGameStatus(data.code, EGameStatus.RESULT);
           server.to(data.code).emit('game-status', responseData);
         }
 
