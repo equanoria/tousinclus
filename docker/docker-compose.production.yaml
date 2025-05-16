@@ -170,6 +170,7 @@ volumes:
   directus-uploads:
   directus-postgresql:
   directus-valkey:
+  mailer-postfix:
 
 networks:
   directus:

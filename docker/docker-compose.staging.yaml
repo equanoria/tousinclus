@@ -29,7 +29,7 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.routers.tousinclus-dashboard_staging.entrypoints=websecure
-        - traefik.http.routers.tousinclus-dashboard_staging.rule=Host(`staging.dashboard.tousinclus.org`)
+        - traefik.http.routers.tousinclus-dashboard_staging.rule=Host(`dashboard.staging.tousinclus.org`)
         - traefik.http.services.tousinclus-dashboard_staging.loadbalancer.server.port=3000
         - traefik.http.routers.tousinclus-frodashboard_stagingntend_staging.tls=true
         - traefik.http.routers.tousinclus-dashboard_staging.tls.certresolver=letsencrypt
@@ -177,6 +177,7 @@ volumes:
   directus-uploads:
   directus-postgresql:
   directus-valkey:
+  mailer-postfix:
 
 networks:
   directus:
