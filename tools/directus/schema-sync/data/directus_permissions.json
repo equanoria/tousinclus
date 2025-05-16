@@ -1,7 +1,18 @@
 [
   {
     "action": "read",
-    "collection": "languages",
+    "collection": "cards_design_for_all",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "cards_design_for_all_translations",
     "fields": [
       "*"
     ],
@@ -17,7 +28,249 @@
       "*"
     ],
     "permissions": null,
-    "policy": "d6a12173-84db-44b2-aae5-7b56f1118f72",
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "cards_group_cards_users",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "cards_group_translations",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "cards_situations",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "cards_situations_translations_1",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "cards_situations_translations_2",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "cards_users",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "cards_users_translations",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "categories_design_for_all",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "categories_design_for_all_translations",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "categories_handicaps",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "categories_handicaps_translations",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "config",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "config_translations",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "decks",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "decks_cards_group",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "decks_translations",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "directus_files",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "languages",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "views_connection",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "views_gameboard",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "views_reflection",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "views_teams",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
     "validation": null
   }

@@ -24,4 +24,5 @@ __exportStar(require("./ERole"), exports);
 __exportStar(require("./TTeam"), exports);
 __exportStar(require("./TWaiting"), exports);
 __exportStar(require("./ENodeEnv"), exports);
+__exportStar(require("./directus"), exports);
 //# sourceMappingURL=index.js.map

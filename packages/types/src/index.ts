@@ -8,3 +8,4 @@ export * from './ERole';
 export * from './TTeam';
 export * from './TWaiting';
 export * from './ENodeEnv';
+export * from './directus';

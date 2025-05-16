@@ -29,6 +29,10 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
     return this.redisClient.get(key);
   }
 
+  async setTTL(key: string, ttlSeconds: number): Promise<number> {
+    return this.redisClient.expire(key, ttlSeconds);
+  }
+
   // ========== Game ==========
 
   async setGame(key: string, value: GameDTO) {

@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { WsException } from '@nestjs/websockets';
-import { Socket } from 'socket.io';
 
 // ========== Service Import ==========
 import { GameService } from 'src/game/game.service';
+
+// ========== WebSocket Import ==========
+import { WsException } from '@nestjs/websockets';
+import { Socket } from 'socket.io';
 
 // ========== DTO Import ==========
 import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
@@ -59,6 +61,7 @@ export class JoiningService {
     // Transformer l'objet en excluant les clés marquées
     const modifiedGameData = plainToInstance(GameDTO, findOneGameData, {
       excludeExtraneousValues: true,
+      groups: ['joining'],
     });
 
     client.emit('joining-response', modifiedGameData);

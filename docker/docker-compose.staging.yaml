@@ -19,11 +19,30 @@ services:
     environment:
       - SOCKET_IO_URL=https://staging.tousinclus.org/api
       - BACKEND_URL=https://staging.tousinclus.org/api
-      - DIRECTUS_URL=https://staging.cms.tousinclus.org
+      - DIRECTUS_URL=https://cms.staging.tousinclus.org
+  tousinclus-dashboard:
+    image: ghcr.io/equanoria/tousinclus/tousinclus-dashboard:staging
+    networks:
+      traefik_traefik:
+    deploy:
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.tousinclus-dashboard_staging.entrypoints=websecure
+        - traefik.http.routers.tousinclus-dashboard_staging.rule=Host(`staging.dashboard.tousinclus.org`)
+        - traefik.http.services.tousinclus-dashboard_staging.loadbalancer.server.port=3000
+        - traefik.http.routers.tousinclus-frodashboard_stagingntend_staging.tls=true
+        - traefik.http.routers.tousinclus-dashboard_staging.tls.certresolver=letsencrypt
+        - traefik.http.middlewares.tousinclus-dashboard_staging-auth.basicauth.users=${STAGING_USERS}
+        - traefik.http.routers.tousinclus-dashboard_staging.middlewares=tousinclus-dashboard_staging-auth
+    environment:
+      - BACKEND_URL=https://staging.tousinclus.org/api
+      - DIRECTUS_URL=https://cms.staging.tousinclus.org
 
   tousinclus-backend:
     image: ghcr.io/equanoria/tousinclus/tousinclus-backend:staging
     networks:
+      traefik_traefik:
       tousinclus-backend:
     deploy:
       replicas: 1
@@ -38,15 +57,15 @@ services:
         - traefik.http.routers.tousinclus-backend_staging.middlewares=tousinclus-backend_staging-auth
     environment:
       - TZ=${TZ}
-      - REDIS_HOSTNAME=valkey-backend
+      - REDIS_HOSTNAME=backend-valkey
       - REDIS_PORT=6379
-      - MONGO_HOSTNAME=mongo-backend
+      - MONGO_HOSTNAME=backend-mongo
       - MONGO_PORT=27017
       - MONGO_DATABASE=${BACKEND_DB_NAME}
       - MONGO_USERNAME=${BACKEND_DB_USER}
       - MONGO_PASSWORD=${BACKEND_DB_PASSWORD}
 
-  mongo-backend:
+  backend-mongo:
     image: mongo:8.0.4-noble
     networks:
       tousinclus-backend:
@@ -56,16 +75,16 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${BACKEND_DB_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${BACKEND_DB_PASSWORD}
     volumes:
-      - mongo-backend:/data/db
+      - backend-mongo:/data/db
 
-  valkey-backend:
+  backend-valkey:
     image: valkey/valkey:8.0.1
     networks:
       tousinclus-backend:
     deploy:
       replicas: 1
     volumes:
-      - valkey-backend:/data
+      - backend-valkey:/data
 
   directus:
     image: ghcr.io/equanoria/tousinclus/directus:staging
@@ -77,15 +96,15 @@ services:
       labels:
         - traefik.enable=true
         - traefik.http.routers.tousinclus-directus_staging.entrypoints=websecure
-        - traefik.http.routers.tousinclus-directus_staging.rule=Host(`staging.cms.tousinclus.org`)
+        - traefik.http.routers.tousinclus-directus_staging.rule=Host(`cms.staging.tousinclus.org`)
         - traefik.http.services.tousinclus-directus_staging.loadbalancer.server.port=8055
         - traefik.http.routers.tousinclus-directus_staging.tls=true
         - traefik.http.routers.tousinclus-directus_staging.tls.certresolver=letsencrypt
         - traefik.http.middlewares.tousinclus-directus_staging-auth.basicauth.users=${STAGING_USERS}
         - traefik.http.routers.tousinclus-directus_staging.middlewares=tousinclus-directus_staging-auth
     depends_on:
-      - postgresql-directus
-      - valkey-directus
+      - directus-postgresql
+      - directus-valkey
     environment:
       - TZ=${TZ}
       - SECRET=${DIRECTUS_SECRET}
@@ -93,7 +112,7 @@ services:
       - DB_DATABASE=${DIRECTUS_DB_NAME}
       - DB_PASSWORD=${DIRECTUS_DB_PASSWORD}
       - DB_CLIENT=pg
-      - DB_HOST=postgresql-directus
+      - DB_HOST=directus-postgresql
       - DB_PORT=5432
       - DB_POOL__MIN=0
       - DB_POOL__IDLE_TIMEOUT_MILLIS=3000
@@ -101,16 +120,14 @@ services:
       - CACHE_AUTO_PURGE=true
       - CACHE_STORE=redis
       - PUBLIC_URL=${DIRECTUS_PUBLIC_URL}
-      - REDIS=redis://valkey-directus:6379
+      - REDIS=redis://directus-valkey:6379
       - ADMIN_EMAIL=${DIRECTUS_ADMIN_EMAIL}
       - ADMIN_PASSWORD=${DIRECTUS_ADMIN_PASSWORD}
       - ADMIN_TOKEN=${DIRECTUS_ADMIN_TOKEN}
       - EMAIL_TRANSPORT=smtp
       - EMAIL_FROM=${DIRECTUS_EMAIL_FROM}
-      - EMAIL_SMTP_HOST=${DIRECTUS_EMAIL_SMTP_HOST}
-      - EMAIL_SMTP_PORT=${DIRECTUS_EMAIL_SMTP_PORT}
-      - EMAIL_SMTP_USER=${DIRECTUS_EMAIL_SMTP_USER}
-      - EMAIL_SMTP_PASSWORD=${DIRECTUS_EMAIL_SMTP_PASSWORD}
+      - EMAIL_SMTP_HOST=mailer-postfix
+      - EMAIL_SMTP_PORT=25
       - SCHEMA_SYNC=IMPORT
       - CORS_ENABLED=true
       - CORS_ORIGIN=*
@@ -118,16 +135,16 @@ services:
     volumes:
       - directus-uploads:/directus/uploads
 
-  valkey-directus:
+  directus-valkey:
     image: valkey/valkey:8.0.1
     networks:
       directus:
     deploy:
       replicas: 1
     volumes:
-      - valkey-directus:/data
+      - directus-valkey:/data
 
-  postgresql-directus:
+  directus-postgresql:
     image: postgres:13.16
     networks:
       directus:
@@ -138,14 +155,28 @@ services:
       - POSTGRES_DB=${DIRECTUS_DB_NAME}
       - POSTGRES_PASSWORD=${DIRECTUS_DB_PASSWORD}
     volumes:
-      - postgresql-directus:/var/lib/postgresql/data
+      - directus-postgresql:/var/lib/postgresql/data
+
+  mailer-postfix:
+    image: mailcow/postfix:1.80
+    networks:
+      directus:
+    environment:
+      - HOSTNAME=mail.tousinclus.org
+      - DOMAIN=tousinclus.org
+      - RELAY_NETWORKS=192.168.0.0/16 127.0.0.0/8 172.16.0.0/12
+      - DKIM_SELECTOR=mail
+      - DKIM_DOMAIN=tousinclus.org
+      - DKIM_PRIVATE_KEY=/etc/opendkim/keys/dkim.private
+    volumes:
+      - mailer-postfix:/etc/opendkim/keys/dkim.private:ro
 
 volumes:
-  mongo-backend:
-  valkey-backend:
+  backend-mongo:
+  backend-valkey:
   directus-uploads:
-  postgresql-directus:
-  valkey-directus:
+  directus-postgresql:
+  directus-valkey:
 
 networks:
   directus:

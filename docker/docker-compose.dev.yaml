@@ -1,6 +1,13 @@
 ---
 
 services:
+  mailer-mailpit:
+    image: axllent/mailpit:v1.24
+    networks:
+      directus:
+    ports:
+      - 3102:8025
+
   mongo-backend:
     image: mongo:8.0.4-noble
     environment:
@@ -8,8 +15,6 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${BACKEND_DB_PASSWORD}
     volumes:
       - mongo-backend:/data/db
-    ports:
-      - 3003:27017
   
   valkey-backend:
     image: valkey/valkey:8.0.1
@@ -48,13 +53,12 @@ services:
       - ADMIN_TOKEN=${DIRECTUS_ADMIN_TOKEN}
       - EMAIL_TRANSPORT=smtp
       - EMAIL_FROM=${DIRECTUS_EMAIL_FROM}
-      - EMAIL_SMTP_HOST=${DIRECTUS_EMAIL_SMTP_HOST}
-      - EMAIL_SMTP_PORT=${DIRECTUS_EMAIL_SMTP_PORT}
-      - EMAIL_SMTP_USER=${DIRECTUS_EMAIL_SMTP_USER}
-      - EMAIL_SMTP_PASSWORD=${DIRECTUS_EMAIL_SMTP_PASSWORD}
+      - EMAIL_SMTP_HOST=mailer-mailpit
+      - EMAIL_SMTP_PORT=1025
       - SCHEMA_SYNC=BOTH
       - CORS_ENABLED=true
       - CORS_ORIGIN=*
+      - ACCESS_TOKEN_TTL=45m
     volumes:
       - ../tools/directus/sample-data-uploads:/directus/uploads
       - ../tools/directus/schema-sync:/directus/schema-sync

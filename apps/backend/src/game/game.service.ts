@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 
 // ========== DTO / Types Import ==========
-import { AnswerDTO, CreateGameDTO, GameDTO } from './dto/game.dto';
+import { AnswerDTO, CreateGameDTO, GameDTO, VoteDTO } from './dto/game.dto';
 import { EGameStatus, ETeam } from '@tousinclus/types';
 
 // ========== Service Import ==========
@@ -91,6 +91,12 @@ export class GameService {
 
   async findOneGame(code: GameDTO['code']): Promise<GameDTO> {
     const game = await this.redisService.getGame(code); // Find game with the code as redis key
+
+    if (!game) {
+      // If game is not found
+      throw new Error(`Game with code ${code} not found`);
+    }
+
     return game; // Return it with the good format
   }
 
@@ -109,6 +115,10 @@ export class GameService {
     return result;
   }
 
+  async findVoteByCardID(votes: VoteDTO[], cardId: number): Promise<VoteDTO> {
+    return votes.find((entry) => entry.cardId === cardId);
+  }
+
   // Update the status of a connected team
   async updateTeamConnectionStatus(
     code: GameDTO['code'],
@@ -116,17 +126,6 @@ export class GameService {
     clientId: string,
   ): Promise<GameDTO> {
     const game = await this.findOneGame(code);
-
-    if (!game) {
-      throw new NotFoundException(`Game with code ${code} not found`);
-    }
-
-    const response: GameDTO = {
-      code: game.code,
-      status: game.status,
-      reflectionDuration: game.reflectionDuration,
-      cardGroupId: game.cardGroupId,
-    };
 
     if (team === ETeam.team1) {
       if (game.team1.isConnected) {
@@ -136,7 +135,6 @@ export class GameService {
       }
       game.team1.isConnected = true;
       game.team1.clientId = clientId; // Assign the uuid of the client
-      response.team1 = game.team1; // Return only team1 data
     } else if (team === ETeam.team2) {
       if (game.team2.isConnected) {
         throw new ForbiddenException(
@@ -145,13 +143,13 @@ export class GameService {
       }
       game.team2.isConnected = true;
       game.team2.clientId = clientId; // Assign the uuid of the client
-      response.team2 = game.team2; // Return only team2 data
     } else {
       throw new BadRequestException(`Invalid team specified: ${team}`);
     }
 
     await this.redisService.setGame(code, game); // Update the game state in Redis
-    return response;
+
+    return game;
   }
 
   async updateTeamDisconnectStatus(
@@ -211,6 +209,54 @@ export class GameService {
     await this.redisService.setGame(code, game); // Update the game state in Redis
   }
 
+  async getTeamAnswer(
+    code: GameDTO['code'],
+    team: string,
+    clientId: string,
+  ): Promise<GameDTO> {
+    try {
+      const game = await this.findOneGame(code);
+
+      if (game.status !== 'reflection') {
+        // If game status doesn't match with action
+        throw new Error(
+          `Forbidden game with code ${code} is not in the 'reflection' status`,
+        );
+      }
+
+      if (team === ETeam.team1) {
+        if (game.team1.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 1`);
+        }
+
+        // Filter only team1 answers
+        game.answers = game.answers.filter(
+          (answer) => answer.team !== ETeam.team2,
+        );
+      } else if (team === ETeam.team2) {
+        if (game.team2.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 2`);
+        }
+
+        // Filter only team2 answers
+        game.answers = game.answers.filter(
+          (answer) => answer.team !== ETeam.team1,
+        );
+      } else {
+        throw new Error(`Invalid team specified: ${team}`);
+      }
+
+      return game;
+    } catch (error) {
+      if (!error.message) {
+        error.message =
+          'Failed to update team answer. Please check "game.service.ts".';
+      }
+
+      throw error;
+    }
+  }
+
   async updateTeamAnswer(
     code: GameDTO['code'],
     team: string,
@@ -219,11 +265,6 @@ export class GameService {
   ): Promise<GameDTO> {
     try {
       const game = await this.findOneGame(code);
-
-      if (!game) {
-        // If game is not found
-        throw new Error(`Game with code ${code} not found`);
-      }
 
       if (game.status !== 'reflection') {
         // If game status doesn't match with action
@@ -276,31 +317,162 @@ export class GameService {
         throw new Error(`Invalid team specified: ${team}`);
       }
 
-      // Check if data.cardId already exist in votes
-      const existingVote = game.votes.find(
-        (entry) => entry.cardId === data.cardId,
-      );
+      // Check if data.cardId already exists in votes
+      const existingVote = await this.findVoteByCardID(game.votes, data.cardId);
 
-      if (existingVote) {
+      if (!existingVote) {
         // Add a new vote entry if it doesn't exist
         game.votes.push({
           cardId: data.cardId,
-          team: team,
-          vote: [],
+          votes: [],
         });
       }
 
       await this.redisService.setGame(code, game); // Update the game state in Redis
       return game;
     } catch (error) {
-      if (error instanceof Error && error.message) {
-        throw new Error(error.message);
+      if (!error.message) {
+        error.message =
+          'Failed to update team answer. Please check "game.service.ts".';
       }
 
-      // Handle the error gracefully to avoid websocket disconnection
-      throw new Error(
-        'Failed to update team answer. Please check "game.service.ts".',
+      throw error;
+    }
+  }
+
+  async updateTeamVote(
+    code: GameDTO['code'],
+    clientId: string,
+    data: VoteDTO,
+  ): Promise<GameDTO> {
+    try {
+      const game = await this.findOneGame(code);
+
+      let userTeam = data.votes[0].team;
+
+      if (game.status !== 'debate') {
+        // If game status doesn't match with action
+        throw new Error(
+          `Forbidden game with code ${code} is not in the 'debate' status`,
+        );
+      }
+
+      // Check if data.cardId already exists in votes
+      const existingVote = await this.findVoteByCardID(game.votes, data.cardId);
+      if (!existingVote) {
+        throw new Error(`No existing vote found for card ID: ${data.cardId}`);
+      }
+
+      // Check if the client connected is truely the one who want's to update
+      if (userTeam === ETeam.team1) {
+        if (game.team1.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 1`);
+        }
+        userTeam = ETeam.team1;
+      } else if (userTeam === ETeam.team2) {
+        if (game.team2.clientId !== clientId) {
+          throw new Error(`Client ID ${clientId} is not connected to Team 2`);
+        }
+        userTeam = ETeam.team2;
+      }
+
+      // Vérifier si un vote existe déjà pour cette team, et le modifier si besoin
+      const voteIndex = existingVote.votes.findIndex(
+        (v) => v.team === userTeam,
       );
+      if (voteIndex >= 0) {
+        throw new Error(
+          `Forbidden you already have voted for this game (code : ${code})`,
+        );
+      }
+      existingVote.votes.push(data.votes[0]);
+
+      await this.redisService.setGame(code, game); // Update the game state in Redis
+      return game;
+    } catch (error) {
+      if (!error.message) {
+        error.message =
+          'Failed to update team answer. Please check "game.service.ts".';
+      }
+
+      throw error;
+    }
+  }
+
+  async checkConsensusVote(code: GameDTO['code'], cardId: VoteDTO['cardId']) {
+    const REQUIRED_CARDS_COUNT = 6;
+    const game = await this.findOneGame(code);
+
+    // Sort the votes by cardId in ascending order
+    const sortedVotes = game.votes.sort((a, b) => a.cardId - b.cardId);
+
+    // Condition to result phase
+    if (sortedVotes.length === REQUIRED_CARDS_COUNT) {
+      // Check if all cards have 2 votes
+      const allHaveTwoVotes = sortedVotes.every(
+        (vote) => vote.votes.length === 2,
+      );
+
+      if (allHaveTwoVotes) {
+        return {
+          displayResult: true,
+        };
+      }
+    }
+
+    if (cardId) {
+      // If a specific card ID is provided, find the corresponding vote
+      const existingVote = sortedVotes.find((vote) => vote.cardId === cardId);
+
+      // Check if both teams agree on the same vote
+      if (existingVote && existingVote.votes.length === 2) {
+        const allVotes = existingVote.votes.map((vote) => vote.vote);
+
+        // If both teams voted the same, consensus is reached
+        if (allVotes.every((vote) => vote === allVotes[0])) {
+          //Find the nextCard
+          const nextCard = sortedVotes.find((vote) => vote.cardId > cardId);
+          if (nextCard) {
+            return {
+              message:
+                'Consensus reached for the current card. Proceed to the next card.',
+              nextCardId: nextCard.cardId,
+            };
+          }
+          return {
+            message:
+              'Consensus reached for the current card. No more cards remaining.',
+          };
+        }
+        // If teams didn't vote the same, consensus is not reached
+        // Reset votes (flush votes)
+        existingVote.votes = [];
+        await this.redisService.setGame(code, game); // Update the game state in Redis
+
+        // So return error message with the same cardId to retry
+        return {
+          message:
+            'Consensus not reached for the current card. Please you need to vote again.',
+          nextCardId: cardId,
+        };
+      }
+    } else {
+      // Find the first card without consensus
+      const firstWithoutConsensus = sortedVotes.find(
+        (vote) =>
+          vote.votes.length < 2 || // Not enough votes
+          !vote.votes.every((v) => v.vote === vote.votes[0].vote), // Votes are not unanimous
+      );
+
+      if (firstWithoutConsensus) {
+        return {
+          message: 'Next card to vote on identified.',
+          nextCardId: firstWithoutConsensus.cardId,
+        };
+      }
+      return {
+        message: 'All cards have reached consensus.',
+      };
     }
   }
 }

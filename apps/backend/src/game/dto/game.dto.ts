@@ -70,10 +70,10 @@ export class AnswerDataDTO implements IAnswerData {
   @IsNotEmpty()
   @Expose()
   @ApiProperty({
-    description: 'Answer 4',
-    example: 'example answer 4',
+    description: 'Checkboxes answer',
+    example: [1, 2, 8],
   })
-  input4: string;
+  inputCheckboxes: number[];
 }
 
 export class AnswerDTO implements IAnswer {
@@ -118,19 +118,15 @@ export class VoteDTO implements IVote {
 
   @IsNotEmpty()
   @Expose()
-  @ApiPropertyOptional({
-    description: 'Team information team1 | team2',
-    enum: ETeam,
-  })
-  team: ETeam;
-
-  @IsNotEmpty()
-  @Expose()
   @ApiProperty({
-    description: 'team who votes',
-    example: 'team1',
+    description:
+      'Votes cast by each team. Each vote contains the team who voted and the team they voted for.',
+    example: [
+      { team: 'team1', vote: 'team2' },
+      { team: 'team2', vote: 'team1' },
+    ],
   })
-  vote?: Array<ETeam>;
+  votes: { team: ETeam; vote: ETeam }[];
 }
 
 export class TeamDTO implements ITeam {
@@ -187,27 +183,27 @@ export class GameDTO implements IGame {
   cardGroupId?: number;
 
   @IsOptional()
-  @Expose()
+  @Expose({ groups: ['team1', 'joining'] })
   @Type(() => TeamDTO)
   @ApiPropertyOptional({
     description: 'First team information',
     type: TeamDTO,
   })
-  team1?: ITeam;
+  team1?: TeamDTO;
 
   @IsOptional()
-  @Expose()
+  @Expose({ groups: ['team2', 'joining'] })
   @Type(() => TeamDTO)
   @ApiPropertyOptional({
     description: 'Second team information',
     type: TeamDTO,
   })
-  team2?: ITeam;
+  team2?: TeamDTO;
 
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => AnswerDTO)
-  @Expose({ groups: ['room'] })
+  @Expose({ groups: ['reflection'] })
   @ApiPropertyOptional({
     description: 'Answers associated with the team',
     type: AnswerDTO,
@@ -217,6 +213,6 @@ export class GameDTO implements IGame {
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => VoteDTO)
-  @Expose({ groups: ['room'] })
+  @Expose({ groups: ['debate'] })
   votes?: Array<VoteDTO>;
 }

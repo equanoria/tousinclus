@@ -4,12 +4,15 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Server, Socket } from 'socket.io';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { setTimeout } from 'node:timers';
 
 // ========== Service Import ==========
 import { GameService } from '../../game/game.service';
+import { WsException } from '@nestjs/websockets';
+
+// ========== WebSocket Import ==========
+import { Server, Socket } from 'socket.io';
 
 // ========== DTO Import ==========
 import { WSControllerDTO, WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
@@ -17,7 +20,6 @@ import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { GameDTO } from 'src/game/dto/game.dto';
 import { plainToInstance } from 'class-transformer';
 import { EGameStatus } from '@tousinclus/types';
-import { WsException } from '@nestjs/websockets';
 
 @Injectable()
 export class WaitingService {
@@ -94,7 +96,7 @@ export class WaitingService {
       // Transformer l'objet en excluant les clés marquées
       const dataGame = plainToInstance(GameDTO, updatedGame, {
         excludeExtraneousValues: true,
-        groups: ['room'],
+        groups: ['room', client.data.team],
       });
 
       // Notify the client that the state has been updated
@@ -103,8 +105,6 @@ export class WaitingService {
         message: `You successfully join ${formattedTeam}`,
         data: dataGame,
       });
-
-      console.log(`Updated game (Team Choice): ${JSON.stringify(updatedGame)}`);
 
       // Vérifie que la partie n'a pas déjà commencé
       if (dataGame.status === EGameStatus.Waiting) {
