@@ -107,16 +107,16 @@ export class WaitingService {
       });
 
       // Vérifie que la partie n'a pas déjà commencé
-      if (dataGame.status === EGameStatus.Waiting) {
+      if (dataGame.status === EGameStatus.WAITING) {
         const isReadyToStart = await this.gameService.checkIfReadyToStart(code);
 
         if (isReadyToStart) {
           const responseData: WSGameStatus = {
-            gameStatus: EGameStatus.Reflection,
+            gameStatus: EGameStatus.REFLECTION,
             timeStamp: new Date(),
           };
           // Send a message to all participants in the room
-          this.gameService.updateGameStatus(code, EGameStatus.Reflection);
+          this.gameService.updateGameStatus(code, EGameStatus.REFLECTION);
 
           // Convert reflectionDuration from minutes to milliseconds
           const reflectionDuration = dataGame.reflectionDuration * 60 * 1000;
@@ -159,9 +159,9 @@ export class WaitingService {
   }
 
   private executeDebateLogic(server: Server, code: string) {
-    const responseData: WSGameStatus = { gameStatus: EGameStatus.Debate };
+    const responseData: WSGameStatus = { gameStatus: EGameStatus.DEBATE };
 
-    this.gameService.updateGameStatus(code, EGameStatus.Debate);
+    this.gameService.updateGameStatus(code, EGameStatus.DEBATE);
 
     console.log('Je suis en phase débat');
 
