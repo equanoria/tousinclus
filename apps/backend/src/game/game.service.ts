@@ -400,13 +400,14 @@ export class GameService {
   }
 
   async checkConsensusVote(code: GameDTO['code'], cardId: VoteDTO['cardId']) {
+    const REQUIRED_CARDS_COUNT = 6;
     const game = await this.findOneGame(code);
 
     // Sort the votes by cardId in ascending order
     const sortedVotes = game.votes.sort((a, b) => a.cardId - b.cardId);
 
     // Condition to result phase
-    if (sortedVotes.length === 6) {
+    if (sortedVotes.length === REQUIRED_CARDS_COUNT) {
       // Check if all cards have 2 votes
       const allHaveTwoVotes = sortedVotes.every(
         (vote) => vote.votes.length === 2,
