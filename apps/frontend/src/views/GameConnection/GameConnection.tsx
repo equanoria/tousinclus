@@ -21,23 +21,27 @@ export const GameConnection = () => {
   );
   const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
-  const { gameService } = useAppState();
+  const { gameService, setGameData } = useAppState();
+  const cardGroupId = useRef<number | null>(null);
 
-  gameService.onJoiningResponse(({ code, team1, team2 }) => {
-    setCode(code);
-    teamsAvailability.current = [];
+  gameService.onJoiningResponse(
+    ({ code, team1, team2, cardGroupId: groupId }) => {
+      setCode(code);
+      teamsAvailability.current = [];
+      cardGroupId.current = groupId ?? null;
 
-    if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
-    if (!team2.isConnected) teamsAvailability.current.push(Team.TEAM2);
+      if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
+      if (!team2.isConnected) teamsAvailability.current.push(Team.TEAM2);
 
-    if (teamsAvailability.current.length === 0) {
-      setConnectionState(ConnectionState.CODE); // No team available
-      // handle error
-      return;
-    }
+      if (teamsAvailability.current.length === 0) {
+        setConnectionState(ConnectionState.CODE); // No team available
+        // handle error
+        return;
+      }
 
-    setConnectionState(ConnectionState.TEAM);
-  });
+      setConnectionState(ConnectionState.TEAM);
+    },
+  );
 
   gameService.waitingResponse(({ status }) => {
     if (status !== 'success') {
@@ -57,6 +61,15 @@ export const GameConnection = () => {
 
   const handleJoinGame = (team: Team) => {
     gameService.joinGame({ code, team });
+    if (cardGroupId.current !== null) {
+      setGameData({
+        cardsGroupId: cardGroupId.current.toString(),
+        team,
+        code,
+      });
+    } else {
+      console.error('cardGroupId manquant');
+    }
   };
 
   return (
