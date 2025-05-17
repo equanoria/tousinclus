@@ -27,8 +27,7 @@ export class GameService {
 
   requestGameStatus(callback: (data: { status: EGameStatus }) => void): void {
     this.socket.on('game-status', (data) => {
-      console.log('📩 game-status reçu:', data);
-      callback(data);
+      callback({ status: data.gameStatus });
     });
   }
 

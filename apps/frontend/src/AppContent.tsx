@@ -24,7 +24,9 @@ const AppContent = () => {
     return () => {
       gameService.getSocket().off('game-status', handleStatus);
     };
-  }, [setCurrentView]);
+
+    
+  }, [gameService, setCurrentView]);
 
   return (
     <>
