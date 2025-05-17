@@ -1,14 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { io, type Socket } from 'socket.io-client';
 import { isValidUrl } from '../utils/isValidUrl';
-import type { EGameStatus, TTeam, IAnswerData, ETeam } from '@tousinclus/types';
+import type { EGameStatus, TTeam, IAnswerData } from '@tousinclus/types';
 
-interface ReflectionPayload {
-  code: string;
-  team: ETeam;
-  cardId: number;
-  answer: IAnswerData;
-}
+
 
 export class GameService {
   private socket: Socket;
@@ -60,20 +55,11 @@ export class GameService {
     this.socket.on('waiting-response', callback);
   }
 
-  sendReflection(data: ReflectionPayload): void {
+  updateAnswer(code: string, data: IAnswerData): void {
     this.socket.emit('reflection', {
       action: 'update-answer',
+      code,
       ...data,
     });
-  }
-
-  onReflectionResponse(
-    callback: (data: {
-      status: string;
-      message?: string;
-      data?: IAnswerData;
-    }) => void,
-  ): void {
-    this.socket.on('reflection-response', callback);
   }
 }
