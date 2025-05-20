@@ -73,7 +73,7 @@ export class AnswerDataDTO implements IAnswerData {
     description: 'Checkboxes answer',
     example: [1, 2, 8],
   })
-  inputCheckboxes: number[];
+  inputCheckboxes: string[];
 }
 
 export class AnswerDTO implements IAnswer {

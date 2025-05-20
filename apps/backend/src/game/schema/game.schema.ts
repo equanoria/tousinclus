@@ -16,7 +16,7 @@ export class AnswerData implements IAnswerData {
   input3: string;
 
   @Prop({ required: true, type: [Number] })
-  inputCheckboxes: number[];
+  inputCheckboxes: string[];
 }
 
 @Schema()
