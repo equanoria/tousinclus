@@ -24,7 +24,7 @@ export class Answer implements IAnswer {
   @Prop({ required: true, type: Number })
   cardId: number;
 
-  @Prop({ required: true, type: ETeam })
+  @Prop({ required: true, type: String })
   team: ETeam;
 
   @Prop({ required: true, type: AnswerData })
@@ -36,7 +36,7 @@ export class Vote implements IVote {
   @Prop({ required: true, type: Number })
   cardId: number;
 
-  @Prop({ required: true, type: [ETeam] })
+  @Prop({ required: true, type: [String] })
   votes: { team: ETeam; vote: ETeam }[];
 }
 

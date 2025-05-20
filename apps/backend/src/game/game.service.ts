@@ -9,6 +9,11 @@ import {
 import { AnswerDTO, CreateGameDTO, GameDTO, VoteDTO } from './dto/game.dto';
 import { EGameStatus, ETeam } from '@tousinclus/types';
 
+// ========== Mongo Import ==========
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { GameDocument } from './schema/game.schema';
+
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
 import { DirectusService } from 'src/directus/directus.service';
@@ -16,6 +21,8 @@ import { DirectusService } from 'src/directus/directus.service';
 @Injectable()
 export class GameService {
   constructor(
+    @InjectModel('Game')
+    private readonly gameModel: Model<GameDocument>,
     private readonly redisService: RedisService,
     private readonly directusService: DirectusService,
   ) {}
@@ -72,6 +79,7 @@ export class GameService {
 
   async createGame(createGameDto: CreateGameDTO): Promise<GameDTO> {
     const newGame = this.generateNewGameData(createGameDto || null);
+    await this.gameModel.create(await newGame);
     await this.redisService.setGame((await newGame).code, await newGame); // add new game data to redis db
     return newGame; // Return the game create as JSON
   }

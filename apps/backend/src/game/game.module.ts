@@ -8,10 +8,13 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { RolesGuard } from './auth/roles.guard';
+import { MongooseModule } from '@nestjs/mongoose';
+import { GameSchema } from './schema/game.schema';
 
 @Module({
   imports: [
     RedisModule,
+    MongooseModule.forFeature([{ name: 'Game', schema: GameSchema }]),
     DirectusModule,
     CacheModule.register(),
     JwtModule.register({}),
