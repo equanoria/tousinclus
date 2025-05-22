@@ -17,6 +17,7 @@ import {
   IsNotEmpty,
   IsBoolean,
   ValidateNested,
+  IsDate,
 } from 'class-validator';
 
 // ========== DTO ==========
@@ -149,6 +150,7 @@ export class TeamDTO implements ITeam {
 }
 
 export class GameDTO implements IGame {
+  @IsDate()
   @IsNotEmpty()
   @Expose({ groups: ['admin'] })
   createdAt: Date;
@@ -156,6 +158,10 @@ export class GameDTO implements IGame {
   @IsNotEmpty()
   @Expose({ groups: ['admin'] })
   createdBy: IUser;
+
+  @IsString()
+  @Expose({ groups: ['admin'] })
+  mongoId?: unknown;
 
   @IsString()
   @IsNotEmpty()

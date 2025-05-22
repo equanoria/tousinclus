@@ -12,6 +12,7 @@ export declare enum ETeam {
 export interface IGame {
     createdAt: Date;
     createdBy: IUser;
+    mongoId?: unknown;
     code: string;
     status: EGameStatus;
     cardGroupId?: number;

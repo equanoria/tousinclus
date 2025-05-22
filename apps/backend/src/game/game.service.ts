@@ -67,6 +67,7 @@ export class GameService {
     const newGame: GameDTO = {
       createdAt: new Date(),
       createdBy: user,
+      mongoId: null,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EGameStatus.WAITING,
       reflectionDuration: reflectionDuration,
@@ -91,7 +92,11 @@ export class GameService {
     user: IUser,
   ): Promise<GameDTO> {
     const newGame = this.generateNewGameData(createGameDto || null, user);
-    await this.gameModel.create(await newGame);
+
+    // Create game record and update the mongoId when it's created
+    const createdGame = await this.gameModel.create(await newGame);
+    (await newGame).mongoId = createdGame._id;
+
     await this.redisService.setGame((await newGame).code, await newGame); // add new game data to redis db
     return newGame; // Return the game create as JSON
   }
