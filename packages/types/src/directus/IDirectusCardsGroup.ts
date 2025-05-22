@@ -30,6 +30,7 @@ interface UserTranslation {
 }
 
 interface CardsUser {
+  id: string;
   image: string;
   translations: UserTranslation[];
   handicap_category: HandicapCategory;
