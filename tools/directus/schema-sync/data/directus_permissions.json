@@ -232,17 +232,6 @@
   },
   {
     "action": "read",
-    "collection": "views_connection",
-    "fields": [
-      "*"
-    ],
-    "permissions": null,
-    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
-    "presets": null,
-    "validation": null
-  },
-  {
-    "action": "read",
     "collection": "views_gameboard",
     "fields": [
       "*"
@@ -255,17 +244,6 @@
   {
     "action": "read",
     "collection": "views_reflection",
-    "fields": [
-      "*"
-    ],
-    "permissions": null,
-    "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
-    "presets": null,
-    "validation": null
-  },
-  {
-    "action": "read",
-    "collection": "views_teams",
     "fields": [
       "*"
     ],

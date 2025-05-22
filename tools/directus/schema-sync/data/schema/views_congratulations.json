@@ -1,12 +1,12 @@
 {
-  "collection": "views_connection",
+  "collection": "views_congratulations",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "views_connection",
+    "collection": "views_congratulations",
     "color": "#81E1EE",
     "display_template": null,
     "group": "views",
@@ -16,30 +16,30 @@
     "note": null,
     "preview_url": null,
     "singleton": true,
-    "sort": 1,
+    "sort": 11,
     "sort_field": null,
     "translations": [
       {
         "language": "en-US",
-        "translation": "Connection view"
+        "translation": "Congratulation view"
       },
       {
         "language": "fr-FR",
-        "translation": "Page de connexion"
+        "translation": "Page de félicitation"
       }
     ],
     "unarchive_value": null,
     "versioning": false
   },
   "schema": {
-    "name": "views_connection"
+    "name": "views_congratulations"
   },
   "fields": [
     {
       "field": "id",
       "type": "integer",
       "meta": {
-        "collection": "views_connection",
+        "collection": "views_congratulations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -60,7 +60,7 @@
       },
       "schema": {
         "name": "id",
-        "table": "views_connection",
+        "table": "views_congratulations",
         "data_type": "integer",
         "default_value": null,
         "max_length": null,
@@ -81,7 +81,7 @@
       "field": "translations",
       "type": "alias",
       "meta": {
-        "collection": "views_connection",
+        "collection": "views_congratulations",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -91,7 +91,6 @@
         "interface": "translations",
         "note": null,
         "options": {
-          "defaultLanguage": "en-US",
           "languageField": "name",
           "userLanguage": true
         },
