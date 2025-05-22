@@ -7,6 +7,7 @@ import {
   EGameStatus,
   ETeam,
   IVote,
+  IUser,
 } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {
@@ -148,6 +149,14 @@ export class TeamDTO implements ITeam {
 }
 
 export class GameDTO implements IGame {
+  @IsNotEmpty()
+  @Expose({ groups: ['admin'] })
+  createdAt: Date;
+
+  @IsNotEmpty()
+  @Expose({ groups: ['admin'] })
+  createdBy: IUser;
+
   @IsString()
   @IsNotEmpty()
   @Expose()

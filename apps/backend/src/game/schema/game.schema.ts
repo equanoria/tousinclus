@@ -1,8 +1,24 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ETeam, IAnswer, IAnswerData, IGame, IVote } from '@tousinclus/types';
+import {
+  ETeam,
+  IAnswer,
+  IAnswerData,
+  IGame,
+  IUser,
+  IVote,
+} from '@tousinclus/types';
 import { Document } from 'mongoose';
 
 type IGameMongo = Omit<IGame, 'status' | 'team1' | 'team2'>;
+
+@Schema()
+export class User implements IUser {
+  @Prop({ required: true, type: String })
+  id?: string;
+
+  @Prop({ required: true, type: [String] })
+  roles: string[];
+}
 
 @Schema()
 export class AnswerData implements IAnswerData {
@@ -42,8 +58,13 @@ export class Vote implements IVote {
 
 @Schema({ timestamps: true })
 export class GameDocument extends Document implements IGameMongo {
-  createdAt: Date;
   updatedAt: Date;
+
+  @Prop({ required: true, type: Date })
+  createdAt: Date;
+
+  @Prop({ required: true, type: User })
+  createdBy: IUser;
 
   @Prop({ required: true, type: String })
   code: string;

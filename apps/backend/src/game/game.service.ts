@@ -7,7 +7,7 @@ import {
 
 // ========== DTO / Types Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO, VoteDTO } from './dto/game.dto';
-import { EGameStatus, ETeam } from '@tousinclus/types';
+import { EGameStatus, ETeam, IUser } from '@tousinclus/types';
 
 // ========== Mongo Import ==========
 import { InjectModel } from '@nestjs/mongoose';
@@ -41,6 +41,7 @@ export class GameService {
 
   private async generateNewGameData(
     createGameData: CreateGameDTO,
+    user: IUser,
   ): Promise<GameDTO> {
     const deckId =
       createGameData.deckId ?? (await this.directusService.getDeckDefault());
@@ -57,7 +58,15 @@ export class GameService {
       );
     }
 
+    if (!user) {
+      throw new BadRequestException(
+        `Sale merde t'es pas censé voir ce message (Indice : t'as pas défini de user, bolosse).`,
+      );
+    }
+
     const newGame: GameDTO = {
+      createdAt: new Date(),
+      createdBy: user,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EGameStatus.WAITING,
       reflectionDuration: reflectionDuration,
@@ -77,8 +86,11 @@ export class GameService {
     return newGame;
   }
 
-  async createGame(createGameDto: CreateGameDTO): Promise<GameDTO> {
-    const newGame = this.generateNewGameData(createGameDto || null);
+  async createGame(
+    createGameDto: CreateGameDTO,
+    user: IUser,
+  ): Promise<GameDTO> {
+    const newGame = this.generateNewGameData(createGameDto || null, user);
     await this.gameModel.create(await newGame);
     await this.redisService.setGame((await newGame).code, await newGame); // add new game data to redis db
     return newGame; // Return the game create as JSON
@@ -87,10 +99,14 @@ export class GameService {
   async createManyGame(
     i: number,
     createGameDto: CreateGameDTO,
+    user: IUser,
   ): Promise<GameDTO[]> {
     const newGames: GameDTO[] = [];
     for (let step = 0; step < i; step++) {
-      const newGame = await this.generateNewGameData(createGameDto || null); // Generate i game data
+      const newGame = await this.generateNewGameData(
+        createGameDto || null,
+        user,
+      ); // Generate i game data
       newGames.push(newGame);
       await this.redisService.setGame(newGame.code, newGame); // add new game data to redis db
     }

@@ -1,3 +1,4 @@
+import type { IUser } from "./IUser";
 export declare enum EGameStatus {
     WAITING = "waiting",
     REFLECTION = "reflection",
@@ -9,6 +10,8 @@ export declare enum ETeam {
     TEAM2 = "team2"
 }
 export interface IGame {
+    createdAt: Date;
+    createdBy: IUser;
     code: string;
     status: EGameStatus;
     cardGroupId?: number;

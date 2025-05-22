@@ -28,8 +28,11 @@ import { GameService } from './game.service';
 import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 import { AuthGuard } from './auth/auth.guard';
 import { Roles } from './auth/roles.decorator';
-import { ERole } from '@tousinclus/types';
+import { ERole, IUser } from '@tousinclus/types';
 import { RolesGuard } from './auth/roles.guard';
+
+// ========== Utils Import ==========
+import { User } from 'src/utils/decorators/user.decorator';
 
 @ApiTags('Game')
 @Roles(ERole.HOST)
@@ -57,8 +60,12 @@ export class GameController {
     description: 'The game has been successfully created',
     type: GameDTO,
   })
-  createGame(@Body() createGameDto: CreateGameDTO): Promise<GameDTO> {
-    const game = this.gameService.createGame({ ...createGameDto });
+  createGame(
+    @Body() createGameDto: CreateGameDTO,
+    @User() user: IUser,
+  ): Promise<GameDTO> {
+    console.log('holaaaa', user);
+    const game = this.gameService.createGame({ ...createGameDto }, user);
     if (!game) {
       throw new HttpException(
         'Failed to create a game',
@@ -94,12 +101,17 @@ export class GameController {
   })
   createManyGame(
     @Body() createGameDto: CreateGameDTO,
+    @User() user: IUser,
     @Param('numberOfGame', ParseIntPipe)
     numberOfGame: number,
   ): Promise<GameDTO[]> {
-    const games = this.gameService.createManyGame(numberOfGame, {
-      ...createGameDto,
-    });
+    const games = this.gameService.createManyGame(
+      numberOfGame,
+      {
+        ...createGameDto,
+      },
+      user,
+    );
     if (!games) {
       throw new HttpException(
         `Failed to create ${numberOfGame} games`,
