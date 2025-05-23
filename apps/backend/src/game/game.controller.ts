@@ -64,7 +64,6 @@ export class GameController {
     @Body() createGameDto: CreateGameDTO,
     @User() user: IUser,
   ): Promise<GameDTO> {
-    console.log('holaaaa', user);
     const game = this.gameService.createGame({ ...createGameDto }, user);
     if (!game) {
       throw new HttpException(
