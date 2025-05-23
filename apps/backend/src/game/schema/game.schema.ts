@@ -9,7 +9,7 @@ import {
 } from '@tousinclus/types';
 import { Document } from 'mongoose';
 
-type IGameMongo = Omit<IGame, 'status' | 'team1' | 'team2'>;
+export type IGameMongo = Omit<IGame, 'status' | 'team1' | 'team2'>;
 
 @Schema()
 export class User implements IUser {

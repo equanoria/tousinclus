@@ -12,7 +12,7 @@ import { EGameStatus, ETeam, IUser } from '@tousinclus/types';
 // ========== Mongo Import ==========
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { GameDocument } from './schema/game.schema';
+import { GameDocument, IGameMongo } from './schema/game.schema';
 
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
@@ -91,13 +91,13 @@ export class GameService {
     createGameDto: CreateGameDTO,
     user: IUser,
   ): Promise<GameDTO> {
-    const newGame = this.generateNewGameData(createGameDto || null, user);
+    const newGame = await this.generateNewGameData(createGameDto || null, user);
 
     // Create game record and update the mongoId when it's created
-    const createdGame = await this.gameModel.create(await newGame);
-    (await newGame).mongoId = String(createdGame._id);
+    const createdGame = await this.gameModel.create(newGame);
+    newGame.mongoId = String(createdGame._id);
 
-    await this.redisService.setGame((await newGame).code, await newGame); // add new game data to redis db
+    await this.redisService.setGame(newGame.code, newGame); // add new game data to redis
     return newGame; // Return the game create as JSON
   }
 
@@ -506,11 +506,11 @@ export class GameService {
   }
 
   async updateMongoGame(code: GameDTO['code']) {
-    const game = this.findOneGame(code);
+    const mongoGameData: IGameMongo = await this.findOneGame(code);
 
     const updatedGame = await this.gameModel.findByIdAndUpdate(
-      (await game).mongoId,
-      await game,
+      mongoGameData.mongoId,
+      mongoGameData,
       { new: true }, // return updated record
     );
 
