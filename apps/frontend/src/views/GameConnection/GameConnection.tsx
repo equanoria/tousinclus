@@ -3,6 +3,7 @@ import { GameService } from '../../services/GameService';
 import styles from './GameConnection.module.css';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
+import { Link } from '../../components/Link/Link';
 
 enum ConnectionState {
   CODE = 'code',
@@ -16,25 +17,29 @@ enum Team {
 }
 
 export const GameConnection = () => {
-  const [connectionState, setConnectionState] = useState<ConnectionState>(ConnectionState.CODE);
+  const [connectionState, setConnectionState] = useState<ConnectionState>(
+    ConnectionState.CODE,
+  );
   const [code, setCode] = useState<string>('');
   const teamsAvailability = useRef<Team[]>([]);
   const gameService = new GameService();
 
-  gameService.onJoiningResponse(({ code, isTeam1Connected, isTeam2Connected }) => {
-    setCode(code);
+  gameService.onJoiningResponse(
+    ({ code, isTeam1Connected, isTeam2Connected }) => {
+      setCode(code);
 
-    if (!isTeam1Connected) teamsAvailability.current.push(Team.TEAM1);
-    if (!isTeam2Connected) teamsAvailability.current.push(Team.TEAM2);
+      if (!isTeam1Connected) teamsAvailability.current.push(Team.TEAM1);
+      if (!isTeam2Connected) teamsAvailability.current.push(Team.TEAM2);
 
-    if (teamsAvailability.current.length === 2) {
-      setConnectionState(ConnectionState.CODE);
-      // handle error
-      return;
-    }
+      if (teamsAvailability.current.length === 2) {
+        setConnectionState(ConnectionState.CODE);
+        // handle error
+        return;
+      }
 
-    setConnectionState(ConnectionState.TEAM);
-  });
+      setConnectionState(ConnectionState.TEAM);
+    },
+  );
 
   gameService.onTeamConnectionUpdated(({ status }) => {
     if (status !== 'success') {
@@ -52,17 +57,18 @@ export const GameConnection = () => {
     const formData = new FormData(form);
     const code = formData.get('code') as string;
 
-    gameService.joining(code)
+    gameService.joining(code);
   };
 
   // Join a game
   const handleJoinGame = (team: Team) => {
     gameService.joinGame({ code, team });
-  }
+  };
 
   return (
     <div className={styles.pageConnection}>
-      <h1>tous inclus</h1>
+      <img src="/src/assets/images/logo-ts.svg" alt="" />
+      <img src="/src/assets/images/asset_1.svg" alt="" className={styles.asset_top}/>
       {(() => {
         switch (connectionState) {
           case ConnectionState.CODE:
@@ -70,12 +76,16 @@ export const GameConnection = () => {
               <form onSubmit={handleJoining} className={styles.connection}>
                 <Input
                   name="code"
-                  label="Enter the game code"
+                  label="Entrer le code du jeu"
                   type="text"
                   placeholder="123456"
                   pattern="\d{6}"
                 />
-                <Button className={styles.connectionBtn} variant="primary" type="submit">
+                <Button
+                  className={styles.connectionBtn}
+                  variant="primary"
+                  type="submit"
+                >
                   Rejoindre la partie
                 </Button>
               </form>
@@ -111,6 +121,12 @@ export const GameConnection = () => {
             return null;
         }
       })()}
+      <img src="/src/assets/images/asset_2.svg" alt=""className={styles.asset_bottom}/>
+      <img src="src/assets/images/logo-eq.svg" alt="" />
+      <div className={styles.footer}>
+        <Link href="/mention_legal">Mention Légales</Link>
+        <Link href="/a_propos">À propos</Link>
+      </div>
     </div>
   );
 };
