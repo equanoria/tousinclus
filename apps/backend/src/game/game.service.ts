@@ -60,14 +60,14 @@ export class GameService {
 
     if (!user) {
       throw new BadRequestException(
-        `Sale merde t'es pas censé voir ce message (Indice : t'as pas défini de user, bolosse).`,
+        'User context is required to create a game.',
       );
     }
 
     const newGame: GameDTO = {
       createdAt: new Date(),
       createdBy: user,
-      mongoId: null,
+      mongoId: undefined,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EGameStatus.WAITING,
       reflectionDuration: reflectionDuration,

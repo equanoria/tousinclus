@@ -159,6 +159,7 @@ export class GameDTO implements IGame {
   @Expose({ groups: ['admin'] })
   createdBy: IUser;
 
+  @IsOptional()
   @IsString()
   @Expose({ groups: ['admin'] })
   mongoId?: string;
