@@ -95,7 +95,7 @@ export class GameService {
 
     // Create game record and update the mongoId when it's created
     const createdGame = await this.gameModel.create(await newGame);
-    (await newGame).mongoId = createdGame._id;
+    (await newGame).mongoId = String(createdGame._id);
 
     await this.redisService.setGame((await newGame).code, await newGame); // add new game data to redis db
     return newGame; // Return the game create as JSON

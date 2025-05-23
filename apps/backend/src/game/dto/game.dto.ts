@@ -162,7 +162,7 @@ export class GameDTO implements IGame {
 
   @IsString()
   @Expose({ groups: ['admin'] })
-  mongoId?: unknown;
+  mongoId?: string;
 
   @IsString()
   @IsNotEmpty()
