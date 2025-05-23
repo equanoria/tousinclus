@@ -69,7 +69,6 @@ export class AnswerDataDTO implements IAnswerData {
   input3: string;
 
   @IsNotEmpty()
-  @IsOptional()
   @Expose()
   @ApiProperty({
     description: 'Checkboxes answer',
