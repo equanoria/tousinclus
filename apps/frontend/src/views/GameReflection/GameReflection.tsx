@@ -21,8 +21,7 @@ export const GameReflection = () => {
   return (
     <>
       <h1>Game Reflection</h1>
-      <img src={data ? directusService.getAssetUrl(data.usage_situation.image) : ''} alt="" />
-      <code>{data ? JSON.stringify(data) : 'Chargement...'}</code>
+     
     </>
   );
 };
