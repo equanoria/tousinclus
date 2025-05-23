@@ -7,15 +7,13 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { ErrorView } from '../views/Error/ErrorView';
 import { ContrastManager, FontManager, LocaleManager, ThemeManager } from '@tousinclus/managers';
-import { DirectusService } from '../services/directus/DirectusService';
+import { DirectusService } from '../services/directus/directus.service';
 import type { IGameData } from '../types/IGameData';
-import { GameService } from '../services/GameService';
+import { GameConnection } from '../views/GameConnection/GameConnection';
 
 export interface AppStateContextProps {
   directusService: DirectusService;
-  gameService: GameService;
   currentView: JSX.Element;
   setCurrentView: (view: JSX.Element) => void;
   themeManager: ThemeManager;
@@ -34,13 +32,12 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [currentView, setCurrentView] = useState<JSX.Element>(
-    <ErrorView message="Cannot load view." />,
+    <GameConnection />,
   );
 
   const [gameData, setGameData] = useState<IGameData>();
 
   const directusService = useMemo(() => new DirectusService(), []);
-  const gameService = useMemo(() => new GameService(), []);
 
   const themeManager = useMemo(() => new ThemeManager(), []);
   const fontManager = useMemo(() => new FontManager(), []);
@@ -60,7 +57,6 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
     <AppStateContext.Provider
       value={{
         directusService,
-        gameService,
         currentView,
         setCurrentView,
         themeManager,

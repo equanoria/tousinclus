@@ -22,20 +22,20 @@ interface HandicapCategory {
 interface UserTranslation {
     description: string;
 }
-interface CardsUser {
-    id: string;
+interface CardUser {
+    id: number;
     image: string;
     translations: UserTranslation[];
     handicap_category: HandicapCategory;
 }
-interface ExtremeUserEntry {
-    cards_users_id: CardsUser;
+export interface ExtremeUser {
+    cards_users_id: CardUser;
 }
 export interface IDirectusCardsGroup {
-    id: string;
+    id: number;
     translations: TranslationTitle[];
     usage_situation: UsageSituation;
-    extreme_user: ExtremeUserEntry[];
+    extreme_user: ExtremeUser[];
 }
 export {};
 //# sourceMappingURL=IDirectusCardsGroup.d.ts.map

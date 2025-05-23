@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react';
-import styles from './GameConnection.module.css';
-import { Button } from '../../components/Button/Button';
+import styles from './GameConnection.module.css';import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
-import { useAppState } from '../../context/AppStateProvider';
+import { useState } from 'react';
+import { GameConnectionService } from './GameConnection.service';
+import { ETeam } from '@tousinclus/types';
 
 enum ConnectionState {
   CODE = 'code',
@@ -10,106 +10,88 @@ enum ConnectionState {
   WAITING = 'waiting',
 }
 
-enum Team {
-  TEAM1 = 'team1',
-  TEAM2 = 'team2',
-}
+const gameConnectionService = new GameConnectionService();
 
 export const GameConnection = () => {
-  const [connectionState, setConnectionState] = useState<ConnectionState>(
-    ConnectionState.CODE,
-  );
+  const [connectionState, setConnectionState] = useState<ConnectionState>(ConnectionState.CODE);
   const [code, setCode] = useState<string>('');
-  const teamsAvailability = useRef<Team[]>([]);
-  const { gameService, setGameData } = useAppState();
-  const cardGroupId = useRef<number | null>(null);
+  const [availableTeams, setAvailableTeams] = useState<ETeam[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  gameService.onJoiningResponse(
-    ({ code, team1, team2, cardGroupId: groupId }) => {
-      setCode(code);
-      teamsAvailability.current = [];
-      cardGroupId.current = groupId ?? null;
+  gameConnectionService.onJoiningResponse((data) => {
+    console.log(data)
+    const teams: ETeam[] = [];
 
-      if (!team1.isConnected) teamsAvailability.current.push(Team.TEAM1);
-      if (!team2.isConnected) teamsAvailability.current.push(Team.TEAM2);
+    if (!data.team1?.isConnected) teams.push(ETeam.TEAM1);
+    if (!data.team2?.isConnected) teams.push(ETeam.TEAM2);
 
-      if (teamsAvailability.current.length === 0) {
-        setConnectionState(ConnectionState.CODE); // No team available
-        // handle error
-        return;
-      }
-
-      setConnectionState(ConnectionState.TEAM);
-    },
-  );
-
-  gameService.waitingResponse(({ status }) => {
-    if (status !== 'success') {
-      // handle error
-      return;
-    }
-    setConnectionState(ConnectionState.WAITING);
+    setAvailableTeams(teams);
+    setConnectionState(ConnectionState.TEAM);
   });
 
-  const handleJoining = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const inputCode = formData.get('code') as string;
-    gameService.joining(inputCode);
-  };
+  gameConnectionService.onWaitingResponse((data) => {
+    const { status, errorCode } = data;
 
-  const handleJoinGame = (team: Team) => {
-    gameService.joinGame({ code, team });
-    if (cardGroupId.current !== null) {
-      setGameData({
-        cardsGroupId: cardGroupId.current.toString(),
-        team,
-        code,
-      });
-    } else {
-      console.error('cardGroupId manquant');
-    }
-  };
+    if (status !== 'success' && errorCode) setErrorMessage(errorCode);
+  })
+
+  const handleJoining = () => {
+    gameConnectionService.joining(code)
+  }
+
+  const handleJoinGame = (team: ETeam) => {
+    handleJoining();
+    gameConnectionService.joinGame(code, team)
+  }
 
   return (
     <div className={styles.pageConnection}>
       <h1>tous inclus</h1>
+      <p className="error">{errorMessage}</p>
       {(() => {
         switch (connectionState) {
           case ConnectionState.CODE:
             return (
-              <form onSubmit={handleJoining} className={styles.connection}>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleJoining();
+                  }}
+                  className={styles.connection}
+                >
                 <Input
                   name="code"
                   label="Entrez le code de la partie"
                   type="text"
                   placeholder="123456"
                   pattern="\d{6}"
+                  value={code ?? ''}
+                  onChange={(e) => setCode(e.target.value)}
                 />
                 <Button
                   className={styles.connectionBtn}
                   variant="primary"
                   type="submit"
+                  disabled={!code}
                 >
                   Rejoindre la partie
                 </Button>
-              </form>
+                </form>
             );
           case ConnectionState.TEAM:
             return (
               <div className={styles.teamSelection}>
                 <div className={styles.teamButtons}>
                   <Button
-                    disabled={!teamsAvailability.current.includes(Team.TEAM1)}
-                    onClick={() => handleJoinGame(Team.TEAM1)}
+                    disabled={!availableTeams.includes(ETeam.TEAM1)}
+                    onClick={() => handleJoinGame(ETeam.TEAM1)}
                     variant="primary"
                   >
                     Équipe 1
                   </Button>
                   <Button
-                    disabled={!teamsAvailability.current.includes(Team.TEAM2)}
-                    onClick={() => handleJoinGame(Team.TEAM2)}
+                    disabled={!availableTeams.includes(ETeam.TEAM2)}
+                    onClick={() => handleJoinGame(ETeam.TEAM2)}
                     variant="tertiary"
                   >
                     Équipe 2

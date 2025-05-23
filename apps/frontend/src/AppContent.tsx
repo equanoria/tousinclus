@@ -1,32 +1,26 @@
-import { useEffect } from 'react';
 import { useAppState } from './context/AppStateProvider';
 import { GameConnection } from './views/GameConnection/GameConnection';
-import { GameReflection } from './views/GameReflection/GameReflection';
+import { GameService } from './services/game/game.service';
+import { EGameStatus } from '@tousinclus/types';
+import { ErrorView } from './views/Error/ErrorView';
+
+const gameService = new GameService();
+const views: Partial<Record<EGameStatus, JSX.Element>> = {
+  // [EGameStatus.REFLECTION]: <GameReflection />,
+  [EGameStatus.DEBATE]: <ErrorView />,
+  [EGameStatus.RESULT]: <ErrorView />,
+};
 
 const AppContent = () => {
-  const { currentView, setCurrentView, gameService } = useAppState();
+  const { currentView, setCurrentView } = useAppState();
 
-  useEffect(() => {
-    setCurrentView(<GameConnection />);
+  gameService.onGameStatus(({ gameStatus }) => {
+    setCurrentView(views[gameStatus] || <GameConnection />);
+  });
 
-    const handleStatus = ({ status }: { status?: string }) => {
-      switch (status) {
-        case 'reflection':
-          setCurrentView(<GameReflection />);
-          break;
-        default:
-          setCurrentView(<GameConnection />);
-          break;
-      }
-    };
-    gameService.requestGameStatus(handleStatus);
-
-    return () => {
-      gameService.getSocket().off('game-status', handleStatus);
-    };
-
-    
-  }, [gameService, setCurrentView]);
+  gameService.onWaitingResponse(({ data }) => {
+    setCurrentView(views[data.status] || <GameConnection />);
+  });
 
   return (
     <>
