@@ -103,8 +103,11 @@ export class DebateService {
 
         // If displayResult change game phase to result
         if (nextCardToVote?.displayResult) {
-          this.gameService.updateGameStatus(data.code, EGameStatus.RESULT);
-          this.gameService.updateMongoGame(data.code);
+          await this.gameService.updateGameStatus(
+            data.code,
+            EGameStatus.RESULT,
+          );
+          await this.gameService.updateMongoGame(data.code);
 
           const responseData: WSGameStatus = { gameStatus: EGameStatus.RESULT };
           server.to(data.code).emit('game-status', responseData);
