@@ -68,14 +68,15 @@ export class AnswerDataDTO implements IAnswerData {
   })
   input3: string;
 
-  @IsString()
   @IsNotEmpty()
+  @IsOptional()
   @Expose()
   @ApiProperty({
     description: 'Checkboxes answer',
     example: [1, 2, 8],
+    type: [Number],
   })
-  inputCheckboxes: string[];
+  inputCheckboxes: number[];
 }
 
 export class AnswerDTO implements IAnswer {

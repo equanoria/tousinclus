@@ -45,5 +45,5 @@ export interface IAnswerData {
   input1: string;
   input2: string;
   input3: string;
-  inputCheckboxes: string[];
+  inputCheckboxes: number[];
 }

@@ -32,7 +32,7 @@ export class AnswerData implements IAnswerData {
   input3: string;
 
   @Prop({ required: true, type: [Number] })
-  inputCheckboxes: string[];
+  inputCheckboxes: number[];
 }
 
 @Schema()
@@ -48,12 +48,21 @@ export class Answer implements IAnswer {
 }
 
 @Schema()
+export class TeamVote {
+  @Prop({ required: true, type: String, enum: ETeam })
+  team: ETeam;
+
+  @Prop({ required: true, type: String, enum: ETeam })
+  vote: ETeam;
+}
+
+@Schema()
 export class Vote implements IVote {
   @Prop({ required: true, type: Number })
   cardId: number;
 
-  @Prop({ required: true, type: [String] })
-  votes: { team: ETeam; vote: ETeam }[];
+  @Prop({ required: true, type: [TeamVote] })
+  votes: TeamVote[];
 }
 
 @Schema({ timestamps: true })

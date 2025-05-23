@@ -504,4 +504,16 @@ export class GameService {
       };
     }
   }
+
+  async updateMongoGame(code: GameDTO['code']) {
+    const game = this.findOneGame(code);
+
+    const updatedGame = await this.gameModel.findByIdAndUpdate(
+      (await game).mongoId,
+      await game,
+      { new: true }, // return updated record
+    );
+
+    return updatedGame;
+  }
 }
