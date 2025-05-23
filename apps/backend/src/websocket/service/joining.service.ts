@@ -73,7 +73,7 @@ export class JoiningService {
         status: 'error',
         errorCode: errorCode,
         message: error.message,
-        responseChannel: 'reflection-response',
+        responseChannel: 'joining-response',
       };
       throw new WsException(responseData);
     }
