@@ -10,6 +10,7 @@ import {
   Param,
   ParseIntPipe,
   Put,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -30,8 +31,10 @@ import { AuthGuard } from './auth/auth.guard';
 import { Roles } from './auth/roles.decorator';
 import { ERole, IUser } from '@tousinclus/types';
 import { RolesGuard } from './auth/roles.guard';
+import { ParseDatePipe } from 'src/utils/pipes/parse-date.pipe';
 
 // ========== Utils Import ==========
+import { Response } from 'express';
 import { User } from 'src/utils/decorators/user.decorator';
 
 @ApiTags('Game')
@@ -211,5 +214,33 @@ export class GameController {
       throw new NotFoundException('Database is empty');
     }
     return deleteAllGames;
+  }
+
+  @Get('/export/:date.csv')
+  @ApiOperation({ summary: 'Export games for a specific date' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully export games',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No games foundfor this date',
+    type: HTTPResponseDTO,
+  })
+  async exportGames(
+    @Param('date', ParseDatePipe) date: Date,
+    @Res() res: Response,
+  ): Promise<void> {
+    const gamesCSV = await this.gameService.exportGameByDate(date);
+
+    if (!gamesCSV) {
+      throw new NotFoundException(
+        `No game found for the provided date : ${date}.`,
+      );
+    }
+
+    res.header('Content-Type', 'text/csv');
+    res.header('Content-Disposition', 'attachment; filename="games.csv"');
+    res.send(gamesCSV);
   }
 }
