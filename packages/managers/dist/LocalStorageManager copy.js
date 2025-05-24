@@ -8,4 +8,4 @@ class LocalStorageManager {
     }
 }
 export const localStorageManager = new LocalStorageManager();
-//# sourceMappingURL=LocalStorageManager.js.map
+//# sourceMappingURL=LocalStorageManager%20copy.js.map

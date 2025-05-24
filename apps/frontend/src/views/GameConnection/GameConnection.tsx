@@ -1,8 +1,11 @@
 import styles from './GameConnection.module.css';import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
-import { useState } from 'react';
-import { GameConnectionService } from './GameConnection.service';
-import { ETeam } from '@tousinclus/types';
+import { useEffect, useState } from 'react';
+import { ETeam, type IGame } from '@tousinclus/types';
+import { gameService } from '../../services/game/game.service';
+import { useAppState } from '../../context/AppStateProvider';
+import type { ISocketResponse } from '../../types/ISocketResponse';
+import { sessionStorageManager } from '@tousinclus/managers';
 
 enum ConnectionState {
   CODE = 'code',
@@ -10,38 +13,67 @@ enum ConnectionState {
   WAITING = 'waiting',
 }
 
-const gameConnectionService = new GameConnectionService();
+const VALIDATION_PATTERN = /^\d{6}$/;
 
 export const GameConnection = () => {
+  const { titleManager } = useAppState();
   const [connectionState, setConnectionState] = useState<ConnectionState>(ConnectionState.CODE);
   const [code, setCode] = useState<string>('');
   const [availableTeams, setAvailableTeams] = useState<ETeam[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  gameConnectionService.onJoiningResponse((data) => {
-    console.log(data)
+  useEffect(() => {
+    gameService
+      .onJoiningResponse(onJoiningResponse)
+      .onWaitingResponse(onWaitingResponse);
+  })
+
+  useEffect(() => {
+    const lastGameCode = sessionStorageManager.getItem<string>('GAME_CODE');
+    if (lastGameCode) setCode(lastGameCode);
+  }, [])
+
+  const onJoiningResponse = (payload: ISocketResponse<IGame>) => {
+    const { status, message, data } = payload;
+
+    if (status !== 'success') {
+      setErrorMessage(message);
+      return;
+    };
+
+    joining(data);
+  }
+
+  const onWaitingResponse = (payload: ISocketResponse<IGame>) => {
+    const { status, message, data } = payload;
+
+    if (status !== 'success') {
+      setErrorMessage(message);
+      return;
+    };
+
+    sessionStorageManager.setItem('GAME_CODE', data.code);
+    setConnectionState(ConnectionState.WAITING);
+  }
+
+  const joining = (game: IGame) => {
     const teams: ETeam[] = [];
 
-    if (!data.team1?.isConnected) teams.push(ETeam.TEAM1);
-    if (!data.team2?.isConnected) teams.push(ETeam.TEAM2);
+    if (!game.team1?.isConnected) teams.push(ETeam.TEAM1);
+    if (!game.team2?.isConnected) teams.push(ETeam.TEAM2);
 
     setAvailableTeams(teams);
     setConnectionState(ConnectionState.TEAM);
-  });
-
-  gameConnectionService.onWaitingResponse((data) => {
-    const { status, errorCode } = data;
-
-    if (status !== 'success' && errorCode) setErrorMessage(errorCode);
-  })
+  }
 
   const handleJoining = () => {
-    gameConnectionService.joining(code)
+    setErrorMessage('');
+    gameService.joining(code)
   }
 
   const handleJoinGame = (team: ETeam) => {
     handleJoining();
-    gameConnectionService.joinGame(code, team)
+    gameService.joinGame(code, team)
   }
 
   return (
@@ -50,35 +82,8 @@ export const GameConnection = () => {
       <p className="error">{errorMessage}</p>
       {(() => {
         switch (connectionState) {
-          case ConnectionState.CODE:
-            return (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleJoining();
-                  }}
-                  className={styles.connection}
-                >
-                <Input
-                  name="code"
-                  label="Entrez le code de la partie"
-                  type="text"
-                  placeholder="123456"
-                  pattern="\d{6}"
-                  value={code ?? ''}
-                  onChange={(e) => setCode(e.target.value)}
-                />
-                <Button
-                  className={styles.connectionBtn}
-                  variant="primary"
-                  type="submit"
-                  disabled={!code}
-                >
-                  Rejoindre la partie
-                </Button>
-                </form>
-            );
           case ConnectionState.TEAM:
+            titleManager.set('Connexion à une partie');
             return (
               <div className={styles.teamSelection}>
                 <div className={styles.teamButtons}>
@@ -100,13 +105,41 @@ export const GameConnection = () => {
               </div>
             );
           case ConnectionState.WAITING:
+            titleManager.set('En attente de l\'autre équipe...');
             return (
               <div className={styles.teamSelection}>
                 <p>Dans l'attente de l'autre équipe...</p>
               </div>
             );
           default:
-            return null;
+            titleManager.reset();
+            return (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleJoining();
+                }}
+                className={styles.connection}
+              >
+                <Input
+                  name="code"
+                  label="Entrez le code de la partie"
+                  type="text"
+                  placeholder="123456"
+                  pattern={VALIDATION_PATTERN.source}
+                  value={code ?? ''}
+                  onChange={(e) => setCode(e.target.value)}
+                />
+                <Button
+                  className={styles.connectionBtn}
+                  variant="primary"
+                  type="submit"
+                  disabled={!VALIDATION_PATTERN.test(code)}
+                >
+                  Rejoindre la partie
+                </Button>
+              </form>
+          );
         }
       })()}
     </div>

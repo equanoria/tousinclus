@@ -3,25 +3,30 @@ import {
   type ReactNode,
   createContext,
   useContext,
-  useEffect,
-  useMemo,
   useState,
 } from 'react';
-import { ContrastManager, FontManager, LocaleManager, ThemeManager } from '@tousinclus/managers';
-import { DirectusService } from '../services/directus/directus.service';
-import type { IGameData } from '../types/IGameData';
+import { 
+  type ContrastManager,
+  contrastManager,
+  type FontManager,
+  fontManager,
+  type LocaleManager,
+  localeManager,
+  type ThemeManager,
+  themeManager,
+  type TitleManager,
+  titleManager,
+} from '@tousinclus/managers';
 import { GameConnection } from '../views/GameConnection/GameConnection';
 
 export interface AppStateContextProps {
-  directusService: DirectusService;
   currentView: JSX.Element;
   setCurrentView: (view: JSX.Element) => void;
   themeManager: ThemeManager;
   fontManager: FontManager;
   localeManager: LocaleManager;
   contrastManager: ContrastManager;
-  gameData?: IGameData;
-  setGameData: (gameData: IGameData) => void;
+  titleManager: TitleManager;
 }
 
 const AppStateContext = createContext<AppStateContextProps | undefined>(
@@ -35,36 +40,16 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
     <GameConnection />,
   );
 
-  const [gameData, setGameData] = useState<IGameData>();
-
-  const directusService = useMemo(() => new DirectusService(), []);
-
-  const themeManager = useMemo(() => new ThemeManager(), []);
-  const fontManager = useMemo(() => new FontManager(), []);
-  const localeManager = useMemo(() => new LocaleManager(), []);
-  const contrastManager = useMemo(() => new ContrastManager(), []);
-
-  useEffect(() => {
-    const initializeLocaleManager = async () => {
-      const languages = await directusService.getLanguages();
-      localeManager.init(languages);
-    };
-
-    initializeLocaleManager();
-  }, [directusService, localeManager]);
-
   return (
     <AppStateContext.Provider
       value={{
-        directusService,
         currentView,
         setCurrentView,
         themeManager,
         fontManager,
         localeManager,
         contrastManager,
-        gameData,
-        setGameData,
+        titleManager,
       }}
     >
       {children}

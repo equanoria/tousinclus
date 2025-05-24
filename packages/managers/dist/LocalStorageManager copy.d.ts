@@ -4,4 +4,4 @@ declare class LocalStorageManager {
 }
 export declare const localStorageManager: LocalStorageManager;
 export type { LocalStorageManager };
-//# sourceMappingURL=LocalStorageManager.d.ts.map
+//# sourceMappingURL=LocalStorageManager%20copy.d.ts.map
