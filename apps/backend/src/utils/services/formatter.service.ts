@@ -112,7 +112,7 @@ export class FormatterService {
 
     return deckData
       .flatMap((deck) => deck.group || []) // Récupère tous les groupes
-      .map((group) => group.id) // Extrait uniquement les IDs
+      .map((group) => group.cards_group_id?.id)
       .filter((id) => id !== undefined); // Filtre les valeurs undefined au cas où
   }
 
