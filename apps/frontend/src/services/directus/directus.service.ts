@@ -37,7 +37,7 @@ class DirectusService {
     );
   }
 
-  async getCardsGroup(id: string): Promise<IDirectusCardsGroup> {
+  async getCardsGroup(id: number): Promise<IDirectusCardsGroup> {
     return this.directusClient.request<IDirectusCardsGroup>(
       readItem('cards_group', id, cardsGroupQuery(this._locale.code)),
     );

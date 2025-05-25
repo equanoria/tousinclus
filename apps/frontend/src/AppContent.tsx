@@ -5,6 +5,7 @@ import { GameReflection } from './views/GameReflection/GameReflection';
 import { gameService } from './services/game/game.service';
 import { useEffect } from 'react';
 import { GameConnection } from './views/GameConnection/GameConnection';
+import SocketBanner from './core/SocketBanner/SocketBanner';
 
 const views: Partial<Record<EGameStatus, JSX.Element>> = {
   [EGameStatus.REFLECTION]: <GameReflection />,
@@ -16,16 +17,10 @@ const AppContent = () => {
   const { currentView, setCurrentView } = useAppState();
 
   useEffect(() => {
-    gameService.onGameStatus(({ gameStatus }) => {
-      console.log(gameStatus)
-      setCurrentView(views[gameStatus] || <GameConnection />);
-    });
-
-    gameService.onWaitingResponse(({ data }) => {
-      console.log(data)
-      setCurrentView(views[data.status] || <GameConnection />);
-    });
-  })
+    gameService
+      .onGameStatus(({ gameStatus }) => setCurrentView(views[gameStatus] || <GameConnection />))
+      .onWaitingResponse(({ data }) => setCurrentView(views[data.status] || <GameConnection />));
+  }, [setCurrentView])
 
   return (
     <>
@@ -39,6 +34,9 @@ const AppContent = () => {
           </li>
         </ul>
       </nav>
+
+      <SocketBanner />
+
       <main id="main">{currentView}</main>
     </>
   );

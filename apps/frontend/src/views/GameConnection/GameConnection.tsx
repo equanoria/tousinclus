@@ -26,7 +26,7 @@ export const GameConnection = () => {
     gameService
       .onJoiningResponse(onJoiningResponse)
       .onWaitingResponse(onWaitingResponse);
-  })
+  }, [])
 
   useEffect(() => {
     const lastGameCode = sessionStorageManager.getItem<string>('GAME_CODE');

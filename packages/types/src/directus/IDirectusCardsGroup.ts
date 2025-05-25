@@ -36,7 +36,7 @@ interface CardUser {
   handicap_category: HandicapCategory;
 }
 
-export interface ExtremeUser {
+interface ExtremeUser {
   cards_users_id: CardUser;
 }
 

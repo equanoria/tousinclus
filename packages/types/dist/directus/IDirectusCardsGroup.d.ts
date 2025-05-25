@@ -28,7 +28,7 @@ interface CardUser {
     translations: UserTranslation[];
     handicap_category: HandicapCategory;
 }
-export interface ExtremeUser {
+interface ExtremeUser {
     cards_users_id: CardUser;
 }
 export interface IDirectusCardsGroup {
