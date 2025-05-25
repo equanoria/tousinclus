@@ -1,12 +1,17 @@
 import { useEffect } from 'react';
 import { useAppState } from './context/AppStateProvider';
+
 import { GamesList } from './views/GamesList/GamesList';
+import { DashboardConnection } from './views/DashboardConnection/DashboardConnection';
 
 const AppContent = () => {
   const { currentView, setCurrentView } = useAppState();
 
   useEffect(() => {
-    setCurrentView(<GamesList />);
+    setCurrentView(
+    // <GamesList />
+    <DashboardConnection />
+    );
   }, [setCurrentView]);
 
   return (

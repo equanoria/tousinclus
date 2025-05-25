@@ -1,0 +1,30 @@
+
+h1 {
+    color: #65ADDB;
+    font-size: 2.5rem;
+}
+
+.pageConnection {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-800);
+}
+
+.pageConnectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.connectionForm {
+    width: 20rem;
+}
+
+.submitButton {
+    width: 100%;
+}
