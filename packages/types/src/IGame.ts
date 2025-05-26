@@ -18,7 +18,7 @@ export interface IGame {
   _id?: unknown;
   code: string;
   status: EGameStatus;
-  cardGroupId: number;
+  cardGroupId?: number;
   team1?: ITeam;
   team2?: ITeam;
   answers?: Array<IAnswer>;
