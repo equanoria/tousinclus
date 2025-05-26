@@ -239,7 +239,6 @@ export class GameService {
     }
 
     game.reflectionEndsAt = reflectionEndsAt;
-    console.log(game);
     await this.redisService.setGame(code, game);
   }
 
