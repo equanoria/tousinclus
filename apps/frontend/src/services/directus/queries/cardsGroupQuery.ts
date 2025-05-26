@@ -60,6 +60,7 @@ export const cardsGroupQuery = (localeCode: string) => {
         extreme_user: [
           {
             cards_users_id: [
+              'id',
               'image',
               {
                 translations: ['description'],
@@ -78,4 +79,4 @@ export const cardsGroupQuery = (localeCode: string) => {
       },
     ],
   };
-}
+};

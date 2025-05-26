@@ -1,8 +1,11 @@
-import { useRef, useState } from 'react';
-import { GameService } from '../../services/GameService';
-import styles from './GameConnection.module.css';
-import { Button } from '../../components/Button/Button';
+import styles from './GameConnection.module.css';import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
+import { useEffect, useState } from 'react';
+import { ETeam, type IGame } from '@tousinclus/types';
+import { gameService } from '../../services/game/game.service';
+import { useAppState } from '../../context/AppStateProvider';
+import type { ISocketResponse } from '../../types/ISocketResponse';
+import { sessionStorageManager } from '@tousinclus/managers';
 
 enum ConnectionState {
   CODE = 'code',
@@ -10,90 +13,94 @@ enum ConnectionState {
   WAITING = 'waiting',
 }
 
-enum Team {
-  TEAM1 = 'team1',
-  TEAM2 = 'team2',
-}
+const VALIDATION_PATTERN = /^\d{6}$/;
 
 export const GameConnection = () => {
+  const { titleManager } = useAppState();
   const [connectionState, setConnectionState] = useState<ConnectionState>(ConnectionState.CODE);
   const [code, setCode] = useState<string>('');
-  const teamsAvailability = useRef<Team[]>([]);
-  const gameService = new GameService();
+  const [availableTeams, setAvailableTeams] = useState<ETeam[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  gameService.onJoiningResponse(({ code, isTeam1Connected, isTeam2Connected }) => {
-    setCode(code);
+  useEffect(() => {
+    gameService
+      .onJoiningResponse(onJoiningResponse)
+      .onWaitingResponse(onWaitingResponse);
+  }, [])
 
-    if (!isTeam1Connected) teamsAvailability.current.push(Team.TEAM1);
-    if (!isTeam2Connected) teamsAvailability.current.push(Team.TEAM2);
+  useEffect(() => {
+    console.log(errorMessage)
+  }, [errorMessage])
 
-    if (teamsAvailability.current.length === 2) {
-      setConnectionState(ConnectionState.CODE);
-      // handle error
-      return;
-    }
+  useEffect(() => {
+    const lastGameCode = sessionStorageManager.getItem<string>('GAME_CODE');
+    if (lastGameCode) setCode(lastGameCode);
+  }, [])
 
-    setConnectionState(ConnectionState.TEAM);
-  });
+  const onJoiningResponse = (payload: ISocketResponse<IGame>) => {
+    const { status, message, data } = payload;
 
-  gameService.onTeamConnectionUpdated(({ status }) => {
     if (status !== 'success') {
-      // handle error
+      setErrorMessage(message);
       return;
-    }
+    };
 
+    joining(data);
+  }
+
+  const onWaitingResponse = (payload: ISocketResponse<IGame>) => {
+    const { status, message, data } = payload;
+
+    if (status !== 'success') {
+      setErrorMessage(message);
+      return;
+    };
+
+    sessionStorageManager.setItem('GAME_CODE', data.code);
     setConnectionState(ConnectionState.WAITING);
-  });
+  }
 
-  // Check teams avails
-  const handleJoining = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
-    const code = formData.get('code') as string;
+  const joining = (game: IGame) => {
+    const teams: ETeam[] = [];
 
+    if (!game.team1?.isConnected) teams.push(ETeam.TEAM1);
+    if (!game.team2?.isConnected) teams.push(ETeam.TEAM2);
+
+    setAvailableTeams(teams);
+    setConnectionState(ConnectionState.TEAM);
+  }
+
+  const handleJoining = () => {
+    setErrorMessage('');
     gameService.joining(code)
-  };
+  }
 
-  // Join a game
-  const handleJoinGame = (team: Team) => {
-    gameService.joinGame({ code, team });
+  const handleJoinGame = (team: ETeam) => {
+    handleJoining();
+    gameService.joinGame(code, team)
   }
 
   return (
     <div className={styles.pageConnection}>
       <h1>tous inclus</h1>
+      <p className="error">{errorMessage}</p>
       {(() => {
         switch (connectionState) {
-          case ConnectionState.CODE:
-            return (
-              <form onSubmit={handleJoining} className={styles.connection}>
-                <Input
-                  name="code"
-                  label="Enter the game code"
-                  type="text"
-                  placeholder="123456"
-                  pattern="\d{6}"
-                />
-                <Button className={styles.connectionBtn} variant="primary" type="submit">
-                  Rejoindre la partie
-                </Button>
-              </form>
-            );
           case ConnectionState.TEAM:
+            titleManager.set('Connexion à une partie');
             return (
               <div className={styles.teamSelection}>
                 <div className={styles.teamButtons}>
                   <Button
-                    disabled={!teamsAvailability.current.includes(Team.TEAM1)}
-                    onClick={() => handleJoinGame(Team.TEAM1)}
+                    disabled={!availableTeams.includes(ETeam.TEAM1)}
+                    onClick={() => handleJoinGame(ETeam.TEAM1)}
                     variant="primary"
                   >
                     Équipe 1
                   </Button>
                   <Button
-                    disabled={!teamsAvailability.current.includes(Team.TEAM2)}
-                    onClick={() => handleJoinGame(Team.TEAM2)}
+                    disabled={!availableTeams.includes(ETeam.TEAM2)}
+                    onClick={() => handleJoinGame(ETeam.TEAM2)}
                     variant="tertiary"
                   >
                     Équipe 2
@@ -102,13 +109,41 @@ export const GameConnection = () => {
               </div>
             );
           case ConnectionState.WAITING:
+            titleManager.set('En attente de l\'autre équipe...');
             return (
               <div className={styles.teamSelection}>
                 <p>Dans l'attente de l'autre équipe...</p>
               </div>
             );
           default:
-            return null;
+            titleManager.reset();
+            return (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleJoining();
+                }}
+                className={styles.connection}
+              >
+                <Input
+                  name="code"
+                  label="Entrez le code de la partie"
+                  type="text"
+                  placeholder="123456"
+                  pattern={VALIDATION_PATTERN.source}
+                  value={code ?? ''}
+                  onChange={(e) => setCode(e.target.value)}
+                />
+                <Button
+                  className={styles.connectionBtn}
+                  variant="primary"
+                  type="submit"
+                  disabled={!VALIDATION_PATTERN.test(code)}
+                >
+                  Rejoindre la partie
+                </Button>
+              </form>
+          );
         }
       })()}
     </div>

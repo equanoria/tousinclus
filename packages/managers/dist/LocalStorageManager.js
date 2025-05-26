@@ -1,4 +1,4 @@
-export class LocalStorageManager {
+class LocalStorageManager {
     setItem(key, item) {
         localStorage.setItem(key, JSON.stringify(item));
     }
@@ -7,4 +7,5 @@ export class LocalStorageManager {
         return item ? JSON.parse(item) : undefined;
     }
 }
+export const localStorageManager = new LocalStorageManager();
 //# sourceMappingURL=LocalStorageManager.js.map

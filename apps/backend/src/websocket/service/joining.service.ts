@@ -65,7 +65,11 @@ export class JoiningService {
         groups: ['joining'],
       });
 
-      client.emit('joining-response', modifiedGameData);
+      client.emit('joining-response', {
+        status: 'success',
+        message: `${modifiedGameData.code} room is available`,
+        data: modifiedGameData,
+      });
     } catch (error) {
       const errorCode = ErrorCode.GENERIC_ERROR;
 
