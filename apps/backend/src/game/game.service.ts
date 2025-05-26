@@ -64,6 +64,7 @@ export class GameService {
     const newGame: GameDTO = {
       createdAt: new Date(),
       createdBy: user,
+      reflectionEndsAt: null,
       _id: undefined,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EGameStatus.WAITING,
@@ -228,6 +229,19 @@ export class GameService {
     return false;
   }
 
+  async updateReflectionEndsAt(
+    code: GameDTO['code'],
+    reflectionEndsAt: GameDTO['reflectionEndsAt'],
+  ): Promise<void> {
+    const game = await this.findOneGame(code);
+    if (!game) {
+      throw new NotFoundException(`Game with code ${code} not found`);
+    }
+
+    game.reflectionEndsAt = reflectionEndsAt;
+    await this.redisService.setGame(code, game);
+  }
+
   async updateGameStatus(
     code: GameDTO['code'],
     status: GameDTO['status'],
@@ -249,33 +263,36 @@ export class GameService {
     try {
       const game = await this.findOneGame(code);
 
-      if (game.status !== 'reflection') {
+      if (game.status !== 'reflection' && game.status !== 'debate') {
         // If game status doesn't match with action
         throw new Error(
-          `Forbidden game with code ${code} is not in the 'reflection' status`,
+          `Forbidden: game with code ${code} is not in the 'reflection' or 'debate' status`,
         );
       }
 
-      if (team === ETeam.TEAM1) {
-        if (game.team1.clientId !== clientId) {
-          throw new Error(`Client ID ${clientId} is not connected to Team 1`);
-        }
+      // only filter answers when reflection phase
+      if (game.status === 'reflection') {
+        if (team === ETeam.TEAM1) {
+          if (game.team1.clientId !== clientId) {
+            throw new Error(`Client ID ${clientId} is not connected to Team 1`);
+          }
 
-        // Filter only team1 answers
-        game.answers = game.answers.filter(
-          (answer) => answer.team !== ETeam.TEAM2,
-        );
-      } else if (team === ETeam.TEAM2) {
-        if (game.team2.clientId !== clientId) {
-          throw new Error(`Client ID ${clientId} is not connected to Team 2`);
-        }
+          // Filter only team1 answers
+          game.answers = game.answers.filter(
+            (answer) => answer.team !== ETeam.TEAM2,
+          );
+        } else if (team === ETeam.TEAM2) {
+          if (game.team2.clientId !== clientId) {
+            throw new Error(`Client ID ${clientId} is not connected to Team 2`);
+          }
 
-        // Filter only team2 answers
-        game.answers = game.answers.filter(
-          (answer) => answer.team !== ETeam.TEAM1,
-        );
-      } else {
-        throw new Error(`Invalid team specified: ${team}`);
+          // Filter only team2 answers
+          game.answers = game.answers.filter(
+            (answer) => answer.team !== ETeam.TEAM1,
+          );
+        } else {
+          throw new Error(`Invalid team specified: ${team}`);
+        }
       }
 
       return game;

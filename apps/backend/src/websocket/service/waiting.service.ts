@@ -115,25 +115,33 @@ export class WaitingService {
             gameStatus: EGameStatus.REFLECTION,
             timeStamp: new Date(),
           };
-          // Send a message to all participants in the room
-          this.gameService.updateGameStatus(code, EGameStatus.REFLECTION);
+
+          // Update game status to reflection
+          await this.gameService.updateGameStatus(code, EGameStatus.REFLECTION);
 
           // Convert reflectionDuration from minutes to milliseconds
           const reflectionDuration = dataGame.reflectionDuration * 60 * 1000;
 
+          // Set reflectionEndsAt
+          const reflectionEndTime = new Date(Date.now() + reflectionDuration);
+          await this.gameService.updateReflectionEndsAt(
+            code,
+            reflectionEndTime,
+          );
+
+          // Set the end of reflection phase
           const timeout = setTimeout(() => {
             this.executeDebateLogic(server, code);
           }, reflectionDuration);
-
           this.schedulerRegistry.addTimeout(
             `reflection-${dataGame.code}`,
             timeout,
           );
 
+          // Send a message to all participants in the room
           console.log(
             `Dans ${dataGame.reflectionDuration} min je vais passer en phase débat`,
           );
-
           server.to(code).emit('game-status', responseData);
         }
       }
