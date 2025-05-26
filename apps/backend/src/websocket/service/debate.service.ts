@@ -54,14 +54,28 @@ export class DebateService {
         null,
       );
 
+      const game = await this.gameService.getTeamAnswer(
+        data.code,
+        data.team,
+        client.id,
+      );
+
+      // Filter answers with cardId equal to nextCardToVote.nextCardId
+      const dataGameAnswers = game.answers.filter(
+        (answer) => answer.cardId === nextCardToVote.nextCardId,
+      );
+
       // Send websockets only if a consensus is found
       if (nextCardToVote) {
         const responseData = {
           status: 'success',
           message: nextCardToVote.message,
-          data: nextCardToVote.nextCardId
-            ? { nextCardId: nextCardToVote.nextCardId }
-            : null,
+          data: {
+            nextCardId: nextCardToVote.nextCardId
+              ? { nextCardId: nextCardToVote.nextCardId }
+              : null,
+            answers: dataGameAnswers,
+          },
         };
         client.emit('debate-response', responseData);
       }

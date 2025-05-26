@@ -159,6 +159,11 @@ export class GameDTO implements IGame {
   @Expose({ groups: ['admin'] })
   createdBy: IUser;
 
+  @IsDate()
+  @IsNotEmpty()
+  @Expose({ groups: ['room'] })
+  reflectionEndsAt: Date;
+
   @IsOptional()
   @IsString()
   @Expose({ groups: ['admin'] })
