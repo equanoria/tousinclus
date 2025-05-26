@@ -7,7 +7,7 @@ export interface GameCardProps extends ComponentPropsWithoutRef<'div'> {
   type: 'situation' | 'user';
   img: string;
   alt: string;
-  number?: string;
+  number: number;
 }
 
 export const GameCard: React.FC<GameCardProps> = ({
