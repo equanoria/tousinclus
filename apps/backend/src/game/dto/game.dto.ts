@@ -162,7 +162,7 @@ export class GameDTO implements IGame {
   @IsOptional()
   @IsString()
   @Expose({ groups: ['admin'] })
-  mongoId?: string;
+  _id?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -196,7 +196,7 @@ export class GameDTO implements IGame {
     description: 'Card group identifier',
     example: 14,
   })
-  cardGroupId?: number;
+  cardGroupId: number;
 
   @IsOptional()
   @Expose({ groups: ['team1', 'joining'] })

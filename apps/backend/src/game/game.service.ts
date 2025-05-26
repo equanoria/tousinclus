@@ -58,16 +58,10 @@ export class GameService {
       );
     }
 
-    if (!user) {
-      throw new BadRequestException(
-        'User context is required to create a game.',
-      );
-    }
-
     const newGame: GameDTO = {
       createdAt: new Date(),
       createdBy: user,
-      mongoId: undefined,
+      _id: undefined,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EGameStatus.WAITING,
       reflectionDuration: reflectionDuration,
@@ -95,7 +89,7 @@ export class GameService {
 
     // Create game record and update the mongoId when it's created
     const createdGame = await this.gameModel.create(newGame);
-    newGame.mongoId = String(createdGame._id);
+    newGame._id = String(createdGame._id);
 
     await this.redisService.setGame(newGame.code, newGame); // add new game data to redis
     return newGame; // Return the game create as JSON
@@ -515,7 +509,7 @@ export class GameService {
     const mongoGameData: IGameMongo = await this.findOneGame(code);
 
     const updatedGame = await this.gameModel.findByIdAndUpdate(
-      mongoGameData.mongoId,
+      mongoGameData._id,
       mongoGameData,
       { new: true }, // return updated record
     );

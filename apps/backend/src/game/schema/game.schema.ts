@@ -22,16 +22,16 @@ export class User implements IUser {
 
 @Schema()
 export class AnswerData implements IAnswerData {
-  @Prop({ required: true, type: String })
+  @Prop({ type: String })
   input1: string;
 
-  @Prop({ required: true, type: String })
+  @Prop({ type: String })
   input2: string;
 
-  @Prop({ required: true, type: String })
+  @Prop({ type: String })
   input3: string;
 
-  @Prop({ required: true, type: [Number] })
+  @Prop({ type: [Number] })
   inputCheckboxes: number[];
 }
 
@@ -49,10 +49,10 @@ export class Answer implements IAnswer {
 
 @Schema()
 export class TeamVote {
-  @Prop({ required: true, type: String, enum: ETeam })
+  @Prop({ required: true, enum: ETeam })
   team: ETeam;
 
-  @Prop({ required: true, type: String, enum: ETeam })
+  @Prop({ required: true, enum: ETeam })
   vote: ETeam;
 }
 
