@@ -3,11 +3,10 @@ export declare enum Contrast {
     MORE = "more",
     LESS = "less"
 }
-export declare class ContrastManager {
-    private readonly localStorageManager;
-    static readonly LOCAL_STORAGE_KEY: string;
-    static readonly FALLBACK_CONTRAST: Contrast;
-    static readonly DATA_NAME: string;
+declare class ContrastManager {
+    static readonly LOCAL_STORAGE_KEY = "contrast";
+    static readonly FALLBACK_CONTRAST = Contrast.SYSTEM;
+    static readonly DATA_NAME = "data-contrast";
     private contrast;
     constructor();
     switch(contrast?: Contrast): this;
@@ -17,4 +16,6 @@ export declare class ContrastManager {
     private determineInitialContrast;
     private getEffectiveContrast;
 }
+export declare const contrastManager: ContrastManager;
+export type { ContrastManager };
 //# sourceMappingURL=ContrastManager.d.ts.map

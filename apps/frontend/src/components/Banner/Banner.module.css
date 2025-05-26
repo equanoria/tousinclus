@@ -1,0 +1,8 @@
+.banner {
+  padding: 1rem 1.5rem;
+
+  &.danger {
+    background-color: var(--red-200);
+    color: var(--red-900);
+  }
+}

@@ -1,16 +1,15 @@
-import { LocalStorageManager } from './LocalStorageManager';
+import { localStorageManager } from "./LocalStorageManager";
 export var Contrast;
 (function (Contrast) {
     Contrast["SYSTEM"] = "system";
     Contrast["MORE"] = "more";
     Contrast["LESS"] = "less";
 })(Contrast || (Contrast = {}));
-export class ContrastManager {
-    localStorageManager = new LocalStorageManager();
+class ContrastManager {
     static LOCAL_STORAGE_KEY = 'contrast';
     static FALLBACK_CONTRAST = Contrast.SYSTEM;
     static DATA_NAME = 'data-contrast';
-    contrast;
+    contrast = ContrastManager.FALLBACK_CONTRAST;
     constructor() {
         this.contrast = this.determineInitialContrast();
         this.applyContrast();
@@ -18,7 +17,7 @@ export class ContrastManager {
     switch(contrast) {
         let resolvedContrast = contrast;
         if (!resolvedContrast) {
-            resolvedContrast = this.localStorageManager.getItem(ContrastManager.LOCAL_STORAGE_KEY);
+            resolvedContrast = localStorageManager.getItem(ContrastManager.LOCAL_STORAGE_KEY);
         }
         this.contrast = resolvedContrast ?? ContrastManager.FALLBACK_CONTRAST;
         this.applyContrast();
@@ -28,7 +27,7 @@ export class ContrastManager {
         return this.contrast;
     }
     setDefault(contrast) {
-        this.localStorageManager.setItem(ContrastManager.LOCAL_STORAGE_KEY, contrast);
+        localStorageManager.setItem(ContrastManager.LOCAL_STORAGE_KEY, contrast);
         return this;
     }
     applyContrast() {
@@ -37,7 +36,7 @@ export class ContrastManager {
         return this;
     }
     determineInitialContrast() {
-        const storedContrast = this.localStorageManager.getItem(ContrastManager.LOCAL_STORAGE_KEY);
+        const storedContrast = localStorageManager.getItem(ContrastManager.LOCAL_STORAGE_KEY);
         if (storedContrast) {
             return storedContrast;
         }
@@ -59,4 +58,5 @@ export class ContrastManager {
         return this.contrast;
     }
 }
+export const contrastManager = new ContrastManager();
 //# sourceMappingURL=ContrastManager.js.map

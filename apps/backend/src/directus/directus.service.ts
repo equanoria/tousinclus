@@ -455,16 +455,17 @@ export class DirectusService {
       }
       // Make an explicit request for users (allows filtering fields)
       let deckData = await this.directusClient.request(
-        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-        readItems<any, any, any>('decks', {
+        readItems('decks', {
           filter,
-          deep: {
-            group: {},
-          },
           fields: [
             'id',
             {
-              group: ['id'],
+              group: [
+                'id',
+                {
+                  cards_group_id: ['id'], // uniquement ce champ demandé
+                },
+              ],
             },
             {
               translations: ['title'],

@@ -1,6 +1,5 @@
-import { LocalStorageManager } from './LocalStorageManager';
-export class LocaleManager {
-    localStorageManager = new LocalStorageManager();
+import { localStorageManager } from './LocalStorageManager';
+class LocaleManager {
     static LOCAL_STORAGE_KEY = 'locale';
     static FALLBACK_LOCALE = {
         code: 'fr-FR',
@@ -9,7 +8,7 @@ export class LocaleManager {
     };
     locale = LocaleManager.FALLBACK_LOCALE;
     supportedLocales = [LocaleManager.FALLBACK_LOCALE];
-    async switch(localeCode) {
+    switch(localeCode) {
         if (localeCode === 'system') {
             this.setDefaultLocale('system');
             this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
@@ -30,15 +29,16 @@ export class LocaleManager {
             this.locale = LocaleManager.FALLBACK_LOCALE;
         }
         this.applyLocale();
+        return this;
     }
     getLocale() {
         return this.locale;
     }
-    async init(supportedLocales) {
+    init(supportedLocales) {
         if (supportedLocales) {
             this.supportedLocales = supportedLocales;
         }
-        const storedLocaleCode = this.localStorageManager.getItem(LocaleManager.LOCAL_STORAGE_KEY);
+        const storedLocaleCode = localStorageManager.getItem(LocaleManager.LOCAL_STORAGE_KEY);
         if (storedLocaleCode) {
             if (storedLocaleCode === 'system') {
                 this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
@@ -60,13 +60,16 @@ export class LocaleManager {
             this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
         }
         this.applyLocale();
+        return this;
     }
     setDefaultLocale(localeCode) {
-        this.localStorageManager.setItem(LocaleManager.LOCAL_STORAGE_KEY, localeCode);
+        localStorageManager.setItem(LocaleManager.LOCAL_STORAGE_KEY, localeCode);
+        return this;
     }
     applyLocale() {
         document.documentElement.lang = this.locale.code;
         document.documentElement.dir = this.locale.direction;
+        return this;
     }
     getSystemLocale() {
         const navigatorLanguages = navigator.languages || [navigator.language];
@@ -82,4 +85,5 @@ export class LocaleManager {
         return undefined;
     }
 }
+export const localeManager = new LocaleManager();
 //# sourceMappingURL=LocaleManager.js.map
