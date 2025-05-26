@@ -18,6 +18,9 @@ import { GameDocument, IGameMongo } from './schema/game.schema';
 import { RedisService } from '../redis/redis.service';
 import { DirectusService } from 'src/directus/directus.service';
 
+// ========== Lib Import ==========
+import { Parser } from 'json2csv';
+
 @Injectable()
 export class GameService {
   constructor(
@@ -515,5 +518,77 @@ export class GameService {
     );
 
     return updatedGame;
+  }
+
+  async exportGameByDate(targetDate: Date) {
+    const nextDay = new Date(targetDate);
+    nextDay.setDate(targetDate.getDate() + 1);
+
+    const games = await this.gameModel
+      .find({
+        createdAt: {
+          $gte: targetDate,
+          $lt: nextDay,
+        },
+      })
+      .lean(); // lean() pour avoir des objets JS simples
+
+    if (games.length === 0) {
+      return ''; // ou gérer autrement si aucun résultat
+    }
+
+    const flatGames = games.map((game) => {
+      let score_team1 = 0;
+      let score_team2 = 0;
+
+      for (const voteGroup of game.votes || []) {
+        let team1Votes = 0;
+        let team2Votes = 0;
+
+        for (const vote of voteGroup.votes || []) {
+          if (vote.vote === 'team1') {
+            team1Votes++;
+          } else if (vote.vote === 'team2') {
+            team2Votes++;
+          }
+        }
+
+        if (team1Votes > team2Votes) {
+          score_team1++;
+        } else if (team2Votes > team1Votes) {
+          score_team2++;
+        }
+        // En cas d’égalité, aucun point n’est attribué
+      }
+
+      return {
+        id: game._id,
+        code: game.code,
+        cardGroupId: game.cardGroupId,
+        createdAt: game.createdAt,
+        updatedAt: game.updatedAt,
+        createdBy_id: game.createdBy?.id ?? '',
+        createdBy_roles: game.createdBy?.roles?.join(', ') ?? '',
+        score_team1,
+        score_team2,
+      };
+    });
+
+    const fields = [
+      'id',
+      'code',
+      'cardGroupId',
+      'createdAt',
+      'updatedAt',
+      'createdBy_id',
+      'createdBy_roles',
+      'score_team1',
+      'score_team2',
+    ];
+
+    const parser = new Parser({ fields });
+    const csv = parser.parse(flatGames);
+
+    return csv;
   }
 }
