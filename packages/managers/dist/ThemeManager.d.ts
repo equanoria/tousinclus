@@ -3,11 +3,11 @@ export declare enum Theme {
     DARK = "dark",
     SYSTEM = "system"
 }
-export declare class ThemeManager {
-    private readonly localStorageManager;
-    static readonly LOCAL_STORAGE_KEY: string;
-    static readonly FALLBACK_THEME: Theme;
-    static readonly DATA_NAME: string;
+declare class ThemeManager {
+    static readonly LOCAL_STORAGE_KEY = "theme";
+    static readonly FALLBACK_THEME = Theme.LIGHT;
+    static readonly DATA_NAME = "data-theme";
+    static readonly MATCH_MEDIA = "(prefers-color-scheme: dark)";
     private theme;
     constructor();
     switch(theme?: Theme): this;
@@ -16,5 +16,8 @@ export declare class ThemeManager {
     private applyTheme;
     private getEffectiveTheme;
     private determineInitialTheme;
+    private listenToSystemChanges;
 }
+export declare const themeManager: ThemeManager;
+export type { ThemeManager };
 //# sourceMappingURL=ThemeManager.d.ts.map

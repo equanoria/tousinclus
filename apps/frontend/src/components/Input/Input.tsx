@@ -12,17 +12,28 @@ export const Input: React.FC<InputProps> = ({
   className,
   label,
   placeholder,
+  value,
+  onChange,
+  name, 
+  type = 'text',
+  ...rest
 }) => {
   const classes = clsx(styles.blocInput, className);
-  const id = useId(); 
+  const id = useId();
 
   return (
     <div className={classes}>
       <label className={styles.label} htmlFor={id}>{label}</label>
-      <input type="text" id={id} className={styles.input} placeholder={placeholder} />
+      <input
+        id={id}
+        className={styles.input}
+        name={name} 
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        {...rest}
+      />
     </div>
-
   );
 };
-
-

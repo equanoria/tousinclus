@@ -10,6 +10,8 @@ export interface CheckboxProps extends ComponentPropsWithoutRef<'input'> {
 export const Checkbox: React.FC<CheckboxProps> = ({
   className,
   label,
+  checked,
+  onChange,
   ...props
 }) => {
   const classes = clsx(styles.checkbox, className);
@@ -17,7 +19,14 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <div className={classes}>
-      <input type="checkbox" id={id} className={styles.input} {...props} />
+      <input
+        type="checkbox"
+        id={id}
+        className={styles.input}
+        checked={checked}
+        onChange={onChange}
+        {...props}
+      />
       <label htmlFor={id} className={styles.label}>{label}</label>
     </div>
   );

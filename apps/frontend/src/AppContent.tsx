@@ -1,14 +1,26 @@
-import { useEffect } from 'react';
 import { useAppState } from './context/AppStateProvider';
-import { Deck } from './views/Deck/Deck';
-// import { GameConnection } from './views/GameConnection/GameConnection';
+import { EGameStatus } from '@tousinclus/types';
+import { ErrorView } from './views/Error/ErrorView';
+import { GameReflection } from './views/GameReflection/GameReflection';
+import { gameService } from './services/game/game.service';
+import { useEffect } from 'react';
+import { GameConnection } from './views/GameConnection/GameConnection';
+import SocketBanner from './core/SocketBanner/SocketBanner';
+
+const views: Partial<Record<EGameStatus, JSX.Element>> = {
+  [EGameStatus.REFLECTION]: <GameReflection />,
+  [EGameStatus.DEBATE]: <ErrorView />,
+  [EGameStatus.RESULT]: <ErrorView />,
+};
 
 const AppContent = () => {
   const { currentView, setCurrentView } = useAppState();
 
   useEffect(() => {
-    setCurrentView(<Deck />);
-  }, [setCurrentView]);
+    gameService
+      .onGameStatus(({ gameStatus }) => setCurrentView(views[gameStatus] || <GameConnection />))
+      .onWaitingResponse(({ data }) => setCurrentView(views[data.status] || <GameConnection />));
+  }, [setCurrentView])
 
   return (
     <>
@@ -22,6 +34,9 @@ const AppContent = () => {
           </li>
         </ul>
       </nav>
+
+      <SocketBanner />
+
       <main id="main">{currentView}</main>
     </>
   );

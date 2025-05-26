@@ -2,11 +2,10 @@ export declare enum Font {
     OPENDYSLEXIC = "OpenDyslexic",
     DEFAULT = "default"
 }
-export declare class FontManager {
-    private readonly localStorageManager;
-    static readonly LOCAL_STORAGE_KEY: string;
-    static readonly FALLBACK_FONT: Font;
-    static readonly DATA_NAME: string;
+declare class FontManager {
+    static readonly LOCAL_STORAGE_KEY = "font";
+    static readonly FALLBACK_FONT = Font.DEFAULT;
+    static readonly DATA_NAME = "data-font";
     private font;
     constructor();
     switch(font?: Font): this;
@@ -15,4 +14,6 @@ export declare class FontManager {
     private applyFont;
     private determineInitialFont;
 }
+export declare const fontManager: FontManager;
+export type { FontManager };
 //# sourceMappingURL=FontManager.d.ts.map
