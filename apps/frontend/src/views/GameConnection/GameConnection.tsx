@@ -1,4 +1,5 @@
-import styles from './GameConnection.module.css';import { Button } from '../../components/Button/Button';
+import styles from './GameConnection.module.css';
+import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
 import { useEffect, useState } from 'react';
 import { ETeam, type IGame } from '@tousinclus/types';
@@ -6,6 +7,7 @@ import { gameService } from '../../services/game/game.service';
 import { useAppState } from '../../context/AppStateProvider';
 import type { ISocketResponse } from '../../types/ISocketResponse';
 import { sessionStorageManager } from '@tousinclus/managers';
+import { Link } from '../../components/Link/Link';
 
 enum ConnectionState {
   CODE = 'code',
@@ -17,7 +19,9 @@ const VALIDATION_PATTERN = /^\d{6}$/;
 
 export const GameConnection = () => {
   const { titleManager } = useAppState();
-  const [connectionState, setConnectionState] = useState<ConnectionState>(ConnectionState.CODE);
+  const [connectionState, setConnectionState] = useState<ConnectionState>(
+    ConnectionState.CODE,
+  );
   const [code, setCode] = useState<string>('');
   const [availableTeams, setAvailableTeams] = useState<ETeam[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -32,7 +36,7 @@ export const GameConnection = () => {
   useEffect(() => {
     const lastGameCode = sessionStorageManager.getItem<string>('GAME_CODE');
     if (lastGameCode) setCode(lastGameCode);
-  }, [])
+  }, []);
 
   const onJoiningResponse = (payload: ISocketResponse<IGame>) => {
     const { status, message, data } = payload;
@@ -40,10 +44,10 @@ export const GameConnection = () => {
     if (status !== 'success') {
       setErrorMessage(message);
       return;
-    };
+    }
 
     joining(data);
-  }
+  };
 
   const onWaitingResponse = (payload: ISocketResponse<IGame>) => {
     const { status, message, data } = payload;
@@ -51,11 +55,11 @@ export const GameConnection = () => {
     if (status !== 'success') {
       setErrorMessage(message);
       return;
-    };
+    }
 
     sessionStorageManager.setItem('GAME_CODE', data.code);
     setConnectionState(ConnectionState.WAITING);
-  }
+  };
 
   const joining = (game: IGame) => {
     const teams: ETeam[] = [];
@@ -65,21 +69,29 @@ export const GameConnection = () => {
 
     setAvailableTeams(teams);
     setConnectionState(ConnectionState.TEAM);
-  }
+  };
 
   const handleJoining = () => {
     setErrorMessage('');
-    gameService.joining(code)
-  }
+    gameService.joining(code);
+  };
 
   const handleJoinGame = (team: ETeam) => {
     handleJoining();
-    gameService.joinGame(code, team)
-  }
+    gameService.joinGame(code, team);
+  };
 
   return (
     <div className={styles.pageConnection}>
-      <h1>tous inclus</h1>
+      <img
+        src="/src/assets/images/asset_1.svg"
+        alt=""
+        className={styles.asset_top}
+      />
+      <img
+        src="/src/assets/images/logo-ts.svg"
+        alt=""
+      />
       <p className="error">{errorMessage}</p>
       {(() => {
         switch (connectionState) {
@@ -106,7 +118,7 @@ export const GameConnection = () => {
               </div>
             );
           case ConnectionState.WAITING:
-            titleManager.set('En attente de l\'autre équipe...');
+            titleManager.set("En attente de l'autre équipe...");
             return (
               <div className={styles.teamSelection}>
                 <p>Dans l'attente de l'autre équipe...</p>
@@ -140,9 +152,19 @@ export const GameConnection = () => {
                   Rejoindre la partie
                 </Button>
               </form>
-          );
+            );
         }
       })()}
+      <img
+        src="/src/assets/images/asset_2.svg"
+        alt=""
+        className={styles.asset_bottom}
+      />
+      <img src="src/assets/images/logo-eq.svg" alt="" />
+      <div className={styles.footer}>
+        <Link href="/mention_legal">Mention Légales</Link>
+        <Link href="/a_propos">À propos</Link>
+      </div>
     </div>
   );
 };
