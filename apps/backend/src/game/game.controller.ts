@@ -224,7 +224,7 @@ export class GameController {
   })
   @ApiResponse({
     status: 404,
-    description: 'No games foundfor this date',
+    description: 'No games found for this date',
     type: HTTPResponseDTO,
   })
   async exportGames(
