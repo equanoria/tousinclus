@@ -159,10 +159,10 @@ export class GameDTO implements IGame {
   @Expose({ groups: ['admin'] })
   createdBy: IUser;
 
+  @IsOptional()
   @IsDate()
-  @IsNotEmpty()
   @Expose({ groups: ['room'] })
-  reflectionEndsAt: Date;
+  reflectionEndsAt?: Date | null;
 
   @IsOptional()
   @IsString()
