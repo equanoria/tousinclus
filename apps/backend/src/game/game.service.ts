@@ -7,7 +7,12 @@ import {
 
 // ========== DTO / Types Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO, VoteDTO } from './dto/game.dto';
-import { EGameStatus, ETeam } from '@tousinclus/types';
+import { EGameStatus, ETeam, IUser } from '@tousinclus/types';
+
+// ========== Mongo Import ==========
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { GameDocument, IGameMongo } from './schema/game.schema';
 
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
@@ -16,6 +21,8 @@ import { DirectusService } from 'src/directus/directus.service';
 @Injectable()
 export class GameService {
   constructor(
+    @InjectModel('Game')
+    private readonly gameModel: Model<GameDocument>,
     private readonly redisService: RedisService,
     private readonly directusService: DirectusService,
   ) {}
@@ -34,6 +41,7 @@ export class GameService {
 
   private async generateNewGameData(
     createGameData: CreateGameDTO,
+    user: IUser,
   ): Promise<GameDTO> {
     const deckId =
       createGameData.deckId ?? (await this.directusService.getDeckDefault());
@@ -51,6 +59,9 @@ export class GameService {
     }
 
     const newGame: GameDTO = {
+      createdAt: new Date(),
+      createdBy: user,
+      _id: undefined,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EGameStatus.WAITING,
       reflectionDuration: reflectionDuration,
@@ -70,19 +81,31 @@ export class GameService {
     return newGame;
   }
 
-  async createGame(createGameDto: CreateGameDTO): Promise<GameDTO> {
-    const newGame = this.generateNewGameData(createGameDto || null);
-    await this.redisService.setGame((await newGame).code, await newGame); // add new game data to redis db
+  async createGame(
+    createGameDto: CreateGameDTO,
+    user: IUser,
+  ): Promise<GameDTO> {
+    const newGame = await this.generateNewGameData(createGameDto || null, user);
+
+    // Create game record and update the mongoId when it's created
+    const createdGame = await this.gameModel.create(newGame);
+    newGame._id = String(createdGame._id);
+
+    await this.redisService.setGame(newGame.code, newGame); // add new game data to redis
     return newGame; // Return the game create as JSON
   }
 
   async createManyGame(
     i: number,
     createGameDto: CreateGameDTO,
+    user: IUser,
   ): Promise<GameDTO[]> {
     const newGames: GameDTO[] = [];
     for (let step = 0; step < i; step++) {
-      const newGame = await this.generateNewGameData(createGameDto || null); // Generate i game data
+      const newGame = await this.generateNewGameData(
+        createGameDto || null,
+        user,
+      ); // Generate i game data
       newGames.push(newGame);
       await this.redisService.setGame(newGame.code, newGame); // add new game data to redis db
     }
@@ -480,5 +503,17 @@ export class GameService {
         message: 'All cards have reached consensus.',
       };
     }
+  }
+
+  async updateMongoGame(code: GameDTO['code']) {
+    const mongoGameData: IGameMongo = await this.findOneGame(code);
+
+    const updatedGame = await this.gameModel.findByIdAndUpdate(
+      mongoGameData._id,
+      mongoGameData,
+      { new: true }, // return updated record
+    );
+
+    return updatedGame;
   }
 }

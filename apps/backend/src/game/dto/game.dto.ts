@@ -7,6 +7,7 @@ import {
   EGameStatus,
   ETeam,
   IVote,
+  IUser,
 } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {
@@ -16,6 +17,7 @@ import {
   IsNotEmpty,
   IsBoolean,
   ValidateNested,
+  IsDate,
   IsArray,
 } from 'class-validator';
 
@@ -71,6 +73,7 @@ export class AnswerDataDTO implements IAnswerData {
   @ApiProperty({
     description: 'Checkboxes answer',
     example: [1, 2, 8],
+    type: [Number],
   })
   inputCheckboxes: number[];
 }
@@ -147,6 +150,20 @@ export class TeamDTO implements ITeam {
 }
 
 export class GameDTO implements IGame {
+  @IsDate()
+  @IsNotEmpty()
+  @Expose({ groups: ['admin'] })
+  createdAt: Date;
+
+  @IsNotEmpty()
+  @Expose({ groups: ['admin'] })
+  createdBy: IUser;
+
+  @IsOptional()
+  @IsString()
+  @Expose({ groups: ['admin'] })
+  _id?: string;
+
   @IsString()
   @IsNotEmpty()
   @Expose()
@@ -179,7 +196,7 @@ export class GameDTO implements IGame {
     description: 'Card group identifier',
     example: 14,
   })
-  cardGroupId?: number;
+  cardGroupId: number;
 
   @IsOptional()
   @Expose({ groups: ['team1', 'joining'] })

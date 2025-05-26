@@ -1,3 +1,5 @@
+import type { IUser } from "./IUser";
+
 export enum EGameStatus {
   WAITING = 'waiting',
   REFLECTION = 'reflection',
@@ -11,6 +13,9 @@ export enum ETeam {
 }
 
 export interface IGame {
+  createdAt: Date,
+  createdBy: IUser,
+  _id?: unknown;
   code: string;
   status: EGameStatus;
   cardGroupId?: number;
