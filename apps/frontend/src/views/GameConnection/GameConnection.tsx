@@ -26,11 +26,8 @@ export const GameConnection = () => {
     gameService
       .onJoiningResponse(onJoiningResponse)
       .onWaitingResponse(onWaitingResponse);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  useEffect(() => {
-    console.log(errorMessage)
-  }, [errorMessage])
 
   useEffect(() => {
     const lastGameCode = sessionStorageManager.getItem<string>('GAME_CODE');
