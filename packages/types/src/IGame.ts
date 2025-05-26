@@ -18,7 +18,7 @@ export interface IGame {
   mongoId?: string;
   code: string;
   status: EGameStatus;
-  cardGroupId?: number;
+  cardGroupId: number;
   team1?: ITeam;
   team2?: ITeam;
   answers?: Array<IAnswer>;
@@ -32,7 +32,7 @@ export interface ITeam {
 
 export interface IAnswer {
   cardId: number;
-  team: ETeam;
+  team?: ETeam;
   answer?: IAnswerData;
 }
 

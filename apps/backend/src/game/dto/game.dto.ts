@@ -18,6 +18,7 @@ import {
   IsBoolean,
   ValidateNested,
   IsDate,
+  IsArray,
 } from 'class-validator';
 
 // ========== DTO ==========
@@ -42,7 +43,6 @@ export class CreateGameDTO {
 
 export class AnswerDataDTO implements IAnswerData {
   @IsString()
-  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 1',
@@ -51,7 +51,6 @@ export class AnswerDataDTO implements IAnswerData {
   input1: string;
 
   @IsString()
-  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 2',
@@ -60,7 +59,6 @@ export class AnswerDataDTO implements IAnswerData {
   input2: string;
 
   @IsString()
-  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 3',
@@ -68,6 +66,8 @@ export class AnswerDataDTO implements IAnswerData {
   })
   input3: string;
 
+  @IsArray()
+  @IsNumber({}, { each: true })
   @IsNotEmpty()
   @Expose()
   @ApiProperty({
@@ -224,11 +224,11 @@ export class GameDTO implements IGame {
     description: 'Answers associated with the team',
     type: AnswerDTO,
   })
-  answers?: Array<AnswerDTO>; // Dynamic keys corresponding to IDs
+  answers?: AnswerDTO[]; // Dynamic keys corresponding to IDs
 
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => VoteDTO)
   @Expose({ groups: ['debate'] })
-  votes?: Array<VoteDTO>;
+  votes?: VoteDTO[];
 }

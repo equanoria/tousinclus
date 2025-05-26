@@ -7,7 +7,7 @@ export interface ICredentials {
   password: string;
 }
 
-export class DirectusService {
+class DirectusService {
   private readonly directusClient;
 
   public constructor() {
@@ -32,3 +32,5 @@ export class DirectusService {
     }
   }
 }
+
+export const directusService = new DirectusService();

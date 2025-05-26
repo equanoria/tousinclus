@@ -1,15 +1,16 @@
 import type { TLanguage } from '@tousinclus/types';
-export declare class LocaleManager {
-    private localStorageManager;
+declare class LocaleManager {
     static readonly LOCAL_STORAGE_KEY = "locale";
     static readonly FALLBACK_LOCALE: TLanguage;
     private locale;
     private supportedLocales;
-    switch(localeCode?: string): Promise<void>;
+    switch(localeCode?: string): this;
     getLocale(): TLanguage;
-    init(supportedLocales?: TLanguage[]): Promise<void>;
+    init(supportedLocales?: TLanguage[]): this;
     private setDefaultLocale;
     private applyLocale;
     private getSystemLocale;
 }
+export declare const localeManager: LocaleManager;
+export type { LocaleManager };
 //# sourceMappingURL=LocaleManager.d.ts.map

@@ -156,6 +156,12 @@ export class GameService {
   ): Promise<GameDTO> {
     const game = await this.findOneGame(code);
 
+    if (game.team1.clientId === clientId || game.team2.clientId === clientId) {
+      throw new ForbiddenException(
+        `Your client ID ${game.team1.clientId} is already connected`,
+      );
+    }
+
     if (team === ETeam.TEAM1) {
       if (game.team1.isConnected) {
         throw new ForbiddenException(

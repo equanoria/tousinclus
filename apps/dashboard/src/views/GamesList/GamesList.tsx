@@ -3,8 +3,7 @@ import {
   Form,
   Input,
 } from 'antd';
-import type { ICredentials } from '../../services/DirectusService';
-import { useAppState } from '../../context/AppStateProvider';
+import { directusService, type ICredentials } from '../../services/DirectusService';
 
 const messages = {
   email: 'Veuillez entrer une adresse e-mail valide',
@@ -12,8 +11,6 @@ const messages = {
 };
 
 export const GamesList = () => {
-  const { directusService } = useAppState();
-
   const [form] = Form.useForm();
 
   const onFinish = (credentials: ICredentials) => {
