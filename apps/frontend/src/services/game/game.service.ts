@@ -9,6 +9,8 @@ class GameService {
   private _team?: ETeam;
   private _cardsGroupId?: number;
 
+  private readyCallbacks: (() => void)[] = [];
+
   get code() {
     if (!this._code) throw new Error('Undefined game code');
     return this._code;
@@ -25,7 +27,10 @@ class GameService {
   }
 
   onGameStatus(callback: TGameStatusCallback): this {
-    socketService.on('game-status', callback);
+    socketService.on('game-status', (payload) => {
+      callback(payload);
+      this.onReadyTrigger();
+    });
     return this;
   }
 
@@ -71,7 +76,22 @@ class GameService {
 
       this._code = data.code;
       this._cardsGroupId = data.cardGroupId;
+
+      this.onReadyTrigger();
     }
+  }
+
+  private onReadyTrigger() {
+    if (this._code && this._team && this._cardsGroupId) {
+      for (const callback of this.readyCallbacks) {
+        callback();
+      }
+    }
+  }
+
+  onReady(callback: () => void): this {
+    this.readyCallbacks.push(callback);
+    return this;
   }
 }
 

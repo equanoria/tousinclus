@@ -29,6 +29,10 @@ export const GameConnection = () => {
   }, [])
 
   useEffect(() => {
+    console.log(errorMessage)
+  }, [errorMessage])
+
+  useEffect(() => {
     const lastGameCode = sessionStorageManager.getItem<string>('GAME_CODE');
     if (lastGameCode) setCode(lastGameCode);
   }, [])

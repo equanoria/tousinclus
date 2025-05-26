@@ -12,7 +12,9 @@ class GameReflectionService {
   private updateAnswerCallbacks: TAnswerCallback[] = [];
 
   constructor() {
-    gameService.onWaitingResponse(this.getAnswers);
+    gameService.onReady(() => {
+      this.getAnswers();
+    });
     socketService.on('reflection-response', this.onReflectionResponseDo.bind(this));
   }
 
@@ -30,12 +32,13 @@ class GameReflectionService {
     });
   }
 
-  onGetAnswersResponse(callback: TWSResponseCallback) {
+  onGetAnswersResponse(callback: TWSResponseCallback): this {
     this.getAnswersCallbacks.push(callback);
+    return this;
   }
 
   private setAnswer(answer: IAnswer) {
-    this._answers = this.answers.filter((ansr) => ansr.cardId === answer.cardId)
+    this._answers = this.answers.filter((ansr) => ansr.cardId !== answer.cardId);
     this._answers.push(answer);
   }
 
@@ -50,8 +53,9 @@ class GameReflectionService {
     });
   }
 
-  onUpdateAnswerResponse(callback: TAnswerCallback) {
+  onUpdateAnswerResponse(callback: TAnswerCallback): this {
     this.updateAnswerCallbacks.push(callback);
+    return this;
   }
 
   private onReflectionResponseDo(payload: ISocketResponse<IGame> | ISocketResponse<IAnswer>) {
@@ -79,7 +83,7 @@ class GameReflectionService {
   }
 
   getAnswer(cardId: number) {
-    return this.answers.filter((answer) => answer.cardId === cardId);
+    return this.answers.find((answer) => answer.cardId === cardId);
   }
 }
 
