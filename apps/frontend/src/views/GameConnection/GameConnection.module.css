@@ -9,7 +9,7 @@
 }
 
 .connection {
-  max-width: 400px;
+  max-width: 25rem;
   width: 100%;
   padding: var(--space-400) var(--space-300);
   border-radius: var(--radius-200);
