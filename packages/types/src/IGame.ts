@@ -14,7 +14,7 @@ export enum ETeam {
 
 export interface IGame {
   createdAt: Date,
-  createdBy: IUser,
+  createdBy: IUser['id'],
   reflectionEndsAt?: Date | null;
   _id?: unknown | null;
   code: string;

@@ -63,7 +63,7 @@ export class GameService {
 
     const newGame: GameDTO = {
       createdAt: new Date(),
-      createdBy: user,
+      createdBy: user.id,
       reflectionEndsAt: null,
       _id: undefined,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
@@ -584,8 +584,7 @@ export class GameService {
         cardGroupId: game.cardGroupId,
         createdAt: game.createdAt,
         updatedAt: game.updatedAt,
-        createdBy_id: game.createdBy?.id ?? '',
-        createdBy_roles: game.createdBy?.roles?.join(', ') ?? '',
+        createdBy_id: game.createdBy ?? '',
         score_team1,
         score_team2,
       };
@@ -598,7 +597,6 @@ export class GameService {
       'createdAt',
       'updatedAt',
       'createdBy_id',
-      'createdBy_roles',
       'score_team1',
       'score_team2',
     ];
