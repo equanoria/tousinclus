@@ -5,6 +5,7 @@ import {
   createDirectus,
   readItems,
   readRoles,
+  readUsers,
   rest,
   staticToken,
 } from '@directus/sdk';
@@ -550,5 +551,22 @@ export class DirectusService {
       .filter((roleName): roleName is ERole =>
         Object.values(ERole).includes(roleName as ERole),
       );
+  }
+
+  async getFirstLastNameById(
+    createdByIds: string[],
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  ): Promise<any> {
+    const query_object = {
+      filter: {
+        id: {
+          _in: createdByIds,
+        },
+      },
+      fields: ['first_name', 'last_name', 'id'],
+    };
+
+    const result = await this.directusClient.request(readUsers(query_object));
+    return result;
   }
 }
