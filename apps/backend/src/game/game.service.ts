@@ -18,6 +18,9 @@ import { GameDocument, IGameMongo } from './schema/game.schema';
 import { RedisService } from '../redis/redis.service';
 import { DirectusService } from 'src/directus/directus.service';
 
+// ========== Lib Import ==========
+import { Parser } from 'json2csv';
+
 @Injectable()
 export class GameService {
   constructor(
@@ -61,6 +64,7 @@ export class GameService {
     const newGame: GameDTO = {
       createdAt: new Date(),
       createdBy: user,
+      reflectionEndsAt: null,
       _id: undefined,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EGameStatus.WAITING,
@@ -225,6 +229,19 @@ export class GameService {
     return false;
   }
 
+  async updateReflectionEndsAt(
+    code: GameDTO['code'],
+    reflectionEndsAt: GameDTO['reflectionEndsAt'],
+  ): Promise<void> {
+    const game = await this.findOneGame(code);
+    if (!game) {
+      throw new NotFoundException(`Game with code ${code} not found`);
+    }
+
+    game.reflectionEndsAt = reflectionEndsAt;
+    await this.redisService.setGame(code, game);
+  }
+
   async updateGameStatus(
     code: GameDTO['code'],
     status: GameDTO['status'],
@@ -246,33 +263,36 @@ export class GameService {
     try {
       const game = await this.findOneGame(code);
 
-      if (game.status !== 'reflection') {
+      if (game.status !== 'reflection' && game.status !== 'debate') {
         // If game status doesn't match with action
         throw new Error(
-          `Forbidden game with code ${code} is not in the 'reflection' status`,
+          `Forbidden: game with code ${code} is not in the 'reflection' or 'debate' status`,
         );
       }
 
-      if (team === ETeam.TEAM1) {
-        if (game.team1.clientId !== clientId) {
-          throw new Error(`Client ID ${clientId} is not connected to Team 1`);
-        }
+      // only filter answers when reflection phase
+      if (game.status === 'reflection') {
+        if (team === ETeam.TEAM1) {
+          if (game.team1.clientId !== clientId) {
+            throw new Error(`Client ID ${clientId} is not connected to Team 1`);
+          }
 
-        // Filter only team1 answers
-        game.answers = game.answers.filter(
-          (answer) => answer.team !== ETeam.TEAM2,
-        );
-      } else if (team === ETeam.TEAM2) {
-        if (game.team2.clientId !== clientId) {
-          throw new Error(`Client ID ${clientId} is not connected to Team 2`);
-        }
+          // Filter only team1 answers
+          game.answers = game.answers.filter(
+            (answer) => answer.team !== ETeam.TEAM2,
+          );
+        } else if (team === ETeam.TEAM2) {
+          if (game.team2.clientId !== clientId) {
+            throw new Error(`Client ID ${clientId} is not connected to Team 2`);
+          }
 
-        // Filter only team2 answers
-        game.answers = game.answers.filter(
-          (answer) => answer.team !== ETeam.TEAM1,
-        );
-      } else {
-        throw new Error(`Invalid team specified: ${team}`);
+          // Filter only team2 answers
+          game.answers = game.answers.filter(
+            (answer) => answer.team !== ETeam.TEAM1,
+          );
+        } else {
+          throw new Error(`Invalid team specified: ${team}`);
+        }
       }
 
       return game;
@@ -515,5 +535,77 @@ export class GameService {
     );
 
     return updatedGame;
+  }
+
+  async exportGameByDate(targetDate: Date) {
+    const nextDay = new Date(targetDate);
+    nextDay.setDate(targetDate.getDate() + 1);
+
+    const games = await this.gameModel
+      .find({
+        createdAt: {
+          $gte: targetDate,
+          $lt: nextDay,
+        },
+      })
+      .lean(); // lean() pour avoir des objets JS simples
+
+    if (games.length === 0) {
+      return ''; // ou gérer autrement si aucun résultat
+    }
+
+    const flatGames = games.map((game) => {
+      let score_team1 = 0;
+      let score_team2 = 0;
+
+      for (const voteGroup of game.votes || []) {
+        let team1Votes = 0;
+        let team2Votes = 0;
+
+        for (const vote of voteGroup.votes || []) {
+          if (vote.vote === 'team1') {
+            team1Votes++;
+          } else if (vote.vote === 'team2') {
+            team2Votes++;
+          }
+        }
+
+        if (team1Votes > team2Votes) {
+          score_team1++;
+        } else if (team2Votes > team1Votes) {
+          score_team2++;
+        }
+        // En cas d’égalité, aucun point n’est attribué
+      }
+
+      return {
+        id: game._id,
+        code: game.code,
+        cardGroupId: game.cardGroupId,
+        createdAt: game.createdAt,
+        updatedAt: game.updatedAt,
+        createdBy_id: game.createdBy?.id ?? '',
+        createdBy_roles: game.createdBy?.roles?.join(', ') ?? '',
+        score_team1,
+        score_team2,
+      };
+    });
+
+    const fields = [
+      'id',
+      'code',
+      'cardGroupId',
+      'createdAt',
+      'updatedAt',
+      'createdBy_id',
+      'createdBy_roles',
+      'score_team1',
+      'score_team2',
+    ];
+
+    const parser = new Parser({ fields });
+    const csv = parser.parse(flatGames);
+
+    return csv;
   }
 }
