@@ -63,7 +63,7 @@ export class GameService {
 
     const newGame: GameDTO = {
       createdAt: new Date(),
-      createdBy: user,
+      createdBy: user.id,
       reflectionEndsAt: null,
       _id: undefined,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
@@ -554,6 +554,21 @@ export class GameService {
       return ''; // ou gérer autrement si aucun résultat
     }
 
+    // Extraire les createdBy uniques
+    const createdByUniqueIds = Array.from(
+      new Set(games.map((g) => g.createdBy)),
+    );
+
+    // Appel à Directus pour récupérer noms et prénoms
+    const users =
+      await this.directusService.getFirstLastNameById(createdByUniqueIds);
+
+    // Créer un dictionnaire pour un mapping rapide
+    const userMap = new Map(
+      users.map((user) => [user.id, `${user.first_name} ${user.last_name}`]),
+    );
+
+    // Génération du CSV avec noms
     const flatGames = games.map((game) => {
       let score_team1 = 0;
       let score_team2 = 0;
@@ -563,19 +578,12 @@ export class GameService {
         let team2Votes = 0;
 
         for (const vote of voteGroup.votes || []) {
-          if (vote.vote === 'team1') {
-            team1Votes++;
-          } else if (vote.vote === 'team2') {
-            team2Votes++;
-          }
+          if (vote.vote === 'team1') team1Votes++;
+          else if (vote.vote === 'team2') team2Votes++;
         }
 
-        if (team1Votes > team2Votes) {
-          score_team1++;
-        } else if (team2Votes > team1Votes) {
-          score_team2++;
-        }
-        // En cas d’égalité, aucun point n’est attribué
+        if (team1Votes > team2Votes) score_team1++;
+        else if (team2Votes > team1Votes) score_team2++;
       }
 
       return {
@@ -584,8 +592,8 @@ export class GameService {
         cardGroupId: game.cardGroupId,
         createdAt: game.createdAt,
         updatedAt: game.updatedAt,
-        createdBy_id: game.createdBy?.id ?? '',
-        createdBy_roles: game.createdBy?.roles?.join(', ') ?? '',
+        createdBy_id: game.createdBy ?? '',
+        createdBy_name: userMap.get(game.createdBy) ?? 'Inconnu',
         score_team1,
         score_team2,
       };
@@ -598,7 +606,7 @@ export class GameService {
       'createdAt',
       'updatedAt',
       'createdBy_id',
-      'createdBy_roles',
+      'createdBy_name',
       'score_team1',
       'score_team2',
     ];

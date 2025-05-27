@@ -157,7 +157,7 @@ export class GameDTO implements IGame {
 
   @IsNotEmpty()
   @Expose({ groups: ['admin'] })
-  createdBy: IUser;
+  createdBy: IUser['id'];
 
   @IsOptional()
   @IsDate()
