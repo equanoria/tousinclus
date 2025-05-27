@@ -11,6 +11,7 @@ import {
 } from '@directus/sdk';
 import { ConfigService } from '@nestjs/config';
 import { ERole } from '@tousinclus/types';
+import { IUserDirectus } from './interface/user.interface';
 
 @Injectable()
 export class DirectusService {
@@ -553,10 +554,7 @@ export class DirectusService {
       );
   }
 
-  async getFirstLastNameById(
-    createdByIds: string[],
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  ): Promise<any> {
+  async getFirstLastNameById(createdByIds: string[]): Promise<IUserDirectus[]> {
     const query_object = {
       filter: {
         id: {
@@ -566,7 +564,9 @@ export class DirectusService {
       fields: ['first_name', 'last_name', 'id'],
     };
 
-    const result = await this.directusClient.request(readUsers(query_object));
+    const result = await this.directusClient.request<IUserDirectus[]>(
+      readUsers(query_object),
+    );
     return result;
   }
 }
