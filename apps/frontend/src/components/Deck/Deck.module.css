@@ -1,12 +1,55 @@
 .deck {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
   background-color: var(--blue-200);
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: min-content;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100vh;
+  gap: var(--space-800);
+  padding: var(--space-800) var(--space-1200);
+}
+
+h1 {
+  font-family: var(--title-page-font-family);
+  font-size: var(--title-page-size-base);
+  font-weight: var(--title-page-font-weight);
+  color: var(--pale-blue-600);
+}
+
+.deckContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1200);
+}
+
+.usageSituationContainer,
+.extremeUsersContainer,
+.cardsToDrawContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-600);
+}
+
+.extremeUsers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-row-gap: var(--space-600);
+}
+
+.bottomContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.bottomContainer > button {
+  max-width: 250px;
+  height: min-content;
+}
+
+.cardsImg {
+  max-width: 530px;
 }

@@ -6,6 +6,7 @@ import { GameCard } from '../GameCard/GameCard';
 import type { IDirectusCardsGroup } from '@tousinclus/types';
 import { directusService } from '../../services/directus/directus.service';
 import { Button } from '../Button/Button';
+import { IconArrowRight } from '@tabler/icons-react';
 
 export interface DeckProps extends ComponentPropsWithoutRef<'section'> {
   cardsGroup?: IDirectusCardsGroup;
@@ -19,48 +20,65 @@ export const Deck: React.FC<DeckProps> = ({
   ...props
 }) => {
   const classes = clsx(styles.deck, className);
-
   const usageSituation = cardsGroup?.usage_situation;
   const extremeUsers = cardsGroup?.extreme_user ?? [];
-console.log('Deck', { usageSituation });
   return (
     <section className={classes} {...props}>
-      {/* Carte de situation */}
-      {usageSituation && (
-        <GameCard
-          key="situation"
-          type="situation"
-          img={directusService.getAssetUrl(usageSituation.image)}
-          alt={
-            usageSituation.context_translations?.[0]?.context ??
-            usageSituation.description_translations?.[0]?.description ??
-            'Situation'
-          }
-          number={usageSituation.id}
-        />
-      )}
-
-      {/* Cartes utilisateurs */}
-      {extremeUsers.map((userData) => {
-        const user = userData.cards_users_id;
-        const description = user.translations?.[0]?.description ?? '';
-        const image = user.image;
-
-        return (
-          <GameCard
-            key={user.id}
-            type="user"
-            img={directusService.getAssetUrl(image)}
-            alt={description}
-            number={user.id}
-          />
-        );
-      })}
-      {onStart && (
-        <Button variant="primary" onClick={onStart}>
-          Commencer la partie
-        </Button>
-      )}
+      <h1>Préparation du matériel</h1>
+      <div className={styles.deckContainer}>
+        <div className={styles.usageSituationContainer}>
+          <h2>Placez la carte “situation d’usage” suivante sur le plateau</h2>
+          {usageSituation && (
+            <GameCard
+              key="situation"
+              type="situation"
+              img={directusService.getAssetUrl(usageSituation.image)}
+              alt={
+                usageSituation.context_translations?.[0]?.context ??
+                usageSituation.description_translations?.[0]?.description ??
+                'Situation'
+              }
+              number={usageSituation.id}
+            />
+          )}
+        </div>
+        <div className={styles.extremeUsersContainer}>
+          <h2>
+            Placez les cartes “utilisateur extrême” suivantes sur le plateau
+          </h2>
+          <div className={styles.extremeUsers}>
+            {extremeUsers.map((userData) => {
+              const user = userData.cards_users_id;
+              const description = user.translations?.[0]?.description ?? '';
+              const image = user.image;
+              return (
+                <GameCard
+                  key={user.id}
+                  type="user"
+                  img={directusService.getAssetUrl(image)}
+                  alt={description}
+                  number={user.id}
+                />
+              );
+            })}
+          </div>
+        </div>
+        <div className={styles.bottomContainer}>
+          <div className={styles.cardsToDrawContainer}>
+            <h2>Piochez 4 cartes “concevoir pour tous”</h2>
+            <img
+              src="/src/assets/images/cards.svg"
+              alt=""
+              className={styles.cardsImg}
+            />
+          </div>
+          {onStart && (
+            <Button variant="primary" onClick={onStart} endIcon={<IconArrowRight />}>
+              Commencer la partie
+            </Button>
+          )}
+        </div>
+      </div>
     </section>
   );
 };
