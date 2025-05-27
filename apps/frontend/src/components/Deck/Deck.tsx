@@ -20,7 +20,8 @@ export const Deck: React.FC<DeckProps> = ({
   ...props
 }) => {
   const classes = clsx(styles.deck, className);
-  const usageSituation = cardsGroup?.usage_situation;
+  if(!cardsGroup) return
+  const usageSituation = cardsGroup.usage_situation;
   const extremeUsers = cardsGroup?.extreme_user ?? [];
   return (
     <section className={classes} {...props}>
