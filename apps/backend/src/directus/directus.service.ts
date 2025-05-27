@@ -564,9 +564,8 @@ export class DirectusService {
       fields: ['first_name', 'last_name', 'id'],
     };
 
-    const result = await this.directusClient.request<IUserDirectus[]>(
+    return await this.directusClient.request<IUserDirectus[]>(
       readUsers(query_object),
     );
-    return result;
   }
 }

@@ -556,7 +556,7 @@ export class GameService {
 
     // Extraire les createdBy uniques
     const createdByUniqueIds = Array.from(
-      new Set(games.map((g) => g.createdBy).filter(Boolean)),
+      new Set(games.map((g) => g.createdBy)),
     );
 
     // Appel à Directus pour récupérer noms et prénoms
