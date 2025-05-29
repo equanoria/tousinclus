@@ -1,0 +1,65 @@
+.pageReflection {
+  background-color: var(--blue-200);
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-800);
+  padding: var(--space-800) var(--space-1200);
+}
+
+h1 {
+  font-family: var(--title-page-font-family);
+  font-size: var(--title-page-size-base);
+  font-weight: var(--title-page-font-weight);
+  color: var(--pale-blue-600);
+}
+
+.reflectionContainer {
+  display: flex;
+  gap: var(--space-1200);
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  font-family: var(--title-page-font-family);
+  font-size: var(--scale-05);
+  font-weight: var(--title-page-font-weight);
+  color: var(--white-1000);
+  background-color: var(--pale-blue-600);
+  padding: var(--space-600);
+  border-radius: var(--radius-200) var(--radius-200) 0 0;
+}
+
+.containerForm {
+  background-color: var(--blue-100);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-800) var(--space-600) var(--space-600) var(--space-600);
+  gap: var(--space-800);
+  border-radius: 0 0 var(--radius-200) var(--radius-200);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-800);
+}
+
+.form > fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-400);
+}
+
+fieldset > p {
+  color: var(--checkbox-field-text-primary-default);
+  font-family: var(--font-gotham);
+  font-size: var(--body-size-medium);
+  font-weight: var(--weight-medium);
+}
