@@ -172,37 +172,58 @@ export const GameReflection = () => {
               </div>
             </div>
           </div>
-          <div>
-            <GameCard
-              key="situation"
-              type="situation"
-              img={directusService.getAssetUrl(usageSituation?.image)}
-              alt={
-                usageSituation?.context_translations?.[0]?.context ??
-                usageSituation?.description_translations?.[0]?.description ??
-                'Situation'
-              }
-              number={usageSituation.id}
-            />
-            {cardsGroup?.extreme_user
-              ?.filter((_, index) => index !== extremeUserCursor)
-              .map((user) => {
-                const id = user.cards_users_id.id;
-                const name = user.cards_users_id.translations[0].description;
-                const image = user.cards_users_id.image;
-                return (
-                  <GameCard
-                    key={id}
-                    type="user"
-                    img={directusService.getAssetUrl(image)}
-                    alt={name}
-                    number={id}
-                  />
-                );
-              })}
-            <Button onClick={() => updateCursor('next')}>Next</Button>
-            <Button onClick={() => updateCursor('back')}>Back</Button>
+          <div className={styles.rightContainer}>
+            <div className={styles.situationContainer}>
+              <h3>Votre deck de cartes</h3>
+              <p>
+                Trouvez des solutions pour chaque utilisateur face à la
+                situation concernée
+              </p>
+              <GameCard
+                key="situation"
+                type="situation"
+                img={directusService.getAssetUrl(usageSituation?.image)}
+                alt={
+                  usageSituation?.context_translations?.[0]?.context ??
+                  usageSituation?.description_translations?.[0]?.description ??
+                  'Situation'
+                }
+                number={usageSituation.id}
+              />
+            </div>
+            <div className={styles.usersContainer}>
+              {cardsGroup?.extreme_user
+                ?.filter((_, index) => index !== extremeUserCursor)
+                .map((user) => {
+                  const id = user.cards_users_id.id;
+                  const name = user.cards_users_id.translations[0].description;
+                  const image = user.cards_users_id.image;
+                  return (
+                    <div key={id}>
+                      <Button>{id}</Button>
+                      <GameCard
+                        type="user"
+                        img={directusService.getAssetUrl(image)}
+                        alt={name}
+                        number={id}
+                      />
+                    </div>
+                  );
+                })}
+              <Button onClick={() => updateCursor('next')}>Next</Button>
+              <Button onClick={() => updateCursor('back')}>Back</Button>
+            </div>
           </div>
+          <img
+            src="/src/assets/images/asset_4.svg"
+            alt=""
+            className={styles.asset_left}
+          />
+          <img
+            src="/src/assets/images/asset_5.svg"
+            alt=""
+            className={styles.asset_right}
+          />
         </section>
       )}
     </section>

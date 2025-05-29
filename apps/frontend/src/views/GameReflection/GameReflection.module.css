@@ -1,4 +1,6 @@
 .pageReflection {
+  position: relative;
+  z-index: 1;
   background-color: var(--blue-200);
   width: 100%;
   min-height: 100vh;
@@ -59,7 +61,47 @@ h2 {
 
 fieldset > p {
   color: var(--checkbox-field-text-primary-default);
-  font-family: var(--font-gotham);
+  font-family: var(---body-font-family);
   font-size: var(--body-size-medium);
-  font-weight: var(--weight-medium);
+  font-weight: var(--body-font-weight-regular);
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.situationContainer {
+  background-color: var(--pale-blue-500);
+  color: var(--white-1000);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-600);
+  padding: var(--space-600) 0 var(--space-800) 0;
+  border-radius: var(--radius-200) var(--radius-200) 0 0;
+}
+
+h3 {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-size-base);
+  font-weight: var(--heading-font-weight);
+}
+
+.usersContainer {
+  background-color: var(--pink-300);
+  border-radius: var(--radius-200);
+}
+
+.asset_right {
+  z-index: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.asset_left {
+  z-index: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
