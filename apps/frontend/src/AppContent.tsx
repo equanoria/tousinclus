@@ -1,30 +1,14 @@
-import { useAppState } from './context/AppStateProvider';
-import { EGameStatus } from '@tousinclus/types';
-import { ErrorView } from './views/Error/ErrorView';
-import { GameReflection } from './views/GameReflection/GameReflection';
-import { gameService } from './services/game/game.service';
-import { useEffect } from 'react';
-import { GameConnection } from './views/GameConnection/GameConnection';
-import SocketBanner from './core/SocketBanner/SocketBanner';
+import { Route, Routes } from 'react-router-dom';
+import { Contact } from './views/Contact/Contact';
+import { Legal } from './views/Legal/Legal';
+import { Link } from './components/Link/Link';
+import { GameApp } from './GameApp';
+import { SocketBanner } from './core/SocketBanner/SocketBanner';
 
-const views: Partial<Record<EGameStatus, JSX.Element>> = {
-  [EGameStatus.REFLECTION]: <GameReflection />,
-  [EGameStatus.DEBATE]: <ErrorView />,
-  [EGameStatus.RESULT]: <ErrorView />,
-};
-
-const AppContent = () => {
-  const { currentView, setCurrentView } = useAppState();
-
-  useEffect(() => {
-    gameService
-      .onGameStatus(({ gameStatus }) => setCurrentView(views[gameStatus] || <GameConnection />))
-      .onWaitingResponse(({ data }) => setCurrentView(views[data.status] || <GameConnection />));
-  }, [setCurrentView])
-
+export const AppContent = () => {
   return (
     <>
-      <nav className="a11y-skip-content">
+      <nav className="a11y-skip-content" aria-label="Navigation rapide">
         <ul>
           <li>
             <a href="#main">Aller au contenu principal</a>
@@ -37,9 +21,22 @@ const AppContent = () => {
 
       <SocketBanner />
 
-      <main id="main">{currentView}</main>
+      <main id="main">
+        <Routes>
+          <Route path="/" element={<GameApp />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/legal" element={<Legal />} />
+        </Routes>
+      </main>
+
+      <footer>
+        <nav aria-label="Navigation du site">
+          <Link href="/">Accueil</Link>
+          <Link href="/contact">Contact</Link>
+          <Link href="/legal">Mention Légales</Link>
+        </nav>
+      </footer>
     </>
   );
 };
 
-export default AppContent;

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Banner } from '../../components/Banner/Banner';
 import { socketService } from '../../services/socket/socket.service';
 
-const SocketBanner = () => {
+export const SocketBanner = () => {
   const [banner, setBanner] = useState<JSX.Element | null>(null);
 
   useEffect(() => {
@@ -25,5 +25,3 @@ const SocketBanner = () => {
 
   return banner;
 };
-
-export default SocketBanner;

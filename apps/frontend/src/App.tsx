@@ -1,4 +1,4 @@
-import AppContent from './AppContent';
+import { AppContent } from './AppContent';
 import { AppStateProvider } from './context/AppStateProvider';
 
 const App = () => {
