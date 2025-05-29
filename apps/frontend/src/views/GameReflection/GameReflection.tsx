@@ -10,6 +10,7 @@ import { Input } from '../../components/Input/Input';
 import { Deck } from '../../components/Deck/Deck';
 import styles from './GameReflection.module.css';
 import { GameCard } from '../../components/GameCard/GameCard';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 
 const defaultAnswer = {
   input1: '',
@@ -192,6 +193,21 @@ export const GameReflection = () => {
               />
             </div>
             <div className={styles.usersContainer}>
+              <div className={styles.userIdNavigation}>
+                {cardsGroup?.extreme_user.map((user, index) => {
+                  const id = user.cards_users_id.id;
+                  return (
+                    <button
+                      type="button"
+                      key={id}
+                      className={`${styles.userCircle} ${index === extremeUserCursor ? styles.active : ''}`}
+                      onClick={() => setExtremeUserCursor(index)}
+                    >
+                      {id}
+                    </button>
+                  );
+                })}
+              </div>
               {cardsGroup?.extreme_user
                 ?.filter((_, index) => index !== extremeUserCursor)
                 .map((user) => {
@@ -199,19 +215,27 @@ export const GameReflection = () => {
                   const name = user.cards_users_id.translations[0].description;
                   const image = user.cards_users_id.image;
                   return (
-                    <div key={id}>
-                      <Button>{id}</Button>
-                      <GameCard
-                        type="user"
-                        img={directusService.getAssetUrl(image)}
-                        alt={name}
-                        number={id}
-                      />
-                    </div>
+                    <GameCard
+                      key={id}
+                      type="user"
+                      img={directusService.getAssetUrl(image)}
+                      alt={name}
+                      number={id}
+                    />
                   );
                 })}
-              <Button onClick={() => updateCursor('next')}>Next</Button>
-              <Button onClick={() => updateCursor('back')}>Back</Button>
+              <Button
+                onClick={() => updateCursor('next')}
+                variant="icon"
+                endIcon={<IconChevronRight />}
+                className={styles.arrowRight}
+              />
+              <Button
+                onClick={() => updateCursor('back')}
+                variant="icon"
+                endIcon={<IconChevronLeft />}
+                className={styles.arrowLeft}
+              />
             </div>
           </div>
           <img

@@ -90,6 +90,31 @@ h3 {
 .usersContainer {
   background-color: var(--pink-300);
   border-radius: var(--radius-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-400);
+  padding: var(--space-600) 0;
+}
+
+.userIdNavigation {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-400);
+}
+
+.userIdNavigation button {
+  background-color: var(--white-1000);
+  color: var(--pink-700);
+  font-size: var(--body-size-medium);
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+
+.arrowRight, .arrowLeft{
+  width: min-content;
+  padding: var(--space-400);
 }
 
 .asset_right {
