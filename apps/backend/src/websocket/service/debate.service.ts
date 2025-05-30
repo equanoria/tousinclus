@@ -72,7 +72,7 @@ export class DebateService {
           message: nextCardToVote.message,
           data: {
             nextCardId: nextCardToVote.nextCardId
-              ? { nextCardId: nextCardToVote.nextCardId }
+              ? nextCardToVote.nextCardId
               : null,
             answers: dataGameAnswers,
           },
