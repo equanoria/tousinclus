@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { IGameAnswer, IGameAnswerGroup } from '@tousinclus/types';
-import { GameAnswerSchema } from './game-answer.schema';
+import { IGameAnswerGroup, IGameAnswers } from '@tousinclus/types';
+import { GameAnswersSchema } from './game-answers.schema';
 import { Document, Schema as SchemaType, Types } from 'mongoose';
 import { RoomTeamDocument } from 'src/rooms/schemas/room-team.schema';
 
@@ -19,8 +19,8 @@ export class GameAnswerGroupDocument
   })
   createdBy: Types.ObjectId;
 
-  @Prop({ type: [GameAnswerSchema], required: true })
-  answers: IGameAnswer<unknown>[];
+  @Prop({ type: GameAnswersSchema, required: true })
+  answers: IGameAnswers;
 }
 
 export const GameAnswerGroupSchema = SchemaFactory.createForClass(

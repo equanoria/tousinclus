@@ -16,12 +16,13 @@ export declare enum EGameStatus {
 export interface IGameAnswerGroup {
     extremeUserId: string;
     createdBy: Types.ObjectId | string | IRoomTeam;
-    answers: {
-        inclusionIssueDescription: string;
-        proposedSolutionDescription: string;
-        experienceImprovementDescription: string;
-        relatedExtremeUsersIds: string[];
-    };
+    answers: IGameAnswers;
+}
+export interface IGameAnswers {
+    inclusionIssueDescription: string;
+    proposedSolutionDescription: string;
+    experienceImprovementDescription: string;
+    relatedExtremeUsersIds: string[];
 }
 export interface IGameVote {
     extremeUserId: string;
