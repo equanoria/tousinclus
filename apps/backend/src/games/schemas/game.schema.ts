@@ -1,10 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { EGameStatus, IGame, IGameAnswerGroup } from '@tousinclus/types';
+import {
+  EGameStatus,
+  IGame,
+  IGameAnswerGroup,
+  IGameVote,
+} from '@tousinclus/types';
 import { GameAnswerGroupSchema } from './game-answer-group.schema';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+import { GameVoteSchema } from './game-vote.schema';
 
 @Schema()
-export class GameDocument extends Document implements IGame {
+export class GameDocument extends Document<Types.ObjectId> implements IGame {
   @Prop({ default: Date.now })
   createdAt: Date;
 
@@ -13,6 +19,9 @@ export class GameDocument extends Document implements IGame {
 
   @Prop({ type: [GameAnswerGroupSchema], default: [] })
   answerGroups: IGameAnswerGroup[];
+
+  @Prop({ type: [GameVoteSchema], default: [] })
+  votes: IGameVote[];
 }
 
 export const GameSchema = SchemaFactory.createForClass(GameDocument);

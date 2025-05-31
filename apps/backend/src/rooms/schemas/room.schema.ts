@@ -2,15 +2,15 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IGame, IRoom, IRoomTeam } from '@tousinclus/types';
 import { RoomTeamSchema } from './room-team.schema';
 import { GameSchema } from 'src/games/schemas/game.schema';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 @Schema()
-export class RoomDocument extends Document implements IRoom {
+export class RoomDocument extends Document<Types.ObjectId> implements IRoom {
   @Prop({ default: Date.now })
   createdAt: Date;
 
   @Prop({ required: true })
-  createdById: string;
+  createdBy: string;
 
   @Prop({ required: true })
   code: string;

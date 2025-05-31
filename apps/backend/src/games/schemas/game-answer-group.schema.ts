@@ -17,7 +17,7 @@ export class GameAnswerGroupDocument
     type: SchemaType.Types.ObjectId,
     ref: RoomTeamDocument.name,
   })
-  createdByTeamId: Types.ObjectId;
+  createdBy: Types.ObjectId;
 
   @Prop({ type: [GameAnswerSchema], required: true })
   answers: IGameAnswer<unknown>[];

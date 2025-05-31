@@ -1,7 +1,8 @@
+import type { Types } from 'mongoose';
 import type { IGame } from './IGame';
 
 export interface IRoom {
-  _id?: unknown;
+  _id?: Types.ObjectId | string;
   createdAt: Date;
   createdBy: string;
   code: string;
@@ -13,6 +14,6 @@ export interface IRoom {
 }
 
 export interface IRoomTeam {
-  _id?: unknown;
+  _id?: Types.ObjectId | string;
   teamName: string;
 }

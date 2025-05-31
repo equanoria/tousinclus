@@ -13,14 +13,14 @@ export class GameVoteDocument extends Document implements IGameVote {
     type: MongooseSchema.Types.ObjectId,
     ref: RoomTeamDocument.name,
   })
-  createdByTeamId: Types.ObjectId;
+  createdBy: Types.ObjectId;
 
   @Prop({
     required: true,
     type: MongooseSchema.Types.ObjectId,
     ref: RoomTeamDocument.name,
   })
-  votedForTeamId: Types.ObjectId;
+  votedFor: Types.ObjectId;
 }
 
 export const GameVoteSchema = SchemaFactory.createForClass(GameVoteDocument);

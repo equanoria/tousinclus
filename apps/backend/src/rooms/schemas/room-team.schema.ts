@@ -1,9 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IRoomTeam } from '@tousinclus/types';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 @Schema()
-export class RoomTeamDocument extends Document implements IRoomTeam {
+export class RoomTeamDocument
+  extends Document<Types.ObjectId>
+  implements IRoomTeam
+{
   @Prop()
   teamName: string;
 }

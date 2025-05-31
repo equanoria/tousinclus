@@ -1,5 +1,8 @@
+import type { Types } from 'mongoose';
+import type { IRoomTeam } from './IRoom';
+
 export interface IGame {
-  _id?: unknown;
+  _id?: Types.ObjectId | string;
   createdAt: Date;
   status: EGameStatus;
   answerGroups: IGameAnswerGroup[];
@@ -15,17 +18,17 @@ export enum EGameStatus {
 
 export interface IGameAnswerGroup {
   extremeUserId: string;
-  createdByTeam: unknown;
-  answers: IGameAnswer<unknown>[];
-}
-
-export interface IGameAnswer<T> {
-  key: string;
-  value: T;
+  createdBy: Types.ObjectId | string | IRoomTeam;
+  answers: {
+    inclusionIssueDescription: string;
+    proposedSolutionDescription: string;
+    experienceImprovementDescription: string;
+    relatedExtremeUsersIds: string[];
+  };
 }
 
 export interface IGameVote {
   extremeUserId: string;
-  createdBy: unknown;
-  votedFor: unknown;
+  createdBy: Types.ObjectId | string | IRoomTeam;
+  votedFor: Types.ObjectId | string | IRoomTeam;
 }
