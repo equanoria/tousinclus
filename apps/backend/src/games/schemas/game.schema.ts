@@ -17,6 +17,9 @@ export class GameDocument extends Document<Types.ObjectId> implements IGame {
   @Prop({ enum: EGameStatus, required: true })
   status: EGameStatus;
 
+  @Prop({ required: true })
+  cardDeckId: string;
+
   @Prop({ type: [GameAnswerGroupSchema], default: [] })
   answerGroups: IGameAnswerGroup[];
 

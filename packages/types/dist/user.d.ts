@@ -5,4 +5,4 @@ export interface IUser {
 export declare enum ERole {
     HOST = "Host"
 }
-//# sourceMappingURL=IUser.d.ts.map
+//# sourceMappingURL=user.d.ts.map

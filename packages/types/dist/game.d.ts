@@ -1,5 +1,5 @@
 import type { Types } from 'mongoose';
-import type { IRoomTeam } from './IRoom';
+import type { IRoomTeam } from './room';
 export interface IGame {
     _id: Types.ObjectId | string;
     createdAt: Date;
@@ -30,4 +30,4 @@ export interface IGameVote {
     createdBy: Types.ObjectId | string | IRoomTeam;
     votedFor: Types.ObjectId | string | IRoomTeam;
 }
-//# sourceMappingURL=IGame.d.ts.map
+//# sourceMappingURL=game.d.ts.map

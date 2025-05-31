@@ -20,4 +20,4 @@ export declare enum ERoomStatus {
     OPEN = "open",
     CLOSED = "closed"
 }
-//# sourceMappingURL=IRoom.d.ts.map
+//# sourceMappingURL=room.d.ts.map

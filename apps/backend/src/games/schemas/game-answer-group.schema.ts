@@ -10,7 +10,7 @@ export class GameAnswerGroupDocument
   implements IGameAnswerGroup
 {
   @Prop({ required: true })
-  extremeUserId: string;
+  extremeUserCardId: string;
 
   @Prop({
     required: true,

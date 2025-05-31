@@ -8,7 +8,7 @@ export class RoomTeamDocument
   implements IRoomTeam
 {
   @Prop()
-  teamName: string;
+  name: string;
 }
 
 export const RoomTeamSchema = SchemaFactory.createForClass(RoomTeamDocument);

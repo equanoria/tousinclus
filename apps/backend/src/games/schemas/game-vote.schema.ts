@@ -6,7 +6,7 @@ import { RoomTeamDocument } from 'src/rooms/schemas/room-team.schema';
 @Schema()
 export class GameVoteDocument extends Document implements IGameVote {
   @Prop({ required: true })
-  extremeUserId: string;
+  extremeUserCardId: string;
 
   @Prop({
     required: true,

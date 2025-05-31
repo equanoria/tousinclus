@@ -1,10 +1,11 @@
 import type { Types } from 'mongoose';
-import type { IRoomTeam } from './IRoom';
+import type { IRoomTeam } from './room';
 
 export interface IGame {
-  _id?: Types.ObjectId | string;
+  _id: Types.ObjectId | string;
   createdAt: Date;
   status: EGameStatus;
+  cardDeckId: string;
   answerGroups: IGameAnswerGroup[];
   votes: IGameVote[];
 }
@@ -17,7 +18,7 @@ export enum EGameStatus {
 }
 
 export interface IGameAnswerGroup {
-  extremeUserId: string;
+  extremeUserCardId: string;
   createdBy: Types.ObjectId | string | IRoomTeam;
   answers: IGameAnswers;
 }
@@ -29,7 +30,7 @@ export interface IGameAnswers {
   relatedExtremeUsersIds: string[];
 }
 export interface IGameVote {
-  extremeUserId: string;
+  extremeUserCardId: string;
   createdBy: Types.ObjectId | string | IRoomTeam;
   votedFor: Types.ObjectId | string | IRoomTeam;
 }
