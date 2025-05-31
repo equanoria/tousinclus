@@ -1,47 +1,28 @@
-import type { IUser } from "./IUser";
+export interface IGame {
+    _id?: unknown;
+    createdAt: Date;
+    status: EGameStatus;
+    answerGroups: IGameAnswerGroup[];
+    votes: IGameVote[];
+}
 export declare enum EGameStatus {
     WAITING = "waiting",
     REFLECTION = "reflection",
     DEBATE = "debate",
     RESULT = "result"
 }
-export declare enum ETeam {
-    TEAM1 = "team1",
-    TEAM2 = "team2"
+export interface IGameAnswerGroup {
+    extremeUserId: string;
+    createdByTeam: unknown;
+    answers: IGameAnswer<unknown>[];
 }
-export interface IGame {
-    createdAt: Date;
-    createdBy: IUser['id'];
-    reflectionEndsAt?: Date | null;
-    _id?: unknown | null;
-    code: string;
-    status: EGameStatus;
-    cardGroupId?: number;
-    team1?: ITeam;
-    team2?: ITeam;
-    answers?: Array<IAnswer>;
-    votes?: Array<IVote>;
+export interface IGameAnswer<T> {
+    key: string;
+    value: T;
 }
-export interface ITeam {
-    isConnected: boolean;
-    clientId?: string;
-}
-export interface IAnswer {
-    cardId: number;
-    team?: ETeam;
-    answer?: IAnswerData;
-}
-export interface IVote {
-    cardId: number;
-    votes: {
-        team: ETeam;
-        vote: ETeam;
-    }[];
-}
-export interface IAnswerData {
-    input1: string;
-    input2: string;
-    input3: string;
-    inputCheckboxes: number[];
+export interface IGameVote {
+    extremeUserId: string;
+    createdBy: unknown;
+    votedFor: unknown;
 }
 //# sourceMappingURL=IGame.d.ts.map

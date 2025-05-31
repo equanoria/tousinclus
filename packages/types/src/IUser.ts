@@ -1,4 +1,8 @@
 export interface IUser {
   id?: string;
-  roles: string[];
+  roles: ERole[];
+}
+
+export enum ERole {
+  HOST = 'Host',
 }

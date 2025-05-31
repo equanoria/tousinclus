@@ -1,13 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { GameModule } from './game/game.module';
-import { RedisModule } from './redis/redis.module';
-import { WebsocketModule } from './websocket/websocket.module';
-import { DirectusModule } from './directus/directus.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { BookingsModule } from './bookings/bookings.module';
+import { BullModule } from '@nestjs/bullmq';
 import configuration from 'config/configuration';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -15,8 +12,6 @@ import configuration from 'config/configuration';
       envFilePath: ['./.env.local', './.env.development'],
       load: [configuration],
     }),
-    WebsocketModule,
-    RedisModule,
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -24,10 +19,22 @@ import configuration from 'config/configuration';
         uri: `mongodb://${configService.getOrThrow('MONGO_USERNAME')}:${configService.getOrThrow('MONGO_PASSWORD')}@${configService.getOrThrow('MONGO_HOSTNAME')}:${configService.getOrThrow('MONGO_PORT')}/${configService.getOrThrow('MONGO_DATABASE')}?authSource=admin`,
       }),
     }),
-    GameModule,
-    DirectusModule,
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        connection: {
+          host: configService.getOrThrow('REDIS_HOSTNAME'),
+          port: configService.getOrThrow<number>('REDIS_PORT'),
+        },
+        defaultJobOptions: {
+          removeOnComplete: 1000,
+          removeOnFail: 5000,
+        },
+      }),
+    }),
+    ScheduleModule.forRoot(),
+    BookingsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

@@ -15,13 +15,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./TLanguage"), exports);
-__exportStar(require("./ITranslation"), exports);
-__exportStar(require("./IDirectus"), exports);
+__exportStar(require("./IRoom"), exports);
 __exportStar(require("./IGame"), exports);
 __exportStar(require("./IUser"), exports);
-__exportStar(require("./IWebsocket"), exports);
-__exportStar(require("./ERole"), exports);
-__exportStar(require("./TWaiting"), exports);
 __exportStar(require("./ENodeEnv"), exports);
 __exportStar(require("./directus"), exports);
 //# sourceMappingURL=index.js.map

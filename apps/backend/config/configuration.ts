@@ -15,7 +15,7 @@ export const setupEnv = (): void => {
   process.env.NODE_ENV = ENodeEnv.DEVELOPMENT;
 
   console.warn(
-    `Invalid or missing NODE_ENV value: ${nodeEnv}. Defaulting to 'development'.`,
+    `[WARN] Invalid or missing NODE_ENV value: ${nodeEnv}. Defaulting to 'development'.`,
   );
 };
 
@@ -31,7 +31,7 @@ export default () => {
     const configFilePath = join(__dirname, getConfigFile());
     return yaml.load(readFileSync(configFilePath, 'utf8')) as Record<
       string,
-      // biome-ignore lint/suspicious/noExplicitAny: typed further down
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       any
     >;
   } catch (error) {

@@ -16,5 +16,8 @@ FROM base AS prod
 RUN pnpm install --frozen-lockfile --prod --filter @tousinclus/backend
 COPY --from=assets /app .
 
+ENV PORT=3000
+ENV NODE_ENV=production
+
 EXPOSE 3000
 ENTRYPOINT ["pnpm", "run", "--filter", "@tousinclus/backend", "start:prod"]
