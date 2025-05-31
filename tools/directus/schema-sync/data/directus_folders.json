@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": "18bd4ed3-a643-4829-8e3e-03ef46b4040b",
+    "name": "uploads",
+    "parent": null
+  },
+  {
+    "id": "c03c4c29-6290-4df6-9c9b-fe9f6598e2d4",
+    "name": "scenario_cards",
+    "parent": null
+  },
+  {
+    "id": "e17340f8-3b50-4a19-a47e-2efbaeeb19e8",
+    "name": "extreme_user_cards",
+    "parent": null
+  }
+]

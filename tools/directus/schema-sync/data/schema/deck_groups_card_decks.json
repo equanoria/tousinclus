@@ -1,82 +1,40 @@
 {
-  "collection": "cards_group_cards_users",
+  "collection": "deck_groups_card_decks",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "cards_group_cards_users",
+    "collection": "deck_groups_card_decks",
     "color": null,
     "display_template": null,
-    "group": null,
+    "group": "deck_groups",
     "hidden": true,
     "icon": "import_export",
     "item_duplication_fields": null,
     "note": null,
     "preview_url": null,
     "singleton": false,
-    "sort": 5,
+    "sort": 1,
     "sort_field": null,
     "translations": null,
     "unarchive_value": null,
     "versioning": false
   },
   "schema": {
-    "name": "cards_group_cards_users"
+    "name": "deck_groups_card_decks"
   },
   "fields": [
     {
-      "field": "cards_group_id",
-      "type": "integer",
+      "field": "card_decks_id",
+      "type": "uuid",
       "meta": {
-        "collection": "cards_group_cards_users",
+        "collection": "deck_groups_card_decks",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "cards_group_id",
-        "group": null,
-        "hidden": true,
-        "interface": null,
-        "note": null,
-        "options": null,
-        "readonly": false,
-        "required": false,
-        "sort": 2,
-        "special": null,
-        "translations": null,
-        "validation": null,
-        "validation_message": null,
-        "width": "full"
-      },
-      "schema": {
-        "name": "cards_group_id",
-        "table": "cards_group_cards_users",
-        "data_type": "integer",
-        "default_value": null,
-        "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
-        "is_nullable": true,
-        "is_unique": false,
-        "is_indexed": false,
-        "is_primary_key": false,
-        "is_generated": false,
-        "generation_expression": null,
-        "has_auto_increment": false,
-        "foreign_key_table": "cards_group",
-        "foreign_key_column": "id"
-      }
-    },
-    {
-      "field": "cards_users_id",
-      "type": "integer",
-      "meta": {
-        "collection": "cards_group_cards_users",
-        "conditions": null,
-        "display": null,
-        "display_options": null,
-        "field": "cards_users_id",
+        "field": "card_decks_id",
         "group": null,
         "hidden": true,
         "interface": null,
@@ -92,13 +50,13 @@
         "width": "full"
       },
       "schema": {
-        "name": "cards_users_id",
-        "table": "cards_group_cards_users",
-        "data_type": "integer",
+        "name": "card_decks_id",
+        "table": "deck_groups_card_decks",
+        "data_type": "uuid",
         "default_value": null,
         "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
         "is_unique": false,
         "is_indexed": false,
@@ -106,7 +64,49 @@
         "is_generated": false,
         "generation_expression": null,
         "has_auto_increment": false,
-        "foreign_key_table": "cards_users",
+        "foreign_key_table": "card_decks",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "field": "deck_groups_id",
+      "type": "uuid",
+      "meta": {
+        "collection": "deck_groups_card_decks",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "deck_groups_id",
+        "group": null,
+        "hidden": true,
+        "interface": null,
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 2,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "deck_groups_id",
+        "table": "deck_groups_card_decks",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "deck_groups",
         "foreign_key_column": "id"
       }
     },
@@ -114,7 +114,7 @@
       "field": "id",
       "type": "integer",
       "meta": {
-        "collection": "cards_group_cards_users",
+        "collection": "deck_groups_card_decks",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -135,7 +135,7 @@
       },
       "schema": {
         "name": "id",
-        "table": "cards_group_cards_users",
+        "table": "deck_groups_card_decks",
         "data_type": "integer",
         "default_value": null,
         "max_length": null,
@@ -155,51 +155,51 @@
   ],
   "relations": [
     {
-      "field": "cards_group_id",
-      "related_collection": "cards_group",
+      "field": "card_decks_id",
+      "related_collection": "card_decks",
       "meta": {
-        "junction_field": "cards_users_id",
-        "many_collection": "cards_group_cards_users",
-        "many_field": "cards_group_id",
+        "junction_field": "deck_groups_id",
+        "many_collection": "deck_groups_card_decks",
+        "many_field": "card_decks_id",
         "one_allowed_collections": null,
-        "one_collection": "cards_group",
-        "one_collection_field": null,
-        "one_deselect_action": "nullify",
-        "one_field": "extreme_user",
-        "sort_field": null
-      },
-      "schema": {
-        "table": "cards_group_cards_users",
-        "column": "cards_group_id",
-        "foreign_key_table": "cards_group",
-        "foreign_key_column": "id",
-        "constraint_name": "cards_group_cards_users_cards_group_id_foreign",
-        "on_update": "NO ACTION",
-        "on_delete": "CASCADE"
-      }
-    },
-    {
-      "field": "cards_users_id",
-      "related_collection": "cards_users",
-      "meta": {
-        "junction_field": "cards_group_id",
-        "many_collection": "cards_group_cards_users",
-        "many_field": "cards_users_id",
-        "one_allowed_collections": null,
-        "one_collection": "cards_users",
+        "one_collection": "card_decks",
         "one_collection_field": null,
         "one_deselect_action": "nullify",
         "one_field": null,
         "sort_field": null
       },
       "schema": {
-        "table": "cards_group_cards_users",
-        "column": "cards_users_id",
-        "foreign_key_table": "cards_users",
+        "table": "deck_groups_card_decks",
+        "column": "card_decks_id",
+        "foreign_key_table": "card_decks",
         "foreign_key_column": "id",
-        "constraint_name": "cards_group_cards_users_cards_users_id_foreign",
+        "constraint_name": "deck_groups_card_decks_card_decks_id_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "NO ACTION"
+        "on_delete": "SET NULL"
+      }
+    },
+    {
+      "field": "deck_groups_id",
+      "related_collection": "deck_groups",
+      "meta": {
+        "junction_field": "card_decks_id",
+        "many_collection": "deck_groups_card_decks",
+        "many_field": "deck_groups_id",
+        "one_allowed_collections": null,
+        "one_collection": "deck_groups",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": "decks",
+        "sort_field": null
+      },
+      "schema": {
+        "table": "deck_groups_card_decks",
+        "column": "deck_groups_id",
+        "foreign_key_table": "deck_groups",
+        "foreign_key_column": "id",
+        "constraint_name": "deck_groups_card_decks_deck_groups_id_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL"
       }
     }
   ]
