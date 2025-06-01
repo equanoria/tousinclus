@@ -11,6 +11,7 @@ import { Deck } from '../../components/Deck/Deck';
 import styles from './GameReflection.module.css';
 import { GameCard } from '../../components/GameCard/GameCard';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import { Textarea } from '../../components/Textarea/Textarea';
 
 const defaultAnswer = {
   input1: '',
@@ -69,7 +70,17 @@ export const GameReflection = () => {
     });
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   setAnswerData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
+
+  const handleTextareaChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     const { name, value } = event.target;
     setAnswerData((prev) => ({
       ...prev,
@@ -121,31 +132,28 @@ export const GameReflection = () => {
             <div className={styles.containerForm}>
               <h3>Description user</h3>
               <div className={styles.form}>
-                <Input
+                <Textarea
                   label="1. Description du défaut d’inclusion."
                   placeholder="Bla bla bla..."
-                  type="text"
                   name="input1"
                   value={answerData.input1}
-                  onChange={handleInputChange}
+                  onChange={handleTextareaChange}
                   onBlur={updateAnswer}
                 />
-                <Input
+                <Textarea
                   label="2. Description de la solution proposée."
                   placeholder="Bla bla bla..."
-                  type="text"
                   name="input2"
                   value={answerData.input2}
-                  onChange={handleInputChange}
+                  onChange={handleTextareaChange}
                   onBlur={updateAnswer}
                 />
-                <Input
+                <Textarea
                   label="3. Comment la solution pourrait améliorer l’expérience d’usage pour d’autres utilisateurs ?"
                   placeholder="Bla bla bla..."
-                  type="text"
                   name="input3"
                   value={answerData.input3}
-                  onChange={handleInputChange}
+                  onChange={handleTextareaChange}
                   onBlur={updateAnswer}
                 />
                 <fieldset>
