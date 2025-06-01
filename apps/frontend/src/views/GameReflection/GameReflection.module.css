@@ -24,6 +24,7 @@ h1 {
 }
 
 .leftContainer {
+  z-index: 1;
   display: flex;
   flex-direction: column;
 }
@@ -67,18 +68,21 @@ fieldset > p {
 }
 
 .rightContainer {
+  height: min-content;
+  background-color: var(--pale-blue-500);
+  border-radius: var(--radius-200);
+  z-index: 1;
   display: flex;
   flex-direction: column;
 }
 
 .situationContainer {
-  background-color: var(--pale-blue-500);
   color: var(--white-1000);
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-600);
   padding: var(--space-600) 0 var(--space-800) 0;
-  border-radius: var(--radius-200) var(--radius-200) 0 0;
 }
 
 h3 {
@@ -88,10 +92,12 @@ h3 {
 }
 
 .usersContainer {
+  position: relative;
   background-color: var(--pink-300);
   border-radius: var(--radius-200);
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-400);
   padding: var(--space-600) 0;
 }
@@ -109,15 +115,33 @@ h3 {
   border-radius: 50%;
   height: 40px;
   width: 40px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  border: 2px solid transparent;
 }
 
+.userIdNavigation button.active {
+  border-color: var(--pink-700);
+}
 
-.arrowRight, .arrowLeft{
+.arrowRight,
+.arrowLeft {
+  position: absolute;
   width: min-content;
-  padding: var(--space-400);
+  padding: var(--space-200) var(--space-300);
+  bottom: 30%;
+}
+
+.arrowLeft {
+  left: 0;
+}
+
+.arrowRight {
+  right: 0;
 }
 
 .asset_right {
+  pointer-events: none;
   z-index: 0;
   position: absolute;
   bottom: 0;
@@ -125,6 +149,7 @@ h3 {
 }
 
 .asset_left {
+  pointer-events: none;
   z-index: 0;
   position: absolute;
   bottom: 0;

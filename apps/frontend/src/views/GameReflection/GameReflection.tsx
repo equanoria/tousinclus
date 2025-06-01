@@ -209,7 +209,7 @@ export const GameReflection = () => {
                 })}
               </div>
               {cardsGroup?.extreme_user
-                ?.filter((_, index) => index !== extremeUserCursor)
+                ?.filter((_, index) => index === extremeUserCursor)
                 .map((user) => {
                   const id = user.cards_users_id.id;
                   const name = user.cards_users_id.translations[0].description;
