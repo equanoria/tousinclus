@@ -85,6 +85,10 @@ fieldset > p {
   padding: var(--space-600) 0 var(--space-800) 0;
 }
 
+.situationContainer p {
+  padding: 0 var(--space-800);
+}
+
 h3 {
   font-family: var(--heading-font-family);
   font-size: var(--heading-size-base);
@@ -99,7 +103,7 @@ h3 {
   flex-direction: column;
   align-items: center;
   gap: var(--space-400);
-  padding: var(--space-600) 0;
+  padding: var(--space-600);
 }
 
 .userIdNavigation {
@@ -113,8 +117,8 @@ h3 {
   color: var(--pink-700);
   font-size: var(--body-size-medium);
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  height: 2.5rem;
+  width: 2.5rem;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
   border: 2px solid transparent;

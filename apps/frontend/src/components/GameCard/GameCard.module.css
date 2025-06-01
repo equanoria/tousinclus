@@ -1,8 +1,7 @@
 .card {
   position: relative;
-  max-width: 350px;
-  width: 350px;
-  height: 170px;
+  width: 21.875rem;
+  height: 10.625rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,11 +19,22 @@
   background-color: var(--pink-100);
 }
 
+.imageContainer {
+  width: 7rem;
+  height: 7rem;
+}
+
+.imageContainer > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .number {
   background-color: var(--white-1000);
   position: absolute;
-  width: 35px;
-  height: 35px;
+  width: 2.188rem;
+  height: 2.188rem;
   right: 15px;
   top: 15px;
   border-radius: 50%;

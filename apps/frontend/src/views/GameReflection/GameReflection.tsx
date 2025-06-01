@@ -189,7 +189,7 @@ export const GameReflection = () => {
                   usageSituation?.description_translations?.[0]?.description ??
                   'Situation'
                 }
-                number={usageSituation.id}
+                number={usageSituation?.id}
               />
             </div>
             <div className={styles.usersContainer}>
