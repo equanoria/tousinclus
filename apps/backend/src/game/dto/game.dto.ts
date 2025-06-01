@@ -203,6 +203,15 @@ export class GameDTO implements IGame {
   })
   cardGroupId: number;
 
+  @IsNumber()
+  @IsOptional()
+  @Expose()
+  @ApiPropertyOptional({
+    description: 'Deck identifier',
+    example: 14,
+  })
+  deckId: number;
+
   @IsOptional()
   @Expose({ groups: ['team1', 'joining'] })
   @Type(() => TeamDTO)

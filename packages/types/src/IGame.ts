@@ -19,6 +19,7 @@ export interface IGame {
   _id?: unknown | null;
   code: string;
   status: EGameStatus;
+  deckId?:number;
   cardGroupId?: number;
   team1?: ITeam;
   team2?: ITeam;

@@ -72,9 +72,9 @@ export class DebateService {
           message: nextCardToVote.message,
           data: {
             nextCardId: nextCardToVote.nextCardId
-              ? { nextCardId: nextCardToVote.nextCardId }
+              ? nextCardToVote.nextCardId
               : null,
-            answers: dataGameAnswers,
+            answers: dataGameAnswers ? dataGameAnswers : null,
           },
         };
         client.emit('debate-response', responseData);
@@ -115,6 +115,17 @@ export class DebateService {
           data.data.cardId,
         );
 
+        const game = await this.gameService.getTeamAnswer(
+          data.code,
+          data.team,
+          client.id,
+        );
+
+        // Filter answers with cardId equal to nextCardToVote.nextCardId
+        const dataGameAnswers = game.answers.filter(
+          (answer) => answer.cardId === nextCardToVote.nextCardId,
+        );
+
         // If displayResult change game phase to result
         if (nextCardToVote?.displayResult) {
           await this.gameService.updateGameStatus(
@@ -132,9 +143,12 @@ export class DebateService {
           const responseData: WSResponseDTO = {
             status: 'success',
             message: nextCardToVote.message,
-            data: nextCardToVote.nextCardId
-              ? { nextCardId: nextCardToVote.nextCardId }
-              : null,
+            data: {
+              nextCardId: nextCardToVote.nextCardId
+                ? nextCardToVote.nextCardId
+                : null,
+              answers: dataGameAnswers ? dataGameAnswers : null,
+            },
           };
           server.to(data.code).emit('debate-response', responseData);
         }
