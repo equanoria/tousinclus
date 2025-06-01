@@ -116,7 +116,7 @@ export class GameService {
     return newGames; // Return all game create as JSON
   }
 
-  async restartGame(code) {
+  async restartGame(code: string) {
     // Call the service to retrieve game data
     const findOneGameData = await this.findOneGame(code);
 

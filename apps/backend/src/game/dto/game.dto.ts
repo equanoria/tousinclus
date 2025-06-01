@@ -201,7 +201,7 @@ export class GameDTO implements IGame {
     description: 'Card group identifier',
     example: 14,
   })
-  cardGroupId: number;
+  cardGroupId?: number;
 
   @IsNumber()
   @IsOptional()
@@ -210,7 +210,7 @@ export class GameDTO implements IGame {
     description: 'Deck identifier',
     example: 14,
   })
-  deckId: number;
+  deckId?: number;
 
   @IsOptional()
   @Expose({ groups: ['team1', 'joining'] })
