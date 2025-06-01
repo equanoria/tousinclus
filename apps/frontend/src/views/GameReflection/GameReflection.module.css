@@ -137,11 +137,11 @@ h3 {
 }
 
 .arrowLeft {
-  left: 0;
+  left: var(--space-100);
 }
 
 .arrowRight {
-  right: 0;
+  right: var(--space-200);
 }
 
 .asset_right {
