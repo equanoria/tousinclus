@@ -9,6 +9,10 @@
   border: var(--input-field-border-default) var(--stroke-border-50) solid;
   border-radius: var(--radius-200);
   padding: var(--space-300) var(--space-400);
+  min-height: 6.25rem;
+  min-width: 18.75rem;
+  max-width: 53.125rem;
+  width: 100%;
 }
 
 .label {
