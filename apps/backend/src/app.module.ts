@@ -5,7 +5,6 @@ import { BullModule } from '@nestjs/bullmq';
 import configuration from 'config/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
 import { GamesModule } from './games/games.module';
-import { CaslModule } from './auth/casl/casl.module';
 
 @Module({
   imports: [
@@ -36,7 +35,6 @@ import { CaslModule } from './auth/casl/casl.module';
     }),
     ScheduleModule.forRoot(),
     GamesModule,
-    CaslModule,
   ],
 })
 export class AppModule {}

@@ -4,8 +4,8 @@ import { Model } from 'mongoose';
 import { RoomDocument } from './schemas/room.schema';
 
 @Injectable()
-export class GamesService {
-  private readonly logger = new Logger(GamesService.name);
+export class RoomsService {
+  private readonly logger = new Logger(RoomsService.name);
 
   constructor(
     @InjectModel(RoomDocument.name)

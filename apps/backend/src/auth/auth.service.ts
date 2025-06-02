@@ -10,7 +10,7 @@ import { DirectusService } from 'src/directus/directus.service';
 import { IUser } from '@tousinclus/types';
 import { UserDto } from 'src/users/dto/user.dto';
 import { plainToInstance } from 'class-transformer';
-import { IReadme } from './interfaces/readme.interface';
+import { IReadme } from './types/Readme';
 
 @Injectable()
 export class AuthService {

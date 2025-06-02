@@ -1,6 +1,5 @@
 import StyleDictionary from 'style-dictionary';
-import { logVerbosityLevels, logWarningLevels } from 'style-dictionary/enums';
-import { THEMES } from './constant.js';
+import { THEMES } from './constants.js';
 
 StyleDictionary.registerTransform({
   name: 'attribute/omit-description',
