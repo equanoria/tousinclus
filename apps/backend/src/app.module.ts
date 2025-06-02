@@ -5,6 +5,7 @@ import { BullModule } from '@nestjs/bullmq';
 import configuration from 'config/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
 import { GamesModule } from './games/games.module';
+import { AbilitiesModule } from './auth/abilities/abilities.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { GamesModule } from './games/games.module';
     }),
     ScheduleModule.forRoot(),
     GamesModule,
+    AbilitiesModule,
   ],
 })
 export class AppModule {}

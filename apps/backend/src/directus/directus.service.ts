@@ -1,4 +1,10 @@
-import { createDirectus, readItems, readRoles, rest, staticToken } from '@directus/sdk';
+import {
+  createDirectus,
+  readItems,
+  readRoles,
+  rest,
+  staticToken,
+} from '@directus/sdk';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
@@ -85,12 +91,12 @@ export class DirectusService {
     return matchingLocale.code;
   }
 
-  async getUserRoles(userId: string): Promise<ERole[]> {
+  async getUserRoles(id: string): Promise<ERole[]> {
     const roles = await this.directusClient.request(
       readRoles({
         fields: ['name'],
         filter: {
-          users: { id: { _eq: userId } },
+          users: { id: { _eq: id } },
         },
       }),
     );

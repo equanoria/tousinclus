@@ -1,17 +1,9 @@
-import {
-  AbilityBuilder,
-  createMongoAbility,
-  MongoAbility,
-} from '@casl/ability';
+import { AbilityBuilder, createMongoAbility } from '@casl/ability';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ABILITY_FACTORIES } from './constants';
-import { EAction } from './types/Action';
-import { SubjectClass } from '@casl/ability';
 import { UserDto } from 'src/users/dto/user.dto';
-import { DefineAbilities } from './types/Ability';
+import { AppAbility, DefineAbilities } from './types/Ability';
 import { createHelpers } from './helpers';
-
-type AppAbility = MongoAbility<[EAction, SubjectClass]>;
 
 @Injectable()
 export class AbilitiesService {

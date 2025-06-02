@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { IGameVote } from '@tousinclus/types';
-import { Schema as MongooseSchema, Types } from 'mongoose';
+import { Document, Schema as MongooseSchema, Types } from 'mongoose';
 import { RoomTeamDocument } from 'src/rooms/schemas/room-team.schema';
 
 @Schema()
