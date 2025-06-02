@@ -182,68 +182,72 @@ export const GameReflection = () => {
             </div>
           </div>
           <div className={styles.rightContainer}>
-            <div className={styles.situationContainer}>
-              <h3>Votre deck de cartes</h3>
-              <p className={styles.situationDescription}>
-                Trouvez des solutions pour chaque utilisateur face à la
-                situation concernée
-              </p>
-              <GameCard
-                key="situation"
-                type="situation"
-                img={directusService.getAssetUrl(usageSituation?.image)}
-                alt={
-                  usageSituation?.context_translations?.[0]?.context ??
-                  usageSituation?.description_translations?.[0]?.description ??
-                  'Situation'
-                }
-                number={usageSituation?.id}
-              />
-            </div>
-            <div className={styles.usersContainer}>
-              <div className={styles.userIdNavigation}>
-                {cardsGroup?.extreme_user.map((user, index) => {
-                  const id = user.cards_users_id.id;
-                  return (
-                    <button
-                      type="button"
-                      key={id}
-                      className={`${styles.userCircle} ${index === extremeUserCursor ? styles.active : ''}`}
-                      onClick={() => setExtremeUserCursor(index)}
-                    >
-                      {id}
-                    </button>
-                  );
-                })}
+            <div className={styles.containerCards}>
+              <div className={styles.situationContainer}>
+                <h3>Votre deck de cartes</h3>
+                <p className={styles.situationDescription}>
+                  Trouvez des solutions pour chaque utilisateur face à la
+                  situation concernée
+                </p>
+                <GameCard
+                  key="situation"
+                  type="situation"
+                  img={directusService.getAssetUrl(usageSituation?.image)}
+                  alt={
+                    usageSituation?.context_translations?.[0]?.context ??
+                    usageSituation?.description_translations?.[0]
+                      ?.description ??
+                    'Situation'
+                  }
+                  number={usageSituation?.id}
+                />
               </div>
-              {cardsGroup?.extreme_user
-                ?.filter((_, index) => index === extremeUserCursor)
-                .map((user) => {
-                  const id = user.cards_users_id.id;
-                  const name = user.cards_users_id.translations[0].description;
-                  const image = user.cards_users_id.image;
-                  return (
-                    <GameCard
-                      key={id}
-                      type="user"
-                      img={directusService.getAssetUrl(image)}
-                      alt={name}
-                      number={id}
-                    />
-                  );
-                })}
-              <Button
-                onClick={() => updateCursor('next')}
-                variant="icon"
-                endIcon={<IconChevronRight />}
-                className={styles.arrowRight}
-              />
-              <Button
-                onClick={() => updateCursor('back')}
-                variant="icon"
-                endIcon={<IconChevronLeft />}
-                className={styles.arrowLeft}
-              />
+              <div className={styles.usersContainer}>
+                <div className={styles.userIdNavigation}>
+                  {cardsGroup?.extreme_user.map((user, index) => {
+                    const id = user.cards_users_id.id;
+                    return (
+                      <button
+                        type="button"
+                        key={id}
+                        className={`${styles.userCircle} ${index === extremeUserCursor ? styles.active : ''}`}
+                        onClick={() => setExtremeUserCursor(index)}
+                      >
+                        {id}
+                      </button>
+                    );
+                  })}
+                </div>
+                {cardsGroup?.extreme_user
+                  ?.filter((_, index) => index === extremeUserCursor)
+                  .map((user) => {
+                    const id = user.cards_users_id.id;
+                    const name =
+                      user.cards_users_id.translations[0].description;
+                    const image = user.cards_users_id.image;
+                    return (
+                      <GameCard
+                        key={id}
+                        type="user"
+                        img={directusService.getAssetUrl(image)}
+                        alt={name}
+                        number={id}
+                      />
+                    );
+                  })}
+                <Button
+                  onClick={() => updateCursor('next')}
+                  variant="icon"
+                  endIcon={<IconChevronRight />}
+                  className={styles.arrowRight}
+                />
+                <Button
+                  onClick={() => updateCursor('back')}
+                  variant="icon"
+                  endIcon={<IconChevronLeft />}
+                  className={styles.arrowLeft}
+                />
+              </div>
             </div>
           </div>
           <img

@@ -68,7 +68,12 @@ h2 {
 }
 
 .rightContainer {
+  min-height: 100%;
+}
+
+.containerCards {
   position: sticky;
+  top: var(--space-800);
   height: min-content;
   background-color: var(--pale-blue-500);
   border-radius: var(--radius-200);
