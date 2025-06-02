@@ -3,6 +3,7 @@ export interface IUser {
     roles: ERole[];
 }
 export declare enum ERole {
+    ADMIN = "Admin",
     HOST = "Host"
 }
-//# sourceMappingURL=user.d.ts.map
+//# sourceMappingURL=User.d.ts.map

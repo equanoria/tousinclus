@@ -1,5 +1,5 @@
 import type { Types } from 'mongoose';
-import type { IGame } from './game';
+import type { IGame } from './Game';
 export interface IRoom {
     _id: Types.ObjectId | string;
     createdAt: Date;
@@ -20,4 +20,4 @@ export declare enum ERoomStatus {
     OPEN = "open",
     CLOSED = "closed"
 }
-//# sourceMappingURL=room.d.ts.map
+//# sourceMappingURL=Room.d.ts.map

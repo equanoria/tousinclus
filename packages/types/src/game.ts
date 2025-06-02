@@ -1,5 +1,5 @@
 import type { Types } from 'mongoose';
-import type { IRoomTeam } from './room';
+import type { IRoomTeam } from './Room';
 
 export interface IGame {
   _id: Types.ObjectId | string;

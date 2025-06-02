@@ -1,0 +1,1 @@
+export const ABILITY_DEFINITIONS = Symbol('ABILITY_DEFINITIONS');

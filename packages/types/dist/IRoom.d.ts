@@ -1,5 +1,5 @@
 import type { Types } from 'mongoose';
-import type { IGame } from './game';
+import type { IGame } from './Game';
 export interface IRoom {
     _id: Types.ObjectId | string;
     createdAt: Date;

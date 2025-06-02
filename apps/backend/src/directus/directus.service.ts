@@ -1,10 +1,9 @@
-import { createDirectus, readItems, rest, staticToken } from '@directus/sdk';
+import { createDirectus, readItems, readRoles, rest, staticToken } from '@directus/sdk';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { IProperty } from './interfaces/IProperty';
-import { IConfig } from './interfaces/IConfig';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { ERole } from '@tousinclus/types';
 
 @Injectable()
 export class DirectusService {
@@ -33,28 +32,6 @@ export class DirectusService {
     }
 
     return url.toString();
-  }
-
-  async getConfig(): Promise<IConfig> {
-    const cacheKey = 'DEFAULT_BOOKING_TIMES';
-    const ttl = 24 * 60 * 60; // 24 hours
-
-    let config = await this.cacheManager.get<IConfig>(cacheKey);
-
-    if (!config) {
-      try {
-        config = await this.directusClient.request<IConfig>(
-          readItems('config'),
-        );
-      } catch (error) {
-        this.logger.error('Error fetching config:', error);
-        throw error;
-      }
-    }
-
-    await this.cacheManager.set(cacheKey, config, ttl);
-
-    return config;
   }
 
   async getLocales(): Promise<{ code: string }[]> {
@@ -108,38 +85,20 @@ export class DirectusService {
     return matchingLocale.code;
   }
 
-  async getPropertyById(id: string, locale?: string): Promise<IProperty> {
-    const validatedLocale = await this.validateLocale(locale);
+  async getUserRoles(userId: string): Promise<ERole[]> {
+    const roles = await this.directusClient.request(
+      readRoles({
+        fields: ['name'],
+        filter: {
+          users: { id: { _eq: userId } },
+        },
+      }),
+    );
 
-    try {
-      const rawProperty = await this.directusClient.request<IProperty>(
-        readItems('properties', {
-          filter: { beds24id: { _eq: id } },
-          limit: 1,
-          fields: ['*', { translations: ['*'] }, { locks: ['locks_id.*'] }],
-          deep: {
-            translations: {
-              _filter: {
-                _and: [
-                  {
-                    languages_code: { _eq: validatedLocale },
-                  },
-                ],
-              },
-            },
-          },
-        }),
+    return roles
+      .map((role) => role.name)
+      .filter((roleName): roleName is ERole =>
+        Object.values(ERole).includes(roleName as ERole),
       );
-
-      const property = rawProperty[0];
-      property.locks = property.locks.map(
-        (entry: { locks_id: IProperty['locks'] }) => entry.locks_id,
-      );
-
-      return property;
-    } catch (error) {
-      this.logger.error(`Error fetching property with ID ${id}:`, error);
-      throw error;
-    }
   }
 }

@@ -8,10 +8,9 @@ import { JwtPayload } from 'jsonwebtoken';
 import { UnauthorizedException } from '@nestjs/common';
 import { DirectusService } from 'src/directus/directus.service';
 import { IUser } from '@tousinclus/types';
-
-interface IReadme {
-  id: string;
-}
+import { UserDto } from 'src/users/dto/user.dto';
+import { plainToInstance } from 'class-transformer';
+import { IReadme } from './interfaces/readme.interface';
 
 @Injectable()
 export class AuthService {
@@ -40,7 +39,7 @@ export class AuthService {
     return createHash('sha256').update(token).digest('hex');
   }
 
-  async validateAccessToken(accessToken: string): Promise<IUser> {
+  async validateAccessToken(accessToken: string): Promise<UserDto> {
     const tokenHash = this.hashToken(accessToken);
 
     const user = await this.cacheManager.get<IUser>(
@@ -48,7 +47,7 @@ export class AuthService {
     );
     if (user) {
       this.logger.log('Token retrieved from cache', user);
-      return user;
+      return plainToInstance(UserDto, user);
     }
 
     let decodedJwt: JwtPayload;
@@ -69,13 +68,13 @@ export class AuthService {
     const { id } = await this.getUserId(accessToken);
     const roles = await this.directusService.getUserRoles(id);
 
-    const newUser = {
+    const newUser = plainToInstance(UserDto, {
       id,
       roles,
-    };
+    });
 
     const ttl = decodedJwt.exp - now;
-    await this.cacheManager.set<IUser>(
+    await this.cacheManager.set(
       `${this.TOKEN_CACHE_KEY}:${tokenHash}`,
       newUser,
       ttl,

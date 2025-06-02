@@ -243,7 +243,9 @@
         "hidden": false,
         "interface": "select-dropdown-m2o",
         "note": null,
-        "options": null,
+        "options": {
+          "template": null
+        },
         "readonly": false,
         "required": true,
         "sort": 8,

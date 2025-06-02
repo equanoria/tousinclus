@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { BookingsModule } from './bookings/bookings.module';
 import { BullModule } from '@nestjs/bullmq';
 import configuration from 'config/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
+import { GamesModule } from './games/games.module';
+import { CaslModule } from './auth/casl/casl.module';
 
 @Module({
   imports: [
@@ -34,7 +35,8 @@ import { ScheduleModule } from '@nestjs/schedule';
       }),
     }),
     ScheduleModule.forRoot(),
-    BookingsModule,
+    GamesModule,
+    CaslModule,
   ],
 })
 export class AppModule {}

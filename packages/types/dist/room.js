@@ -6,4 +6,4 @@ var ERoomStatus;
     ERoomStatus["OPEN"] = "open";
     ERoomStatus["CLOSED"] = "closed";
 })(ERoomStatus || (exports.ERoomStatus = ERoomStatus = {}));
-//# sourceMappingURL=room.js.map
+//# sourceMappingURL=Room.js.map

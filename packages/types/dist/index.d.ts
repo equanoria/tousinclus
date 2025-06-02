@@ -1,7 +1,7 @@
-export * from './language';
-export * from './room';
-export * from './game';
-export * from './user';
-export * from './node';
+export * from './Language';
+export * from './Room';
+export * from './Game';
+export * from './User';
+export * from './Node';
 export * from './directus';
 //# sourceMappingURL=index.d.ts.map
