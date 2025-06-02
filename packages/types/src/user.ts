@@ -4,6 +4,6 @@ export interface IUser {
 }
 
 export enum ERole {
-  ADMIN = 'Admin',
+  OPERATOR = 'Operator',
   HOST = 'Host',
 }
