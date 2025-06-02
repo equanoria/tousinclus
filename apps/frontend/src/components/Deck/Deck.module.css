@@ -46,7 +46,7 @@ h1 {
 }
 
 .bottomContainer > button {
-  max-width: 250px;
+  max-width: 15.625rem;
   height: min-content;
 }
 

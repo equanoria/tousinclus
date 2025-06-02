@@ -6,8 +6,8 @@ input[type='checkbox'] {
 input[type='checkbox']::before {
   content: '';
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   border: var(--checkbox-field-border-primary-default) var(--stroke-border-50) solid;
   border-radius: var(--radius-100);
   box-shadow:
@@ -23,7 +23,7 @@ input[type='checkbox']:checked {
 input[type='checkbox']:checked::after {
   content: '✓';
   color: var(--checkbox-field-icon-primary-default);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: bold;
   position: absolute;
   top: 50%;
@@ -41,7 +41,7 @@ input[type='checkbox']:disabled::before {
 input[type='checkbox']:disabled::after {
   content: '✓';
   color: var(--textarea-field-bg-default);
-  font-size: 12px;
+  font-size: 0.75rem;
   position: absolute;
   top: 50%;
   left: 50%;
