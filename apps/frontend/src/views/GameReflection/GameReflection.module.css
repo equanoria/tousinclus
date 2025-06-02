@@ -60,7 +60,7 @@ h2 {
   gap: var(--space-400);
 }
 
-fieldset > p {
+.question {
   color: var(--checkbox-field-text-primary-default);
   font-family: var(---body-font-family);
   font-size: var(--body-size-medium);
@@ -68,6 +68,7 @@ fieldset > p {
 }
 
 .rightContainer {
+  position: sticky;
   height: min-content;
   background-color: var(--pale-blue-500);
   border-radius: var(--radius-200);
@@ -85,7 +86,7 @@ fieldset > p {
   padding: var(--space-600) 0 var(--space-800) 0;
 }
 
-.situationContainer p {
+.situationDescription {
   padding: 0 var(--space-800);
 }
 
@@ -115,7 +116,9 @@ h3 {
 .userIdNavigation button {
   background-color: var(--white-1000);
   color: var(--pink-700);
-  font-size: var(--body-size-medium);
+  font-family: var(--body-font-family);
+  font-size: var(--body-size-small);
+  font-weight: var(--weight-semibold);
   border-radius: 50%;
   height: 2.5rem;
   width: 2.5rem;

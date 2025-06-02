@@ -157,7 +157,7 @@ export const GameReflection = () => {
                   onBlur={updateAnswer}
                 />
                 <fieldset>
-                  <p>
+                  <p className={styles.question}>
                     Quels sont les autres utilisateurs extrêmes concernés par la
                     fiche réponse ?
                   </p>
@@ -184,7 +184,7 @@ export const GameReflection = () => {
           <div className={styles.rightContainer}>
             <div className={styles.situationContainer}>
               <h3>Votre deck de cartes</h3>
-              <p>
+              <p className={styles.situationDescription}>
                 Trouvez des solutions pour chaque utilisateur face à la
                 situation concernée
               </p>

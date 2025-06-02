@@ -32,13 +32,24 @@
 
 .number {
   background-color: var(--white-1000);
+  font-family: var(--body-font-family);
+  font-size: var(--body-size-small);
+  font-weight: var(--weight-semibold);
   position: absolute;
   width: 2.188rem;
   height: 2.188rem;
-  right: 15px;
-  top: 15px;
+  right: var(--space-300);
+  top: var(--space-300);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.situation .number {
+  color: var(--pale-blue-600);
+}
+
+.user .number {
+  color: var(--pink-700);
 }
