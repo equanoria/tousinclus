@@ -4,6 +4,7 @@ import { RoomDocument, RoomSchema } from './schemas/room.schema';
 import { AbilitiesModule } from 'src/auth/abilities/abilities.module';
 import { defineRoomAbilities } from './rooms.ability';
 import { RoomsService } from './rooms.service';
+import { RoomsController } from './rooms.controller';
 
 @Module({
   imports: [
@@ -14,5 +15,6 @@ import { RoomsService } from './rooms.service';
   ],
   providers: [RoomsService],
   exports: [RoomsService],
+  controllers: [RoomsController],
 })
 export class GamesModule {}

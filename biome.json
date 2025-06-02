@@ -30,6 +30,16 @@
   },
   "overrides": [
     {
+      "include": ["apps/backend/**/*.module.ts"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "noStaticOnlyClass": "off"
+          }
+        }
+      }
+    },
+    {
       "include": ["apps/backend/**/*"],
       "javascript": {
         "parser": {

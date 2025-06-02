@@ -3,7 +3,6 @@ import { DefineAbilities } from './types/Ability';
 import { ABILITY_FACTORIES } from './constants';
 
 @Module({})
-// biome-ignore lint/complexity/noStaticOnlyClass: forFeature
 export class AbilitiesModule {
   static forFeature(...abilityFactories: DefineAbilities[]): DynamicModule {
     return {

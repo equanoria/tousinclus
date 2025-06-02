@@ -19,3 +19,5 @@ export type DefineAbilities = (options: {
   cannot: AbilityBuilder<MongoAbility<[EAction, SubjectClass]>>['cannot'];
   withRoles: (role: ERole | ERole[], callBack: () => void) => void;
 }) => void;
+
+export type AbilityHandlerCallback = (ability: AppAbility) => boolean;

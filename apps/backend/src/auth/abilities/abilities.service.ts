@@ -14,7 +14,7 @@ export class AbilitiesService {
     private readonly abilityFactories: DefineAbilities[],
   ) {}
 
-  buildForUser(user: UserDto): AppAbility {
+  createForUser(user: UserDto): AppAbility {
     const { can, cannot, build } = new AbilityBuilder<AppAbility>(
       createMongoAbility,
     );
