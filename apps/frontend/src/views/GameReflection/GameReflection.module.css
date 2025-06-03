@@ -188,3 +188,64 @@ h3 {
   opacity: 0.7;
   z-index: 1;
 }
+
+/* Animations */
+@keyframes slideInNextCenter {
+  from {
+    transform: translateX(-8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInBackCenter {
+  from {
+    transform: translateX(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInNextSide {
+  from {
+    transform: translateX(-4px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 0.7;
+  }
+}
+
+@keyframes slideInBackSide {
+  from {
+    transform: translateX(4px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 0.7;
+  }
+}
+
+.centerCard.next {
+  animation: slideInNextCenter 0.7s ease-in-out;
+}
+
+.centerCard.back {
+  animation: slideInBackCenter 0.7s ease-in-out;
+}
+
+.sideCard.next {
+  animation: slideInNextSide 0.5s ease-in-out;
+}
+
+.sideCard.back {
+  animation: slideInBackSide 0.5s ease-in-out;
+}

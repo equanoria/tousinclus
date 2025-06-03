@@ -26,6 +26,9 @@ export const GameReflection = () => {
   const [answerData, setAnswerData] = useState<IAnswerData>(defaultAnswer);
   const { titleManager } = useAppState();
   const [hasStarted, setHasStarted] = useState(false);
+  const [transitionDirection, setTransitionDirection] = useState<
+    'next' | 'back'
+  >('next');
 
   titleManager.set('Phase de réflexion');
 
@@ -57,6 +60,8 @@ export const GameReflection = () => {
 
   const updateCursor = (direction: 'next' | 'back') => {
     if (!cardsGroup) return;
+
+    setTransitionDirection(direction);
 
     setExtremeUserCursor((prev) => {
       const length = cardsGroup.extreme_user.length;
@@ -218,7 +223,11 @@ export const GameReflection = () => {
                     );
                   })}
                 </div>
-                <div className={styles.sliderContainer}>
+                <div
+                  className={`${styles.sliderContainer} ${
+                    styles[transitionDirection]
+                  }`}
+                >
                   {cardsGroup?.extreme_user &&
                     cardsGroup.extreme_user.length > 0 &&
                     (() => {
@@ -234,6 +243,10 @@ export const GameReflection = () => {
                           user.cards_users_id.translations[0].description;
                         const image = user.cards_users_id.image;
                         const isCenter = index === centerIndex;
+                        const positionClass = isCenter
+                          ? styles.centerCard
+                          : styles.sideCard;
+                        const directionClass = styles[transitionDirection];
                         return (
                           <GameCard
                             key={id}
@@ -241,9 +254,7 @@ export const GameReflection = () => {
                             img={directusService.getAssetUrl(image)}
                             alt={name}
                             number={id}
-                            className={
-                              isCenter ? styles.centerCard : styles.sideCard
-                            }
+                            className={`${positionClass} ${directionClass}`}
                           />
                         );
                       });
