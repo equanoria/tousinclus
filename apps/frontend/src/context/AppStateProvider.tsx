@@ -18,6 +18,7 @@ import {
   titleManager,
 } from '@tousinclus/managers';
 import { GameConnection } from '../views/GameConnection/GameConnection';
+import { GameResults } from '../views/GameResults/GameResults';
 
 export interface AppStateContextProps {
   currentView: JSX.Element;
@@ -37,7 +38,7 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [currentView, setCurrentView] = useState<JSX.Element>(
-    <GameConnection />,
+    <GameResults/>,
   );
 
   return (
