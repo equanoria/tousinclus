@@ -167,3 +167,24 @@ h3 {
   bottom: 0;
   left: 0;
 }
+
+.sliderContainer {
+  z-index: 0;
+  max-width: 25rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-400);
+}
+
+.centerCard {
+  min-width: 80%;
+  z-index: 2;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.2);
+}
+
+.sideCard {
+  min-width: 80%;
+  opacity: 0.7;
+  z-index: 1;
+}

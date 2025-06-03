@@ -218,23 +218,37 @@ export const GameReflection = () => {
                     );
                   })}
                 </div>
-                {cardsGroup?.extreme_user
-                  ?.filter((_, index) => index === extremeUserCursor)
-                  .map((user) => {
-                    const id = user.cards_users_id.id;
-                    const name =
-                      user.cards_users_id.translations[0].description;
-                    const image = user.cards_users_id.image;
-                    return (
-                      <GameCard
-                        key={id}
-                        type="user"
-                        img={directusService.getAssetUrl(image)}
-                        alt={name}
-                        number={id}
-                      />
-                    );
-                  })}
+                <div className={styles.sliderContainer}>
+                  {cardsGroup?.extreme_user &&
+                    cardsGroup.extreme_user.length > 0 &&
+                    (() => {
+                      const length = cardsGroup.extreme_user.length;
+                      const centerIndex = extremeUserCursor;
+                      const prevIndex = (centerIndex - 1 + length) % length;
+                      const nextIndex = (centerIndex + 1) % length;
+                      const userIndices = [prevIndex, centerIndex, nextIndex];
+                      return userIndices.map((index) => {
+                        const user = cardsGroup.extreme_user[index];
+                        const id = user.cards_users_id.id;
+                        const name =
+                          user.cards_users_id.translations[0].description;
+                        const image = user.cards_users_id.image;
+                        const isCenter = index === centerIndex;
+                        return (
+                          <GameCard
+                            key={id}
+                            type="user"
+                            img={directusService.getAssetUrl(image)}
+                            alt={name}
+                            number={id}
+                            className={
+                              isCenter ? styles.centerCard : styles.sideCard
+                            }
+                          />
+                        );
+                      });
+                    })()}
+                </div>
                 <Button
                   onClick={() => updateCursor('next')}
                   variant="icon"
