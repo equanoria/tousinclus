@@ -15,6 +15,7 @@ export enum EGameStatus {
   REFLECTION = 'reflection',
   DEBATE = 'debate',
   RESULT = 'result',
+  CLOSED = 'closed',
 }
 
 export interface IGameAnswerGroup {

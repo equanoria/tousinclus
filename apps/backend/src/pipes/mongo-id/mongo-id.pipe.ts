@@ -6,7 +6,7 @@ import { Types } from 'mongoose';
 export class MongoIdPipe implements PipeTransform {
   transform(value: string): Types.ObjectId {
     if (!isMongoId(value)) {
-      throw new BadRequestException(`${value} is not a mongoId`);
+      throw new BadRequestException(`${value} is not a MongoId`);
     }
 
     return new Types.ObjectId(value);

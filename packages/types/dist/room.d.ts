@@ -9,8 +9,7 @@ export interface IRoom {
     games: IGame[];
     teams: IRoomTeam[];
     deckGroupId: string;
-    organizationName?: string;
-    playerCount?: number;
+    config: IRoomConfig;
 }
 export interface IRoomTeam {
     _id: Types.ObjectId | string;
@@ -19,5 +18,10 @@ export interface IRoomTeam {
 export declare enum ERoomStatus {
     OPEN = "open",
     CLOSED = "closed"
+}
+export interface IRoomConfig {
+    reflectionEndsAt: Date;
+    organizationName?: string;
+    playerCount?: number;
 }
 //# sourceMappingURL=Room.d.ts.map

@@ -4,4 +4,4 @@ export declare enum ENodeEnv {
     STAGING = "staging",
     PRODUCTION = "production"
 }
-//# sourceMappingURL=node.d.ts.map
+//# sourceMappingURL=Node.d.ts.map

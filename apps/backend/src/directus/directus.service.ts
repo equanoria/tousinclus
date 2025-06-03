@@ -9,7 +9,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { ERole } from '@tousinclus/types';
+import { ERole, IDirectusConfig } from '@tousinclus/types';
 
 @Injectable()
 export class DirectusService {
@@ -61,6 +61,28 @@ export class DirectusService {
     return languages;
   }
 
+  async getConfig(): Promise<IDirectusConfig> {
+    const cacheKey = 'DEFAULT_BOOKING_TIMES';
+    const ttl = 24 * 60 * 60; // 24 hours
+
+    let config = await this.cacheManager.get<IDirectusConfig>(cacheKey);
+
+    if (!config) {
+      try {
+        config = await this.directusClient.request<IDirectusConfig>(
+          readItems('config'),
+        );
+      } catch (error) {
+        this.logger.error('Error fetching config:', error);
+        throw error;
+      }
+    }
+
+    await this.cacheManager.set(cacheKey, config, ttl);
+
+    return config;
+  }
+
   private async validateLocale(locale?: string): Promise<string> {
     if (!locale) return this.FALLBACK_LOCALE;
 
@@ -106,5 +128,50 @@ export class DirectusService {
       .filter((roleName): roleName is ERole =>
         Object.values(ERole).includes(roleName as ERole),
       );
+  }
+
+  async getRandomCardDeck(
+    deckGroupId: string,
+    excludeDeckIds: string[] = [],
+  ): Promise<string> {
+    let decks = await this.directusClient.request<{ deck: string }[]>(
+      readItems('card_decks', {
+        fields: ['deck'],
+        filter: {
+          deck_group: { _eq: deckGroupId },
+          deck: { _nin: excludeDeckIds },
+        },
+        sort: ['_random'],
+        limit: 1,
+      }),
+    );
+
+    let deck = decks[0]?.deck;
+
+    if (!deck) {
+      this.logger.warn(
+        `No decks found for group ${deckGroupId} with exclusions. Retrying without exclusions...`,
+      );
+
+      decks = await this.directusClient.request<{ deck: string }[]>(
+        readItems('card_decks', {
+          fields: ['deck'],
+          filter: {
+            deck_group: { _eq: deckGroupId },
+          },
+          sort: ['_random'],
+          limit: 1,
+        }),
+      );
+
+      deck = decks[0]?.deck;
+
+      if (!deck) {
+        this.logger.error(`No decks found at all for group ${deckGroupId}.`);
+        throw new Error('No decks available for this group');
+      }
+    }
+
+    return deck;
   }
 }

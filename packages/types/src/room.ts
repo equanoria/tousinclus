@@ -10,9 +10,7 @@ export interface IRoom {
   games: IGame[];
   teams: IRoomTeam[];
   deckGroupId: string;
-
-  organizationName?: string;
-  playerCount?: number;
+  config: IRoomConfig;
 }
 
 export interface IRoomTeam {
@@ -23,4 +21,10 @@ export interface IRoomTeam {
 export enum ERoomStatus {
   OPEN = 'open',
   CLOSED = 'closed',
+}
+
+export interface IRoomConfig {
+  reflectionEndsAt: Date;
+  organizationName?: string;
+  playerCount?: number;
 }

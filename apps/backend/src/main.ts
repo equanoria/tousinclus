@@ -13,6 +13,7 @@ async function bootstrap() {
     }),
   );
   app.enableCors();
+  app.setGlobalPrefix('api');
 
   const port = Number.parseInt(process.env.PORT, 10) || 3201; // TODO: use 3001
   await app.listen(port);

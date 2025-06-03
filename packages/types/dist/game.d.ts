@@ -12,7 +12,8 @@ export declare enum EGameStatus {
     WAITING = "waiting",
     REFLECTION = "reflection",
     DEBATE = "debate",
-    RESULT = "result"
+    RESULT = "result",
+    CLOSED = "closed"
 }
 export interface IGameAnswerGroup {
     extremeUserCardId: string;
@@ -30,4 +31,4 @@ export interface IGameVote {
     createdBy: Types.ObjectId | string | IRoomTeam;
     votedFor: Types.ObjectId | string | IRoomTeam;
 }
-//# sourceMappingURL=game.d.ts.map
+//# sourceMappingURL=Game.d.ts.map

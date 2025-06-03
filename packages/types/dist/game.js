@@ -7,5 +7,6 @@ var EGameStatus;
     EGameStatus["REFLECTION"] = "reflection";
     EGameStatus["DEBATE"] = "debate";
     EGameStatus["RESULT"] = "result";
+    EGameStatus["CLOSED"] = "closed";
 })(EGameStatus || (exports.EGameStatus = EGameStatus = {}));
-//# sourceMappingURL=game.js.map
+//# sourceMappingURL=Game.js.map

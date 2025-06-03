@@ -3,9 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BullModule } from '@nestjs/bullmq';
 import configuration from 'config/configuration';
-import { ScheduleModule } from '@nestjs/schedule';
-import { GamesModule } from './games/games.module';
-import { AbilitiesModule } from './auth/abilities/abilities.module';
+import { RoomsModule } from './rooms/rooms.module';
 
 @Module({
   imports: [
@@ -34,9 +32,7 @@ import { AbilitiesModule } from './auth/abilities/abilities.module';
         },
       }),
     }),
-    ScheduleModule.forRoot(),
-    GamesModule,
-    AbilitiesModule,
+    RoomsModule,
   ],
 })
 export class AppModule {}

@@ -1,18 +1,23 @@
-import { ERoomStatus, IGame, IRoom, IRoomTeam } from '@tousinclus/types';
+import {
+  ERoomStatus,
+  IGame,
+  IRoom,
+  IRoomConfig,
+  IRoomTeam,
+} from '@tousinclus/types';
 import { Type } from 'class-transformer';
 import {
   IsDate,
   IsEnum,
   IsMongoId,
   IsNotEmpty,
-  IsNumber,
-  IsOptional,
   IsString,
   ValidateNested,
 } from 'class-validator';
 import { Types } from 'mongoose';
 import { RoomTeamDto } from './room-team.dto';
 import { GameDto } from 'src/games/dto/game.dto';
+import { RoomConfigDto } from './room-config.dto';
 
 export class RoomDto implements IRoom {
   @IsMongoId()
@@ -45,12 +50,7 @@ export class RoomDto implements IRoom {
   @IsNotEmpty()
   deckGroupId: string;
 
-  @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  organizationName?: string;
-
-  @IsOptional()
-  @IsNumber()
-  playerCount?: number;
+  @ValidateNested()
+  @Type(() => RoomConfigDto)
+  config: IRoomConfig;
 }

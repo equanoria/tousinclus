@@ -1,5 +1,13 @@
-import { IsString, IsOptional, IsNotEmpty, IsNumber } from 'class-validator';
-import { IRoom } from '@tousinclus/types';
+import {
+  IsString,
+  IsOptional,
+  IsNotEmpty,
+  IsNumber,
+  ValidateNested,
+  IsDate,
+} from 'class-validator';
+import { IRoom, IRoomConfig } from '@tousinclus/types';
+import { Type } from 'class-transformer';
 
 export class CreateRoomDto implements Partial<IRoom> {
   @IsOptional()
@@ -16,4 +24,24 @@ export class CreateRoomDto implements Partial<IRoom> {
   @IsNumber()
   @IsNotEmpty()
   playerCount?: number;
+
+  @ValidateNested()
+  @Type(() => CreateRoomConfigDto)
+  config: IRoomConfig;
+}
+
+export class CreateRoomConfigDto implements Partial<IRoomConfig> {
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  organizationName?: string;
+
+  @IsOptional()
+  @IsNumber()
+  playerCount?: number;
+
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date)
+  reflectionEndsAt?: Date;
 }
