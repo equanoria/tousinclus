@@ -192,7 +192,7 @@ h3 {
 /* Animations */
 @keyframes slideInNextCenter {
   from {
-    transform: translateX(-8px);
+    transform: translateX(-5px);
     opacity: 0;
   }
   to {
@@ -203,7 +203,7 @@ h3 {
 
 @keyframes slideInBackCenter {
   from {
-    transform: translateX(8px);
+    transform: translateX(5px);
     opacity: 0;
   }
   to {

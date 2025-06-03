@@ -224,9 +224,7 @@ export const GameReflection = () => {
                   })}
                 </div>
                 <div
-                  className={`${styles.sliderContainer} ${
-                    styles[transitionDirection]
-                  }`}
+                  className={styles.sliderContainer}
                 >
                   {cardsGroup?.extreme_user &&
                     cardsGroup.extreme_user.length > 0 &&
