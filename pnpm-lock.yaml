@@ -259,9 +259,6 @@ importers:
       socket.io-client:
         specifier: ^4.8.1
         version: 4.8.1
-      swiper:
-        specifier: ^11.2.8
-        version: 11.2.8
     devDependencies:
       '@eslint/js':
         specifier: ^9.17.0
@@ -4199,10 +4196,6 @@ packages:
     engines: {node: '>= v0.10.32'}
     peerDependencies:
       express: '>=4.0.0 || >=5.0.0-beta'
-
-  swiper@11.2.8:
-    resolution: {integrity: sha512-S5FVf6zWynPWooi7pJ7lZhSUe2snTzqLuUzbd5h5PHUOhzgvW0bLKBd2wv0ixn6/5o9vwc/IkQT74CRcLJQzeg==}
-    engines: {node: '>= 4.7.0'}
 
   symbol-observable@4.0.0:
     resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
@@ -9213,8 +9206,6 @@ snapshots:
     dependencies:
       express: 4.21.2
       swagger-ui-dist: 5.20.1
-
-  swiper@11.2.8: {}
 
   symbol-observable@4.0.0: {}
 
