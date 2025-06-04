@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { EGameStatus, IGame } from '@tousinclus/types';
+import { EGameStatus, IGame, IGameState } from '@tousinclus/types';
 import {
   GameAnswerGroupDocument,
   GameAnswerGroupSchema,
@@ -9,10 +9,7 @@ import { GameVoteDocument, GameVoteSchema } from './game-vote.schema';
 import { GameRankingDocument, GameRankingSchema } from './game-ranking.schema';
 
 @Schema({ timestamps: true })
-export class GameDocument
-  extends Document<Types.ObjectId>
-  implements Omit<IGame, 'state'>
-{
+export class GameDocument extends Document<Types.ObjectId> implements IGame {
   @Prop({ enum: EGameStatus, required: true, default: EGameStatus.THINKING })
   status: EGameStatus;
 
@@ -28,6 +25,7 @@ export class GameDocument
   @Prop({ type: [GameRankingSchema], default: [] })
   ranking: Types.DocumentArray<GameRankingDocument>;
 
+  state: IGameState;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,10 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { DirectusService } from 'src/directus/directus.service';
 import { RoomDocument } from 'src/rooms/schemas/room.schema';
-import { GameDocument } from './schemas/game.schema';
 import { RedisClient } from 'src/redis/redis.module';
-import { stat } from 'fs';
-import { th } from '@faker-js/faker/.';
 import { GameDto } from './dto/game.dto';
 import { plainToInstance } from 'class-transformer';
 import { Types } from 'mongoose';

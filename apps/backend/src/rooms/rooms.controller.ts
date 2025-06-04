@@ -22,12 +22,16 @@ import { UserDto } from 'src/users/dto/user.dto';
 import { Types } from 'mongoose';
 import { MongoIdPipe } from 'src/pipes/mongo-id/mongo-id.pipe';
 import { plainToInstance } from 'class-transformer';
+import { DirectusService } from 'src/directus/directus.service';
 
 @UseGuards(AuthGuard, AbilitiesGuard)
 @Abilities((ability) => ability.can(EAction.MANAGE, RoomDocument))
 @Controller('rooms')
 export class RoomsController {
-  constructor(private readonly roomsService: RoomsService) {}
+  constructor(
+    private readonly roomsService: RoomsService,
+    private readonly directusService: DirectusService,
+  ) {}
 
   @Get(':id')
   async getOne(@Param('id', MongoIdPipe) id: Types.ObjectId): Promise<RoomDto> {
@@ -40,6 +44,10 @@ export class RoomsController {
     @Body() createRoomDto: CreateRoomDto,
     @User() user: UserDto,
   ): Promise<RoomDto> {
+    if (createRoomDto.deckGroupId) {
+      await this.directusService.validateDeckGroup(createRoomDto.deckGroupId);
+    }
+
     const createdRoom = await this.roomsService.createOne(createRoomDto, user);
     return plainToInstance(RoomDto, createdRoom.toObject());
   }

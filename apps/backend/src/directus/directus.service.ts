@@ -1,11 +1,12 @@
 import {
   createDirectus,
+  readItem,
   readItems,
   readRoles,
   rest,
   staticToken,
 } from '@directus/sdk';
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
@@ -175,19 +176,14 @@ export class DirectusService {
     return deck;
   }
 
-  // async getDeckGroup(id: string): Promise<string> {
-  //   const deckGroup = await this.directusClient.request<{ id: string }>(
-  //     readItems('deck_groups', {
-  //       filter: { id: { _eq: id } },
-  //       fields: ['id'],
-  //     }),
-  //   );
-
-  //   if (!deckGroup) {
-  //     this.logger.error(`Deck group with ID ${id} not found.`);
-  //     throw new Error(`Deck group with ID ${id} not found.`);
-  //   }
-
-  //   return deckGroup;
-  // }
+  async validateDeckGroup(id: string): Promise<{ id: string }> {
+    try {
+      return await this.directusClient.request<{ id: string }>(
+        readItem('deck_groups', id),
+      );
+    } catch (error) {
+      this.logger.error(`Deck group with ID ${id} not found.`, error);
+      throw new NotFoundException(`Deck group with ID ${id} not found.`);
+    }
+  }
 }
