@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import type React from 'react';
 import { useId, type ComponentPropsWithoutRef } from 'react';
 import styles from './Textarea.module.css';
 

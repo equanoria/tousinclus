@@ -18,7 +18,7 @@ export const Banner = ({
   const classes = clsx(styles.banner, styles[variant], className);
 
   return (
-    <aside className={classes} {...props}>
+    <aside className={classes} role="alert" {...props}>
       {children}
     </aside>
   );
