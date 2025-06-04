@@ -7,12 +7,14 @@ import { DirectusService } from 'src/directus/directus.service';
 import { UserDto } from 'src/users/dto/user.dto';
 import { RoomDto } from './dto/room.dto';
 import { RedisClient } from 'src/redis/redis.module';
+import { IRedisRoom } from './types/Redis';
 
 @Injectable()
 export class RoomsService {
   private readonly logger = new Logger(RoomsService.name);
   private static readonly MAX_ATTEMPTS = 10;
   private static readonly ROOM_MAX_TTL = 72; // Hours
+  private static readonly DEFAULT_TEAMS_AMOUNT = 2;
 
   constructor(
     @InjectModel(RoomDocument.name)
@@ -41,6 +43,7 @@ export class RoomsService {
       ...room,
       createdBy: user.id,
       code,
+      teams: await this.generateTeams(RoomsService.DEFAULT_TEAMS_AMOUNT),
     }).save();
 
     if (!createdRoom) {
@@ -48,13 +51,14 @@ export class RoomsService {
       throw new Error('Failed to create room');
     }
 
-    const redisRoom = {
-      
+    const redisRoom: IRedisRoom = {
+      _id: createdRoom._id.toString(),
+      teams: createdRoom.teams.toObject(),
     };
 
     await this.redisClient.set(
-      `room:${createdRoom.id}`,
-      JSON.stringify(createdRoom),
+      `room:${redisRoom._id}`,
+      JSON.stringify(redisRoom),
       'EX',
       RoomsService.ROOM_MAX_TTL * 60 * 60,
     );
@@ -153,5 +157,15 @@ export class RoomsService {
       if (!exists) return code;
     }
     throw new Error('Unable to generate a unique code after several attempts');
+  }
+
+  private async generateTeams(amount: number): Promise<{ name: string }[]> {
+    const teams = [];
+    for (let i = 0; i < amount; i++) {
+      teams.push({
+        name: `Team ${i + 1}`,
+      });
+    }
+    return teams;
   }
 }
