@@ -1,3 +1,3 @@
-export * from './DirectusConfig_';
-export * from './DirectusCardsGroup_';
+export * from './DirectusConfig';
+export * from './DirectusCardsGroup';
 //# sourceMappingURL=index.d.ts.map
