@@ -48,8 +48,8 @@ export class RoomsRedis {
 
   async updateOne(
     id: Types.ObjectId,
-    room: Partial<RoomDto>,
-  ): Promise<RoomDocument> {
+    room: Partial<RedisRoomDto>,
+  ): Promise<RedisRoomDto> {
     const rawExistingRoom = await this.redisClient.get(`room:${id.toString()}`);
 
     if (!rawExistingRoom) {
