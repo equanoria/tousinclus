@@ -9,4 +9,8 @@ export class RoomTeamDto implements IRoomTeam {
   @IsString()
   @IsNotEmpty()
   name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  client: string;
 }

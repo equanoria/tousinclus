@@ -6,8 +6,7 @@ import { CreateRoomDto } from './dto/create-room.dto';
 import { DirectusService } from 'src/directus/directus.service';
 import { UserDto } from 'src/users/dto/user.dto';
 import { RoomDto } from './dto/room.dto';
-import { RedisClient } from 'src/redis/redis.module';
-import { IRedisRoom } from './types/Redis';
+import { RoomsRedis } from './rooms.redis';
 
 @Injectable()
 export class RoomsService {
@@ -20,7 +19,7 @@ export class RoomsService {
     @InjectModel(RoomDocument.name)
     private readonly roomModel: Model<RoomDocument>,
     private readonly directusService: DirectusService,
-    private readonly redisClient: RedisClient,
+    private readonly roomsRedis: RoomsRedis,
   ) {}
 
   async getOne(id: Types.ObjectId): Promise<RoomDocument | null> {
@@ -51,66 +50,9 @@ export class RoomsService {
       throw new Error('Failed to create room');
     }
 
-    const redisRoom: IRedisRoom = {
-      _id: createdRoom._id.toString(),
-      teams: createdRoom.teams.toObject(),
-    };
-
-    await this.redisClient.set(
-      `room:${redisRoom._id}`,
-      JSON.stringify(redisRoom),
-      'EX',
-      RoomsService.ROOM_MAX_TTL * 60 * 60,
-    );
+    await this.roomsRedis.createOne(createdRoom);
 
     return createdRoom;
-  }
-
-  async getOneFromRedis(id: Types.ObjectId): Promise<RoomDocument> {
-    const redisRoom = await this.redisClient.get(`room:${id.toString()}`);
-
-    if (!redisRoom) {
-      this.logger.error(`Room with ID ${id} not found in Redis`);
-      throw new NotFoundException(`Room with ID ${id} not found`);
-    }
-
-    return JSON.parse(redisRoom);
-  }
-
-  async updateOneFromRedis(
-    id: Types.ObjectId,
-    room: Partial<RoomDto>,
-  ): Promise<RoomDocument> {
-    const rawExistingRoom = await this.redisClient.get(`room:${id.toString()}`);
-
-    if (!rawExistingRoom) {
-      this.logger.error(`Room with ID ${id} not found in Redis`);
-      throw new NotFoundException(`Room with ID ${id} not found`);
-    }
-
-    const existingRoom = JSON.parse(rawExistingRoom);
-
-    const updatedRoom = { ...existingRoom, ...room };
-    await this.redisClient.set(
-      `room:${id.toString()}`,
-      JSON.stringify(updatedRoom),
-      'EX',
-      RoomsService.ROOM_MAX_TTL * 60 * 60,
-    );
-
-    return updatedRoom;
-  }
-
-  async deleteOneFromRedis(id: Types.ObjectId): Promise<Types.ObjectId | null> {
-    const deleted = await this.redisClient.del(`room:${id.toString()}`);
-
-    if (deleted === 0) {
-      this.logger.warn(`Room with ID ${id} not found in Redis`);
-      return null;
-    }
-
-    this.logger.log(`Room with ID ${id} deleted from Redis`);
-    return id;
   }
 
   async updateOne(
@@ -140,14 +82,9 @@ export class RoomsService {
       throw new NotFoundException(`Room with ID: ${id} not found`);
     }
 
-    await this.deleteOneFromRedis(id);
+    await this.roomsRedis.deleteOne(id);
 
     return deletedRoom;
-  }
-
-  async findByCode(code: string): Promise<RoomDocument | null> {
-    const room = await this.roomModel.findOne({ code }).exec();
-    return room ?? null;
   }
 
   private async generateRandomCode(): Promise<string> {

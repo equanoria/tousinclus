@@ -9,6 +9,9 @@ export class RoomTeamDocument
 {
   @Prop()
   name: string;
+
+  @Prop()
+  client: string;
 }
 
 export const RoomTeamSchema = SchemaFactory.createForClass(RoomTeamDocument);

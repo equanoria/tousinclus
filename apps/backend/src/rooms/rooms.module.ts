@@ -9,6 +9,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { DirectusModule } from 'src/directus/directus.module';
 import { RoomsGateway } from './rooms.gateway';
 import { RedisModule } from 'src/redis/redis.module';
+import { RoomsRedis } from './rooms.redis';
 
 @Module({
   imports: [
@@ -20,8 +21,8 @@ import { RedisModule } from 'src/redis/redis.module';
     AbilitiesModule.forFeature(defineRoomAbilities),
     RedisModule,
   ],
-  providers: [RoomsService, RoomsGateway],
-  exports: [RoomsService],
+  providers: [RoomsService, RoomsRedis, RoomsGateway],
+  exports: [RoomsService, RoomsRedis],
   controllers: [RoomsController],
 })
 export class RoomsModule {}
