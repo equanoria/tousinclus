@@ -5,8 +5,6 @@
     inset 0 0 0 var(--button-shadow-primary-default),
     0.25rem 0.25rem 0 0 var(--button-shadow-primary-default);
   font-family: var(--font-cal-sans);
-
-  /* biome-ignore lint/correctness/noUnknownProperty: <explanation> */
   text-box-trim: trim-both;
   text-box-edge: cap alphabetic;
   display: flex;
