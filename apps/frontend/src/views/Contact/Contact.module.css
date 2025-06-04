@@ -1,0 +1,10 @@
+.contact {
+  display: grid;
+  max-width: 25rem;
+  margin: 0 auto;
+
+  nav {
+    display: grid;
+    gap: var(--space-200);
+  }
+}

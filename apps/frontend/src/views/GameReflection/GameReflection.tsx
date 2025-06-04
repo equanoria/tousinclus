@@ -6,7 +6,7 @@ import { directusService } from '../../services/directus/directus.service';
 import { gameService } from '../../services/game/game.service';
 import { Button } from '../../components/Button/Button';
 import { Checkbox } from '../../components/Checkbox/Checkbox';
-import { Input } from '../../components/Input/Input';
+import { Textarea } from '../../components/Textarea/Textarea';
 
 const defaultAnswer = {
   input1: '',
@@ -60,7 +60,7 @@ export const GameReflection = () => {
     });
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextareaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = event.target;
     setAnswerData((prev) => ({
       ...prev,
@@ -100,9 +100,9 @@ export const GameReflection = () => {
       <Button onClick={() => updateCursor('next')}>Next</Button>
       <Button onClick={() => updateCursor('back')}>Back</Button>
 
-      <Input label="Question 1" placeholder="Bla bla bla..." type="text" name="input1" value={answerData.input1} onChange={handleInputChange} onBlur={updateAnswer} />
-      <Input label="Question 2" placeholder="Bla bla bla..." type="text" name="input2" value={answerData.input2} onChange={handleInputChange} onBlur={updateAnswer} />
-      <Input label="Question 3" placeholder="Bla bla bla..." type="text" name="input3" value={answerData.input3} onChange={handleInputChange} onBlur={updateAnswer} />
+      <Textarea label="Question 1" placeholder="Bla bla bla..." name="input1" value={answerData.input1} onChange={handleTextareaChange} onBlur={updateAnswer} />
+      <Textarea label="Question 2" placeholder="Bla bla bla..." name="input2" value={answerData.input2} onChange={handleTextareaChange} onBlur={updateAnswer} />
+      <Textarea label="Question 3" placeholder="Bla bla bla..." name="input3" value={answerData.input3} onChange={handleTextareaChange} onBlur={updateAnswer} />
       
       <fieldset>
         {cardsGroup?.extreme_user
