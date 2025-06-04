@@ -11,8 +11,7 @@
   > footer {
     display: grid;
     place-items: center;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-800);
 
     nav {
       display: flex;
