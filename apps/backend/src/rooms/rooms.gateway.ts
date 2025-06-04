@@ -54,20 +54,16 @@ export class RoomsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('room:find')
-  async handleFindOneRoom(
+  async handleFindOne(
     @ConnectedSocket() client: Socket,
     @MessageBody('code') code: string,
   ): Promise<RoomDto> {
     // Transform the object by excluding the marked keys
-    const modifiedGameData = plainToInstance(
-      RoomDto,
-      this.roomsService.getByCode(code),
-      {
-        excludeExtraneousValues: true,
-        groups: [EGroupExpose.PLAYER],
-      },
-    );
+    const room = plainToInstance(RoomDto, this.roomsService.getByCode(code), {
+      excludeExtraneousValues: true,
+      groups: [EGroupExpose.PLAYER],
+    });
 
-    return modifiedGameData;
+    return room;
   }
 }
