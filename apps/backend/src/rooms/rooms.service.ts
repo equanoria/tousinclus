@@ -18,17 +18,6 @@ export class RoomsService {
     private readonly directusService: DirectusService,
   ) {}
 
-  async getDocument(id: Types.ObjectId): Promise<RoomDocument> {
-    const room = await this.roomModel.findById(id).exec();
-
-    if (!room) {
-      this.logger.error(`Room with ID: ${id} not found`);
-      throw new NotFoundException(`Room with ID: ${id} not found`);
-    }
-
-    return room;
-  }
-
   async getOne(id: Types.ObjectId): Promise<RoomDocument | null> {
     const room = await this.roomModel.findById(id).exec();
 

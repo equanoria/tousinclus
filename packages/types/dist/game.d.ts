@@ -9,7 +9,6 @@ export interface IGame {
     votes: IGameVote[];
 }
 export declare enum EGameStatus {
-    WAITING = "waiting",
     REFLECTION = "reflection",
     DEBATE = "debate",
     RESULT = "result",

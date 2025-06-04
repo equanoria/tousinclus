@@ -25,6 +25,10 @@ export class GameDto implements IGame {
   @Type(() => Date)
   createdAt: Date;
 
+  @IsDate()
+  @Type(() => Date)
+  updatedAt: Date;
+
   @IsEnum(EGameStatus)
   status: EGameStatus;
 

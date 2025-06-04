@@ -27,6 +27,10 @@ export class RoomDto implements IRoom {
   @Type(() => Date)
   createdAt: Date;
 
+  @IsDate()
+  @Type(() => Date)
+  updatedAt: Date;
+
   @IsString()
   @IsNotEmpty()
   createdBy: string;

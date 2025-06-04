@@ -7,12 +7,9 @@ import {
 import { Document, Types } from 'mongoose';
 import { GameVoteDocument, GameVoteSchema } from './game-vote.schema';
 
-@Schema()
+@Schema({ timestamps: true })
 export class GameDocument extends Document<Types.ObjectId> implements IGame {
-  @Prop({ default: Date.now })
-  createdAt: Date;
-
-  @Prop({ enum: EGameStatus, required: true, default: EGameStatus.WAITING })
+  @Prop({ enum: EGameStatus, required: true, default: EGameStatus.REFLECTION })
   status: EGameStatus;
 
   @Prop({ required: true })
@@ -23,6 +20,9 @@ export class GameDocument extends Document<Types.ObjectId> implements IGame {
 
   @Prop({ type: [GameVoteSchema], default: [] })
   votes: Types.DocumentArray<GameVoteDocument>;
+
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const GameSchema = SchemaFactory.createForClass(GameDocument);

@@ -11,7 +11,6 @@ export interface IGame {
 }
 
 export enum EGameStatus {
-  WAITING = 'waiting',
   REFLECTION = 'reflection',
   DEBATE = 'debate',
   RESULT = 'result',

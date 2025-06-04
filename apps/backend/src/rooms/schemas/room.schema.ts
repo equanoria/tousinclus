@@ -5,11 +5,8 @@ import { GameDocument, GameSchema } from 'src/games/schemas/game.schema';
 import { Document, Types } from 'mongoose';
 import { RoomConfigDocument, RoomConfigSchema } from './room-config.schema';
 
-@Schema()
+@Schema({ timestamps: true })
 export class RoomDocument extends Document<Types.ObjectId> implements IRoom {
-  @Prop({ default: Date.now })
-  createdAt: Date;
-
   @Prop({ required: true })
   createdBy: string;
 
@@ -39,6 +36,9 @@ export class RoomDocument extends Document<Types.ObjectId> implements IRoom {
 
   @Prop({ type: [RoomConfigSchema] })
   config: RoomConfigDocument;
+
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export const RoomSchema = SchemaFactory.createForClass(RoomDocument);

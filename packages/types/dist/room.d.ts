@@ -3,6 +3,7 @@ import type { IGame } from './Game';
 export interface IRoom {
     _id: Types.ObjectId | string;
     createdAt: Date;
+    updatedAt: Date;
     createdBy: string;
     status: ERoomStatus;
     code: string;
