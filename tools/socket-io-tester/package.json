@@ -1,0 +1,14 @@
+{
+  "name": "socket-io-tester",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "ws-test": "node client.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^4.8.1"
+  }
+}

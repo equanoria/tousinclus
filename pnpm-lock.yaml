@@ -113,9 +113,6 @@ importers:
       socket.io:
         specifier: ^4.8.1
         version: 4.8.1
-      socket.io-client:
-        specifier: ^4.8.1
-        version: 4.8.1
     devDependencies:
       '@faker-js/faker':
         specifier: ^9.8.0
@@ -503,6 +500,12 @@ importers:
       directus-extension-schema-sync:
         specifier: 3.0.8
         version: 3.0.8
+
+  tools/socket-io-tester:
+    dependencies:
+      socket.io-client:
+        specifier: ^4.8.1
+        version: 4.8.1
 
   tools/style-dictionary:
     dependencies:
