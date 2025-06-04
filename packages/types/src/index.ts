@@ -4,3 +4,4 @@ export * from './Game';
 export * from './User';
 export * from './Node';
 export * from './directus';
+export * from './websocket';

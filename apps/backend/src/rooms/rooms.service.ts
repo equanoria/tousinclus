@@ -22,13 +22,15 @@ export class RoomsService {
     private readonly roomsRedis: RoomsRedis,
   ) {}
 
+  // ========== Utils Function ==========
   async getOne(id: Types.ObjectId): Promise<RoomDocument | null> {
     const room = await this.roomModel.findById(id).exec();
 
-    if (!room) {
-      this.logger.error(`Failed to delete room with ID: ${id}`);
-      throw new NotFoundException(`Room with ID: ${id} not found`);
-    }
+    // ! Uncomment when websocket filter will be activated
+    // if (!room) {
+    //   this.logger.error(`Failed to delete room with ID: ${id}`);
+    //   throw new NotFoundException(`Room with ID: ${id} not found`);
+    // }
 
     return room;
   }
@@ -85,6 +87,17 @@ export class RoomsService {
     await this.roomsRedis.deleteOne(id);
 
     return deletedRoom;
+  }
+
+  async getByCode(code: string): Promise<RoomDocument> {
+    const room = await this.roomModel.findOne({ code }).exec();
+
+    if (!room) {
+      this.logger.error(`Failed to find room with Code: ${code}`);
+      throw new NotFoundException(`Failed to find room with Code: ${code}`);
+    }
+
+    return room;
   }
 
   private async generateRandomCode(): Promise<string> {
