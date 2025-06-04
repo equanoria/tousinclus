@@ -11,11 +11,15 @@ import {
   EGameStatus,
   IGame,
   IGameAnswerGroup,
+  IGameRanking,
+  IGameState,
   IGameVote,
 } from '@tousinclus/types';
 import { Types } from 'mongoose';
 import { GameVoteDto } from './game-vote.dto';
 import { GameAnswerGroupDto } from './game-answer-group.dto';
+import { GameRankingDto } from './game-ranking.dto';
+import { GameStateDto } from './game-state.dto';
 
 export class GameDto implements IGame {
   @IsMongoId()
@@ -32,6 +36,10 @@ export class GameDto implements IGame {
   @IsEnum(EGameStatus)
   status: EGameStatus;
 
+  @ValidateNested()
+  @Type(() => GameStateDto)
+  state: IGameState;
+
   @IsString()
   @IsNotEmpty()
   cardDeckId: string;
@@ -43,4 +51,8 @@ export class GameDto implements IGame {
   @ValidateNested({ each: true })
   @Type(() => GameVoteDto)
   votes: IGameVote[];
+
+  @ValidateNested({ each: true })
+  @Type(() => GameRankingDto)
+  ranking: IGameRanking[];
 }

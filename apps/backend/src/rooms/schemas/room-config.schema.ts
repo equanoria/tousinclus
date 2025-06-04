@@ -4,8 +4,8 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class RoomConfigDocument extends Document implements IRoomConfig {
-  @Prop({ type: Date, required: true })
-  reflectionEndsAt: Date;
+  @Prop({ type: Number, required: true })
+  thinkingDuration: number;
 
   @Prop()
   organizationName?: string;

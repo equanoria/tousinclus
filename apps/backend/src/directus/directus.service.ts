@@ -174,4 +174,20 @@ export class DirectusService {
 
     return deck;
   }
+
+  // async getDeckGroup(id: string): Promise<string> {
+  //   const deckGroup = await this.directusClient.request<{ id: string }>(
+  //     readItems('deck_groups', {
+  //       filter: { id: { _eq: id } },
+  //       fields: ['id'],
+  //     }),
+  //   );
+
+  //   if (!deckGroup) {
+  //     this.logger.error(`Deck group with ID ${id} not found.`);
+  //     throw new Error(`Deck group with ID ${id} not found.`);
+  //   }
+
+  //   return deckGroup;
+  // }
 }

@@ -4,7 +4,6 @@ import {
   IsNotEmpty,
   IsNumber,
   ValidateNested,
-  IsDate,
 } from 'class-validator';
 import { IRoom, IRoomConfig } from '@tousinclus/types';
 import { Type } from 'class-transformer';
@@ -41,7 +40,6 @@ export class CreateRoomConfigDto implements Partial<IRoomConfig> {
   playerCount?: number;
 
   @IsOptional()
-  @IsDate()
-  @Type(() => Date)
-  reflectionEndsAt?: Date;
+  @IsNumber()
+  thinkingDuration?: number;
 }

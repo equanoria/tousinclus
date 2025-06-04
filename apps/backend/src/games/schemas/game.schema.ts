@@ -6,10 +6,14 @@ import {
 } from './game-answer-group.schema';
 import { Document, Types } from 'mongoose';
 import { GameVoteDocument, GameVoteSchema } from './game-vote.schema';
+import { GameRankingDocument, GameRankingSchema } from './game-ranking.schema';
 
 @Schema({ timestamps: true })
-export class GameDocument extends Document<Types.ObjectId> implements IGame {
-  @Prop({ enum: EGameStatus, required: true, default: EGameStatus.REFLECTION })
+export class GameDocument
+  extends Document<Types.ObjectId>
+  implements Omit<IGame, 'state'>
+{
+  @Prop({ enum: EGameStatus, required: true, default: EGameStatus.THINKING })
   status: EGameStatus;
 
   @Prop({ required: true })
@@ -20,6 +24,9 @@ export class GameDocument extends Document<Types.ObjectId> implements IGame {
 
   @Prop({ type: [GameVoteSchema], default: [] })
   votes: Types.DocumentArray<GameVoteDocument>;
+
+  @Prop({ type: [GameRankingSchema], default: [] })
+  ranking: Types.DocumentArray<GameRankingDocument>;
 
   createdAt: Date;
   updatedAt: Date;

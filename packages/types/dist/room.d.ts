@@ -21,7 +21,7 @@ export declare enum ERoomStatus {
     CLOSED = "closed"
 }
 export interface IRoomConfig {
-    reflectionEndsAt: Date;
+    thinkingDuration: number;
     organizationName?: string;
     playerCount?: number;
 }

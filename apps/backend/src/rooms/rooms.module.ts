@@ -7,6 +7,7 @@ import { RoomsService } from './rooms.service';
 import { RoomsController } from './rooms.controller';
 import { AuthModule } from 'src/auth/auth.module';
 import { DirectusModule } from 'src/directus/directus.module';
+import { RoomsGateway } from './rooms.gateway';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { DirectusModule } from 'src/directus/directus.module';
     AuthModule,
     AbilitiesModule.forFeature(defineRoomAbilities),
   ],
-  providers: [RoomsService],
+  providers: [RoomsService, RoomsGateway],
   exports: [RoomsService],
   controllers: [RoomsController],
 })

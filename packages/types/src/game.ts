@@ -5,13 +5,15 @@ export interface IGame {
   _id: Types.ObjectId | string;
   createdAt: Date;
   status: EGameStatus;
+  state: IGameState;
   cardDeckId: string;
   answerGroups: IGameAnswerGroup[];
   votes: IGameVote[];
+  ranking: IGameRanking[];
 }
 
 export enum EGameStatus {
-  REFLECTION = 'reflection',
+  THINKING = 'thinking',
   DEBATE = 'debate',
   RESULT = 'result',
   CLOSED = 'closed',
@@ -33,4 +35,18 @@ export interface IGameVote {
   extremeUserCardId: string;
   createdBy: Types.ObjectId | string | IRoomTeam;
   votedFor: Types.ObjectId | string | IRoomTeam;
+}
+
+export interface IGameRanking {
+  team: Types.ObjectId | string | IRoomTeam;
+  score: number;
+}
+
+export interface IGameState {
+  thinking?: {
+    endsAt: Date;
+  };
+  debate?: {
+    currentVote: string;
+  };
 }

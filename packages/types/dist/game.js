@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EGameStatus = void 0;
 var EGameStatus;
 (function (EGameStatus) {
-    EGameStatus["REFLECTION"] = "reflection";
+    EGameStatus["THINKING"] = "thinking";
     EGameStatus["DEBATE"] = "debate";
     EGameStatus["RESULT"] = "result";
     EGameStatus["CLOSED"] = "closed";

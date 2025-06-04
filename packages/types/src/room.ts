@@ -25,7 +25,7 @@ export enum ERoomStatus {
 }
 
 export interface IRoomConfig {
-  reflectionEndsAt: Date;
+  thinkingDuration: number;
   organizationName?: string;
   playerCount?: number;
 }
