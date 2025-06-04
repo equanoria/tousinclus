@@ -10,11 +10,10 @@ export interface TeamProps {
 }
 
 export const Team: FC<TeamProps> = ({ winner = false, score, label }) => {
-  const teamStyle = winner ? styles.winnerStyle : styles.loserStyle;
 
   return (
     <div className={clsx(styles.container)}>
-      <div className={clsx(styles.badge, teamStyle, winner && styles.winner)}>
+      <div className={clsx(styles.badge, winner && styles.winner)}>
         {winner && <div className={styles.crown} />}
         <div className={styles.label}>{label}</div>
       </div>

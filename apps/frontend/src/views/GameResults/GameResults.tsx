@@ -9,9 +9,9 @@ export const GameResults = () => {
         <h1 className={styles.title_hero}>Bravo à tous</h1>
         <img src="src/assets/images/character-winner.svg" alt="" />
         <div className={styles.resultsContainer}>
-          <Team team="team1" winner={true} score={2} label="Équipe 1" />
+          <Team team="team1" winner={false} score={2} label="Équipe 1" />
           <div className={`${styles.vs} ${styles.title_hero}`}>VS</div>
-          <Team team="team2" winner={false} score={2} label="Équipe 2" />
+          <Team team="team2" winner={true} score={2} label="Équipe 2" />
         </div>
         <div className={styles.actions}>
           <Button variant='secondary'>Quitter</Button>

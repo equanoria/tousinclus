@@ -10,16 +10,12 @@
   padding: var(--space-400) var(--space-800);
   border-radius: var(--radius-full);
   background: white;
-  box-shadow: 0.25rem 0.25rem 0 0 var(--button-shadow-primary-default);
-}
-
-.team1 {
-  border: 0.25rem solid var(--yellow-600);
-  box-shadow: 0.25rem 0.25rem 0 0 var(--button-shadow-primary-default);
-}
-
-.team2 {
   border: 0.25rem solid var(--pink-500);
+  box-shadow: 0.25rem 0.25rem 0 0 var(--button-shadow-primary-default);
+}
+
+.winner {
+  border: 0.25rem solid var(--yellow-600);
   box-shadow: 0.25rem 0.25rem 0 0 var(--button-shadow-primary-default);
 }
 
@@ -30,7 +26,7 @@
   transform: translateX(-50%);
   width: 3.375rem;
   height: 100%;
-  background: url('src/assets/images/crown.svg') no-repeat center / contain;
+  background: url("src/assets/images/crown.svg") no-repeat center / contain;
 }
 
 .label {
