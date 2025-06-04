@@ -1,2 +1,2 @@
-export * from './DirectusConfig';
-export * from './DirectusCardsGroup';
+export * from './DirectusConfig_';
+export * from './DirectusCardsGroup_';

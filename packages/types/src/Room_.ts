@@ -1,5 +1,5 @@
 import type { Types } from 'mongoose';
-import type { IGame } from './Game';
+import type { IGame } from './Game_';
 
 export interface IRoom {
   _id: Types.ObjectId | string;
@@ -17,6 +17,7 @@ export interface IRoom {
 export interface IRoomTeam {
   _id: Types.ObjectId | string;
   name: string;
+  client: string;
 }
 
 export enum ERoomStatus {

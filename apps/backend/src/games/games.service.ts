@@ -9,6 +9,7 @@ import { Types } from 'mongoose';
 @Injectable()
 export class GamesService {
   private readonly logger = new Logger(GamesService.name);
+  private static readonly GAME_MAX_TTL = 3; // Hours
 
   constructor(
     private readonly directusService: DirectusService,
@@ -42,6 +43,8 @@ export class GamesService {
     await this.redisClient.set(
       `game:${redisGame._id.toString()}`,
       JSON.stringify(redisGame.toJSON()),
+      'EX',
+      GamesService.GAME_MAX_TTL * 60 * 60,
     );
 
     return plainToInstance(GameDto, mongoCreatedGame.toObject());
