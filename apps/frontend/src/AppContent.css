@@ -15,7 +15,7 @@
 
     nav {
       display: flex;
-      gap: var(--space-200);
+      gap: var(--space-600);
     }
   }
 }

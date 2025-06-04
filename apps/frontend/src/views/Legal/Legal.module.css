@@ -11,7 +11,7 @@
   gap: var(--space-1200);
 }
 
-.titlePage {
+h1 {
   font-family: var(--title-page-font-family);
   font-size: var(--title-page-size-base);
   font-weight: var(--title-page-font-weight);
