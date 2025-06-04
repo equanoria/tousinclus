@@ -1,11 +1,14 @@
 .pageConnection {
-  min-height: 100vh;
-  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: space-around;
   gap: var(--space-1600);
+}
+
+.logo {
+  width: 15rem;
 }
 
 .connection {
@@ -28,21 +31,4 @@
 .teamButtons {
   display: flex;
   gap: var(--space-600);
-}
-
-.asset_top {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.asset_bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
-.footer {
-  display: flex;
-  gap: var(--space-2400);
 }
