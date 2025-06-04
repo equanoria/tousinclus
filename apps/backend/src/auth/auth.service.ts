@@ -50,11 +50,9 @@ export class AuthService {
       return plainToInstance(UserDto, user);
     }
 
-    let decodedJwt: JwtPayload;
-    try {
-      decodedJwt = this.jwtService.decode<JwtPayload>(accessToken);
-    } catch (error) {
-      this.logger.error('Error decoding JWT', error);
+    const decodedJwt = this.jwtService.decode<JwtPayload>(accessToken);
+    if (!decodedJwt) {
+      this.logger.error('Error decoding JWT');
       throw new UnauthorizedException('Invalid token');
     }
 
