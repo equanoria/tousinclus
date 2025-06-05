@@ -7,7 +7,7 @@ export interface GameCardProps extends ComponentPropsWithoutRef<'div'> {
   type: 'situation' | 'user';
   img: string;
   alt: string;
-  number?: string;
+  number?: number;
 }
 
 export const GameCard: React.FC<GameCardProps> = ({
@@ -23,7 +23,9 @@ export const GameCard: React.FC<GameCardProps> = ({
   return (
     <div className={classes} {...props}>
       <p className={styles.number}>{number}</p>
-      {img && <img src={img} alt={alt || 'Game Card Image'} />}
+      <div className={styles.imageContainer}>
+        {img && <img src={img} alt={alt || 'Game Card Image'} />}
+      </div>
     </div>
   );
 };

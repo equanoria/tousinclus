@@ -7,21 +7,30 @@ export interface TextareaProps extends ComponentPropsWithoutRef<'textarea'> {
   placeholder: string;
 }
 
-export const Textarea = ({
+export const Textarea: React.FC<TextareaProps> = ({
   className,
   label,
   placeholder,
-  ...props
-}: TextareaProps) => {
+  value,
+  onChange,
+  ...rest
+}) => {
   const classes = clsx(styles.blocTextarea, className);
-  const id = useId(); 
+  const id = useId();
 
   return (
     <div className={classes}>
-      <label className={styles.label} htmlFor={id}>{label}</label>
-      <textarea id={id} className={styles.textarea} placeholder={placeholder} {...props} />
+      <label className={styles.label} htmlFor={id}>
+        {label}
+      </label>
+      <textarea
+        id={id}
+        className={styles.textarea}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        {...rest}
+      />
     </div>
   );
 };
-
-

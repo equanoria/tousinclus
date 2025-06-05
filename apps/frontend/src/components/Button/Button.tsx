@@ -26,7 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button type="button" className={classes} {...props}>
       {startIcon && <span className={styles.icon}>{startIcon}</span>}
-      <span>{children}</span>
+      {children && <span>{children}</span>}
       {endIcon && <span className={styles.icon}>{endIcon}</span>}
     </button>
   );

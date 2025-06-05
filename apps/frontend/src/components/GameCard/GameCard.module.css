@@ -1,7 +1,7 @@
 .card {
   position: relative;
-  max-width: 350px;
-  height: 170px;
+  width: 21.875rem;
+  height: 10.625rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,15 +19,37 @@
   background-color: var(--pink-100);
 }
 
+.imageContainer {
+  max-width: 7rem;
+  max-height: 7rem;
+}
+
+.imageContainer > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .number {
   background-color: var(--white-1000);
+  font-family: var(--body-font-family);
+  font-size: var(--body-size-small);
+  font-weight: var(--weight-semibold);
   position: absolute;
-  width: 35px;
-  height: 35px;
-  right: 15px;
-  top: 15px;
+  width: 2.188rem;
+  height: 2.188rem;
+  right: var(--space-300);
+  top: var(--space-300);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.situation .number {
+  color: var(--pale-blue-600);
+}
+
+.user .number {
+  color: var(--pink-700);
 }
