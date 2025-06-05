@@ -11,13 +11,6 @@
   padding: var(--space-800) var(--space-1200);
 }
 
-h1 {
-  font-family: var(--title-page-font-family);
-  font-size: var(--title-page-size-base);
-  font-weight: var(--title-page-font-weight);
-  color: var(--pale-blue-600);
-}
-
 .reflectionContainer {
   display: flex;
   gap: var(--space-1200);
@@ -29,14 +22,12 @@ h1 {
   flex-direction: column;
 }
 
-h2 {
-  font-family: var(--title-page-font-family);
-  font-size: var(--scale-05);
-  font-weight: var(--title-page-font-weight);
+.headerSolution {
   color: var(--white-1000);
   background-color: var(--pale-blue-600);
   padding: var(--space-600);
   border-radius: var(--radius-200) var(--radius-200) 0 0;
+  font-size: var(--title-page-size-small);
 }
 
 .containerForm {
@@ -95,10 +86,8 @@ h2 {
   padding: 0 var(--space-800);
 }
 
-h3 {
-  font-family: var(--heading-font-family);
-  font-size: var(--heading-size-base);
-  font-weight: var(--heading-font-weight);
+.subheaderSolution {
+  color: var(--pink-700);
 }
 
 .usersContainer {
