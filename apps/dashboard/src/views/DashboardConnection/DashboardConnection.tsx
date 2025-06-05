@@ -1,29 +1,24 @@
 import { Button, Form, Input } from 'antd';
-import type { ICredentials } from '../../services/DirectusService';
-import { useAppState } from '../../context/AppStateProvider';
+import { directusService, type ICredentials } from '../../services/DirectusService';
+import styles from './DashboardConnection.module.css';
 
 const messages = {
   email: 'Veuillez entrer une adresse e-mail valide',
   password: 'Veuillez entrer votre mot de passe',
 };
 
-import styles from './DashboardConnection.module.css';
-
 export const DashboardConnection = () => {
-  const { directusService } = useAppState();
-
   const [form] = Form.useForm();
-
   const onFinish = (credentials: ICredentials) => {
     directusService.login(credentials);
     console.log('Received values of form: ', credentials);
   };
 
   return (
-    <div className={styles.pageConnection}>
+    <section className={styles.pageConnection}>
       <div className={styles.pageConnectionHeader}>
         <img src="./tousinclus-blue.svg" alt="" />
-        <h1>dashboard</h1>
+        <h1 className={`${styles.title} titlePage`}>dashboard</h1>
       </div>
 
       <Form
@@ -71,6 +66,6 @@ export const DashboardConnection = () => {
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </section>
   );
 };
