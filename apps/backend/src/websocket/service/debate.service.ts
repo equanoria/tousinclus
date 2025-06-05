@@ -121,25 +121,13 @@ export class DebateService {
           client.id,
         );
 
-        // Filter answers with cardId equal to nextCardToVote.nextCardId
-        const dataGameAnswers = game.answers.filter(
-          (answer) => answer.cardId === nextCardToVote.nextCardId,
-        );
-
-        // If displayResult change game phase to result
-        if (nextCardToVote?.displayResult) {
-          await this.gameService.updateGameStatus(
-            data.code,
-            EGameStatus.RESULT,
-          );
-          await this.gameService.updateMongoGame(data.code);
-
-          const responseData: WSGameStatus = { gameStatus: EGameStatus.RESULT };
-          server.to(data.code).emit('game-status', responseData);
-        }
-
         // Send websockets only if a consensus is found
         if (nextCardToVote?.message) {
+          // Filter answers with cardId equal to nextCardToVote.nextCardId
+          const dataGameAnswers = game.answers.filter(
+            (answer) => answer.cardId === nextCardToVote.nextCardId,
+          );
+
           const responseData: WSResponseDTO = {
             status: 'success',
             message: nextCardToVote.message,
@@ -151,6 +139,20 @@ export class DebateService {
             },
           };
           server.to(data.code).emit('debate-response', responseData);
+
+          // If displayResult change game phase to result
+          if (nextCardToVote?.displayResult) {
+            await this.gameService.updateGameStatus(
+              data.code,
+              EGameStatus.RESULT,
+            );
+            await this.gameService.updateMongoGame(data.code);
+
+            const responseData: WSGameStatus = {
+              gameStatus: EGameStatus.RESULT,
+            };
+            server.to(data.code).emit('game-status', responseData);
+          }
         }
       } else {
         throw new BadRequestException(
