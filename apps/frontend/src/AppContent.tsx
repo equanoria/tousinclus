@@ -4,11 +4,12 @@ import { Legal } from './views/Legal/Legal';
 import { Link } from './components/Link/Link';
 import { GameApp } from './GameApp';
 import { SocketBanner } from './core/SocketBanner/SocketBanner';
-import { RulesModal } from './components/RulesModal/RulesModal';
+// import { RulesModal } from './components/RulesModal/RulesModal';
 import { useState } from 'react';
 import { Overlay } from './components/Overlay/Overlay';
 import { Button } from './components/Button/Button';
 import { IconInfoCircle } from '@tabler/icons-react';
+import { Notification } from './components/Notification/Notification';
 
 export const AppContent = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -47,17 +48,9 @@ export const AppContent = () => {
 
         <Overlay isVisible={isModalOpen} onClick={() => setModalOpen(false)} />
         {isModalOpen && (
-          <RulesModal title="dnfkjsfkj" onClose={() => setModalOpen(false)}>
-            Pendant la durée impartie, affichée en haut à droite de l’écran,
-            vous allez devoir compléter vos fiches solutions. Chaque fiche est
-            associée à l’utilisateur extrême mis en avant. Au total, vous avez 6
-            utilisateurs extrêmes et donc 6 fiches solutions à remplir. Dans
-            votre fiche solution, vous devez: Décrire le défaut d’inclusion de
-            la carte utilisateur mise en avant, lié à la carte situation
-            d’usage. Décrire la solution que vous proposez pour répondre à ce
-            défaut Identifier les autres utilisateurs qui pourraient être
-            concernés par votre solution (facultatif).
-          </RulesModal>
+          <Notification onClose={() => setModalOpen(false)}>
+            Choisissez entre une et trois cartes concevoir pour tous. Nouveau choix de cartes retournées toutes les 5 minutes.
+          </Notification>
         )}
       </main>
 
