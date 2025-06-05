@@ -4,12 +4,11 @@ import { Legal } from './views/Legal/Legal';
 import { Link } from './components/Link/Link';
 import { GameApp } from './GameApp';
 import { SocketBanner } from './core/SocketBanner/SocketBanner';
-// import { RulesModal } from './components/RulesModal/RulesModal';
+import { RulesModal } from './components/RulesModal/RulesModal';
 import { useState } from 'react';
 import { Overlay } from './components/Overlay/Overlay';
 import { Button } from './components/Button/Button';
 import { IconInfoCircle } from '@tabler/icons-react';
-import { Notification } from './components/Notification/Notification';
 
 export const AppContent = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -48,9 +47,17 @@ export const AppContent = () => {
 
         <Overlay isVisible={isModalOpen} onClick={() => setModalOpen(false)} />
         {isModalOpen && (
-          <Notification onClose={() => setModalOpen(false)}>
-            Choisissez entre une et trois cartes concevoir pour tous. Nouveau choix de cartes retournées toutes les 5 minutes.
-          </Notification>
+          <RulesModal
+            title="Connexion règles"
+            onClose={() => setModalOpen(false)}
+          >
+            À cette étape, chaque équipe doit rassembler son deck de cartes en
+            version physique. Les cartes s'affichent à l’écran : à vous de les
+            retrouver dans le matériel mis à disposition et de constituer votre
+            jeu en vrai. Prenez le temps de bien vérifier que vous avez toutes
+            les cartes nécessaires avant de commencer la prochaine étape. Une
+            fois vos decks prêts, vous pourrez entrer dans le vif du jeu !
+          </RulesModal>
         )}
       </main>
 
