@@ -130,35 +130,39 @@ export class GameService {
       throw new NotFoundException(`Specified deck with id ${deckId} not found`);
     }
 
-    // Reset all game data
-    const restartedGame: GameDTO = {
-      createdAt: new Date(),
-      createdBy: findOneGameData.createdBy,
-      reflectionEndsAt: null,
-      _id: undefined,
-      code: findOneGameData.code,
-      status: EGameStatus.WAITING,
-      reflectionDuration: findOneGameData.reflectionDuration,
-      deckId: deckId,
-      cardGroupId: groupId,
-      team1: {
-        isConnected: false,
-        clientId: null,
-      },
-      team2: {
-        isConnected: false,
-        clientId: null,
-      },
-      answers: [],
-      votes: [],
-    };
+    if (findOneGameData.status !== EGameStatus.WAITING) {
+      // Reset all game data
+      const restartedGame: GameDTO = {
+        createdAt: new Date(),
+        createdBy: findOneGameData.createdBy,
+        reflectionEndsAt: null,
+        _id: undefined,
+        code: findOneGameData.code,
+        status: EGameStatus.WAITING,
+        reflectionDuration: findOneGameData.reflectionDuration,
+        deckId: deckId,
+        cardGroupId: groupId,
+        team1: {
+          isConnected: false,
+          clientId: null,
+        },
+        team2: {
+          isConnected: false,
+          clientId: null,
+        },
+        answers: [],
+        votes: [],
+      };
 
-    const createdGame = await this.gameModel.create(restartedGame); // Add the new game in mongoDB
-    restartedGame._id = String(createdGame._id); // Set the new mongID
+      const createdGame = await this.gameModel.create(restartedGame); // Add the new game in mongoDB
+      restartedGame._id = String(createdGame._id); // Set the new mongID
 
-    await this.redisService.setGame(restartedGame.code, restartedGame); // Overide the old game data with a fresh one
+      await this.redisService.setGame(restartedGame.code, restartedGame); // Overide the old game data with a fresh one
 
-    return restartedGame;
+      return restartedGame;
+    }
+
+    return findOneGameData;
   }
 
   async findOneGame(code: GameDTO['code']): Promise<GameDTO> {
