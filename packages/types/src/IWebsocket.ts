@@ -1,3 +1,5 @@
+import type { EGameStatus } from './IGame';
+
 export interface IWSData {
     code?: string;
     team?: string;
@@ -9,6 +11,6 @@ export interface IWSController extends IWSData {
 }
 
 export interface IWSGameStatus {
-    gameStatus: string;
+    gameStatus: EGameStatus;
     timeStamp?: Date;
 }
