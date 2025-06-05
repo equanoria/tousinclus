@@ -12,7 +12,6 @@ export const DashboardConnection = () => {
 
   const onFinish = (credentials: ICredentials) => {
     directusService.login(credentials);
-    console.log('Received values of form: ', credentials);
   };
 
   return (
