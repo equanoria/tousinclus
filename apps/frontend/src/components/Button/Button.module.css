@@ -1,9 +1,8 @@
 .button {
   color: var(--button-contrast-primary-default);
   background-color: var(--button-bg-primary-default);
-  box-shadow:
-    inset 0 0 0 var(--button-shadow-primary-default),
-    0.25rem 0.25rem 0 0 var(--button-shadow-primary-default);
+  box-shadow: inset 0 0 0 var(--button-shadow-primary-default), 0.25rem 0.25rem
+    0 0 var(--button-shadow-primary-default);
   font-family: var(--font-cal-sans);
 
   /* biome-ignore lint/correctness/noUnknownProperty: <explanation> */
@@ -43,9 +42,8 @@
 .button.secondary {
   background-color: var(--button-bg-secondary-default);
   color: var(--button-contrast-secondary-default);
-  box-shadow:
-    inset 0 0 0 var(--button-shadow-secondary-default),
-    0.25rem 0.25rem 0 0 var(--button-shadow-secondary-default);
+  box-shadow: inset 0 0 0 var(--button-shadow-secondary-default), 0.25rem
+    0.25rem 0 0 var(--button-shadow-secondary-default);
 
   &:hover {
     background-color: var(--button-bg-secondary-hover);
@@ -63,18 +61,16 @@
   &:disabled {
     color: var(--button-contrast-secondary-disabled);
     background-color: var(--button-bg-secondary-disabled);
-    box-shadow:
-      inset 0 0 0 var(--button-shadow-secondary-disabled),
-      0.25rem 0.25rem 0 0 var(--button-shadow-secondary-disabled);
+    box-shadow: inset 0 0 0 var(--button-shadow-secondary-disabled), 0.25rem
+      0.25rem 0 0 var(--button-shadow-secondary-disabled);
   }
 }
 
 .button.tertiary {
   background-color: var(--button-bg-tertiary-default);
   color: var(--button-contrast-tertiary-default);
-  box-shadow:
-    inset 0 0 0 var(--button-shadow-tertiary-default),
-    0.25rem 0.25rem 0 0 var(--button-shadow-tertiary-default);
+  box-shadow: inset 0 0 0 var(--button-shadow-tertiary-default), 0.25rem 0.25rem
+    0 0 var(--button-shadow-tertiary-default);
 
   &:hover {
     color: var(--button-contrast-tertiary-hover);
@@ -90,20 +86,19 @@
   &:disabled {
     background-color: var(--button-bg-tertiary-disabled);
     color: var(--button-contrast-tertiary-disabled);
-    box-shadow:
-      inset 0 0 0 var(--button-shadow-tertiary-disabled),
-      0.25rem 0.25rem 0 0 var(--button-shadow-tertiary-disabled);
+    box-shadow: inset 0 0 0 var(--button-shadow-tertiary-disabled), 0.25rem
+      0.25rem 0 0 var(--button-shadow-tertiary-disabled);
   }
 }
 
 .button.icon {
   background-color: var(--button-bg-quaternary-default);
   color: var(--button-contrast-quaternary-default);
-  box-shadow:
-    inset 0 0 0 var(--button-shadow-quaternary-default),
-    0.25rem 0.25rem 0 0 var(--button-shadow-quaternary-default);
+  box-shadow: inset 0 0 0 var(--button-shadow-quaternary-default), 0.25rem
+    0.25rem 0 0 var(--button-shadow-quaternary-default);
   border: var(--stroke-border-75) var(--button-border-quaternary-active) solid;
   border-radius: var(--radius-full);
+  padding: var(--space-300) var(--space-600);
 
   &:hover {
     background-color: var(--button-bg-quaternary-hover);
@@ -120,9 +115,8 @@
   &:disabled {
     background-color: var(--button-bg-quaternary-disabled);
     color: var(--button-contrast-quaternary-disabled);
-    box-shadow:
-      inset 0 0 0 var(--button-shadow-quaternary-disabled),
-      0.25rem 0.25rem 0 0 var(--button-shadow-quaternary-disabled);
+    box-shadow: inset 0 0 0 var(--button-shadow-quaternary-disabled), 0.25rem
+      0.25rem 0 0 var(--button-shadow-quaternary-disabled);
     border: var(--stroke-border-75) var(--button-border-quaternary-disabled)
       solid;
   }

@@ -4,8 +4,15 @@
   min-height: 100svh;
 
   main:has(.fillHeight) {
+    z-index: 0;
     flex-grow: 1;
     display: grid;
+  }
+
+  > header {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--space-400) var(--space-800);
   }
 
   > footer {
