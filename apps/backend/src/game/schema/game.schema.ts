@@ -76,7 +76,7 @@ export class GameDocument extends Document implements IGameMongo {
   createdAt: Date;
 
   @Prop({ required: true, type: String })
-  createdBy: IUser['id'];
+  createdBy: string;
 
   @Prop({ required: true, type: String })
   code: string;
