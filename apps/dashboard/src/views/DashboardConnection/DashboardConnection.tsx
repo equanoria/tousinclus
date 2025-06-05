@@ -9,6 +9,7 @@ const messages = {
 
 export const DashboardConnection = () => {
   const [form] = Form.useForm();
+
   const onFinish = (credentials: ICredentials) => {
     directusService.login(credentials);
     console.log('Received values of form: ', credentials);
@@ -31,7 +32,7 @@ export const DashboardConnection = () => {
       >
         <Form.Item
           wrapperCol={{ span: 24 }}
-          name="Identifiant"
+          name="email"
           label="Identifiant"
           rules={[
             {
@@ -48,7 +49,7 @@ export const DashboardConnection = () => {
         </Form.Item>
 
         <Form.Item
-          name="Mot de passe"
+          name="password"
           label="Mot de passe"
           rules={[
             {
