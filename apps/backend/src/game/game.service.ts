@@ -500,20 +500,6 @@ export class GameService {
     // Sort the votes by cardId in ascending order
     const sortedVotes = game.votes.sort((a, b) => a.cardId - b.cardId);
 
-    // Condition to result phase
-    if (sortedVotes.length === REQUIRED_CARDS_COUNT) {
-      // Check if all cards have 2 votes
-      const allHaveTwoVotes = sortedVotes.every(
-        (vote) => vote.votes.length === 2,
-      );
-
-      if (allHaveTwoVotes) {
-        return {
-          displayResult: true,
-        };
-      }
-    }
-
     if (cardId) {
       // If a specific card ID is provided, find the corresponding vote
       const existingVote = sortedVotes.find((vote) => vote.cardId === cardId);
@@ -533,10 +519,22 @@ export class GameService {
               nextCardId: nextCard.cardId,
             };
           }
-          return {
-            message:
-              'Consensus reached for the current card. No more cards remaining.',
-          };
+
+          // Condition to result phase
+          if (sortedVotes.length === REQUIRED_CARDS_COUNT) {
+            // Check if all cards have 2 votes
+            const allHaveTwoVotes = sortedVotes.every(
+              (vote) => vote.votes.length === 2,
+            );
+
+            if (allHaveTwoVotes) {
+              return {
+                message:
+                  'Consensus reached for the current card. No more cards remaining.',
+                displayResult: true,
+              };
+            }
+          }
         }
         // If teams didn't vote the same, consensus is not reached
         // Reset votes (flush votes)
