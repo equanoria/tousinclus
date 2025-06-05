@@ -1,25 +1,22 @@
 import clsx from 'clsx';
-import type React from 'react';
 import { useId, type ComponentPropsWithoutRef } from 'react';
 import styles from './Input.module.css';
 
 export interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label: string;
-  placeholder: string;
+  className?: string;
+  error?: string;
 }
 
-export const Input: React.FC<InputProps> = ({
-  className,
+export const Input = ({
   label,
-  placeholder,
-  value,
-  onChange,
-  name, 
-  type = 'text',
-  ...rest
-}) => {
-  const classes = clsx(styles.blocInput, className);
+  className,
+  error,
+  ...props
+}: InputProps) => {
+  const classes = clsx(styles.formGroup, className);
   const id = useId();
+  const errorId = `${id}-error`;
 
   return (
     <div className={classes}>
@@ -27,13 +24,10 @@ export const Input: React.FC<InputProps> = ({
       <input
         id={id}
         className={styles.input}
-        name={name} 
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        {...rest}
+        {...props}
+        {...(error ? { 'aria-invalid': true, 'aria-describedby': errorId } : {})}
       />
+      {error && <p className={clsx(styles.error, errorId)}>{error}</p>}
     </div>
   );
 };

@@ -7,7 +7,8 @@
   font-family: var(--font-cal-sans);
 
   /* biome-ignore lint/correctness/noUnknownProperty: <explanation> */
-  text-box: trim-both cap alphabetic;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +21,7 @@
   &:hover {
     color: var(--button-contrast-primary-hover);
     background-color: var(--button-bg-primary-hover);
-    box-shadow: 0 0;
+    box-shadow: inset 0 0;
   }
 
   &:active {

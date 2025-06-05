@@ -2,14 +2,13 @@ import type { IAnswer, IAnswerData, IGame } from '@tousinclus/types';
 import { socketService } from '../socket/socket.service';
 import { gameService } from './game.service';
 import type { TWSResponseCallback } from './types/TWSResponseCallback';
-import type { TAnswerCallback } from './types/TAnswerCallback';
 import type { ISocketResponse } from '../../types/ISocketResponse';
 
 class GameReflectionService {
   private _answers?: IAnswer[];
 
-  private getAnswersCallbacks: TWSResponseCallback[] = [];
-  private updateAnswerCallbacks: TAnswerCallback[] = [];
+  private getAnswersCallbacks: TWSResponseCallback<IGame>[] = [];
+  private updateAnswerCallbacks: TWSResponseCallback<IAnswer>[] = [];
 
   constructor() {
     gameService.onReady(() => {
@@ -32,7 +31,7 @@ class GameReflectionService {
     });
   }
 
-  onGetAnswersResponse(callback: TWSResponseCallback): this {
+  onGetAnswersResponse(callback: TWSResponseCallback<IGame>): this {
     this.getAnswersCallbacks.push(callback);
     return this;
   }
@@ -53,12 +52,12 @@ class GameReflectionService {
     });
   }
 
-  onUpdateAnswerResponse(callback: TAnswerCallback): this {
+  onUpdateAnswerResponse(callback: TWSResponseCallback<IAnswer>): this {
     this.updateAnswerCallbacks.push(callback);
     return this;
   }
 
-  private onReflectionResponseDo(payload: ISocketResponse<IGame> | ISocketResponse<IAnswer>) {
+  private onReflectionResponseDo(payload: ISocketResponse<IGame | IAnswer>) {
     const { status, data } = payload;
 
      if (status === 'success') {
