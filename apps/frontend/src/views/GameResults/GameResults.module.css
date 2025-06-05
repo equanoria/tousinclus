@@ -1,0 +1,71 @@
+.gameResults {
+  background-color: var(--blue-1OO);
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  width: 43.75rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1200);
+}
+
+.title_hero {
+  font-family: var(--title-hero-font-family);
+  font-size: var(--title-hero-size);
+  font-weight: var(--title-hero-font-weight);
+  line-height: 120%;
+  color: var(--blue-800);
+  text-transform: uppercase;
+}
+
+.resultsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.vs {
+  color: var(--blue-pale-800);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-1200);
+}
+
+.asset_topLeft,
+.asset_topRight,
+.asset_bottomLeft,
+.asset_bottomRight {
+  position: absolute;
+  z-index: -1;
+}
+
+.asset_topLeft {
+  top: 0;
+  left: 0;
+}
+
+.asset_topRight {
+  top: 0;
+  right: 0;
+}
+
+.asset_bottomLeft {
+  bottom: 0;
+  left: 0;
+}
+
+.asset_bottomRight {
+  bottom: 0;
+  right: 0;
+}

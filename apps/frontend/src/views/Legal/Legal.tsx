@@ -1,9 +1,15 @@
-import { Decoration } from "../../layouts/Decoration/Decoration"
+import { Decoration } from '../../layouts/Decoration/Decoration';
+import styles from './Legal.module.css';
 
 export const Legal = () => {
   return (
     <Decoration>
-      <h1>Mentions légales</h1>
+      <section className={styles.legal}>
+        <div className={styles.legalContent}>
+          <h1 className={styles.titlePage}>Mentions légales</h1>
+          <p>coucou je suis les mentions légales</p>
+        </div>
+      </section>
     </Decoration>
   );
-}
+};

@@ -132,6 +132,7 @@ export class WaitingService {
           // Set the end of reflection phase
           const timeout = setTimeout(() => {
             this.executeDebateLogic(server, code);
+            this.schedulerRegistry.deleteTimeout(`reflection-${code}`);
           }, reflectionDuration);
           this.schedulerRegistry.addTimeout(
             `reflection-${dataGame.code}`,

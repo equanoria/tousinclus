@@ -72,9 +72,9 @@ export class DebateService {
           message: nextCardToVote.message,
           data: {
             nextCardId: nextCardToVote.nextCardId
-              ? { nextCardId: nextCardToVote.nextCardId }
+              ? nextCardToVote.nextCardId
               : null,
-            answers: dataGameAnswers,
+            answers: dataGameAnswers ? dataGameAnswers : null,
           },
         };
         client.emit('debate-response', responseData);
@@ -115,28 +115,44 @@ export class DebateService {
           data.data.cardId,
         );
 
-        // If displayResult change game phase to result
-        if (nextCardToVote?.displayResult) {
-          await this.gameService.updateGameStatus(
-            data.code,
-            EGameStatus.RESULT,
-          );
-          await this.gameService.updateMongoGame(data.code);
-
-          const responseData: WSGameStatus = { gameStatus: EGameStatus.RESULT };
-          server.to(data.code).emit('game-status', responseData);
-        }
+        const game = await this.gameService.getTeamAnswer(
+          data.code,
+          data.team,
+          client.id,
+        );
 
         // Send websockets only if a consensus is found
         if (nextCardToVote?.message) {
+          // Filter answers with cardId equal to nextCardToVote.nextCardId
+          const dataGameAnswers = game.answers.filter(
+            (answer) => answer.cardId === nextCardToVote.nextCardId,
+          );
+
           const responseData: WSResponseDTO = {
             status: 'success',
             message: nextCardToVote.message,
-            data: nextCardToVote.nextCardId
-              ? { nextCardId: nextCardToVote.nextCardId }
-              : null,
+            data: {
+              nextCardId: nextCardToVote.nextCardId
+                ? nextCardToVote.nextCardId
+                : null,
+              answers: dataGameAnswers ? dataGameAnswers : null,
+            },
           };
           server.to(data.code).emit('debate-response', responseData);
+
+          // If displayResult change game phase to result
+          if (nextCardToVote?.displayResult) {
+            await this.gameService.updateGameStatus(
+              data.code,
+              EGameStatus.RESULT,
+            );
+            await this.gameService.updateMongoGame(data.code);
+
+            const responseData: WSGameStatus = {
+              gameStatus: EGameStatus.RESULT,
+            };
+            server.to(data.code).emit('game-status', responseData);
+          }
         }
       } else {
         throw new BadRequestException(

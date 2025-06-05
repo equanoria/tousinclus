@@ -8,6 +8,7 @@ interface UsageSituationDescriptionTranslation {
     description: string;
 }
 interface UsageSituation {
+    id: number;
     image: string;
     context_translations: UsageSituationContextTranslation[];
     description_translations: UsageSituationDescriptionTranslation[];

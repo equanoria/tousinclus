@@ -37,7 +37,7 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [currentView, setCurrentView] = useState<JSX.Element>(
-    <GameConnection />,
+    <GameConnection/>,
   );
 
   return (

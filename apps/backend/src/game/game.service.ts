@@ -30,8 +30,7 @@ export class GameService {
     private readonly directusService: DirectusService,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async getRandomGroupId(deckIdData: number): Promise<number> {
+  public async getRandomGroupId(deckIdData: number): Promise<number> {
     const deckData = await this.directusService.getDeckById(deckIdData);
 
     if (!Array.isArray(deckData) || deckData.length === 0) {
@@ -69,6 +68,7 @@ export class GameService {
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EGameStatus.WAITING,
       reflectionDuration: reflectionDuration,
+      deckId: deckId,
       cardGroupId: groupId,
       team1: {
         isConnected: false,
@@ -114,6 +114,51 @@ export class GameService {
       await this.redisService.setGame(newGame.code, newGame); // add new game data to redis db
     }
     return newGames; // Return all game create as JSON
+  }
+
+  async restartGame(code: string) {
+    // Call the service to retrieve game data
+    const findOneGameData = await this.findOneGame(code);
+
+    // Retrieve the same DeckId from the previous game
+    const deckId = findOneGameData.deckId;
+
+    // Get new groupdId
+    const groupId = await this.getRandomGroupId(deckId);
+
+    if (groupId === null) {
+      throw new NotFoundException(`Specified deck with id ${deckId} not found`);
+    }
+
+    // Reset all game data
+    const restartedGame: GameDTO = {
+      createdAt: new Date(),
+      createdBy: findOneGameData.createdBy,
+      reflectionEndsAt: null,
+      _id: undefined,
+      code: findOneGameData.code,
+      status: EGameStatus.WAITING,
+      reflectionDuration: findOneGameData.reflectionDuration,
+      deckId: deckId,
+      cardGroupId: groupId,
+      team1: {
+        isConnected: false,
+        clientId: null,
+      },
+      team2: {
+        isConnected: false,
+        clientId: null,
+      },
+      answers: [],
+      votes: [],
+    };
+
+    const createdGame = await this.gameModel.create(restartedGame); // Add the new game in mongoDB
+    restartedGame._id = String(createdGame._id); // Set the new mongID
+
+    await this.redisService.setGame(restartedGame.code, restartedGame); // Overide the old game data with a fresh one
+
+    return restartedGame;
   }
 
   async findOneGame(code: GameDTO['code']): Promise<GameDTO> {
@@ -455,20 +500,6 @@ export class GameService {
     // Sort the votes by cardId in ascending order
     const sortedVotes = game.votes.sort((a, b) => a.cardId - b.cardId);
 
-    // Condition to result phase
-    if (sortedVotes.length === REQUIRED_CARDS_COUNT) {
-      // Check if all cards have 2 votes
-      const allHaveTwoVotes = sortedVotes.every(
-        (vote) => vote.votes.length === 2,
-      );
-
-      if (allHaveTwoVotes) {
-        return {
-          displayResult: true,
-        };
-      }
-    }
-
     if (cardId) {
       // If a specific card ID is provided, find the corresponding vote
       const existingVote = sortedVotes.find((vote) => vote.cardId === cardId);
@@ -488,10 +519,22 @@ export class GameService {
               nextCardId: nextCard.cardId,
             };
           }
-          return {
-            message:
-              'Consensus reached for the current card. No more cards remaining.',
-          };
+
+          // Condition to result phase
+          if (sortedVotes.length === REQUIRED_CARDS_COUNT) {
+            // Check if all cards have 2 votes
+            const allHaveTwoVotes = sortedVotes.every(
+              (vote) => vote.votes.length === 2,
+            );
+
+            if (allHaveTwoVotes) {
+              return {
+                message:
+                  'Consensus reached for the current card. No more cards remaining.',
+                displayResult: true,
+              };
+            }
+          }
         }
         // If teams didn't vote the same, consensus is not reached
         // Reset votes (flush votes)

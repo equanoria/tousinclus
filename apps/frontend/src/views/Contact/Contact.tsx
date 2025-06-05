@@ -1,7 +1,7 @@
 import { Link } from '../../components/Link/Link';
 import { useAppState } from '../../context/AppStateProvider';
 import { Decoration } from '../../layouts/Decoration/Decoration';
-import classes from './Contact.module.css';
+import styles from './Contact.module.css';
 
 export const Contact = () => {
   const { titleManager } = useAppState();
@@ -9,15 +9,28 @@ export const Contact = () => {
 
   return (
     <Decoration>
-      <div className={classes.contact}>
-        <h1>Contact</h1>
-
-        <nav>
-          <Link variant="button-primary" href="mailto:equanoria@tousinclus.org">equanoria@tousinclus.org</Link>
-          <Link variant="button-primary" href="mailto:estelle.peyrard@tousinclus.org">estelle.peyrard@tousinclus.org</Link>
-          <Link variant="button-primary" href="https://techlab-handicap.org">techlab-handicap.org </Link>
-        </nav>
-      </div>
+      <section className={styles.contact}>
+        <div className={styles.contactContent}>
+          <h1>Contact</h1>
+          <nav>
+            <Link
+              variant="button-primary"
+              href="mailto:equanoria@tousinclus.org"
+            >
+              equanoria@tousinclus.org
+            </Link>
+            <Link
+              variant="button-primary"
+              href="mailto:estelle.peyrard@tousinclus.org"
+            >
+              estelle.peyrard@tousinclus.org
+            </Link>
+            <Link variant="button-primary" href="https://techlab-handicap.org">
+              techlab-handicap.org{' '}
+            </Link>
+          </nav>
+        </div>
+      </section>
     </Decoration>
   );
-}
+};

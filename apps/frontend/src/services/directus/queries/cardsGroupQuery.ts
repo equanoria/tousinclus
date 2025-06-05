@@ -47,6 +47,7 @@ export const cardsGroupQuery = (localeCode: string) => {
       },
       {
         usage_situation: [
+          'id',
           'image',
           {
             context_translations: ['context'],
