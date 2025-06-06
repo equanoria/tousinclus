@@ -7,6 +7,7 @@ import { directusService } from '../../services/directus/directus.service';
 import { gameService } from '../../services/game/game.service';
 import { Notification } from '../../components/Notification/Notification';
 import styles from './GameDebate.module.css';
+import { VotingButton } from '../../components/VotingButton/VotingButton';
 
 export const GameDebate = () => {
   const [answers, setAnswers] = useState<IAnswer[]>([]);
@@ -68,23 +69,33 @@ export const GameDebate = () => {
         extrême et votez pour l’une des deux fiches.
       </p>
       <div className={styles.debateContent}>
-        <div>
-          {answers.length > 0 && (
-            <fieldset>
-              {answers.map((answer) => {
-                const checkBoxes = answer.answer?.inputCheckboxes;
-                return (
-                  <div key={answer.team} className="debate-answer">
-                    <label>
-                      <input
-                        type="radio"
+        {answers.length > 0 && (
+          <fieldset>
+            {answers.map((answer) => {
+              const checkBoxes = answer.answer?.inputCheckboxes;
+              return (
+                <div key={answer.team} className={styles.formAnswers}>
+                  <h2 className="headerSolution titlePage">Fiche solution</h2>
+                  <div className={styles.answerContainer}>
+                    <label htmlFor={`teamVote-${answer.team}`}>
+                      <VotingButton
                         name="teamVote"
-                        value={answer.team}
+                        value={answer.team as ETeam}
                         checked={vote === answer.team}
                         onChange={() => setVote(answer.team)}
                       />
+                      <p className="body-base-2">
+                        1. Description du défaut d’inclusion
+                      </p>
                       <p>{answer.answer?.input1}</p>
+                      <p className="body-base-2">
+                        2. Description de la solution proposée
+                      </p>
                       <p>{answer.answer?.input2}</p>
+                      <p className="body-base-2">
+                        3. Comment la solution pourrait améliorer l’expérience
+                        d’usage pour d’autres utilisateurs ?
+                      </p>
                       <p>{answer.answer?.input3}</p>
                       {checkBoxes && checkBoxes?.length > 0 && (
                         <ul>
@@ -104,15 +115,15 @@ export const GameDebate = () => {
                       )}
                     </label>
                   </div>
-                );
-              })}
-            </fieldset>
-          )}
+                </div>
+              );
+            })}
+          </fieldset>
+        )}
 
-          <Button onClick={handleVote} disabled={!vote}>
-            Valider mon vote
-          </Button>
-        </div>
+        <Button onClick={handleVote} disabled={!vote}>
+          Valider mon vote
+        </Button>
       </div>
     </section>
   );
