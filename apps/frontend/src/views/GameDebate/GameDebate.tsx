@@ -77,42 +77,53 @@ export const GameDebate = () => {
                 <div key={answer.team} className={styles.formAnswers}>
                   <h2 className="headerSolution titlePage">Fiche solution</h2>
                   <div className={styles.answerContainer}>
-                    <label htmlFor={`teamVote-${answer.team}`}>
+                    <label htmlFor="teamVote">
                       <VotingButton
                         name="teamVote"
                         value={answer.team as ETeam}
                         checked={vote === answer.team}
                         onChange={() => setVote(answer.team)}
+                        className={styles.votingBtn}
                       />
-                      <p className="body-base-2">
-                        1. Description du défaut d’inclusion
-                      </p>
-                      <p>{answer.answer?.input1}</p>
-                      <p className="body-base-2">
-                        2. Description de la solution proposée
-                      </p>
-                      <p>{answer.answer?.input2}</p>
-                      <p className="body-base-2">
-                        3. Comment la solution pourrait améliorer l’expérience
-                        d’usage pour d’autres utilisateurs ?
-                      </p>
-                      <p>{answer.answer?.input3}</p>
-                      {checkBoxes && checkBoxes?.length > 0 && (
-                        <ul>
-                          {checkBoxes.map((checkbox) => {
-                            const extremeUser = getExtremeUser(checkbox);
-                            if (!extremeUser) return;
-                            return (
-                              <li key={checkbox}>
-                                {
-                                  extremeUser.cards_users_id.translations[0]
-                                    .description
-                                }
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      )}
+                      <div className={styles.answerContent}>
+                        <div className={styles.answerSubcontent}>
+                          <p className="body-base-2">
+                            1. Description du défaut d’inclusion
+                          </p>
+                          <p>{answer.answer?.input1}</p>
+                        </div>
+                        <div className={styles.answerSubcontent}>
+                          <p className="body-base-2">
+                            2. Description de la solution proposée
+                          </p>
+                          <p>{answer.answer?.input2}</p>
+                        </div>
+                        <div className={styles.answerSubcontent}>
+                          <p className="body-base-2">
+                            3. Comment la solution pourrait améliorer
+                            l’expérience d’usage pour d’autres utilisateurs ?
+                          </p>
+                          <p>{answer.answer?.input3}</p>
+                        </div>
+                        <div>
+                          {checkBoxes && checkBoxes?.length > 0 && (
+                            <ul>
+                              {checkBoxes.map((checkbox) => {
+                                const extremeUser = getExtremeUser(checkbox);
+                                if (!extremeUser) return;
+                                return (
+                                  <li key={checkbox}>
+                                    {
+                                      extremeUser.cards_users_id.translations[0]
+                                        .description
+                                    }
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          )}
+                        </div>
+                      </div>
                     </label>
                   </div>
                 </div>
@@ -120,8 +131,11 @@ export const GameDebate = () => {
             })}
           </fieldset>
         )}
-
-        <Button onClick={handleVote} disabled={!vote}>
+        <Button
+          onClick={handleVote}
+          disabled={!vote}
+          className={styles.voteButton}
+        >
           Valider mon vote
         </Button>
       </div>

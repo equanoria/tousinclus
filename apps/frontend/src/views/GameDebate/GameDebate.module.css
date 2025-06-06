@@ -24,6 +24,34 @@
   gap: var(--space-600);
 }
 
+.formAnswers {
+  position: relative;
+}
+
 .answerContainer {
   background-color: var(--blue-100);
+  padding: var(--space-800) var(--space-600) var(--space-600) var(--space-600);
+}
+
+.votingBtn {
+  position: absolute;
+  top: var(--space-600);
+  right: var(--space-800);
+}
+
+.answerContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-800);
+}
+
+.answerSubcontent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-200);
+}
+
+.voteButton {
+  max-width: 11.563rem;
+  align-self: center;
 }
