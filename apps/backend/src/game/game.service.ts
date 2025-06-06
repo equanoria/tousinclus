@@ -175,7 +175,7 @@ export class GameService {
 
     if (!game) {
       // If game is not found
-      throw new Error(`Game with code ${code} not found`);
+      throw new NotFoundException(`Game with code ${code} not found`);
     }
 
     return game; // Return it with the good format

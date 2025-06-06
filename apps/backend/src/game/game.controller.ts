@@ -14,6 +14,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiOperation,
   ApiParam,
@@ -56,18 +57,14 @@ export class GameController {
     description:
       'Game creation data. The body is optional (example: { deckId: 1 }).',
     type: CreateGameDTO,
-    required: false, // indicates that the body is optional
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Specified Deck with id xxx not found',
-    type: HTTPResponseDTO,
+    required: false,
   })
   @ApiResponse({
     status: 201,
     description: 'The game has been successfully created',
     type: GameDTO,
   })
+  @ApiBearerAuth('access-token')
   createGame(
     @Body() createGameDto: CreateGameDTO,
     @User() user: IUser,
@@ -84,7 +81,7 @@ export class GameController {
 
   @Put(':numberOfGame')
   @HttpCode(201)
-  @ApiOperation({ summary: 'Create multiple games' })
+  @ApiOperation({ summary: 'Create many games' })
   @ApiParam({
     name: 'numberOfGame',
     description: 'The number of games to create',
@@ -94,18 +91,14 @@ export class GameController {
     description:
       'Game creation data. The body is optional (example: { deckId: 1 }).',
     type: CreateGameDTO,
-    required: false, // indicates that the body is optional
+    required: false,
   })
   @ApiResponse({
     status: 201,
     description: 'The games have been successfully created',
     type: [GameDTO],
   })
-  @ApiResponse({
-    status: 404,
-    description: 'Specified Deck with the given id not found',
-    type: HTTPResponseDTO,
-  })
+  @ApiBearerAuth('access-token')
   createManyGame(
     @Body() createGameDto: CreateGameDTO,
     @User() user: IUser,
@@ -128,6 +121,27 @@ export class GameController {
     return games;
   }
 
+  @Get()
+  @ApiOperation({ summary: 'Retrieve all games' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully retrieved all games',
+    type: [GameDTO],
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No games found in the database',
+    type: HTTPResponseDTO,
+  })
+  @ApiBearerAuth('access-token')
+  async getAllGames(): Promise<GameDTO[]> {
+    const allGames = await this.gameService.findAllGames();
+    if (!allGames || allGames.length === 0) {
+      throw new NotFoundException('Database is empty');
+    }
+    return allGames;
+  }
+
   @Get(':code')
   @ApiOperation({ summary: 'Retrieve a game by its code' })
   @ApiParam({
@@ -145,32 +159,13 @@ export class GameController {
     description: 'Game not found',
     type: HTTPResponseDTO,
   })
+  @ApiBearerAuth('access-token')
   async getOneGame(@Param('code') code: GameDTO['code']): Promise<GameDTO> {
     const game = await this.gameService.findOneGame(code);
     if (!game) {
       throw new NotFoundException(`Game with code ${code} not found`);
     }
     return game;
-  }
-
-  @Get()
-  @ApiOperation({ summary: 'Retrieve all games' })
-  @ApiResponse({
-    status: 200,
-    description: 'Successfully retrieved all games',
-    type: [GameDTO],
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'No games found in the database',
-    type: HTTPResponseDTO,
-  })
-  async getAllGames(): Promise<GameDTO[]> {
-    const allGames = await this.gameService.findAllGames();
-    if (!allGames || allGames.length === 0) {
-      throw new NotFoundException('Database is empty');
-    }
-    return allGames;
   }
 
   @Delete(':code')
@@ -190,6 +185,7 @@ export class GameController {
     description: 'Game not found',
     type: HTTPResponseDTO,
   })
+  @ApiBearerAuth('access-token')
   async deleteOneGame(@Param('code') code: string): Promise<HTTPResponseDTO> {
     const game = await this.gameService.deleteOneGame(code);
     if (!game) {
@@ -213,6 +209,7 @@ export class GameController {
     description: 'No games found in the database',
     type: HTTPResponseDTO,
   })
+  @ApiBearerAuth('access-token')
   async deleteAllGames(): Promise<GameDTO[]> {
     const deleteAllGames = await this.gameService.deleteAllGames();
     if (deleteAllGames.length === 0) {
@@ -223,6 +220,11 @@ export class GameController {
 
   @Get('/export/:date.csv')
   @ApiOperation({ summary: 'Export games for a specific date' })
+  @ApiParam({
+    name: 'date',
+    example: '06-06-2025',
+    format: 'DD-MM-YYYY',
+  })
   @ApiResponse({
     status: 200,
     description: 'Successfully export games',
@@ -232,6 +234,7 @@ export class GameController {
     description: 'No games found for this date',
     type: HTTPResponseDTO,
   })
+  @ApiBearerAuth('access-token')
   async exportGames(
     @Param('date', ParseDatePipe) date: Date,
     @Res() res: Response,
