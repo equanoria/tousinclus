@@ -1,9 +1,7 @@
-import type React from 'react';
 import {
   type ReactNode,
   createContext,
   useContext,
-  useState,
 } from 'react';
 import { 
   type ContrastManager,
@@ -17,11 +15,8 @@ import {
   type TitleManager,
   titleManager,
 } from '@tousinclus/managers';
-import { GameConnection } from '../views/GameConnection/GameConnection';
 
 export interface AppStateContextProps {
-  currentView: JSX.Element;
-  setCurrentView: (view: JSX.Element) => void;
   themeManager: ThemeManager;
   fontManager: FontManager;
   localeManager: LocaleManager;
@@ -33,18 +28,13 @@ const AppStateContext = createContext<AppStateContextProps | undefined>(
   undefined,
 );
 
-export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
+export const AppStateProvider = ({
   children,
-}) => {
-  const [currentView, setCurrentView] = useState<JSX.Element>(
-    <GameConnection/>,
-  );
+}: { children: ReactNode }) => {
 
   return (
     <AppStateContext.Provider
       value={{
-        currentView,
-        setCurrentView,
         themeManager,
         fontManager,
         localeManager,

@@ -1,7 +1,7 @@
 class TitleManager {
     static DEFAULT_TITLE = 'Tous inclus';
     set(title) {
-        document.title = title;
+        document.title = `${title} - ${TitleManager.DEFAULT_TITLE}`;
         return this;
     }
     reset() {
