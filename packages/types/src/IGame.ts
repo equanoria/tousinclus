@@ -57,7 +57,7 @@ export interface IAnswerData {
 }
 
 export interface IDebateData {
-  eventType: EDebateStatus;
+  eventType?: EDebateStatus;
   nextCardId: number;
   answers: IAnswer[];
 }

@@ -1,8 +1,7 @@
-import {
-  EDebateStatus,
-  type ETeam,
-  type IAnswer,
-  type IDebateData,
+import type {
+  ETeam,
+  IAnswer,
+  IDebateData,
 } from '@tousinclus/types';
 import type { ISocketResponse } from '../../types/ISocketResponse';
 import { socketService } from '../socket/socket.service';
@@ -33,12 +32,12 @@ class GameDebateService {
   private onGetVoteResponseDo(payload: ISocketResponse<IDebateData>) {
     const { status, data } = payload;
 
-    if (status === 'success') {
+    if (status === 'success' && 'eventType' in data) {
       for (const callback of this.onNextVoteCallbacks) {
         callback(payload as ISocketResponse<IDebateData>);
       }
 
-      if(data.eventType === EDebateStatus.RETRY){
+      if (data.eventType === 'retry'){
         for (const callback of this.onErrorCallbacks) {
             callback('consensus');
           }

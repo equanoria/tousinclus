@@ -132,10 +132,12 @@ export const GameReflection = () => {
       ) : (
         <section className={styles.reflectionContainer}>
           <div className={styles.leftContainer}>
-            <h2 className={`${styles.headerSolution} titlePage`}>Fiche solution</h2>
+            <h2 className="headerSolution titlePage">Fiche solution</h2>
 
             <div className={styles.containerForm}>
-              <h3 className={`${styles.subheaderSolution} heading`}>Description user</h3>
+              <h3 className={`${styles.subheaderSolution} heading`}>
+                Description user
+              </h3>
               <div className={styles.form}>
                 <Textarea
                   label="1. Description du défaut d’inclusion."
@@ -189,7 +191,7 @@ export const GameReflection = () => {
           <div className={styles.rightContainer}>
             <div className={styles.containerCards}>
               <div className={styles.situationContainer}>
-                <h3 className='subheading'>Votre deck de cartes</h3>
+                <h3 className="subheading">Votre deck de cartes</h3>
                 <p className={styles.situationDescription}>
                   Trouvez des solutions pour chaque utilisateur face à la
                   situation concernée
@@ -223,9 +225,7 @@ export const GameReflection = () => {
                     );
                   })}
                 </div>
-                <div
-                  className={styles.sliderContainer}
-                >
+                <div className={styles.sliderContainer}>
                   {cardsGroup?.extreme_user &&
                     cardsGroup.extreme_user.length > 0 &&
                     (() => {

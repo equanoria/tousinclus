@@ -22,14 +22,6 @@
   flex-direction: column;
 }
 
-.headerSolution {
-  color: var(--white-1000);
-  background-color: var(--pale-blue-600);
-  padding: var(--space-600);
-  border-radius: var(--radius-200) var(--radius-200) 0 0;
-  font-size: var(--title-page-size-small);
-}
-
 .containerForm {
   background-color: var(--blue-100);
   display: flex;

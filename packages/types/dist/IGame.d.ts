@@ -51,7 +51,7 @@ export interface IAnswerData {
     inputCheckboxes: number[];
 }
 export interface IDebateData {
-    eventType: EDebateStatus;
+    eventType?: EDebateStatus;
     nextCardId: number;
     answers: IAnswer[];
 }
