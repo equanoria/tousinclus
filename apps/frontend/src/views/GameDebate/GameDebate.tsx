@@ -5,12 +5,14 @@ import type { ETeam, IAnswer, IDirectusCardsGroup } from '@tousinclus/types';
 import { Button } from '../../components/Button/Button';
 import { directusService } from '../../services/directus/directus.service';
 import { gameService } from '../../services/game/game.service';
+import { Notification } from '../../components/Notification/Notification';
 
 export const GameDebate = () => {
   const [answers, setAnswers] = useState<IAnswer[]>([]);
   const [cardId, setCardId] = useState<number>();
   const [vote, setVote] = useState<ETeam>();
   const [cardsGroup, setCardsGroup] = useState<IDirectusCardsGroup>();
+  const [notification, setNotification] = useState<string | null>(null);
   const { titleManager } = useAppState();
 
   titleManager.set('Phase de débat');
@@ -24,16 +26,20 @@ export const GameDebate = () => {
 
     gameDebateService
       .getVote()
+      .onError((error) => {
+        if (error === 'consensus')
+        setNotification('Veuillez vous mettre d\'accord, merci. Cordialement, la direction');
+      })
       .onNextVote((payload) => {
         const { answers, nextCardId } = payload.data;
         setAnswers(answers);
-        setCardId(nextCardId.nextCardId);
+        setCardId(nextCardId);
+        setVote(undefined);
       });
   }, []);
 
   const handleVote = () => {
     if (!vote || !cardId) return;
-    console.log(cardId, vote);
     gameDebateService.updateVote(cardId, vote);
   };
 
@@ -45,6 +51,11 @@ export const GameDebate = () => {
   return (
     <>
       <h1>Phase de débat</h1>
+      {notification && (
+        <Notification onClose={() => setNotification(null)}>
+          {notification}
+        </Notification>
+      )}
       <div>
         {answers.length > 0 && (
           <fieldset>

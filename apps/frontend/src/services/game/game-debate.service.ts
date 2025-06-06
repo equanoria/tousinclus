@@ -5,7 +5,8 @@ import { gameService } from './game.service';
 import type { TWSResponseCallback } from './types/TWSResponseCallback';
 
 class GameDebateService {
-  private onNextVoteCallbacks: TWSResponseCallback<{ answers: IAnswer[], nextCardId: { nextCardId: number }}>[] = [];
+  private onNextVoteCallbacks: TWSResponseCallback<{ answers: IAnswer[], nextCardId: number }>[] = [];
+  private onErrorCallbacks: ((error: 'consensus') => void)[] = [];
 
   constructor() {
     socketService.on('debate-response', this.onGetVoteResponseDo.bind(this));
@@ -21,25 +22,31 @@ class GameDebateService {
     return this;
   }
 
-  private onGetVoteResponseDo(payload: ISocketResponse<{ answers: IAnswer[], nextCardId: { nextCardId: number }} | IAnswer  | { nextCardId: number }>) {
-    const { status, data } = payload;
-    console.log(payload)
+  private onGetVoteResponseDo(payload: ISocketResponse<{ answers: IAnswer[], nextCardId: number } | IAnswer  | { nextCardId: number }>) {
+    const { status, data, message } = payload;
 
     if (status === 'success') {
       if ('answers' in data) {
         for (const callback of this.onNextVoteCallbacks) {
-          callback(payload as ISocketResponse<{ answers: IAnswer[], nextCardId: { nextCardId: number }}>);
+          callback(payload as ISocketResponse<{ answers: IAnswer[], nextCardId: number }>);
         }
       }
 
-      if ('nextCardId' in data && typeof data.nextCardId === 'number') {
-        this.getVote();
+      if (message === 'Consensus not reached for the current card. Please you need to vote again.') {
+        for (const callback of this.onErrorCallbacks) {
+          callback('consensus');
+        }
       }
     }
   }
 
-  onNextVote(callback: TWSResponseCallback<{ answers: IAnswer[], nextCardId: { nextCardId: number }}>): this {
+  onNextVote(callback: TWSResponseCallback<{ answers: IAnswer[], nextCardId: number }>): this {
     this.onNextVoteCallbacks.push(callback);
+    return this;
+  }
+
+  onError(callback: (error: 'consensus') => void): this {
+    this.onErrorCallbacks.push(callback);
     return this;
   }
 
