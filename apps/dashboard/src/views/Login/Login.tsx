@@ -1,5 +1,5 @@
 import { Button, Form, Input } from 'antd';
-import { directusService, type ICredentials } from '../../services/DirectusService';
+import { directusService, type ICredentials } from '../../services/directus/directus.service';
 import styles from './Login.module.css';
 
 const messages = {
