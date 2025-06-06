@@ -1,0 +1,34 @@
+.pageConnection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--space-1600);
+}
+
+.logo {
+  width: 15rem;
+}
+
+.connection {
+  max-width: 25rem;
+  width: 100%;
+  padding: var(--space-400) var(--space-300);
+  border-radius: var(--radius-200);
+  border: var(--stroke-border-50) solid var(--pale-blue-600);
+  background-color: var(--pale-blue-100);
+  box-shadow: 4px 4px 0 0 var(--pale-blue-600);
+  display: grid;
+  gap: var(--space-800);
+}
+
+.teamSelection {
+  display: grid;
+  gap: var(--space-600);
+}
+
+.teamButtons {
+  display: flex;
+  gap: var(--space-600);
+}

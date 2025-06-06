@@ -1,5 +1,5 @@
 {
-  "name": "@tousinclus/frontend",
+  "name": "@tousinclus/dashboard",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -15,15 +15,15 @@
     "@tousinclus/managers": "workspace:^",
     "@tousinclus/styles": "workspace:^",
     "@tousinclus/types": "workspace:^",
-    "antd": "^5.24.9",
     "clsx": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.4.0"
+    "react-i18next": "^15.4.0",
+    "react-router-dom": "^7.6.1",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
-    "@types/node": "^20.3.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
