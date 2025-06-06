@@ -18,9 +18,10 @@ import { RedisService } from 'src/redis/redis.service';
 import { ConfigService } from '@nestjs/config';
 import { WebsocketService } from './websocket.service';
 import { NotificationController } from './notification.controller';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [GameModule, ScheduleModule.forRoot()],
+  imports: [AuthModule, GameModule, ScheduleModule.forRoot()],
   controllers: [NotificationController],
   providers: [
     NotificationController,

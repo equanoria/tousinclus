@@ -10,9 +10,11 @@ import { RolesGuard } from './auth/roles.guard';
 import { GameController } from './game.controller';
 import { GameService } from './game.service';
 import { GameSchema } from './schema/game.schema';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
+    AuthModule,
     RedisModule,
     MongooseModule.forFeature([{ name: 'Game', schema: GameSchema }]),
     DirectusModule,
@@ -20,7 +22,7 @@ import { GameSchema } from './schema/game.schema';
     JwtModule.register({}),
   ],
   controllers: [GameController],
-  providers: [GameService, AuthService, AuthGuard, RolesGuard],
-  exports: [GameService, AuthService, AuthGuard, RolesGuard],
+  providers: [GameService],
+  exports: [GameService],
 })
 export class GameModule {}

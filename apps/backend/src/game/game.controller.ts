@@ -32,10 +32,15 @@ import { Roles } from './auth/roles.decorator';
 import { RolesGuard } from './auth/roles.guard';
 // ========== Service Import ==========
 import { GameService } from './game.service';
+import { ERole, IUser } from '@tousinclus/types';
+import { ParseDatePipe } from 'src/utils/pipes/parse-date.pipe';
 
 // ========== Utils Import ==========
 import { Response } from 'express';
 import { User } from 'src/utils/decorators/user.decorator';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { Roles } from 'src/auth/roles/roles.decorator';
+import { RolesGuard } from 'src/auth/roles/roles.guard';
 
 @ApiTags('Game')
 @Roles(ERole.HOST)

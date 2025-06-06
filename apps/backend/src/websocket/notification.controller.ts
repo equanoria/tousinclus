@@ -2,10 +2,10 @@ import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { WebsocketService } from './websocket.service';
 import { ApiTags } from '@nestjs/swagger';
 import { ERole } from '@tousinclus/types';
-import { AuthGuard } from 'src/game/auth/auth.guard';
-import { Roles } from 'src/game/auth/roles.decorator';
-import { RolesGuard } from 'src/game/auth/roles.guard';
 import { GameDTO } from 'src/game/dto/game.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { Roles } from 'src/auth/roles/roles.decorator';
+import { RolesGuard } from 'src/auth/roles/roles.guard';
 
 @ApiTags('Notification')
 @Roles(ERole.HOST)
