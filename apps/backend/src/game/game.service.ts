@@ -7,7 +7,7 @@ import {
 
 // ========== DTO / Types Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO, VoteDTO } from './dto/game.dto';
-import { EGameStatus, ETeam, IUser } from '@tousinclus/types';
+import { EDebateStatus, EGameStatus, ETeam, IUser } from '@tousinclus/types';
 
 // ========== Mongo Import ==========
 import { InjectModel } from '@nestjs/mongoose';
@@ -518,7 +518,7 @@ export class GameService {
           const nextCard = sortedVotes.find((vote) => vote.cardId > cardId);
           if (nextCard) {
             return {
-              eventType: 'NEXT_CARD',
+              eventType: EDebateStatus.NEXT_CARD,
               message:
                 'Consensus reached for the current card. Proceed to the next card.',
               nextCardId: nextCard.cardId,
@@ -534,7 +534,7 @@ export class GameService {
 
             if (allHaveTwoVotes) {
               return {
-                eventType: 'END_PHASE',
+                eventType: EDebateStatus.END_PHASE,
                 message:
                   'Consensus reached for the current card. No more cards remaining.',
                 displayResult: true,
@@ -549,7 +549,7 @@ export class GameService {
 
         // So return error message with the same cardId to retry
         return {
-          eventType: 'RETRY',
+          eventType: EDebateStatus.RETRY,
           message:
             'Consensus not reached for the current card. Please you need to vote again.',
           nextCardId: cardId,
