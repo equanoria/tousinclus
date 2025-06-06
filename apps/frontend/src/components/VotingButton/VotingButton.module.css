@@ -3,7 +3,7 @@
   -webkit-appearance: none;
   background-color: var(--pink-100);
   border: var(--stroke-border-50) solid var(--pink-600);
-  box-shadow:  0.20rem 0.20rem 0 0 var(--pink-600);
+  box-shadow: 0.20rem 0.20rem 0 0 var(--pink-600);
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
@@ -20,7 +20,7 @@
 }
 
 .votingBtn::after {
-  content: url('/src/assets/images/heart-icon.svg');
+  content: url("/src/assets/images/heart-icon.svg");
   position: absolute;
   top: 50%;
   left: 50%;
@@ -29,5 +29,5 @@
 }
 
 .votingBtn:checked::after {
-    content: url('/src/assets/images/heart-icon-filled.svg');
+  content: url("/src/assets/images/heart-icon-filled.svg");
 }
