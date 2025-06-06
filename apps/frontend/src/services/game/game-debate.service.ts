@@ -1,11 +1,19 @@
-import type { ETeam, IAnswer } from '@tousinclus/types';
+import {
+  EDebateStatus,
+  type ETeam,
+  type IAnswer,
+  type IDebateData,
+} from '@tousinclus/types';
 import type { ISocketResponse } from '../../types/ISocketResponse';
 import { socketService } from '../socket/socket.service';
 import { gameService } from './game.service';
 import type { TWSResponseCallback } from './types/TWSResponseCallback';
 
 class GameDebateService {
-  private onNextVoteCallbacks: TWSResponseCallback<{ answers: IAnswer[], nextCardId: number }>[] = [];
+  private onNextVoteCallbacks: TWSResponseCallback<{
+    answers: IAnswer[];
+    nextCardId: number;
+  }>[] = [];
   private onErrorCallbacks: ((error: 'consensus') => void)[] = [];
 
   constructor() {
@@ -16,31 +24,38 @@ class GameDebateService {
     const { code } = gameService;
     socketService.emit('debate', {
       action: 'get-vote',
-      code
+      code,
     });
 
     return this;
   }
 
-  private onGetVoteResponseDo(payload: ISocketResponse<{ answers: IAnswer[], nextCardId: number } | IAnswer  | { nextCardId: number }>) {
-    const { status, data, message } = payload;
+  private onGetVoteResponseDo(payload: ISocketResponse<IDebateData>) {
+    const { status, data } = payload;
 
     if (status === 'success') {
-      if ('answers' in data) {
-        for (const callback of this.onNextVoteCallbacks) {
-          callback(payload as ISocketResponse<{ answers: IAnswer[], nextCardId: number }>);
-        }
-      }
+      switch (data.eventType) {
+        case EDebateStatus.NEXT_CARD:
+          for (const callback of this.onNextVoteCallbacks) {
+            callback(payload as ISocketResponse<IDebateData>);
+          }
+          break;
 
-      if (message === 'Consensus not reached for the current card. Please you need to vote again.') {
-        for (const callback of this.onErrorCallbacks) {
-          callback('consensus');
-        }
+        case EDebateStatus.RETRY:
+          for (const callback of this.onErrorCallbacks) {
+            callback('consensus');
+          }
+          break;
+
+        default:
+          break;
       }
     }
   }
 
-  onNextVote(callback: TWSResponseCallback<{ answers: IAnswer[], nextCardId: number }>): this {
+  onNextVote(
+    callback: TWSResponseCallback<{ answers: IAnswer[]; nextCardId: number }>,
+  ): this {
     this.onNextVoteCallbacks.push(callback);
     return this;
   }
@@ -57,10 +72,12 @@ class GameDebateService {
       code,
       data: {
         cardId,
-        votes: [{
-          team,
-          vote,
-        }],
+        votes: [
+          {
+            team,
+            vote,
+          },
+        ],
       },
     });
 

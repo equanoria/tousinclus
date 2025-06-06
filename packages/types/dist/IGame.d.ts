@@ -5,13 +5,18 @@ export declare enum EGameStatus {
     DEBATE = "debate",
     RESULT = "result"
 }
+export declare enum EDebateStatus {
+    NEXT_CARD = "next_card",
+    END_PHASE = "end_phase",
+    RETRY = "retry"
+}
 export declare enum ETeam {
     TEAM1 = "team1",
     TEAM2 = "team2"
 }
 export interface IGame {
     createdAt: Date;
-    createdBy: IUser['id'];
+    createdBy: IUser["id"];
     reflectionEndsAt?: Date | null;
     _id?: unknown | null;
     code: string;
@@ -44,5 +49,10 @@ export interface IAnswerData {
     input2: string;
     input3: string;
     inputCheckboxes: number[];
+}
+export interface IDebateData {
+    eventType: EDebateStatus;
+    nextCardId: number;
+    answers: IAnswer[];
 }
 //# sourceMappingURL=IGame.d.ts.map
