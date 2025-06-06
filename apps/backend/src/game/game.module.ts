@@ -21,6 +21,6 @@ import { GameSchema } from './schema/game.schema';
   ],
   controllers: [GameController],
   providers: [GameService, AuthService, AuthGuard, RolesGuard],
-  exports: [GameService],
+  exports: [GameService, AuthService, AuthGuard, RolesGuard],
 })
 export class GameModule {}

@@ -14,10 +14,17 @@ import { JoiningService } from './service/joining.service';
 import { ReflectionService } from './service/reflection.service';
 import { ResultService } from './service/result.service';
 import { WaitingService } from './service/waiting.service';
+import { RedisService } from 'src/redis/redis.service';
+import { ConfigService } from '@nestjs/config';
+import { WebsocketService } from './websocket.service';
+import { NotificationController } from './notification.controller';
 
 @Module({
   imports: [GameModule, ScheduleModule.forRoot()],
+  controllers: [NotificationController],
   providers: [
+    NotificationController,
+    WebsocketService,
     WebsocketGateway,
     WaitingService,
     ReflectionService,
