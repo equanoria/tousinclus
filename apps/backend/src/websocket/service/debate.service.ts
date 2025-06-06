@@ -132,6 +132,7 @@ export class DebateService {
             status: 'success',
             message: nextCardToVote.message,
             data: {
+              eventType: nextCardToVote.eventType,
               nextCardId: nextCardToVote.nextCardId
                 ? nextCardToVote.nextCardId
                 : null,
