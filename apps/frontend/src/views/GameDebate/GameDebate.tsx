@@ -134,7 +134,7 @@ export const GameDebate = () => {
         <Button
           onClick={handleVote}
           disabled={!vote}
-          className={styles.voteButton}
+          className={styles.confirmButton}
         >
           Valider mon vote
         </Button>

@@ -1,6 +1,6 @@
 .gameDebate {
   background-color: var(--blue-200);
-  height: 100svh;
+  min-height: 100svh;
   padding: var(--space-800) var(--space-1200);
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
 }
 
 .descriptionDebate {
-    font-size: var(--heading-size-small);
+  font-size: var(--heading-size-small);
 }
 
 .debateContent {
@@ -31,12 +31,14 @@
 .answerContainer {
   background-color: var(--blue-100);
   padding: var(--space-800) var(--space-600) var(--space-600) var(--space-600);
+  border-radius: 0px 0px var(--radius-400) var(--radius-400);
+  max-width: 35rem;
 }
 
 .votingBtn {
   position: absolute;
-  top: var(--space-600);
-  right: var(--space-800);
+  top: var(--space-400);
+  right: var(--space-600);
 }
 
 .answerContent {
@@ -51,7 +53,7 @@
   gap: var(--space-200);
 }
 
-.voteButton {
+.confirmButton {
   max-width: 11.563rem;
   align-self: center;
 }

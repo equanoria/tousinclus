@@ -1,4 +1,3 @@
-// components/VotingButton/VotingButton.tsx
 import clsx from 'clsx';
 import styles from './VotingButton.module.css';
 import type { ETeam } from '@tousinclus/types';
