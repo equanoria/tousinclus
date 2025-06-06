@@ -6,6 +6,7 @@ import { Button } from '../../components/Button/Button';
 import { directusService } from '../../services/directus/directus.service';
 import { gameService } from '../../services/game/game.service';
 import { Notification } from '../../components/Notification/Notification';
+import styles from './GameDebate.module.css';
 
 export const GameDebate = () => {
   const [answers, setAnswers] = useState<IAnswer[]>([]);
@@ -19,7 +20,9 @@ export const GameDebate = () => {
 
   useEffect(() => {
     const fetchCardGroup = async () => {
-      const group = await directusService.getCardsGroup(gameService.cardsGroupId);
+      const group = await directusService.getCardsGroup(
+        gameService.cardsGroupId,
+      );
       setCardsGroup(group);
     };
     fetchCardGroup();
@@ -28,7 +31,9 @@ export const GameDebate = () => {
       .getVote()
       .onError((error) => {
         if (error === 'consensus')
-        setNotification('Veuillez vous mettre d\'accord, merci. Cordialement, la direction');
+          setNotification(
+            "Veuillez vous mettre d'accord, merci. Cordialement, la direction",
+          );
       })
       .onNextVote((payload) => {
         const { answers, nextCardId } = payload.data;
@@ -45,58 +50,70 @@ export const GameDebate = () => {
 
   const getExtremeUser = (id: number) => {
     if (!cardsGroup) return;
-    return cardsGroup.extreme_user?.find(user => user.cards_users_id.id === id);
+    return cardsGroup.extreme_user?.find(
+      (user) => user.cards_users_id.id === id,
+    );
   };
-  
+
   return (
-    <>
-      <h1>Phase de débat</h1>
+    <section className={styles.gameDebate}>
+      <h1 className="titlePage">Phase de débat</h1>
       {notification && (
         <Notification onClose={() => setNotification(null)}>
           {notification}
         </Notification>
       )}
-      <div>
-        {answers.length > 0 && (
-          <fieldset>
-            <legend>Choisissez une équipe à voter</legend>
-            {answers.map((answer) => {
-              const checkBoxes = answer.answer?.inputCheckboxes;
-              return (
-                <div key={answer.team} className="debate-answer">
-                  <label>
-                    <input
-                      type="radio"
-                      name="teamVote"
-                      value={answer.team}
-                      checked={vote === answer.team}
-                      onChange={() => setVote(answer.team)}
-                    />
-                    <p>{answer.answer?.input1}</p>
-                    <p>{answer.answer?.input2}</p>
-                    <p>{answer.answer?.input3}</p>
-                    {checkBoxes && checkBoxes?.length > 0 && (
-                      <ul>
-                        {checkBoxes.map((checkbox) => {
-                          const extremeUser = getExtremeUser(checkbox);
-                          if (!extremeUser) return;
-                          return (
-                            <li key={checkbox}>
-                              {extremeUser.cards_users_id.translations[0].description}
-                            </li>
-                          )
-                        })}
-                      </ul>
-                    )}
-                  </label>
-                </div>
-              );
-            })}
-          </fieldset>
-        )}
+      <p className={`${styles.descriptionDebate} heading`}>
+        Débattez des solutions que vous avez trouvées pour chaque utilisateur
+        extrême et votez pour l’une des deux fiches.
+      </p>
+      <div className={styles.debateContent}>
+        <div>
+          {answers.length > 0 && (
+            <fieldset>
+              {answers.map((answer) => {
+                const checkBoxes = answer.answer?.inputCheckboxes;
+                return (
+                  <div key={answer.team} className="debate-answer">
+                    <label>
+                      <input
+                        type="radio"
+                        name="teamVote"
+                        value={answer.team}
+                        checked={vote === answer.team}
+                        onChange={() => setVote(answer.team)}
+                      />
+                      <p>{answer.answer?.input1}</p>
+                      <p>{answer.answer?.input2}</p>
+                      <p>{answer.answer?.input3}</p>
+                      {checkBoxes && checkBoxes?.length > 0 && (
+                        <ul>
+                          {checkBoxes.map((checkbox) => {
+                            const extremeUser = getExtremeUser(checkbox);
+                            if (!extremeUser) return;
+                            return (
+                              <li key={checkbox}>
+                                {
+                                  extremeUser.cards_users_id.translations[0]
+                                    .description
+                                }
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )}
+                    </label>
+                  </div>
+                );
+              })}
+            </fieldset>
+          )}
 
-        <Button onClick={handleVote} disabled={!vote}>Valider mon vote</Button>
+          <Button onClick={handleVote} disabled={!vote}>
+            Valider mon vote
+          </Button>
+        </div>
       </div>
-    </>
-  )
-}
+    </section>
+  );
+};

@@ -565,11 +565,13 @@ export class GameService {
 
       if (firstWithoutConsensus) {
         return {
+          eventType: EDebateStatus.NEXT_CARD,
           message: 'Next card to vote on identified.',
           nextCardId: firstWithoutConsensus.cardId,
         };
       }
       return {
+        eventType: EDebateStatus.END_PHASE,
         message: 'All cards have reached consensus.',
       };
     }
