@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppState } from '../../context/AppStateProvider';
 import { gameDebateService } from '../../services/game/game-debate.service';
 import type { ETeam, IAnswer, IDirectusCardsGroup } from '@tousinclus/types';
