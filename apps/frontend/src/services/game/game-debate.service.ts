@@ -34,21 +34,14 @@ class GameDebateService {
     const { status, data } = payload;
 
     if (status === 'success') {
-      switch (data.eventType) {
-        case EDebateStatus.NEXT_CARD:
-          for (const callback of this.onNextVoteCallbacks) {
-            callback(payload as ISocketResponse<IDebateData>);
-          }
-          break;
+      for (const callback of this.onNextVoteCallbacks) {
+        callback(payload as ISocketResponse<IDebateData>);
+      }
 
-        case EDebateStatus.RETRY:
-          for (const callback of this.onErrorCallbacks) {
+      if(data.eventType === EDebateStatus.RETRY){
+        for (const callback of this.onErrorCallbacks) {
             callback('consensus');
           }
-          break;
-
-        default:
-          break;
       }
     }
   }
