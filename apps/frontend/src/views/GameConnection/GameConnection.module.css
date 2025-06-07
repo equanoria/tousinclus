@@ -1,4 +1,5 @@
 .pageConnection {
+  height: 100svh;
   width: 100%;
   display: flex;
   flex-direction: column;

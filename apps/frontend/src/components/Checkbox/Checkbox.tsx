@@ -5,6 +5,7 @@ import styles from './Checkbox.module.css';
 
 export interface CheckboxProps extends ComponentPropsWithoutRef<'input'> {
   label: string;
+  hideLabel?: boolean; 
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
@@ -12,10 +13,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   label,
   checked,
   onChange,
+  hideLabel = false,
+  disabled,
   ...props
 }) => {
-  const classes = clsx(styles.checkbox, className);
   const id = useId();
+  const classes = clsx(styles.checkbox, className);
 
   return (
     <div className={classes}>
@@ -24,10 +27,18 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         id={id}
         className={styles.input}
         checked={checked}
+        disabled={disabled}
         onChange={onChange}
+        aria-checked={checked}
+        aria-disabled={disabled}
         {...props}
       />
-      <label htmlFor={id} className={styles.label}>{label}</label>
+      <label
+        htmlFor={id}
+        className={clsx(styles.label, hideLabel && 'sr-only')}
+      >
+        {label}
+      </label>
     </div>
   );
 };

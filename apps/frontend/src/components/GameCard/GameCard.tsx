@@ -21,11 +21,19 @@ export const GameCard: React.FC<GameCardProps> = ({
   const classes = clsx(styles.card, styles[type], className);
 
   return (
-    <div className={classes} {...props}>
-      <p className={styles.number}>{number}</p>
+    <figure
+      className={classes}
+      aria-label={`${type === 'situation' ? 'Carte situation' : 'Carte utilisateur'} : ${alt}`}
+      {...props}
+    >
+      {typeof number !== 'undefined' && (
+        <span className={styles.number} aria-hidden="true">
+          {number}
+        </span>
+      )}
       <div className={styles.imageContainer}>
-        {img && <img src={img} alt={alt || 'Game Card Image'} />}
+        <img src={img} alt={alt || 'Carte du jeu'} className={styles.image} />
       </div>
-    </div>
+    </figure>
   );
 };

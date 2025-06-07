@@ -8,6 +8,7 @@ import { gameService } from '../../services/game/game.service';
 import { Notification } from '../../components/Notification/Notification';
 import styles from './GameDebate.module.css';
 import { VotingButton } from '../../components/VotingButton/VotingButton';
+import { Overlay } from '../../components/Overlay/Overlay';
 
 export const GameDebate = () => {
   const [answers, setAnswers] = useState<IAnswer[]>([]);
@@ -60,9 +61,15 @@ export const GameDebate = () => {
     <section className={styles.gameDebate}>
       <h1 className="titlePage">Phase de débat</h1>
       {notification && (
-        <Notification onClose={() => setNotification(null)}>
-          {notification}
-        </Notification>
+        <>
+          <Notification onClose={() => setNotification(null)}>
+            {notification}
+          </Notification>
+          <Overlay
+            isVisible={!!notification}
+            onClick={() => setNotification(null)}
+          />
+        </>
       )}
       <p className={`${styles.descriptionDebate} heading`}>
         Débattez des solutions que vous avez trouvées pour chaque utilisateur

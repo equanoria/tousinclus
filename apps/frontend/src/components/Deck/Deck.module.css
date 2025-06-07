@@ -11,25 +11,21 @@
   padding: var(--space-800) var(--space-1200);
 }
 
-h1 {
-  font-family: var(--title-page-font-family);
-  font-size: var(--title-page-size-base);
-  font-weight: var(--title-page-font-weight);
-  color: var(--pale-blue-600);
-}
-
 .deckContainer {
   display: flex;
   flex-direction: column;
   gap: var(--space-1200);
 }
 
-.usageSituationContainer,
-.extremeUsersContainer,
 .cardsToDrawContainer {
   display: flex;
   flex-direction: column;
   gap: var(--space-600);
+}
+
+.legend {
+  font-weight: var(--body-font-weight-strong);
+  padding-bottom: var(--space-600);
 }
 
 .extremeUsers {

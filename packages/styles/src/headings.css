@@ -36,7 +36,7 @@
 
 .cta {
   font-family: var(--cta-font-family);
-  font-size: var(--cta-size-base);
+  font-size: var(--cta-size-small);
   font-weight: var(--cta-font-weight);
 }
 
