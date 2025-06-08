@@ -1,6 +1,6 @@
 import { Button, Form, Input } from 'antd';
 import clsx from 'clsx';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthProvider';
 import type { ICredentials } from '../../services/auth/auth.service';
@@ -16,6 +16,7 @@ export const Login = () => {
   const { login, user } = useAuth();
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (user) navigate('/games');
@@ -29,6 +30,8 @@ export const Login = () => {
           errors: ['Identifiant ou mot de passe incorrect'],
         },
       ]);
+
+      setLoading(false);
     });
   };
 
@@ -83,6 +86,8 @@ export const Login = () => {
             className={styles.submitButton}
             type="primary"
             htmlType="submit"
+            loading={loading}
+            onClick={() => setLoading(true)}
           >
             Se connecter
           </Button>
