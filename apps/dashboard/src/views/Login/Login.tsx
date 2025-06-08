@@ -1,6 +1,7 @@
 import { Button, Form, Input } from 'antd';
-import { directusService, type ICredentials } from '../../services/directus/directus.service';
 import styles from './Login.module.css';
+import type { ICredentials } from '../../services/auth/auth.service';
+import { useAuth } from '../../context/AuthProvider';
 
 const messages = {
   email: 'Veuillez entrer une adresse e-mail valide',
@@ -8,10 +9,11 @@ const messages = {
 };
 
 export const Login = () => {
+  const { login } = useAuth();
   const [form] = Form.useForm();
 
   const onFinish = (credentials: ICredentials) => {
-    directusService.login(credentials);
+    login(credentials);
   };
 
   return (

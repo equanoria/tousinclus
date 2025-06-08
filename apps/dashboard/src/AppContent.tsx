@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { Login } from './views/Login/Login';
+import { ErrorView } from './views/Error/ErrorView';
+import { ProtectedRoute } from './layouts/ProtectedRoute/ProtectedRoute';
 
 export const AppContent = () => {
   return (
@@ -18,6 +20,8 @@ export const AppContent = () => {
       <main id="main">
         <Routes>
           <Route path="/login" element={<Login />} />
+
+          <Route path="/games" element={<ProtectedRoute><ErrorView /></ProtectedRoute>} />
           {/* <Route path="/games" element={<GameApp />} />
           <Route path="/games/create" element={<Contact />} />
           <Route path="/games/export" element={<Legal />} /> */}

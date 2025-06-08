@@ -1,25 +1,43 @@
-import { createDirectus, readItems, readSingleton, rest } from '@directus/sdk';
+import { authentication, type AuthenticationData, createDirectus, readItems, readSingleton, rest } from '@directus/sdk';
 import type { IDirectusConfig, TLanguage } from '@tousinclus/types';
 import { isValidUrl } from '../../utils/isValidUrl';
+import { localStorageManager } from '@tousinclus/managers';
 
-export interface ICredentials {
-  email: string;
-  password: string;
-}
+const AUTH_KEY = 'auth';
 
-export class DirectusService {
-  protected readonly directusClient;
-  protected readonly directusBaseUrl = isValidUrl(window.env.DIRECTUS_URL)
+export const storage: {
+  get: () => AuthenticationData | null;
+  set: (value: AuthenticationData | null) => void | Promise<void>;
+  delete: () => void | Promise<void>;
+} = {
+  get: () => {
+    return localStorageManager.getItem<AuthenticationData>(AUTH_KEY) ?? null;
+  },
+  set: (value: AuthenticationData | null) => {
+    if (!value) {
+      localStorageManager.removeItem(AUTH_KEY);
+    } else {
+      localStorageManager.setItem(AUTH_KEY, value);
+    }
+  },
+  delete: () => {
+    localStorageManager.removeItem(AUTH_KEY);
+  },
+};
+
+class DirectusService {
+  readonly directusClient;
+  private readonly directusBaseUrl = isValidUrl(window.env.DIRECTUS_URL)
   ? window.env.DIRECTUS_URL
-  : 'http://127.0.0.1:3002';
-  protected _locale: TLanguage = {
+  : 'http://localhost:3002';
+  private _locale: TLanguage = {
     code: 'fr-FR',
     name: 'Français',
     direction: 'ltr',
   };
 
   constructor() {
-    this.directusClient = createDirectus(this.directusBaseUrl).with(rest());
+    this.directusClient = createDirectus(this.directusBaseUrl).with(rest()).with(authentication('json', { storage }));
   }
 
   async getLanguages(): Promise<TLanguage[]> {
