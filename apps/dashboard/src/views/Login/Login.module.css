@@ -1,5 +1,4 @@
 .pageLogin {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,5 +24,8 @@
 
 .submitButton {
   width: 100%;
-  border-radius: 0;
+}
+
+.forgotPassword {
+  text-align: center;
 }

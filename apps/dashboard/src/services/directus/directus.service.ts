@@ -1,7 +1,7 @@
 import { authentication, type AuthenticationData, createDirectus, readItems, readSingleton, rest } from '@directus/sdk';
 import type { IDirectusConfig, TLanguage } from '@tousinclus/types';
-import { isValidUrl } from '../../utils/isValidUrl';
 import { localStorageManager } from '@tousinclus/managers';
+import { urlValidator } from '../../utils/urlValidator';
 
 const AUTH_KEY = 'auth';
 
@@ -27,9 +27,7 @@ export const storage: {
 
 class DirectusService {
   readonly directusClient;
-  private readonly directusBaseUrl = isValidUrl(window.env.DIRECTUS_URL)
-  ? window.env.DIRECTUS_URL
-  : 'http://localhost:3002';
+  private readonly directusUrl = urlValidator(window.env.DIRECTUS_URL, 'http://localhost:3002');
   private _locale: TLanguage = {
     code: 'fr-FR',
     name: 'Français',
@@ -37,15 +35,15 @@ class DirectusService {
   };
 
   constructor() {
-    this.directusClient = createDirectus(this.directusBaseUrl).with(rest()).with(authentication('json', { storage }));
+    this.directusClient = createDirectus(this.directusUrl.toString()).with(rest()).with(authentication('json', { storage }));
   }
 
   async getLanguages(): Promise<TLanguage[]> {
-    return await this.directusClient.request<TLanguage[]>(readItems('languages'));
+    return this.directusClient.request<TLanguage[]>(readItems('languages'));
   }
 
   async getConfig(): Promise<IDirectusConfig> {
-    return await this.directusClient.request<IDirectusConfig>(
+    return this.directusClient.request<IDirectusConfig>(
       readSingleton('config', {
         fields: ['*', 'translations.*'],
         deep: {
@@ -59,12 +57,28 @@ class DirectusService {
     );
   }
 
+  async getDeckGroups(): Promise<number[]> {
+    return this.directusClient.request<number[]>(
+      readItems('decks', {
+        fields: ['id'],
+      }),
+    ); 
+  }
+
   getAssetUrl(id: string): string {
-    return `${this.directusBaseUrl}/assets/${id}`;
+    return `${this.directusUrl}/assets/${id}`;
   }
 
   set locale(locale: TLanguage) {
     this._locale = locale;
+  }
+
+  get resetPasswordUrl(): string {
+    return `${this.directusUrl}/admin/reset-password`;
+  }
+
+  get url(): string {
+    return this.directusUrl.toString();
   }
 }
 

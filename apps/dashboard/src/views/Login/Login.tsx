@@ -2,6 +2,10 @@ import { Button, Form, Input } from 'antd';
 import styles from './Login.module.css';
 import type { ICredentials } from '../../services/auth/auth.service';
 import { useAuth } from '../../context/AuthProvider';
+import { directusService } from '../../services/directus/directus.service';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import clsx from 'clsx';
 
 const messages = {
   email: 'Veuillez entrer une adresse e-mail valide',
@@ -9,15 +13,27 @@ const messages = {
 };
 
 export const Login = () => {
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate('/games');
+  }, [user, navigate]);
 
   const onFinish = (credentials: ICredentials) => {
-    login(credentials);
+    login(credentials).catch(() => {
+      form.setFields([
+        {
+          name: 'password',
+          errors: ['Identifiant ou mot de passe incorrect'],
+        },
+      ]);
+    });
   };
 
   return (
-    <section className={styles.pageLogin}>
+    <section className={clsx(styles.pageLogin, 'fillHeight')}>
       <div className={styles.pageLoginHeader}>
         <img src="./tousinclus-blue.svg" alt="" />
         <h1 className={`${styles.title} titlePage`}>dashboard</h1>
@@ -46,7 +62,7 @@ export const Login = () => {
             },
           ]}
         >
-          <Input />
+          <Input autoComplete="username" />
         </Form.Item>
 
         <Form.Item
@@ -59,7 +75,7 @@ export const Login = () => {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password autoComplete="current-password" />
         </Form.Item>
 
         <Form.Item >
@@ -67,7 +83,15 @@ export const Login = () => {
             Se connecter
           </Button>
         </Form.Item>
+
+        <Form.Item>
+          <p className={styles.forgotPassword}>
+            Mot de passe oublié ? <a href={directusService.resetPasswordUrl}>Réinitialiser</a>
+          </p>
+        </Form.Item>
       </Form>
     </section>
   );
 };
+
+Login.path = '/login';

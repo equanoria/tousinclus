@@ -1,13 +1,11 @@
 import { createDirectus, readItem, readItems, readSingleton, rest } from '@directus/sdk';
 import type { IDirectusCardsGroup, IDirectusConfig, TLanguage } from '@tousinclus/types';
-import { isValidUrl } from '../../utils/isValidUrl';
 import { cardsGroupQuery } from './queries/cardsGroupQuery';
+import { urlValidator } from '../../utils/urlValidator';
 
 class DirectusService {
   private readonly directusClient;
-  private readonly directusBaseUrl = isValidUrl(window.env.DIRECTUS_URL)
-  ? window.env.DIRECTUS_URL
-  : 'http://127.0.0.1:3002';
+  private readonly directusUrl = urlValidator(window.env.DIRECTUS_URL, 'http://127.0.0.1:3002');
   private _locale: TLanguage = {
     code: 'fr-FR',
     name: 'Français',
@@ -15,7 +13,7 @@ class DirectusService {
   };
 
   constructor() {
-    this.directusClient = createDirectus(this.directusBaseUrl).with(rest());
+    this.directusClient = createDirectus(this.directusUrl.toString()).with(rest());
   }
 
   async getLanguages(): Promise<TLanguage[]> {
@@ -44,7 +42,7 @@ class DirectusService {
   }
 
   getAssetUrl(id: string): string {
-    return `${this.directusBaseUrl}/assets/${id}`;
+    return `${this.directusUrl}/assets/${id}`;
   }
 
   set locale(locale: TLanguage) {

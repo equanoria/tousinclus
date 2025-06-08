@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 interface AuthContextProps {
   user: TUser | null;
-  loading: boolean;
+  isLoading: boolean;
   login: (credentials: ICredentials) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -20,7 +20,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<TUser | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -29,11 +29,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const withLoading = async <T,>(action: () => Promise<T>): Promise<T> => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       return await action();
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
