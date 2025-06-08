@@ -44,7 +44,7 @@ export const GamesCreate = () => {
             { required: true, message: 'Please enter the number of parties' },
           ]}
         >
-          <InputNumber min={1} style={{ width: '100%' }} type="number" />
+          <InputNumber min={1} max={20} style={{ width: '100%' }} type="number" />
         </Form.Item>
 
         <Form.Item
@@ -55,7 +55,7 @@ export const GamesCreate = () => {
             { required: true, message: 'Please enter the party duration' },
           ]}
         >
-          <InputNumber min={1} style={{ width: '100%' }} type="number" />
+          <InputNumber min={1} max={180} style={{ width: '100%' }} type="number" />
         </Form.Item>
 
         <Form.Item

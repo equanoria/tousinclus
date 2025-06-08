@@ -11,7 +11,7 @@ export const Games = () => {
   }, []);
 
   const fetchGames = async () => {
-    const games = await backendService.getAllGames().catch((error) => {
+    const games = await backendService.getAllGames().catch(() => {
       return [];
     });
     setGames(games);

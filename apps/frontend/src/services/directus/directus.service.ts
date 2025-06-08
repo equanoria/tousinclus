@@ -32,13 +32,13 @@ class DirectusService {
   }
 
   async getLanguages(): Promise<TLanguage[]> {
-    return await this.directusClient.request<TLanguage[]>(
+    return this.directusClient.request<TLanguage[]>(
       readItems('languages'),
     );
   }
 
   async getConfig(): Promise<IDirectusConfig> {
-    return await this.directusClient.request<IDirectusConfig>(
+    return this.directusClient.request<IDirectusConfig>(
       readSingleton('config', {
         fields: ['*', 'translations.*'],
         deep: {
@@ -59,7 +59,7 @@ class DirectusService {
   }
 
   getAssetUrl(id: string): string {
-    return `${this.directusUrl}/assets/${id}`;
+    return `${this.directusUrl}assets/${id}`;
   }
 
   set locale(locale: TLanguage) {

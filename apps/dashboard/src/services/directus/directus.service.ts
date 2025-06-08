@@ -78,7 +78,7 @@ class DirectusService {
   }
 
   getAssetUrl(id: string): string {
-    return `${this.directusUrl}/assets/${id}`;
+    return `${this.directusUrl}assets/${id}`;
   }
 
   set locale(locale: TLanguage) {
@@ -86,7 +86,7 @@ class DirectusService {
   }
 
   get resetPasswordUrl(): string {
-    return `${this.directusUrl}/admin/reset-password`;
+    return `${this.directusUrl}admin/reset-password`;
   }
 
   get url(): string {
