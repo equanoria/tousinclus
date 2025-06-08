@@ -5,6 +5,8 @@ export const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
+  if (loading) console.warn('ProtectedRoute: loading state is true, this should not happen in production');
+
   if (loading) return <progress aria-label="Chargement en cours" />;
 
   if (!user) {
