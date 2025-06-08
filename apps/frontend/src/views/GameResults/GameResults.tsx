@@ -14,7 +14,7 @@ export const GameResults = () => {
           <Team team="team2" winner={true} score={2} label="Équipe 2" />
         </div>
         <div className={styles.actions}>
-          <Button variant='secondary'>Quitter</Button>
+          <Button variant="secondary">Quitter</Button>
           <Button>Rejouer</Button>
         </div>
       </div>

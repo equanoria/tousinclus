@@ -1,14 +1,14 @@
-import styles from './GameConnection.module.css';
+import { sessionStorageManager } from '@tousinclus/managers';
+import { ETeam, type IGame } from '@tousinclus/types';
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 import { Button } from '../../components/Button/Button';
 import { Input } from '../../components/Input/Input';
-import { useEffect, useState } from 'react';
-import { ETeam, type IGame } from '@tousinclus/types';
-import { gameService } from '../../services/game/game.service';
 import { useAppState } from '../../context/AppStateProvider';
-import type { ISocketResponse } from '../../types/ISocketResponse';
-import { sessionStorageManager } from '@tousinclus/managers';
-import clsx from 'clsx';
 import { Decoration } from '../../layouts/Decoration/Decoration';
+import { gameService } from '../../services/game/game.service';
+import type { ISocketResponse } from '../../types/ISocketResponse';
+import styles from './GameConnection.module.css';
 
 enum ConnectionState {
   CODE = 'code',
@@ -31,8 +31,8 @@ export const GameConnection = () => {
     gameService
       .onJoiningResponse(onJoiningResponse)
       .onWaitingResponse(onWaitingResponse);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const lastGameCode = sessionStorageManager.getItem<string>('GAME_CODE');
@@ -82,10 +82,7 @@ export const GameConnection = () => {
     gameService.joinGame(code, team);
   };
 
-  const classes = clsx(
-    styles.pageConnection,
-    'fillHeight',
-  );
+  const classes = clsx(styles.pageConnection, 'fillHeight');
 
   return (
     <Decoration>
@@ -101,7 +98,11 @@ export const GameConnection = () => {
               titleManager.set('Connexion à une partie');
               return (
                 <div className={styles.teamSelection}>
-                  {errorMessage && <p className={styles.error} aria-invalid>{errorMessage}</p>}
+                  {errorMessage && (
+                    <p className={styles.error} aria-invalid>
+                      {errorMessage}
+                    </p>
+                  )}
                   <div className={styles.teamButtons}>
                     <Button
                       disabled={!availableTeams.includes(ETeam.TEAM1)}

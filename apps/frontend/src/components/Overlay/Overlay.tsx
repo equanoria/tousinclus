@@ -1,19 +1,25 @@
-import styles from './Overlay.module.css';
 import clsx from 'clsx';
-import type { FC, MouseEvent, KeyboardEvent } from 'react';
+import type { FC, KeyboardEvent, MouseEvent } from 'react';
+import styles from './Overlay.module.css';
 
 type OverlayProps = {
   isVisible: boolean;
   className?: string;
-  onClick?: (event: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>) => void;
+  onClick?: (
+    event: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
+  ) => void;
 };
 
-export const Overlay: FC<OverlayProps> = ({ isVisible, className, onClick }) => {
+export const Overlay: FC<OverlayProps> = ({
+  isVisible,
+  className,
+  onClick,
+}) => {
   if (!isVisible) return null;
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault(); 
+      event.preventDefault();
       onClick?.(event);
     }
   };

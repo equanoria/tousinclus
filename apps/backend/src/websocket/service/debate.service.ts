@@ -4,12 +4,12 @@ import { EGameStatus } from '@tousinclus/types';
 // ========== Service Import ==========
 import { GameService } from 'src/game/game.service';
 
+import { WsException } from '@nestjs/websockets';
 // ========== WebSocket Import ==========
 import { Server, Socket } from 'socket.io';
-import { WsException } from '@nestjs/websockets';
 
 // ========== DTO Import ==========
-import { WSResponseDTO, ErrorCode } from 'src/utils/dto/response.dto';
+import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { WSControllerDTO, WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
 
 @Injectable()

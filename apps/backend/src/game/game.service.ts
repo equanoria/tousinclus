@@ -5,18 +5,18 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
+import { EDebateStatus, EGameStatus, ETeam, IUser } from '@tousinclus/types';
 // ========== DTO / Types Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO, VoteDTO } from './dto/game.dto';
-import { EDebateStatus, EGameStatus, ETeam, IUser } from '@tousinclus/types';
 
 // ========== Mongo Import ==========
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { GameDocument, IGameMongo } from './schema/game.schema';
 
+import { DirectusService } from 'src/directus/directus.service';
 // ========== Service Import ==========
 import { RedisService } from '../redis/redis.service';
-import { DirectusService } from 'src/directus/directus.service';
 
 // ========== Lib Import ==========
 import { Parser } from 'json2csv';

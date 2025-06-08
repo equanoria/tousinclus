@@ -1,3 +1,4 @@
+import { setTimeout } from 'node:timers';
 import {
   BadRequestException,
   ForbiddenException,
@@ -5,21 +6,20 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { SchedulerRegistry } from '@nestjs/schedule';
-import { setTimeout } from 'node:timers';
 
+import { WsException } from '@nestjs/websockets';
 // ========== Service Import ==========
 import { GameService } from '../../game/game.service';
-import { WsException } from '@nestjs/websockets';
 
 // ========== WebSocket Import ==========
 import { Server, Socket } from 'socket.io';
 
+import { EGameStatus } from '@tousinclus/types';
+import { plainToInstance } from 'class-transformer';
+import { GameDTO } from 'src/game/dto/game.dto';
+import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 // ========== DTO Import ==========
 import { WSControllerDTO, WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
-import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
-import { GameDTO } from 'src/game/dto/game.dto';
-import { plainToInstance } from 'class-transformer';
-import { EGameStatus } from '@tousinclus/types';
 
 @Injectable()
 export class WaitingService {

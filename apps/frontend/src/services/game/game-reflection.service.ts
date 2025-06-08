@@ -1,8 +1,8 @@
 import type { IAnswer, IAnswerData, IGame } from '@tousinclus/types';
+import type { ISocketResponse } from '../../types/ISocketResponse';
 import { socketService } from '../socket/socket.service';
 import { gameService } from './game.service';
 import type { TWSResponseCallback } from './types/TWSResponseCallback';
-import type { ISocketResponse } from '../../types/ISocketResponse';
 
 class GameReflectionService {
   private _answers?: IAnswer[];
@@ -14,7 +14,10 @@ class GameReflectionService {
     gameService.onReady(() => {
       this.getAnswers();
     });
-    socketService.on('reflection-response', this.onReflectionResponseDo.bind(this));
+    socketService.on(
+      'reflection-response',
+      this.onReflectionResponseDo.bind(this),
+    );
   }
 
   private get answers() {
@@ -37,7 +40,9 @@ class GameReflectionService {
   }
 
   private setAnswer(answer: IAnswer) {
-    this._answers = this.answers.filter((ansr) => ansr.cardId !== answer.cardId);
+    this._answers = this.answers.filter(
+      (ansr) => ansr.cardId !== answer.cardId,
+    );
     this._answers.push(answer);
   }
 
@@ -60,7 +65,7 @@ class GameReflectionService {
   private onReflectionResponseDo(payload: ISocketResponse<IGame | IAnswer>) {
     const { status, data } = payload;
 
-     if (status === 'success') {
+    if (status === 'success') {
       if ('answers' in data) {
         const gameData = data as IGame; // TODO: Plus jamais ça
         this._answers = gameData.answers;
@@ -78,7 +83,7 @@ class GameReflectionService {
           callback(payload as ISocketResponse<IAnswer>);
         }
       }
-     }
+    }
   }
 
   getAnswer(cardId: number) {

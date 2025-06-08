@@ -7,6 +7,10 @@ class SessionStorageManager {
     const item = sessionStorage.getItem(key);
     return item ? JSON.parse(item) : undefined;
   }
+
+  removeItem(key: string): void {
+    sessionStorage.removeItem(key);
+  }
 }
 
 export const sessionStorageManager = new SessionStorageManager();

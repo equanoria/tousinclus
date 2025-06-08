@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import styles from './Decoration.module.css';
 
 export const Decoration = ({ children }: { children: ReactNode }) => {
@@ -11,4 +11,4 @@ export const Decoration = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return children;
-}
+};

@@ -1,13 +1,13 @@
+import type { ETeam } from '@tousinclus/types';
 import clsx from 'clsx';
 import styles from './VotingButton.module.css';
-import type { ETeam } from '@tousinclus/types';
 
 type VotingButtonProps = {
   className?: string;
   name: string;
   value: ETeam;
   checked: boolean;
-  onChange: () => void; 
+  onChange: () => void;
 };
 
 export const VotingButton: React.FC<VotingButtonProps> = ({

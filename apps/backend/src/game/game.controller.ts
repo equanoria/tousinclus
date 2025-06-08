@@ -24,14 +24,14 @@ import {
 // ========== DTO Import ==========
 import { CreateGameDTO, GameDTO } from './dto/game.dto';
 
-// ========== Service Import ==========
-import { GameService } from './game.service';
+import { ERole, IUser } from '@tousinclus/types';
 import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
+import { ParseDatePipe } from 'src/utils/pipes/parse-date.pipe';
 import { AuthGuard } from './auth/auth.guard';
 import { Roles } from './auth/roles.decorator';
-import { ERole, IUser } from '@tousinclus/types';
 import { RolesGuard } from './auth/roles.guard';
-import { ParseDatePipe } from 'src/utils/pipes/parse-date.pipe';
+// ========== Service Import ==========
+import { GameService } from './game.service';
 
 // ========== Utils Import ==========
 import { Response } from 'express';

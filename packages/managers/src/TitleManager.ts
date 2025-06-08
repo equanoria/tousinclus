@@ -6,7 +6,7 @@ class TitleManager {
    * @param title - The new title to set.
    */
   set(title: string): this {
-    document.title = title;
+    document.title = `${title} - ${TitleManager.DEFAULT_TITLE}`;
     return this;
   }
 

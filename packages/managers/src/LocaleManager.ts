@@ -10,7 +10,7 @@ class LocaleManager {
   };
 
   private locale: TLanguage = LocaleManager.FALLBACK_LOCALE;
-  private supportedLocales: TLanguage[] = [LocaleManager.FALLBACK_LOCALE]
+  private supportedLocales: TLanguage[] = [LocaleManager.FALLBACK_LOCALE];
 
   /**
    * Change the active language.
@@ -92,10 +92,7 @@ class LocaleManager {
    * If the value is "system", it is applied automatically.
    */
   private setDefaultLocale(localeCode: string): this {
-    localStorageManager.setItem(
-      LocaleManager.LOCAL_STORAGE_KEY,
-      localeCode,
-    );
+    localStorageManager.setItem(LocaleManager.LOCAL_STORAGE_KEY, localeCode);
     return this;
   }
 

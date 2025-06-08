@@ -1,4 +1,4 @@
-import { localStorageManager } from "./LocalStorageManager";
+import { localStorageManager } from './LocalStorageManager';
 export var Theme;
 (function (Theme) {
     Theme["LIGHT"] = "light";
@@ -13,9 +13,7 @@ class ThemeManager {
     theme;
     constructor() {
         this.theme = this.determineInitialTheme();
-        this
-            .applyTheme()
-            .listenToSystemChanges();
+        this.applyTheme().listenToSystemChanges();
     }
     switch(theme) {
         let resolvedTheme = theme;
