@@ -30,7 +30,7 @@ class BackendService {
 
     const response = await fetch(url, options);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw response;
     }
 
     return response.json();
@@ -61,7 +61,11 @@ class BackendService {
   }
 
   async createGames(gamesTemplate: ICreateGames, count = 1): Promise<IGame[]> {
-    return this.post<IGame[]>(`/game/${count}`, gamesTemplate);
+    return this.put<IGame[]>(`/game/${count}`, gamesTemplate);
+  }
+
+  async deleteGame(code: string): Promise<void> {
+    return this.delete(`/game/${code}`);
   }
 }
 

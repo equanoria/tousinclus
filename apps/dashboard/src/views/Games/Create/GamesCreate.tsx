@@ -8,14 +8,13 @@ import { directusService } from '../../../services/directus/directus.service';
 const { Option } = Select;
 
 export const GamesCreate = () => {
-  const [deckGroups, setDeckGroups] = useState<number[]>([]);
+  const [deckGroups, setDeckGroups] = useState<{ id: number }[]>([]);
   const [createdGames, setCreatedGames] = useState<IGame[]>([]);
   const [form] = Form.useForm();
 
   useEffect(() => {
     const fetchDeckGroups = async () => {
       const deckGroups = await directusService.getDeckGroups();
-      console.log('Deck groups fetched:', deckGroups);
       setDeckGroups(deckGroups);
     };
 
@@ -62,9 +61,9 @@ export const GamesCreate = () => {
           rules={[{ required: true, message: 'Please select a deck' }]}
         >
           <Select placeholder="Select a deck">
-            {deckGroups.length > 0 && deckGroups.map((deckId) => (
-              <Option key={deckId} value={deckId}>
-                Deck {deckId}
+            {deckGroups.length > 0 && deckGroups.map((deck) => (
+              <Option key={deck.id} value={deck.id}>
+                Deck {deck.id}
               </Option>
             ))}
           </Select>

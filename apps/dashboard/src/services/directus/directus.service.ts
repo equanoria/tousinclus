@@ -57,8 +57,8 @@ class DirectusService {
     );
   }
 
-  async getDeckGroups(): Promise<number[]> {
-    return this.directusClient.request<number[]>(
+  async getDeckGroups(): Promise<{ id: number }[]> {
+    return this.directusClient.request<{ id: number }[]>(
       readItems('decks', {
         fields: ['id'],
       }),

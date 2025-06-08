@@ -1,6 +1,28 @@
 [
   {
     "action": "read",
+    "collection": "decks",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "0a23aebf-5a76-4d90-8009-0c3cfb07edda",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "decks_translations",
+    "fields": [
+      "*"
+    ],
+    "permissions": null,
+    "policy": "0a23aebf-5a76-4d90-8009-0c3cfb07edda",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
     "collection": "cards_design_for_all",
     "fields": [
       "*"
