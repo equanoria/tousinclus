@@ -1,8 +1,8 @@
+import { IconBellRinging } from '@tabler/icons-react';
 import clsx from 'clsx';
 import type React from 'react';
 import type { ComponentPropsWithoutRef } from 'react';
 import styles from './Timer.module.css';
-import { IconBellRinging } from '@tabler/icons-react';
 
 export interface TimerProps extends ComponentPropsWithoutRef<'div'> {
   timer: number;

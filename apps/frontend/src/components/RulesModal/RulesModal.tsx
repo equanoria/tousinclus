@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { ComponentPropsWithoutRef } from 'react';
-import styles from './RulesModal.module.css';
 import { Button } from '../Button/Button';
+import styles from './RulesModal.module.css';
 
 export interface RulesModalProps extends ComponentPropsWithoutRef<'aside'> {
   title: string;
@@ -42,7 +42,9 @@ export const RulesModal = ({
           <h2 className="heading">{title}</h2>
           <div>{children}</div>
         </div>
-        <Button variant="secondary" className={styles.logout}>Déconnexion</Button>
+        <Button variant="secondary" className={styles.logout}>
+          Déconnexion
+        </Button>
       </div>
     </aside>
   );

@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useAppState } from '../../context/AppStateProvider';
-import { gameDebateService } from '../../services/game/game-debate.service';
 import type { ETeam, IAnswer, IDirectusCardsGroup } from '@tousinclus/types';
+import { useEffect, useState } from 'react';
 import { Button } from '../../components/Button/Button';
-import { directusService } from '../../services/directus/directus.service';
-import { gameService } from '../../services/game/game.service';
 import { Notification } from '../../components/Notification/Notification';
-import styles from './GameDebate.module.css';
 import { VotingButton } from '../../components/VotingButton/VotingButton';
+import { useAppState } from '../../context/AppStateProvider';
+import { directusService } from '../../services/directus/directus.service';
+import { gameDebateService } from '../../services/game/game-debate.service';
+import { gameService } from '../../services/game/game.service';
+import styles from './GameDebate.module.css';
 
 export const GameDebate = () => {
   const [answers, setAnswers] = useState<IAnswer[]>([]);

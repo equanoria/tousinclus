@@ -1,4 +1,4 @@
-import { localStorageManager } from "./LocalStorageManager";
+import { localStorageManager } from './LocalStorageManager';
 export var Contrast;
 (function (Contrast) {
     Contrast["SYSTEM"] = "system";

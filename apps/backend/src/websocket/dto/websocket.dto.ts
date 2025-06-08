@@ -1,8 +1,8 @@
 import {
+  EGameStatus,
+  IWSController,
   IWSData,
   IWSGameStatus,
-  IWSController,
-  EGameStatus,
 } from '@tousinclus/types';
 import { Type } from 'class-transformer';
 import { AnswerDTO, VoteDTO } from '../../game/dto/game.dto';

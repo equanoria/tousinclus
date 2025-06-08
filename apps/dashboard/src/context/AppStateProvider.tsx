@@ -1,20 +1,16 @@
 import {
-  type ReactNode,
-  createContext,
-  useContext,
-} from 'react';
-import { 
   type ContrastManager,
-  contrastManager,
   type FontManager,
-  fontManager,
   type LocaleManager,
-  localeManager,
   type ThemeManager,
-  themeManager,
   type TitleManager,
+  contrastManager,
+  fontManager,
+  localeManager,
+  themeManager,
   titleManager,
 } from '@tousinclus/managers';
+import { type ReactNode, createContext, useContext } from 'react';
 
 export interface AppStateContextProps {
   themeManager: ThemeManager;
@@ -28,10 +24,7 @@ const AppStateContext = createContext<AppStateContextProps | undefined>(
   undefined,
 );
 
-export const AppStateProvider = ({
-  children,
-}: { children: ReactNode }) => {
-
+export const AppStateProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AppStateContext.Provider
       value={{

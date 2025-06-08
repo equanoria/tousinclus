@@ -1,11 +1,24 @@
-import { createDirectus, readItem, readItems, readSingleton, rest } from '@directus/sdk';
-import type { IDirectusCardsGroup, IDirectusConfig, TLanguage } from '@tousinclus/types';
-import { cardsGroupQuery } from './queries/cardsGroupQuery';
+import {
+  createDirectus,
+  readItem,
+  readItems,
+  readSingleton,
+  rest,
+} from '@directus/sdk';
+import type {
+  IDirectusCardsGroup,
+  IDirectusConfig,
+  TLanguage,
+} from '@tousinclus/types';
 import { urlValidator } from '../../utils/urlValidator';
+import { cardsGroupQuery } from './queries/cardsGroupQuery';
 
 class DirectusService {
   private readonly directusClient;
-  private readonly directusUrl = urlValidator(window.env.DIRECTUS_URL, 'http://127.0.0.1:3002');
+  private readonly directusUrl = urlValidator(
+    window.env.DIRECTUS_URL,
+    'http://127.0.0.1:3002',
+  );
   private _locale: TLanguage = {
     code: 'fr-FR',
     name: 'Français',
@@ -13,11 +26,15 @@ class DirectusService {
   };
 
   constructor() {
-    this.directusClient = createDirectus(this.directusUrl.toString()).with(rest());
+    this.directusClient = createDirectus(this.directusUrl.toString()).with(
+      rest(),
+    );
   }
 
   async getLanguages(): Promise<TLanguage[]> {
-    return await this.directusClient.request<TLanguage[]>(readItems('languages'));
+    return await this.directusClient.request<TLanguage[]>(
+      readItems('languages'),
+    );
   }
 
   async getConfig(): Promise<IDirectusConfig> {

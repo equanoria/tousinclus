@@ -18,8 +18,12 @@ export const GameApp = () => {
 
   useEffect(() => {
     gameService
-      .onGameStatus(({ gameStatus }) => setCurrentView(views[gameStatus] || <GameConnection />))
-      .onWaitingResponse(({ data }) => setCurrentView(views[data.status] || <GameConnection />));
+      .onGameStatus(({ gameStatus }) =>
+        setCurrentView(views[gameStatus] || <GameConnection />),
+      )
+      .onWaitingResponse(({ data }) =>
+        setCurrentView(views[data.status] || <GameConnection />),
+      );
   }, [setCurrentView]);
 
   return currentView;

@@ -1,6 +1,13 @@
-import { authentication, type AuthenticationData, createDirectus, readItems, readSingleton, rest } from '@directus/sdk';
-import type { IDirectusConfig, TLanguage } from '@tousinclus/types';
+import {
+  type AuthenticationData,
+  authentication,
+  createDirectus,
+  readItems,
+  readSingleton,
+  rest,
+} from '@directus/sdk';
 import { localStorageManager } from '@tousinclus/managers';
+import type { IDirectusConfig, TLanguage } from '@tousinclus/types';
 import { urlValidator } from '../../utils/urlValidator';
 
 const AUTH_KEY = 'auth';
@@ -27,7 +34,10 @@ export const storage: {
 
 class DirectusService {
   readonly directusClient;
-  private readonly directusUrl = urlValidator(window.env.DIRECTUS_URL, 'http://localhost:3002');
+  private readonly directusUrl = urlValidator(
+    window.env.DIRECTUS_URL,
+    'http://localhost:3002',
+  );
   private _locale: TLanguage = {
     code: 'fr-FR',
     name: 'Français',
@@ -35,7 +45,9 @@ class DirectusService {
   };
 
   constructor() {
-    this.directusClient = createDirectus(this.directusUrl.toString()).with(rest()).with(authentication('json', { storage }));
+    this.directusClient = createDirectus(this.directusUrl.toString())
+      .with(rest())
+      .with(authentication('json', { storage }));
   }
 
   async getLanguages(): Promise<TLanguage[]> {
@@ -62,7 +74,7 @@ class DirectusService {
       readItems('decks', {
         fields: ['id'],
       }),
-    ); 
+    );
   }
 
   getAssetUrl(id: string): string {

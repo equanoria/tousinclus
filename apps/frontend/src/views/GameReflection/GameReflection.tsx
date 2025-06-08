@@ -1,17 +1,17 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useAppState } from '../../context/AppStateProvider';
-import { gameReflectionService } from '../../services/game/game-reflection.service';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import type { IAnswerData, IDirectusCardsGroup } from '@tousinclus/types';
-import { directusService } from '../../services/directus/directus.service';
-import { gameService } from '../../services/game/game.service';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from '../../components/Button/Button';
 import { Checkbox } from '../../components/Checkbox/Checkbox';
 // import { Input } from '../../components/Input/Input';
 import { Deck } from '../../components/Deck/Deck';
-import styles from './GameReflection.module.css';
 import { GameCard } from '../../components/GameCard/GameCard';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { Textarea } from '../../components/Textarea/Textarea';
+import { useAppState } from '../../context/AppStateProvider';
+import { directusService } from '../../services/directus/directus.service';
+import { gameReflectionService } from '../../services/game/game-reflection.service';
+import { gameService } from '../../services/game/game.service';
+import styles from './GameReflection.module.css';
 
 const defaultAnswer = {
   input1: '',

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
-import * as yaml from 'js-yaml';
 import { join } from 'node:path';
 import { ENodeEnv } from '@tousinclus/types';
+import * as yaml from 'js-yaml';
 
 const isValidNodeEnv = (value: string): value is ENodeEnv => {
   return Object.values(ENodeEnv).includes(value as ENodeEnv);

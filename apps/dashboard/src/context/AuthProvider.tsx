@@ -5,9 +5,9 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { type ICredentials, authService } from '../services/auth/auth.service';
 import type { TUser } from '../types/User';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 interface AuthContextProps {
   user: TUser | null;
@@ -38,16 +38,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const loadCurrentUser = async () => {
-    const currentUser = await withLoading(() =>
-      authService.getUser()
-    );
+    const currentUser = await withLoading(() => authService.getUser());
 
     setUser(currentUser);
   };
 
   const login = async (credentials: ICredentials) => {
     const loggedInUser = await withLoading(() =>
-      authService.login(credentials)
+      authService.login(credentials),
     );
 
     setUser(loggedInUser);

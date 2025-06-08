@@ -1,4 +1,4 @@
-import { localStorageManager } from "./LocalStorageManager";
+import { localStorageManager } from './LocalStorageManager';
 
 export enum Theme {
   LIGHT = 'light',
@@ -15,9 +15,7 @@ class ThemeManager {
 
   constructor() {
     this.theme = this.determineInitialTheme();
-    this
-      .applyTheme()
-      .listenToSystemChanges();
+    this.applyTheme().listenToSystemChanges();
   }
 
   /**
@@ -51,10 +49,7 @@ class ThemeManager {
    * This method ensures the theme preference is saved for future visits.
    */
   private setDefault(theme: Theme): this {
-    localStorageManager.setItem(
-      ThemeManager.LOCAL_STORAGE_KEY,
-      theme,
-    );
+    localStorageManager.setItem(ThemeManager.LOCAL_STORAGE_KEY, theme);
 
     return this;
   }
@@ -79,7 +74,9 @@ class ThemeManager {
    */
   private getEffectiveTheme(): Theme {
     if (this.theme === Theme.SYSTEM) {
-      const prefersDarkScheme = window.matchMedia?.(ThemeManager.MATCH_MEDIA).matches;
+      const prefersDarkScheme = window.matchMedia?.(
+        ThemeManager.MATCH_MEDIA,
+      ).matches;
 
       return prefersDarkScheme ? Theme.DARK : Theme.LIGHT;
     }

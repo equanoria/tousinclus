@@ -1,14 +1,14 @@
+import { IconInfoCircle } from '@tabler/icons-react';
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { GameApp } from './GameApp';
+import { Button } from './components/Button/Button';
+import { Link } from './components/Link/Link';
+import { Overlay } from './components/Overlay/Overlay';
+import { RulesModal } from './components/RulesModal/RulesModal';
+import { SocketBanner } from './core/SocketBanner/SocketBanner';
 import { Contact } from './views/Contact/Contact';
 import { Legal } from './views/Legal/Legal';
-import { Link } from './components/Link/Link';
-import { GameApp } from './GameApp';
-import { SocketBanner } from './core/SocketBanner/SocketBanner';
-import { RulesModal } from './components/RulesModal/RulesModal';
-import { useState } from 'react';
-import { Overlay } from './components/Overlay/Overlay';
-import { Button } from './components/Button/Button';
-import { IconInfoCircle } from '@tabler/icons-react';
 
 export const AppContent = () => {
   const [isModalOpen, setModalOpen] = useState(false);

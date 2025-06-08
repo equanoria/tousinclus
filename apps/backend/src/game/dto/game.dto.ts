@@ -1,24 +1,24 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  IGame,
-  ITeam,
-  IAnswer,
-  IAnswerData,
   EGameStatus,
   ETeam,
-  IVote,
+  IAnswer,
+  IAnswerData,
+  IGame,
+  ITeam,
   IUser,
+  IVote,
 } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {
-  IsString,
-  IsOptional,
-  IsNumber,
-  IsNotEmpty,
-  IsBoolean,
-  ValidateNested,
-  IsDate,
   IsArray,
+  IsBoolean,
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
 } from 'class-validator';
 
 // ========== DTO ==========

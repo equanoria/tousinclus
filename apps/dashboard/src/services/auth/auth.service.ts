@@ -1,7 +1,7 @@
-import type { IDirectusUser } from '@tousinclus/types';
-import { directusService } from '../directus/directus.service';
 import { readMe } from '@directus/sdk';
+import type { IDirectusUser } from '@tousinclus/types';
 import type { TUser } from '../../types/User';
+import { directusService } from '../directus/directus.service';
 
 export interface ICredentials {
   email: string;

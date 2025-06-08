@@ -1,3 +1,4 @@
+import { Logger, UseFilters, UseInterceptors } from '@nestjs/common';
 import {
   ConnectedSocket,
   MessageBody,
@@ -7,21 +8,20 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { Logger, UseFilters, UseInterceptors } from '@nestjs/common';
 import { RedisTtlInterceptor } from 'src/utils/interceptors/redis-ttl.interceptor';
 
 import { Server, Socket } from 'socket.io';
 
+import { WebsocketExceptionFilter } from 'src/utils/filters/websocket-exception.filter';
+import { WebsocketValidationPipe } from 'src/utils/pipes/websocket-validation.pipe';
+import { WSControllerDTO } from './dto/websocket.dto';
+import { DebateService } from './service/debate.service';
+import { DisconnectService } from './service/disconnect.service';
 // ========== Service Import ==========
 import { JoiningService } from './service/joining.service';
-import { WaitingService } from './service/waiting.service';
 import { ReflectionService } from './service/reflection.service';
-import { DebateService } from './service/debate.service';
 import { ResultService } from './service/result.service';
-import { DisconnectService } from './service/disconnect.service';
-import { WSControllerDTO } from './dto/websocket.dto';
-import { WebsocketValidationPipe } from 'src/utils/pipes/websocket-validation.pipe';
-import { WebsocketExceptionFilter } from 'src/utils/filters/websocket-exception.filter';
+import { WaitingService } from './service/waiting.service';
 
 // Init websocket
 @WebSocketGateway({

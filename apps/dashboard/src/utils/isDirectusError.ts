@@ -7,4 +7,4 @@ export const isDirectusError = (error: unknown): error is IDirectusError => {
     'errors' in error &&
     Array.isArray((error as { errors?: unknown }).errors)
   );
-}
+};

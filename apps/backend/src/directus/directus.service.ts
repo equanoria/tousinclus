@@ -1,6 +1,3 @@
-import { Injectable } from '@nestjs/common';
-import type { ICardDTO, IGroupDTO } from './dto/directus.dto';
-import { FormatterService } from '../utils/services/formatter.service';
 import {
   createDirectus,
   readItems,
@@ -9,8 +6,11 @@ import {
   rest,
   staticToken,
 } from '@directus/sdk';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ERole } from '@tousinclus/types';
+import { FormatterService } from '../utils/services/formatter.service';
+import type { ICardDTO, IGroupDTO } from './dto/directus.dto';
 import { IUserDirectus } from './interface/user.interface';
 
 @Injectable()

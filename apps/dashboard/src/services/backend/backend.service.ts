@@ -4,19 +4,22 @@ import { authService } from '../auth/auth.service';
 import type { ICreateGames } from './interfaces/CreateGames';
 
 class BackendService {
-  private readonly backendUrl = urlValidator(window.env.BACKEND_URL, 'http://localhost:3001/api');
+  private readonly backendUrl = urlValidator(
+    window.env.BACKEND_URL,
+    'http://localhost:3001/api',
+  );
 
   private async request<TResponse = unknown, TBody = unknown>(
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH',
     endpoint: string,
-    body?: TBody
+    body?: TBody,
   ): Promise<TResponse> {
     const user = await authService.getUser();
     const url = `${this.backendUrl}/${endpoint.startsWith('/') ? endpoint.slice(1) : endpoint}`;
 
     const headers: HeadersInit = {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${user?.token || ''}`,
+      Authorization: `Bearer ${user?.token || ''}`,
     };
 
     const options: RequestInit = {
@@ -40,11 +43,17 @@ class BackendService {
     return this.request<T>('GET', endpoint);
   }
 
-  private post<TResponse = unknown, TBody = unknown>(endpoint: string, body: TBody): Promise<TResponse> {
+  private post<TResponse = unknown, TBody = unknown>(
+    endpoint: string,
+    body: TBody,
+  ): Promise<TResponse> {
     return this.request<TResponse, TBody>('POST', endpoint, body);
   }
 
-  private put<TResponse = unknown, TBody = unknown>(endpoint: string, body: TBody): Promise<TResponse> {
+  private put<TResponse = unknown, TBody = unknown>(
+    endpoint: string,
+    body: TBody,
+  ): Promise<TResponse> {
     return this.request<TResponse, TBody>('PUT', endpoint, body);
   }
 
@@ -52,7 +61,10 @@ class BackendService {
     return this.request<T>('DELETE', endpoint);
   }
 
-  private patch<TResponse = unknown, TBody = unknown>(endpoint: string, body: TBody): Promise<TResponse> {
+  private patch<TResponse = unknown, TBody = unknown>(
+    endpoint: string,
+    body: TBody,
+  ): Promise<TResponse> {
     return this.request<TResponse, TBody>('PATCH', endpoint, body);
   }
 

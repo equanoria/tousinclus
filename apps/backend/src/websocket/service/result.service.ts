@@ -5,10 +5,10 @@ import { Socket } from 'socket.io';
 // ========== Service Import ==========
 import { GameService } from 'src/game/game.service';
 
+import { GameDTO } from 'src/game/dto/game.dto';
 // ========== DTO Import ==========
 import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { WSControllerDTO, WSDataDTO } from '../dto/websocket.dto';
-import { GameDTO } from 'src/game/dto/game.dto';
 
 @Injectable()
 export class ResultService {

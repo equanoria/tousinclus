@@ -1,11 +1,11 @@
 import { Button, Form, Input } from 'antd';
-import styles from './Login.module.css';
-import type { ICredentials } from '../../services/auth/auth.service';
-import { useAuth } from '../../context/AuthProvider';
-import { directusService } from '../../services/directus/directus.service';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import clsx from 'clsx';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthProvider';
+import type { ICredentials } from '../../services/auth/auth.service';
+import { directusService } from '../../services/directus/directus.service';
+import styles from './Login.module.css';
 
 const messages = {
   email: 'Veuillez entrer une adresse e-mail valide',
@@ -78,15 +78,20 @@ export const Login = () => {
           <Input.Password autoComplete="current-password" />
         </Form.Item>
 
-        <Form.Item >
-          <Button className={styles.submitButton} type="primary" htmlType="submit">
+        <Form.Item>
+          <Button
+            className={styles.submitButton}
+            type="primary"
+            htmlType="submit"
+          >
             Se connecter
           </Button>
         </Form.Item>
 
         <Form.Item>
           <p className={styles.forgotPassword}>
-            Mot de passe oublié ? <a href={directusService.resetPasswordUrl}>Réinitialiser</a>
+            Mot de passe oublié ?{' '}
+            <a href={directusService.resetPasswordUrl}>Réinitialiser</a>
           </p>
         </Form.Item>
       </Form>

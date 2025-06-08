@@ -3,10 +3,7 @@ import type { ComponentPropsWithoutRef } from 'react';
 import styles from './Banner.module.css';
 
 export interface BannerProps extends ComponentPropsWithoutRef<'aside'> {
-  variant?:
-    | 'info'
-    | 'warning'
-    | 'danger';
+  variant?: 'info' | 'warning' | 'danger';
 }
 
 export const Banner = ({

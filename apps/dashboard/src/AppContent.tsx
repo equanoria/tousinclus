@@ -1,10 +1,10 @@
 import { Link, Navigate, Route, Routes } from 'react-router-dom';
-import { Login } from './views/Login/Login';
+import { useAuth } from './context/AuthProvider';
 import { ProtectedRoute } from './layouts/ProtectedRoute/ProtectedRoute';
-import { Games } from './views/Games/Games';
 import { GamesCreate } from './views/Games/Create/GamesCreate';
 import { GamesExport } from './views/Games/Export/GamesExport';
-import { useAuth } from './context/AuthProvider';
+import { Games } from './views/Games/Games';
+import { Login } from './views/Login/Login';
 
 export const AppContent = () => {
   const { user, logout } = useAuth();
@@ -27,8 +27,9 @@ export const AppContent = () => {
           <Route path="/" element={<Navigate to="/games" replace />} />
           <Route path={Login.path} element={<Login />} />
 
-          <Route path={Games.path} element=
-            {
+          <Route
+            path={Games.path}
+            element={
               <ProtectedRoute>
                 <Games />
               </ProtectedRoute>

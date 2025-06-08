@@ -52,7 +52,7 @@ export const syncDirectusCollections = {
     getKey: (o) => `${o.role ?? o.user ?? 'public'}-${o.policy}`,
     query: {
       filter: {
-        role: { 
+        role: {
           name: { _neq: 'Administrator' },
         },
       },

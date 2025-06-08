@@ -1,8 +1,8 @@
-import { Form, InputNumber, Button, Select } from 'antd';
-import type { ICreateGames } from '../../../services/backend/interfaces/CreateGames';
-import { backendService } from '../../../services/backend/backend.service';
 import type { IGame } from '@tousinclus/types';
+import { Button, Form, InputNumber, Select } from 'antd';
 import { useEffect, useState } from 'react';
+import { backendService } from '../../../services/backend/backend.service';
+import type { ICreateGames } from '../../../services/backend/interfaces/CreateGames';
 import { directusService } from '../../../services/directus/directus.service';
 
 const { Option } = Select;
@@ -36,12 +36,13 @@ export const GamesCreate = () => {
         onFinish={handleFinish}
         style={{ maxWidth: 400, margin: '0 auto' }}
       >
-
         <Form.Item
           label="Parties Count"
           name="count"
           initialValue={1}
-          rules={[{ required: true, message: 'Please enter the number of parties' }]}
+          rules={[
+            { required: true, message: 'Please enter the number of parties' },
+          ]}
         >
           <InputNumber min={1} style={{ width: '100%' }} type="number" />
         </Form.Item>
@@ -50,7 +51,9 @@ export const GamesCreate = () => {
           label="Reflection Duration (minutes)"
           name="reflectionDuration"
           initialValue={45}
-          rules={[{ required: true, message: 'Please enter the party duration' }]}
+          rules={[
+            { required: true, message: 'Please enter the party duration' },
+          ]}
         >
           <InputNumber min={1} style={{ width: '100%' }} type="number" />
         </Form.Item>
@@ -61,11 +64,12 @@ export const GamesCreate = () => {
           rules={[{ required: true, message: 'Please select a deck' }]}
         >
           <Select placeholder="Select a deck">
-            {deckGroups.length > 0 && deckGroups.map((deck) => (
-              <Option key={deck.id} value={deck.id}>
-                Deck {deck.id}
-              </Option>
-            ))}
+            {deckGroups.length > 0 &&
+              deckGroups.map((deck) => (
+                <Option key={deck.id} value={deck.id}>
+                  Deck {deck.id}
+                </Option>
+              ))}
           </Select>
         </Form.Item>
 
