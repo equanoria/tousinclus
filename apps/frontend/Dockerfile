@@ -1,4 +1,4 @@
-FROM node:23-bookworm-slim AS base
+FROM node:24-bookworm-slim AS base
 RUN npm install --global pnpm
 WORKDIR /app
 COPY . .
@@ -16,7 +16,7 @@ FROM base AS prodbuild
 RUN pnpm install --frozen-lockfile --prod --filter @tousinclus/frontend
 COPY --from=assets /app .
 
-FROM caddy:2.8.4-alpine AS prod
+FROM caddy:2.10.0-alpine AS prod
 COPY --from=prodbuild /app /app
 ENV NODE_ENV=production
 ENV PORT=3000

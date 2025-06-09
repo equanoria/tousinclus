@@ -53,8 +53,6 @@ services:
         - traefik.http.services.tousinclus-backend_staging.loadbalancer.server.port=3000
         - traefik.http.routers.tousinclus-backend_staging.tls=true
         - traefik.http.routers.tousinclus-backend_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.tousinclus-backend_staging-auth.basicauth.users=${STAGING_USERS}
-        - traefik.http.routers.tousinclus-backend_staging.middlewares=tousinclus-backend_staging-auth
     environment:
       - TZ=${TZ}
       - REDIS_HOSTNAME=backend-valkey
@@ -159,27 +157,12 @@ services:
     volumes:
       - directus-postgresql:/var/lib/postgresql/data
 
-  mailer-postfix:
-    image: mailcow/postfix:1.80
-    networks:
-      directus:
-    environment:
-      - HOSTNAME=mail.tousinclus.org
-      - DOMAIN=tousinclus.org
-      - RELAY_NETWORKS=192.168.0.0/16 127.0.0.0/8 172.16.0.0/12
-      - DKIM_SELECTOR=mail
-      - DKIM_DOMAIN=tousinclus.org
-      - DKIM_PRIVATE_KEY=/etc/opendkim/keys/dkim.private
-    volumes:
-      - mailer-postfix:/etc/opendkim/keys/dkim.private:ro
-
 volumes:
   backend-mongo:
   backend-valkey:
   directus-uploads:
   directus-postgresql:
   directus-valkey:
-  mailer-postfix:
 
 networks:
   directus:
