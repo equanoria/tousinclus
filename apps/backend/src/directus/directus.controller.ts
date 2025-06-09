@@ -1,19 +1,17 @@
 import {
   Controller,
   Get,
-  Param,
-  NotFoundException,
   Headers,
+  NotFoundException,
+  Param,
 } from '@nestjs/common';
 
 // ========== Directus SDK Import ==========
 import { DirectusService } from './directus.service';
 
 // ========== DTO Import ==========
-import { ICardDTO, IGroupDTO, IDeckDTO } from './dto/directus.dto';
+import { ICardDTO, IDeckDTO, IGroupDTO } from './dto/directus.dto';
 
-// ========== Services Import ==========
-import { LanguageService } from '../utils/services/language.service';
 import {
   ApiHeader,
   ApiOperation,
@@ -22,6 +20,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
+// ========== Services Import ==========
+import { LanguageService } from '../utils/services/language.service';
 
 // ? Typing to add for Directus https://docs.directus.io/guides/sdk/types.html
 

@@ -1,0 +1,232 @@
+.pageReflection {
+  position: relative;
+  z-index: 1;
+  background-color: var(--blue-200);
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-800);
+  padding: var(--space-800) var(--space-1200);
+}
+
+.reflectionContainer {
+  display: flex;
+  gap: var(--space-1200);
+}
+
+.leftContainer {
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerForm {
+  background-color: var(--blue-100);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-800) var(--space-600) var(--space-600) var(--space-600);
+  gap: var(--space-800);
+  border-radius: 0 0 var(--radius-200) var(--radius-200);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-800);
+}
+
+.form > fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-400);
+}
+
+.question {
+  color: var(--checkbox-field-text-primary-default);
+  font-family: var(---body-font-family);
+  font-size: var(--body-size-medium);
+  font-weight: var(--body-font-weight-regular);
+}
+
+.rightContainer {
+  min-height: 100%;
+}
+
+.containerCards {
+  position: sticky;
+  top: var(--space-800);
+  height: min-content;
+  background-color: var(--pale-blue-500);
+  border-radius: var(--radius-200);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.situationContainer {
+  color: var(--white-1000);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-600);
+  padding: var(--space-600) 0 var(--space-800) 0;
+}
+
+.situationDescription {
+  padding: 0 var(--space-800);
+}
+
+.subheaderSolution {
+  color: var(--pink-700);
+}
+
+.usersContainer {
+  position: relative;
+  background-color: var(--pink-300);
+  border-radius: var(--radius-200);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-400);
+  padding: var(--space-600);
+}
+
+.userIdNavigation {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-400);
+}
+
+.userIdNavigation button {
+  background-color: var(--white-1000);
+  color: var(--pink-700);
+  font-family: var(--body-font-family);
+  font-size: var(--body-size-small);
+  font-weight: var(--weight-semibold);
+  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  border: 2px solid transparent;
+}
+
+.userIdNavigation button.active {
+  border-color: var(--pink-700);
+}
+
+.arrowRight,
+.arrowLeft {
+  position: absolute;
+  width: min-content;
+  padding: var(--space-200) var(--space-300);
+  bottom: 30%;
+}
+
+.arrowLeft {
+  left: var(--space-100);
+}
+
+.arrowRight {
+  right: var(--space-200);
+}
+
+.asset_right {
+  pointer-events: none;
+  z-index: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.asset_left {
+  pointer-events: none;
+  z-index: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.sliderContainer {
+  z-index: 0;
+  max-width: 25rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-400);
+}
+
+.centerCard {
+  min-width: 80%;
+  z-index: 2;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.2);
+}
+
+.sideCard {
+  min-width: 80%;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+/* Animations */
+@keyframes slideInNextCenter {
+  from {
+    transform: translateX(-5px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInBackCenter {
+  from {
+    transform: translateX(5px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInNextSide {
+  from {
+    transform: translateX(-4px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 0.7;
+  }
+}
+
+@keyframes slideInBackSide {
+  from {
+    transform: translateX(4px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 0.7;
+  }
+}
+
+.centerCard.next {
+  animation: slideInNextCenter 1.2s ease-in;
+}
+
+.centerCard.back {
+  animation: slideInBackCenter 1.2s ease-in;
+}
+
+.sideCard.next {
+  animation: slideInNextSide 1.2s ease-in;
+}
+
+.sideCard.back {
+  animation: slideInBackSide 1.2s ease-in;
+}

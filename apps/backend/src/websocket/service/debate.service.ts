@@ -4,12 +4,12 @@ import { EGameStatus } from '@tousinclus/types';
 // ========== Service Import ==========
 import { GameService } from 'src/game/game.service';
 
+import { WsException } from '@nestjs/websockets';
 // ========== WebSocket Import ==========
 import { Server, Socket } from 'socket.io';
-import { WsException } from '@nestjs/websockets';
 
 // ========== DTO Import ==========
-import { WSResponseDTO, ErrorCode } from 'src/utils/dto/response.dto';
+import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 import { WSControllerDTO, WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
 
 @Injectable()
@@ -54,14 +54,29 @@ export class DebateService {
         null,
       );
 
+      const game = await this.gameService.getTeamAnswer(
+        data.code,
+        data.team,
+        client.id,
+      );
+
+      // Filter answers with cardId equal to nextCardToVote.nextCardId
+      const dataGameAnswers = game.answers.filter(
+        (answer) => answer.cardId === nextCardToVote.nextCardId,
+      );
+
       // Send websockets only if a consensus is found
       if (nextCardToVote) {
         const responseData = {
           status: 'success',
           message: nextCardToVote.message,
-          data: nextCardToVote.nextCardId
-            ? { nextCardId: nextCardToVote.nextCardId }
-            : null,
+          data: {
+            eventType: nextCardToVote.eventType,
+            nextCardId: nextCardToVote.nextCardId
+              ? nextCardToVote.nextCardId
+              : null,
+            answers: dataGameAnswers ? dataGameAnswers : null,
+          },
         };
         client.emit('debate-response', responseData);
       }
@@ -101,23 +116,45 @@ export class DebateService {
           data.data.cardId,
         );
 
-        // If displayResult change game phase to result
-        if (nextCardToVote?.displayResult) {
-          const responseData: WSGameStatus = { gameStatus: EGameStatus.RESULT };
-          this.gameService.updateGameStatus(data.code, EGameStatus.RESULT);
-          server.to(data.code).emit('game-status', responseData);
-        }
+        const game = await this.gameService.getTeamAnswer(
+          data.code,
+          data.team,
+          client.id,
+        );
 
         // Send websockets only if a consensus is found
         if (nextCardToVote?.message) {
+          // Filter answers with cardId equal to nextCardToVote.nextCardId
+          const dataGameAnswers = game.answers.filter(
+            (answer) => answer.cardId === nextCardToVote.nextCardId,
+          );
+
           const responseData: WSResponseDTO = {
             status: 'success',
             message: nextCardToVote.message,
-            data: nextCardToVote.nextCardId
-              ? { nextCardId: nextCardToVote.nextCardId }
-              : null,
+            data: {
+              eventType: nextCardToVote.eventType,
+              nextCardId: nextCardToVote.nextCardId
+                ? nextCardToVote.nextCardId
+                : null,
+              answers: dataGameAnswers ? dataGameAnswers : null,
+            },
           };
           server.to(data.code).emit('debate-response', responseData);
+
+          // If displayResult change game phase to result
+          if (nextCardToVote?.displayResult) {
+            await this.gameService.updateGameStatus(
+              data.code,
+              EGameStatus.RESULT,
+            );
+            await this.gameService.updateMongoGame(data.code);
+
+            const responseData: WSGameStatus = {
+              gameStatus: EGameStatus.RESULT,
+            };
+            server.to(data.code).emit('game-status', responseData);
+          }
         }
       } else {
         throw new BadRequestException(

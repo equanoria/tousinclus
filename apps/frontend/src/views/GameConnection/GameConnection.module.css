@@ -1,14 +1,18 @@
 .pageConnection {
-  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: var(--space-800);
+  justify-content: space-around;
+  gap: var(--space-1600);
+}
+
+.logo {
+  width: 15rem;
 }
 
 .connection {
-  max-width: 400px;
+  max-width: 25rem;
   width: 100%;
   padding: var(--space-400) var(--space-300);
   border-radius: var(--radius-200);
@@ -27,8 +31,4 @@
 .teamButtons {
   display: flex;
   gap: var(--space-600);
-}
-
-.connectionBtn {
-  width: 100%;
 }

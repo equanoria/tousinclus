@@ -1,3 +1,4 @@
+import { setTimeout } from 'node:timers';
 import {
   BadRequestException,
   ForbiddenException,
@@ -5,21 +6,20 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { SchedulerRegistry } from '@nestjs/schedule';
-import { setTimeout } from 'node:timers';
 
+import { WsException } from '@nestjs/websockets';
 // ========== Service Import ==========
 import { GameService } from '../../game/game.service';
-import { WsException } from '@nestjs/websockets';
 
 // ========== WebSocket Import ==========
 import { Server, Socket } from 'socket.io';
 
+import { EGameStatus } from '@tousinclus/types';
+import { plainToInstance } from 'class-transformer';
+import { GameDTO } from 'src/game/dto/game.dto';
+import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
 // ========== DTO Import ==========
 import { WSControllerDTO, WSDataDTO, WSGameStatus } from '../dto/websocket.dto';
-import { ErrorCode, WSResponseDTO } from 'src/utils/dto/response.dto';
-import { GameDTO } from 'src/game/dto/game.dto';
-import { plainToInstance } from 'class-transformer';
-import { EGameStatus } from '@tousinclus/types';
 
 @Injectable()
 export class WaitingService {
@@ -115,25 +115,34 @@ export class WaitingService {
             gameStatus: EGameStatus.REFLECTION,
             timeStamp: new Date(),
           };
-          // Send a message to all participants in the room
-          this.gameService.updateGameStatus(code, EGameStatus.REFLECTION);
+
+          // Update game status to reflection
+          await this.gameService.updateGameStatus(code, EGameStatus.REFLECTION);
 
           // Convert reflectionDuration from minutes to milliseconds
           const reflectionDuration = dataGame.reflectionDuration * 60 * 1000;
 
+          // Set reflectionEndsAt
+          const reflectionEndTime = new Date(Date.now() + reflectionDuration);
+          await this.gameService.updateReflectionEndsAt(
+            code,
+            reflectionEndTime,
+          );
+
+          // Set the end of reflection phase
           const timeout = setTimeout(() => {
             this.executeDebateLogic(server, code);
+            this.schedulerRegistry.deleteTimeout(`reflection-${code}`);
           }, reflectionDuration);
-
           this.schedulerRegistry.addTimeout(
             `reflection-${dataGame.code}`,
             timeout,
           );
 
+          // Send a message to all participants in the room
           console.log(
             `Dans ${dataGame.reflectionDuration} min je vais passer en phase débat`,
           );
-
           server.to(code).emit('game-status', responseData);
         }
       }

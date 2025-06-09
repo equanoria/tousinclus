@@ -1,16 +1,15 @@
-import { LocalStorageManager } from './LocalStorageManager';
+import { localStorageManager } from './LocalStorageManager';
 
 export enum Font {
   OPENDYSLEXIC = 'OpenDyslexic',
   DEFAULT = 'default',
 }
 
-export class FontManager {
-  private readonly localStorageManager = new LocalStorageManager();
-  static readonly LOCAL_STORAGE_KEY: string = 'font';
-  static readonly FALLBACK_FONT: Font = Font.DEFAULT;
-  static readonly DATA_NAME: string = 'data-font';
-  private font: Font;
+class FontManager {
+  static readonly LOCAL_STORAGE_KEY = 'font';
+  static readonly FALLBACK_FONT = Font.DEFAULT;
+  static readonly DATA_NAME = 'data-font';
+  private font = FontManager.FALLBACK_FONT;
 
   constructor() {
     this.font = this.determineInitialFont();
@@ -25,7 +24,7 @@ export class FontManager {
     let resolvedFont = font;
 
     if (!resolvedFont) {
-      resolvedFont = this.localStorageManager.getItem<Font>(
+      resolvedFont = localStorageManager.getItem<Font>(
         FontManager.LOCAL_STORAGE_KEY,
       );
     }
@@ -48,7 +47,7 @@ export class FontManager {
    * This method ensures the font preference is saved for future visits.
    */
   private setDefault(font: Font): this {
-    this.localStorageManager.setItem<Font>(FontManager.LOCAL_STORAGE_KEY, font);
+    localStorageManager.setItem(FontManager.LOCAL_STORAGE_KEY, font);
 
     return this;
   }
@@ -68,7 +67,7 @@ export class FontManager {
    * This method checks localStorage first, and if no value is found, defaults to the fallback font.
    */
   private determineInitialFont(): Font {
-    const storedFont = this.localStorageManager.getItem<Font>(
+    const storedFont = localStorageManager.getItem<Font>(
       FontManager.LOCAL_STORAGE_KEY,
     );
     if (storedFont) {
@@ -80,3 +79,6 @@ export class FontManager {
     return FontManager.FALLBACK_FONT;
   }
 }
+
+export const fontManager = new FontManager();
+export type { FontManager };

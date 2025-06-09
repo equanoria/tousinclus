@@ -1,9 +1,7 @@
 import type { TLanguage } from '@tousinclus/types';
-import { LocalStorageManager } from './LocalStorageManager';
+import { localStorageManager } from './LocalStorageManager';
 
-export class LocaleManager {
-  private localStorageManager = new LocalStorageManager();
-
+class LocaleManager {
   static readonly LOCAL_STORAGE_KEY = 'locale';
   static readonly FALLBACK_LOCALE: TLanguage = {
     code: 'fr-FR',
@@ -12,14 +10,14 @@ export class LocaleManager {
   };
 
   private locale: TLanguage = LocaleManager.FALLBACK_LOCALE;
-  private supportedLocales: TLanguage[] = [LocaleManager.FALLBACK_LOCALE]
+  private supportedLocales: TLanguage[] = [LocaleManager.FALLBACK_LOCALE];
 
   /**
    * Change the active language.
    * If `localeCode` is `system`, switch to system mode.
    * Otherwise, apply the specified language if supported.
    */
-  public async switch(localeCode?: string): Promise<void> {
+  switch(localeCode?: string): this {
     if (localeCode === 'system') {
       this.setDefaultLocale('system');
       this.locale = this.getSystemLocale() || LocaleManager.FALLBACK_LOCALE;
@@ -40,12 +38,13 @@ export class LocaleManager {
     }
 
     this.applyLocale();
+    return this;
   }
 
   /**
    * Retrieves the currently active language.
    */
-  public getLocale(): TLanguage {
+  getLocale(): TLanguage {
     return this.locale;
   }
 
@@ -53,12 +52,12 @@ export class LocaleManager {
    * Initializes the active language based on localStorage or the system.
    * If the locale in localStorage is incompatible, it will be replaced by "system".
    */
-  async init(supportedLocales?: TLanguage[]): Promise<void> {
+  init(supportedLocales?: TLanguage[]): this {
     if (supportedLocales) {
       this.supportedLocales = supportedLocales;
     }
 
-    const storedLocaleCode = this.localStorageManager.getItem<string>(
+    const storedLocaleCode = localStorageManager.getItem<string>(
       LocaleManager.LOCAL_STORAGE_KEY,
     );
 
@@ -85,25 +84,25 @@ export class LocaleManager {
     }
 
     this.applyLocale();
+    return this;
   }
 
   /**
    * Sets the default value in localStorage.
    * If the value is "system", it is applied automatically.
    */
-  private setDefaultLocale(localeCode: string): void {
-    this.localStorageManager.setItem(
-      LocaleManager.LOCAL_STORAGE_KEY,
-      localeCode,
-    );
+  private setDefaultLocale(localeCode: string): this {
+    localStorageManager.setItem(LocaleManager.LOCAL_STORAGE_KEY, localeCode);
+    return this;
   }
 
   /**
    * Applies the active language to the root element of the document.
    */
-  private applyLocale(): void {
+  private applyLocale(): this {
     document.documentElement.lang = this.locale.code;
     document.documentElement.dir = this.locale.direction;
+    return this;
   }
 
   /**
@@ -129,3 +128,6 @@ export class LocaleManager {
     return undefined;
   }
 }
+
+export const localeManager = new LocaleManager();
+export type { LocaleManager };

@@ -1,10 +1,26 @@
 [
   {
     "action": "read",
+    "collection": "decks",
+    "fields": ["*"],
+    "permissions": null,
+    "policy": "0a23aebf-5a76-4d90-8009-0c3cfb07edda",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
+    "collection": "decks_translations",
+    "fields": ["*"],
+    "permissions": null,
+    "policy": "0a23aebf-5a76-4d90-8009-0c3cfb07edda",
+    "presets": null,
+    "validation": null
+  },
+  {
+    "action": "read",
     "collection": "cards_design_for_all",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -13,9 +29,7 @@
   {
     "action": "read",
     "collection": "cards_design_for_all_translations",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -24,9 +38,7 @@
   {
     "action": "read",
     "collection": "cards_group",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -35,9 +47,7 @@
   {
     "action": "read",
     "collection": "cards_group_cards_users",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -46,9 +56,7 @@
   {
     "action": "read",
     "collection": "cards_group_translations",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -57,9 +65,7 @@
   {
     "action": "read",
     "collection": "cards_situations",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -68,9 +74,7 @@
   {
     "action": "read",
     "collection": "cards_situations_translations_1",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -79,9 +83,7 @@
   {
     "action": "read",
     "collection": "cards_situations_translations_2",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -90,9 +92,7 @@
   {
     "action": "read",
     "collection": "cards_users",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -101,9 +101,7 @@
   {
     "action": "read",
     "collection": "cards_users_translations",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -112,9 +110,7 @@
   {
     "action": "read",
     "collection": "categories_design_for_all",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -123,9 +119,7 @@
   {
     "action": "read",
     "collection": "categories_design_for_all_translations",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -134,9 +128,7 @@
   {
     "action": "read",
     "collection": "categories_handicaps",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -145,9 +137,7 @@
   {
     "action": "read",
     "collection": "categories_handicaps_translations",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -156,9 +146,7 @@
   {
     "action": "read",
     "collection": "config",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -167,9 +155,7 @@
   {
     "action": "read",
     "collection": "config_translations",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -178,9 +164,7 @@
   {
     "action": "read",
     "collection": "decks",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -189,9 +173,7 @@
   {
     "action": "read",
     "collection": "decks_cards_group",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -200,9 +182,7 @@
   {
     "action": "read",
     "collection": "decks_translations",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -211,9 +191,7 @@
   {
     "action": "read",
     "collection": "directus_files",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -222,9 +200,7 @@
   {
     "action": "read",
     "collection": "languages",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -233,9 +209,7 @@
   {
     "action": "read",
     "collection": "views_connection",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -244,9 +218,7 @@
   {
     "action": "read",
     "collection": "views_gameboard",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -255,9 +227,7 @@
   {
     "action": "read",
     "collection": "views_reflection",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,
@@ -266,9 +236,7 @@
   {
     "action": "read",
     "collection": "views_teams",
-    "fields": [
-      "*"
-    ],
+    "fields": ["*"],
     "permissions": null,
     "policy": "abf8a154-5b1c-4a46-ac9c-7300570f4f17",
     "presets": null,

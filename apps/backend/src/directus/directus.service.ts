@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import type { ICardDTO, IGroupDTO } from './dto/directus.dto';
-import { FormatterService } from '../utils/services/formatter.service';
 import {
   createDirectus,
   readItems,
   readRoles,
+  readUsers,
   rest,
   staticToken,
 } from '@directus/sdk';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ERole } from '@tousinclus/types';
+import { FormatterService } from '../utils/services/formatter.service';
+import type { ICardDTO, IGroupDTO } from './dto/directus.dto';
+import { IUserDirectus } from './interface/user.interface';
 
 @Injectable()
 export class DirectusService {
@@ -455,16 +457,17 @@ export class DirectusService {
       }
       // Make an explicit request for users (allows filtering fields)
       let deckData = await this.directusClient.request(
-        // biome-ignore lint/suspicious/noExplicitAny: TODO any type
-        readItems<any, any, any>('decks', {
+        readItems('decks', {
           filter,
-          deep: {
-            group: {},
-          },
           fields: [
             'id',
             {
-              group: ['id'],
+              group: [
+                'id',
+                {
+                  cards_group_id: ['id'], // uniquement ce champ demandé
+                },
+              ],
             },
             {
               translations: ['title'],
@@ -549,5 +552,20 @@ export class DirectusService {
       .filter((roleName): roleName is ERole =>
         Object.values(ERole).includes(roleName as ERole),
       );
+  }
+
+  async getFirstLastNameById(createdByIds: string[]): Promise<IUserDirectus[]> {
+    const query_object = {
+      filter: {
+        id: {
+          _in: createdByIds,
+        },
+      },
+      fields: ['first_name', 'last_name', 'id'],
+    };
+
+    return await this.directusClient.request<IUserDirectus[]>(
+      readUsers(query_object),
+    );
   }
 }

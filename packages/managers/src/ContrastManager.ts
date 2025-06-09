@@ -1,4 +1,4 @@
-import { LocalStorageManager } from './LocalStorageManager';
+import { localStorageManager } from './LocalStorageManager';
 
 export enum Contrast {
   SYSTEM = 'system',
@@ -6,12 +6,11 @@ export enum Contrast {
   LESS = 'less',
 }
 
-export class ContrastManager {
-  private readonly localStorageManager = new LocalStorageManager();
-  static readonly LOCAL_STORAGE_KEY: string = 'contrast';
-  static readonly FALLBACK_CONTRAST: Contrast = Contrast.SYSTEM;
-  static readonly DATA_NAME: string = 'data-contrast';
-  private contrast: Contrast;
+class ContrastManager {
+  static readonly LOCAL_STORAGE_KEY = 'contrast';
+  static readonly FALLBACK_CONTRAST = Contrast.SYSTEM;
+  static readonly DATA_NAME = 'data-contrast';
+  private contrast = ContrastManager.FALLBACK_CONTRAST;
 
   constructor() {
     this.contrast = this.determineInitialContrast();
@@ -26,7 +25,7 @@ export class ContrastManager {
     let resolvedContrast = contrast;
 
     if (!resolvedContrast) {
-      resolvedContrast = this.localStorageManager.getItem<Contrast>(
+      resolvedContrast = localStorageManager.getItem<Contrast>(
         ContrastManager.LOCAL_STORAGE_KEY,
       );
     }
@@ -49,10 +48,7 @@ export class ContrastManager {
    * This method ensures the contrast preference is saved for future visits.
    */
   private setDefault(contrast: Contrast): this {
-    this.localStorageManager.setItem<Contrast>(
-      ContrastManager.LOCAL_STORAGE_KEY,
-      contrast,
-    );
+    localStorageManager.setItem(ContrastManager.LOCAL_STORAGE_KEY, contrast);
 
     return this;
   }
@@ -76,7 +72,7 @@ export class ContrastManager {
    * This method checks localStorage first, and if no value is found, defaults to the fallback contrast.
    */
   private determineInitialContrast(): Contrast {
-    const storedContrast = this.localStorageManager.getItem<Contrast>(
+    const storedContrast = localStorageManager.getItem<Contrast>(
       ContrastManager.LOCAL_STORAGE_KEY,
     );
     if (storedContrast) {
@@ -116,3 +112,6 @@ export class ContrastManager {
     return this.contrast;
   }
 }
+
+export const contrastManager = new ContrastManager();
+export type { ContrastManager };

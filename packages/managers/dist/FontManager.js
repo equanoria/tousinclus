@@ -1,15 +1,14 @@
-import { LocalStorageManager } from './LocalStorageManager';
+import { localStorageManager } from './LocalStorageManager';
 export var Font;
 (function (Font) {
     Font["OPENDYSLEXIC"] = "OpenDyslexic";
     Font["DEFAULT"] = "default";
 })(Font || (Font = {}));
-export class FontManager {
-    localStorageManager = new LocalStorageManager();
+class FontManager {
     static LOCAL_STORAGE_KEY = 'font';
     static FALLBACK_FONT = Font.DEFAULT;
     static DATA_NAME = 'data-font';
-    font;
+    font = FontManager.FALLBACK_FONT;
     constructor() {
         this.font = this.determineInitialFont();
         this.applyFont();
@@ -17,7 +16,7 @@ export class FontManager {
     switch(font) {
         let resolvedFont = font;
         if (!resolvedFont) {
-            resolvedFont = this.localStorageManager.getItem(FontManager.LOCAL_STORAGE_KEY);
+            resolvedFont = localStorageManager.getItem(FontManager.LOCAL_STORAGE_KEY);
         }
         this.font = resolvedFont ?? FontManager.FALLBACK_FONT;
         this.applyFont();
@@ -27,7 +26,7 @@ export class FontManager {
         return this.font;
     }
     setDefault(font) {
-        this.localStorageManager.setItem(FontManager.LOCAL_STORAGE_KEY, font);
+        localStorageManager.setItem(FontManager.LOCAL_STORAGE_KEY, font);
         return this;
     }
     applyFont() {
@@ -35,7 +34,7 @@ export class FontManager {
         return this;
     }
     determineInitialFont() {
-        const storedFont = this.localStorageManager.getItem(FontManager.LOCAL_STORAGE_KEY);
+        const storedFont = localStorageManager.getItem(FontManager.LOCAL_STORAGE_KEY);
         if (storedFont) {
             return storedFont;
         }
@@ -43,4 +42,5 @@ export class FontManager {
         return FontManager.FALLBACK_FONT;
     }
 }
+export const fontManager = new FontManager();
 //# sourceMappingURL=FontManager.js.map

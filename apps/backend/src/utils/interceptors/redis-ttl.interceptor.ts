@@ -1,13 +1,13 @@
 import {
+  CallHandler,
+  ExecutionContext,
   Injectable,
   NestInterceptor,
-  ExecutionContext,
-  CallHandler,
 } from '@nestjs/common';
 import { Observable, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { RedisService } from '../../redis/redis.service';
 import { WSDataDTO } from 'src/websocket/dto/websocket.dto';
+import { RedisService } from '../../redis/redis.service';
 
 @Injectable()
 export class RedisTtlInterceptor implements NestInterceptor {

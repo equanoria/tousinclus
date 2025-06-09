@@ -1,17 +1,21 @@
-import { useEffect } from 'react';
-import { useAppState } from './context/AppStateProvider';
-import { GameConnection } from './views/GameConnection/GameConnection';
+import { IconInfoCircle } from '@tabler/icons-react';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { GameApp } from './GameApp';
+import { Button } from './components/Button/Button';
+import { Link } from './components/Link/Link';
+import { Overlay } from './components/Overlay/Overlay';
+import { RulesModal } from './components/RulesModal/RulesModal';
+import { SocketBanner } from './core/SocketBanner/SocketBanner';
+import { Contact } from './views/Contact/Contact';
+import { Legal } from './views/Legal/Legal';
 
-const AppContent = () => {
-  const { currentView, setCurrentView } = useAppState();
-
-  useEffect(() => {
-    setCurrentView(<GameConnection />);
-  }, [setCurrentView]);
+export const AppContent = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <>
-      <nav className="a11y-skip-content">
+      <nav className="a11y-skip-content" aria-label="Navigation rapide">
         <ul>
           <li>
             <a href="#main">Aller au contenu principal</a>
@@ -21,9 +25,49 @@ const AppContent = () => {
           </li>
         </ul>
       </nav>
-      <main id="main">{currentView}</main>
+
+      <header>
+        <Button
+          variant="icon"
+          onClick={() => setModalOpen(true)}
+          startIcon={<IconInfoCircle aria-hidden="true" />}
+        >
+          Aide
+        </Button>
+      </header>
+
+      <SocketBanner />
+
+      <main id="main">
+        <Routes>
+          <Route path="/" element={<GameApp />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/legal" element={<Legal />} />
+        </Routes>
+
+        <Overlay isVisible={isModalOpen} onClick={() => setModalOpen(false)} />
+        {isModalOpen && (
+          <RulesModal
+            title="Connexion règles"
+            onClose={() => setModalOpen(false)}
+          >
+            À cette étape, chaque équipe doit rassembler son deck de cartes en
+            version physique. Les cartes s'affichent à l’écran : à vous de les
+            retrouver dans le matériel mis à disposition et de constituer votre
+            jeu en vrai. Prenez le temps de bien vérifier que vous avez toutes
+            les cartes nécessaires avant de commencer la prochaine étape. Une
+            fois vos decks prêts, vous pourrez entrer dans le vif du jeu !
+          </RulesModal>
+        )}
+      </main>
+
+      <footer>
+        <nav aria-label="Navigation du site">
+          <Link href="/">Accueil</Link>
+          <Link href="/contact">Contact</Link>
+          <Link href="/legal">Mention Légales</Link>
+        </nav>
+      </footer>
     </>
   );
 };
-
-export default AppContent;

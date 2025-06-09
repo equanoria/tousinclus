@@ -1,10 +1,13 @@
-import AppContent from './AppContent';
+import { AppContent } from './AppContent';
 import { AppStateProvider } from './context/AppStateProvider';
+import { AuthProvider } from './context/AuthProvider';
 
 const App = () => {
   return (
     <AppStateProvider>
-      <AppContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </AppStateProvider>
   );
 };

@@ -1,61 +1,50 @@
+import {
+  type ContrastManager,
+  type FontManager,
+  type LocaleManager,
+  type ThemeManager,
+  type TitleManager,
+  contrastManager,
+  fontManager,
+  localeManager,
+  themeManager,
+  titleManager,
+} from '@tousinclus/managers';
 import type React from 'react';
-import { type ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { ErrorView } from '../views/Error/ErrorView';
-import { ContrastManager, FontManager, LocaleManager, ThemeManager } from '@tousinclus/managers';
-import { DirectusService } from '../services/directus/DirectusService';
-import type { IGameData } from '../types/IGameData';
+import { type ReactNode, createContext, useContext, useState } from 'react';
+import { GameConnection } from '../views/GameConnection/GameConnection';
 
 export interface AppStateContextProps {
-  directusService: DirectusService;
   currentView: JSX.Element;
   setCurrentView: (view: JSX.Element) => void;
   themeManager: ThemeManager;
   fontManager: FontManager;
   localeManager: LocaleManager;
   contrastManager: ContrastManager;
-  gameData?: IGameData;
-  setGameData: (gameData: IGameData) => void;
+  titleManager: TitleManager;
 }
 
 const AppStateContext = createContext<AppStateContextProps | undefined>(
   undefined,
 );
 
-export const AppStateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [currentView, setCurrentView] = useState<JSX.Element>(
-    <ErrorView message="Cannot load view." />,
+    <GameConnection />,
   );
-
-  const [gameData, setGameData] = useState<IGameData>();
-
-  const directusService = useMemo(() => new DirectusService(), []);
-
-  const themeManager = useMemo(() => new ThemeManager(), []);
-  const fontManager = useMemo(() => new FontManager(), []);
-  const localeManager = useMemo(() => new LocaleManager(), []);
-  const contrastManager = useMemo(() => new ContrastManager(), []);
-
-  useEffect(() => {
-    const initializeLocaleManager = async () => {
-      const languages = await directusService.getLanguages();
-      localeManager.init(languages);
-    };
-
-    initializeLocaleManager();
-  }, [directusService, localeManager]);
 
   return (
     <AppStateContext.Provider
       value={{
-        directusService,
         currentView,
         setCurrentView,
         themeManager,
         fontManager,
         localeManager,
         contrastManager,
-        gameData,
-        setGameData,
+        titleManager,
       }}
     >
       {children}

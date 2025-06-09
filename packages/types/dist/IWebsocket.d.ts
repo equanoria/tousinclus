@@ -1,4 +1,4 @@
-import type { EGameStatus } from "./IGame";
+import type { EGameStatus } from './IGame';
 export interface IWSData {
     code?: string;
     team?: string;

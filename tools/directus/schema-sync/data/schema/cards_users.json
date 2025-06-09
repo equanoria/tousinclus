@@ -37,7 +37,7 @@
   "fields": [
     {
       "field": "card_number",
-      "type": "integer",
+      "type": "string",
       "meta": {
         "collection": "cards_users",
         "conditions": null,
@@ -48,37 +48,34 @@
         "hidden": false,
         "interface": "input",
         "note": null,
-        "options": {
-          "min": 1
-        },
+        "options": null,
         "readonly": false,
         "required": true,
         "sort": 5,
         "special": null,
-        "translations": [
-          {
-            "language": "fr-FR",
-            "translation": "Numéro de la carte"
-          },
-          {
-            "language": "en-US",
-            "translation": "Card number"
-          }
-        ],
-        "validation": null,
+        "translations": null,
+        "validation": {
+          "_and": [
+            {
+              "card_number": {
+                "_regex": "^\\d+$"
+              }
+            }
+          ]
+        },
         "validation_message": null,
         "width": "full"
       },
       "schema": {
         "name": "card_number",
         "table": "cards_users",
-        "data_type": "integer",
+        "data_type": "character varying",
         "default_value": null,
-        "max_length": null,
-        "numeric_precision": 32,
-        "numeric_scale": 0,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
         "is_nullable": true,
-        "is_unique": true,
+        "is_unique": false,
         "is_indexed": false,
         "is_primary_key": false,
         "is_generated": false,
@@ -111,9 +108,7 @@
         "readonly": false,
         "required": true,
         "sort": 4,
-        "special": [
-          "m2o"
-        ],
+        "special": ["m2o"],
         "translations": [
           {
             "language": "fr-FR",
@@ -206,9 +201,7 @@
         "readonly": false,
         "required": true,
         "sort": 2,
-        "special": [
-          "file"
-        ],
+        "special": ["file"],
         "translations": [
           {
             "language": "fr-FR",
@@ -267,9 +260,7 @@
         "readonly": false,
         "required": true,
         "sort": 3,
-        "special": [
-          "translations"
-        ],
+        "special": ["translations"],
         "translations": [
           {
             "language": "fr-FR",

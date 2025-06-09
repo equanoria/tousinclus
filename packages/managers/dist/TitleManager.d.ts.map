@@ -1,0 +1,1 @@
+{"version":3,"file":"TitleManager.d.ts","sourceRoot":"","sources":["../src/TitleManager.ts"],"names":[],"mappings":"AAAA,cAAM,YAAY;IAChB,MAAM,CAAC,QAAQ,CAAC,aAAa,iBAAiB;IAM9C,GAAG,CAAC,KAAK,EAAE,MAAM,GAAG,IAAI;IAQxB,KAAK,IAAI,IAAI;CAId;AAED,eAAO,MAAM,YAAY,cAAqB,CAAC;AAC/C,YAAY,EAAE,YAAY,EAAE,CAAC"}

@@ -10,6 +10,7 @@ import {
   Param,
   ParseIntPipe,
   Put,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -23,13 +24,18 @@ import {
 // ========== DTO Import ==========
 import { CreateGameDTO, GameDTO } from './dto/game.dto';
 
-// ========== Service Import ==========
-import { GameService } from './game.service';
+import { ERole, IUser } from '@tousinclus/types';
 import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
+import { ParseDatePipe } from 'src/utils/pipes/parse-date.pipe';
 import { AuthGuard } from './auth/auth.guard';
 import { Roles } from './auth/roles.decorator';
-import { ERole } from '@tousinclus/types';
 import { RolesGuard } from './auth/roles.guard';
+// ========== Service Import ==========
+import { GameService } from './game.service';
+
+// ========== Utils Import ==========
+import { Response } from 'express';
+import { User } from 'src/utils/decorators/user.decorator';
 
 @ApiTags('Game')
 @Roles(ERole.HOST)
@@ -57,8 +63,11 @@ export class GameController {
     description: 'The game has been successfully created',
     type: GameDTO,
   })
-  createGame(@Body() createGameDto: CreateGameDTO): Promise<GameDTO> {
-    const game = this.gameService.createGame({ ...createGameDto });
+  createGame(
+    @Body() createGameDto: CreateGameDTO,
+    @User() user: IUser,
+  ): Promise<GameDTO> {
+    const game = this.gameService.createGame({ ...createGameDto }, user);
     if (!game) {
       throw new HttpException(
         'Failed to create a game',
@@ -94,12 +103,17 @@ export class GameController {
   })
   createManyGame(
     @Body() createGameDto: CreateGameDTO,
+    @User() user: IUser,
     @Param('numberOfGame', ParseIntPipe)
     numberOfGame: number,
   ): Promise<GameDTO[]> {
-    const games = this.gameService.createManyGame(numberOfGame, {
-      ...createGameDto,
-    });
+    const games = this.gameService.createManyGame(
+      numberOfGame,
+      {
+        ...createGameDto,
+      },
+      user,
+    );
     if (!games) {
       throw new HttpException(
         `Failed to create ${numberOfGame} games`,
@@ -200,5 +214,33 @@ export class GameController {
       throw new NotFoundException('Database is empty');
     }
     return deleteAllGames;
+  }
+
+  @Get('/export/:date.csv')
+  @ApiOperation({ summary: 'Export games for a specific date' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully export games',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'No games found for this date',
+    type: HTTPResponseDTO,
+  })
+  async exportGames(
+    @Param('date', ParseDatePipe) date: Date,
+    @Res() res: Response,
+  ): Promise<void> {
+    const gamesCSV = await this.gameService.exportGameByDate(date);
+
+    if (!gamesCSV) {
+      throw new NotFoundException(
+        `No game found for the provided date : ${date}.`,
+      );
+    }
+
+    res.header('Content-Type', 'text/csv');
+    res.header('Content-Disposition', 'attachment; filename="games.csv"');
+    res.send(gamesCSV);
   }
 }

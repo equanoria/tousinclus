@@ -1,0 +1,49 @@
+.titleHero {
+  font-family: var(--title-hero-font-family);
+  font-size: var(--title-hero-size);
+  font-weight: var(--title-hero-font-weight);
+}
+
+.titlePage {
+  font-family: var(--title-page-font-family);
+  font-size: var(--title-page-size-base);
+  font-weight: var(--title-page-font-weight);
+}
+
+.subtitle {
+  font-family: var(--subtitle-font-family);
+  font-size: var(--subtitle-size-base);
+  font-weight: var(--subtitle-font-weight);
+}
+
+.heading {
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-size-base);
+  font-weight: var(--heading-font-weight);
+}
+
+.subheading {
+  font-family: var(--subheading-font-family);
+  font-size: var(--subheading-size-medium);
+  font-weight: var(--subheading-font-weight);
+}
+
+.body-base-2 {
+  font-family: var(--font-cal-sans);
+  font-size: var(--body-size-medium);
+  font-weight: var(--weight-semibold);
+}
+
+.cta {
+  font-family: var(--cta-font-family);
+  font-size: var(--cta-size-base);
+  font-weight: var(--cta-font-weight);
+}
+
+.headerSolution {
+  color: var(--white-1000);
+  background-color: var(--pale-blue-600);
+  padding: var(--space-600);
+  border-radius: var(--radius-200) var(--radius-200) 0 0;
+  font-size: var(--title-page-size-small);
+}

@@ -1,20 +1,23 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  IGame,
-  ITeam,
-  IAnswer,
-  IAnswerData,
   EGameStatus,
   ETeam,
+  IAnswer,
+  IAnswerData,
+  IGame,
+  ITeam,
+  IUser,
   IVote,
 } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {
-  IsString,
-  IsOptional,
-  IsNumber,
-  IsNotEmpty,
+  IsArray,
   IsBoolean,
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
   ValidateNested,
 } from 'class-validator';
 
@@ -40,7 +43,6 @@ export class CreateGameDTO {
 
 export class AnswerDataDTO implements IAnswerData {
   @IsString()
-  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 1',
@@ -49,7 +51,6 @@ export class AnswerDataDTO implements IAnswerData {
   input1: string;
 
   @IsString()
-  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 2',
@@ -58,7 +59,6 @@ export class AnswerDataDTO implements IAnswerData {
   input2: string;
 
   @IsString()
-  @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Answer 3',
@@ -66,12 +66,14 @@ export class AnswerDataDTO implements IAnswerData {
   })
   input3: string;
 
-  @IsString()
+  @IsArray()
+  @IsNumber({}, { each: true })
   @IsNotEmpty()
   @Expose()
   @ApiProperty({
     description: 'Checkboxes answer',
     example: [1, 2, 8],
+    type: [Number],
   })
   inputCheckboxes: number[];
 }
@@ -148,6 +150,25 @@ export class TeamDTO implements ITeam {
 }
 
 export class GameDTO implements IGame {
+  @IsDate()
+  @IsNotEmpty()
+  @Expose({ groups: ['admin'] })
+  createdAt: Date;
+
+  @IsNotEmpty()
+  @Expose({ groups: ['admin'] })
+  createdBy: IUser['id'];
+
+  @IsOptional()
+  @IsDate()
+  @Expose({ groups: ['room'] })
+  reflectionEndsAt?: Date | null;
+
+  @IsOptional()
+  @IsString()
+  @Expose({ groups: ['admin'] })
+  _id?: string;
+
   @IsString()
   @IsNotEmpty()
   @Expose()
@@ -182,6 +203,15 @@ export class GameDTO implements IGame {
   })
   cardGroupId?: number;
 
+  @IsNumber()
+  @IsOptional()
+  @Expose()
+  @ApiPropertyOptional({
+    description: 'Deck identifier',
+    example: 14,
+  })
+  deckId?: number;
+
   @IsOptional()
   @Expose({ groups: ['team1', 'joining'] })
   @Type(() => TeamDTO)
@@ -208,11 +238,11 @@ export class GameDTO implements IGame {
     description: 'Answers associated with the team',
     type: AnswerDTO,
   })
-  answers?: Array<AnswerDTO>; // Dynamic keys corresponding to IDs
+  answers?: AnswerDTO[]; // Dynamic keys corresponding to IDs
 
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => VoteDTO)
   @Expose({ groups: ['debate'] })
-  votes?: Array<VoteDTO>;
+  votes?: VoteDTO[];
 }
