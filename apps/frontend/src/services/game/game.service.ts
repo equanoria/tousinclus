@@ -1,8 +1,8 @@
-import { ETeam, type IWSGameStatus, type IGame } from '@tousinclus/types';
+import { ETeam, type IGame, type IWSGameStatus } from '@tousinclus/types';
+import type { ISocketResponse } from '../../types/ISocketResponse';
 import { socketService } from '../socket/socket.service';
 import type { TGameStatusCallback } from './types/TGameStatusCallback';
 import type { TWSResponseCallback } from './types/TWSResponseCallback';
-import type { ISocketResponse } from '../../types/ISocketResponse';
 
 class GameService {
   private _code?: string;

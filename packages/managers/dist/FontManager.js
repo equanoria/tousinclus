@@ -1,4 +1,4 @@
-import { localStorageManager } from "./LocalStorageManager";
+import { localStorageManager } from './LocalStorageManager';
 export var Font;
 (function (Font) {
     Font["OPENDYSLEXIC"] = "OpenDyslexic";

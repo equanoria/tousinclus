@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useId, type ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef, useId } from 'react';
 import styles from './Textarea.module.css';
 
 export interface TextareaProps extends ComponentPropsWithoutRef<'textarea'> {

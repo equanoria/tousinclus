@@ -34,7 +34,7 @@
   gap: var(--space-300);
 }
 
-.logout{
+.logout {
   width: min-content;
   align-self: flex-end;
 }

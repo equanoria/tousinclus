@@ -10,7 +10,6 @@ export interface TeamProps {
 }
 
 export const Team: FC<TeamProps> = ({ winner = false, score, label }) => {
-
   return (
     <div className={clsx(styles.container)}>
       <div className={clsx(styles.badge, winner && styles.winner)}>
@@ -18,7 +17,11 @@ export const Team: FC<TeamProps> = ({ winner = false, score, label }) => {
         <div className={styles.label}>{label}</div>
       </div>
       <div className={styles.score}>
-        <img src="/src/assets/images/stars.svg" alt="" className={styles.stars}/>
+        <img
+          src="/src/assets/images/stars.svg"
+          alt=""
+          className={styles.stars}
+        />
         <span className={`${styles.score} ${styles.label}`}>
           Score : {score} points
         </span>

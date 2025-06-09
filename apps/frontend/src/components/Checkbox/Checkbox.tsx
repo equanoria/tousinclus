@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import type React from 'react';
-import { useId, type ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef, useId } from 'react';
 import styles from './Checkbox.module.css';
 
 export interface CheckboxProps extends ComponentPropsWithoutRef<'input'> {

@@ -1,27 +1,18 @@
-import type React from 'react';
 import {
-  type ReactNode,
-  createContext,
-  useContext,
-  useState,
-} from 'react';
-import { 
   type ContrastManager,
-  contrastManager,
   type FontManager,
-  fontManager,
   type LocaleManager,
-  localeManager,
   type ThemeManager,
-  themeManager,
   type TitleManager,
+  contrastManager,
+  fontManager,
+  localeManager,
+  themeManager,
   titleManager,
 } from '@tousinclus/managers';
-import { GamesList } from '../views/GamesList/GamesList';
+import { type ReactNode, createContext, useContext } from 'react';
 
 export interface AppStateContextProps {
-  currentView: JSX.Element;
-  setCurrentView: (view: JSX.Element) => void;
   themeManager: ThemeManager;
   fontManager: FontManager;
   localeManager: LocaleManager;
@@ -33,18 +24,10 @@ const AppStateContext = createContext<AppStateContextProps | undefined>(
   undefined,
 );
 
-export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [currentView, setCurrentView] = useState<JSX.Element>(
-    <GamesList />,
-  );
-
+export const AppStateProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AppStateContext.Provider
       value={{
-        currentView,
-        setCurrentView,
         themeManager,
         fontManager,
         localeManager,

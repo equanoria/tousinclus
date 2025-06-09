@@ -1,4 +1,4 @@
-import { localStorageManager } from "./LocalStorageManager";
+import { localStorageManager } from './LocalStorageManager';
 
 export enum Contrast {
   SYSTEM = 'system',
@@ -48,10 +48,7 @@ class ContrastManager {
    * This method ensures the contrast preference is saved for future visits.
    */
   private setDefault(contrast: Contrast): this {
-    localStorageManager.setItem(
-      ContrastManager.LOCAL_STORAGE_KEY,
-      contrast,
-    );
+    localStorageManager.setItem(ContrastManager.LOCAL_STORAGE_KEY, contrast);
 
     return this;
   }

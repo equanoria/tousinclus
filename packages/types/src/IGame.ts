@@ -1,26 +1,26 @@
-import type { IUser } from "./IUser";
+import type { IUser } from './IUser';
 
 export enum EGameStatus {
-  WAITING = "waiting",
-  REFLECTION = "reflection",
-  DEBATE = "debate",
-  RESULT = "result",
+  WAITING = 'waiting',
+  REFLECTION = 'reflection',
+  DEBATE = 'debate',
+  RESULT = 'result',
 }
 
 export enum EDebateStatus {
-  NEXT_CARD = "next_card",
-  END_PHASE = "end_phase",
-  RETRY = "retry",
+  NEXT_CARD = 'next_card',
+  END_PHASE = 'end_phase',
+  RETRY = 'retry',
 }
 
 export enum ETeam {
-  TEAM1 = "team1",
-  TEAM2 = "team2",
+  TEAM1 = 'team1',
+  TEAM2 = 'team2',
 }
 
 export interface IGame {
   createdAt: Date;
-  createdBy: IUser["id"];
+  createdBy: IUser['id'];
   reflectionEndsAt?: Date | null;
   _id?: unknown | null;
   code: string;

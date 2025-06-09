@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useId, type ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef, useId } from 'react';
 import styles from './Input.module.css';
 
 export interface InputProps extends ComponentPropsWithoutRef<'input'> {

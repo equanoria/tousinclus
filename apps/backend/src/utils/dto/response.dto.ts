@@ -1,10 +1,10 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  IsNumber,
   IsNotEmpty,
+  IsNumber,
   IsObject,
-  IsString,
   IsOptional,
+  IsString,
 } from 'class-validator';
 
 export enum ErrorCode {

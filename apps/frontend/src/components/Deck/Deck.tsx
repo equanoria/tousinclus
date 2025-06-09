@@ -1,12 +1,12 @@
+import { IconArrowRight } from '@tabler/icons-react';
+import type { IDirectusCardsGroup } from '@tousinclus/types';
 import clsx from 'clsx';
 import type React from 'react';
 import type { ComponentPropsWithoutRef } from 'react';
-import styles from './Deck.module.css';
-import { GameCard } from '../GameCard/GameCard';
-import type { IDirectusCardsGroup } from '@tousinclus/types';
 import { directusService } from '../../services/directus/directus.service';
 import { Button } from '../Button/Button';
-import { IconArrowRight } from '@tabler/icons-react';
+import { GameCard } from '../GameCard/GameCard';
+import styles from './Deck.module.css';
 
 export interface DeckProps extends ComponentPropsWithoutRef<'section'> {
   cardsGroup?: IDirectusCardsGroup;
@@ -20,8 +20,7 @@ export const Deck: React.FC<DeckProps> = ({
   ...props
 }) => {
   const classes = clsx(styles.deck, className);
-  if (!cardsGroup) return null;
-
+  if (!cardsGroup) return;
   const usageSituation = cardsGroup.usage_situation;
   const extremeUsers = cardsGroup?.extreme_user ?? [];
 
