@@ -125,7 +125,7 @@ services:
       - EMAIL_SMTP_PASSWORD=${DIRECTUS_EMAIL_SMTP_PASSWORD}
       - SCHEMA_SYNC=IMPORT
       - CORS_ENABLED=true
-      - CORS_ORIGIN=*
+      - CORS_ORIGIN=https://tousinclus.org,https://dashboard.tousinclus.org
       - WEBSOCKETS_ENABLED=true
     volumes:
       - directus-uploads:/directus/uploads
