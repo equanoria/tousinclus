@@ -15,6 +15,8 @@ RUN rm -rf node_modules && pnpm recursive exec -- rm -rf ./node_modules ./src
 FROM base AS prod
 RUN pnpm install --frozen-lockfile --prod --filter @tousinclus/backend
 COPY --from=assets /app .
+ENV NODE_ENV=production
+ENV PORT=3000
 
 EXPOSE 3000
 ENTRYPOINT ["pnpm", "run", "--filter", "@tousinclus/backend", "start:prod"]
