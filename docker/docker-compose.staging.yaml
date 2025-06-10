@@ -98,8 +98,6 @@ services:
         - traefik.http.services.tousinclus-directus_staging.loadbalancer.server.port=8055
         - traefik.http.routers.tousinclus-directus_staging.tls=true
         - traefik.http.routers.tousinclus-directus_staging.tls.certresolver=letsencrypt
-        - traefik.http.middlewares.tousinclus-directus_staging-auth.basicauth.users=${STAGING_USERS}
-        - traefik.http.routers.tousinclus-directus_staging.middlewares=tousinclus-directus_staging-auth
     depends_on:
       - directus-postgresql
       - directus-valkey
