@@ -3,11 +3,12 @@ import { urlValidator } from '../../utils/urlValidator';
 
 const socketIoUrl = urlValidator(
   window.env.SOCKET_IO_URL,
-  'http://127.0.0.1:3001',
+  'http://127.0.0.1:3001/api',
 );
 
-const socketIo = io(socketIoUrl.toString(), {
+const socketIo = io(socketIoUrl.host.toString(), {
   closeOnBeforeunload: true,
+  path: socketIoUrl.pathname,
 });
 
 export const socketService = socketIo;
