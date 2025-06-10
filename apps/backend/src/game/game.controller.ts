@@ -24,7 +24,7 @@ import {
 // ========== DTO Import ==========
 import { CreateGameDTO, GameDTO } from './dto/game.dto';
 
-import { ERole, IUser } from '@tousinclus/types';
+import { ERole, type IUser } from '@tousinclus/types';
 import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 import { ParseDatePipe } from 'src/utils/pipes/parse-date.pipe';
 import { AuthGuard } from './auth/auth.guard';

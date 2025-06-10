@@ -2,12 +2,12 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   EGameStatus,
   ETeam,
-  IAnswer,
-  IAnswerData,
-  IGame,
-  ITeam,
-  IUser,
-  IVote,
+  type IAnswer,
+  type IAnswerData,
+  type IGame,
+  type ITeam,
+  type IUser,
+  type IVote,
 } from '@tousinclus/types';
 import { Expose, Type } from 'class-transformer';
 import {

@@ -1,4 +1,4 @@
-import { IUser } from '@tousinclus/types';
+import type { IUser } from '@tousinclus/types';
 
 declare module 'express' {
   export interface Request {

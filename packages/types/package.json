@@ -4,14 +4,16 @@
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "build": "tsc",
-    "start:dev": "tsc --watch"
+    "build": "rolldown -c rolldown.config.ts",
+    "start:dev": "rolldown -c rolldown.config.ts --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "rolldown": "1.0.0-beta.13",
     "typescript": "^5.7.3"
   }
 }

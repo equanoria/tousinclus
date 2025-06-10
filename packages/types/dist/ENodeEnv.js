@@ -1,11 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ENodeEnv = void 0;
-var ENodeEnv;
-(function (ENodeEnv) {
-    ENodeEnv["DEVELOPMENT"] = "development";
-    ENodeEnv["TEST"] = "test";
-    ENodeEnv["STAGING"] = "staging";
-    ENodeEnv["PRODUCTION"] = "production";
-})(ENodeEnv || (exports.ENodeEnv = ENodeEnv = {}));
-//# sourceMappingURL=ENodeEnv.js.map
+//#region src/ENodeEnv.ts
+let ENodeEnv = /* @__PURE__ */ function(ENodeEnv$1) {
+	ENodeEnv$1["DEVELOPMENT"] = "development";
+	ENodeEnv$1["TEST"] = "test";
+	ENodeEnv$1["STAGING"] = "staging";
+	ENodeEnv$1["PRODUCTION"] = "production";
+	return ENodeEnv$1;
+}({});
+
+//#endregion
+export { ENodeEnv };

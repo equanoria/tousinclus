@@ -1,4 +1,4 @@
-import { ETeam, type IGame, type IWSGameStatus } from '@tousinclus/types';
+import { ETeam, type IGame } from '@tousinclus/types';
 import type { ISocketResponse } from '../../types/ISocketResponse';
 import { socketService } from '../socket/socket.service';
 import type { TGameStatusCallback } from './types/TGameStatusCallback';
@@ -51,12 +51,12 @@ class GameService {
     return this;
   }
 
-  onJoiningResponse(callback: TWSResponseCallback<IWSGameStatus>): this {
+  onJoiningResponse(callback: TWSResponseCallback<IGame>): this {
     socketService.on('joining-response', callback);
     return this;
   }
 
-  onWaitingResponse(callback: TWSResponseCallback<IWSGameStatus>): this {
+  onWaitingResponse(callback: TWSResponseCallback<IGame>): this {
     socketService.on('waiting-response', (payload) => {
       this.onWaitingResponseDo(payload);
       callback(payload);
