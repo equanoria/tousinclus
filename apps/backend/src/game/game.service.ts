@@ -5,7 +5,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { EDebateStatus, EGameStatus, ETeam, IUser } from '@tousinclus/types';
+import {
+  EDebateStatus,
+  EGameStatus,
+  ETeam,
+  type IUser,
+} from '@tousinclus/types';
 // ========== DTO / Types Import ==========
 import { AnswerDTO, CreateGameDTO, GameDTO, VoteDTO } from './dto/game.dto';
 

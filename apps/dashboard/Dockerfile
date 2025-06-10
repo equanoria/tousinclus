@@ -1,4 +1,4 @@
-FROM node:24-bookworm-slim AS base
+FROM node:23-bookworm-slim AS base
 RUN npm install --global pnpm
 WORKDIR /app
 COPY . .

@@ -1,8 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ERole = void 0;
-var ERole;
-(function (ERole) {
-    ERole["HOST"] = "Host";
-})(ERole || (exports.ERole = ERole = {}));
-//# sourceMappingURL=ERole.js.map
+//#region src/ERole.ts
+let ERole = /* @__PURE__ */ function(ERole$1) {
+	ERole$1["HOST"] = "Host";
+	return ERole$1;
+}({});
+
+//#endregion
+export { ERole };

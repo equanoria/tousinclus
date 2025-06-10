@@ -196,18 +196,18 @@ export const GameReflection = () => {
                   Trouvez des solutions pour chaque utilisateur face à la
                   situation concernée
                 </p>
-                <GameCard
-                  key="situation"
-                  type="situation"
-                  img={directusService.getAssetUrl(usageSituation?.image)}
-                  alt={
-                    usageSituation?.context_translations?.[0]?.context ??
-                    usageSituation?.description_translations?.[0]
-                      ?.description ??
-                    'Situation'
-                  }
-                  number={usageSituation?.id}
-                />
+                {usageSituation && (
+                  <GameCard
+                    key="situation"
+                    type="situation"
+                    img={directusService.getAssetUrl(usageSituation.image)}
+                    alt={
+                      usageSituation.context_translations?.[0]?.context ??
+                      usageSituation.description_translations?.[0].description ?? 'Situation'
+                    }
+                    number={usageSituation?.id}
+                  />
+                )}
               </div>
               <div className={styles.usersContainer}>
                 <div className={styles.userIdNavigation}>

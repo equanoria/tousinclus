@@ -7,5 +7,5 @@ export * from './IWebsocket';
 export * from './ERole';
 export * from './TWaiting';
 export * from './ENodeEnv';
-export * from './directus';
+export * from './directus/index';
 //# sourceMappingURL=index.d.ts.map

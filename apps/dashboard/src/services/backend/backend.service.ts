@@ -43,12 +43,12 @@ class BackendService {
     return this.request<T>('GET', endpoint);
   }
 
-  private post<TResponse = unknown, TBody = unknown>(
-    endpoint: string,
-    body: TBody,
-  ): Promise<TResponse> {
-    return this.request<TResponse, TBody>('POST', endpoint, body);
-  }
+  // private post<TResponse = unknown, TBody = unknown>(
+  //   endpoint: string,
+  //   body: TBody,
+  // ): Promise<TResponse> {
+  //   return this.request<TResponse, TBody>('POST', endpoint, body);
+  // }
 
   private put<TResponse = unknown, TBody = unknown>(
     endpoint: string,
@@ -61,12 +61,12 @@ class BackendService {
     return this.request<T>('DELETE', endpoint);
   }
 
-  private patch<TResponse = unknown, TBody = unknown>(
-    endpoint: string,
-    body: TBody,
-  ): Promise<TResponse> {
-    return this.request<TResponse, TBody>('PATCH', endpoint, body);
-  }
+  // private patch<TResponse = unknown, TBody = unknown>(
+  //   endpoint: string,
+  //   body: TBody,
+  // ): Promise<TResponse> {
+  //   return this.request<TResponse, TBody>('PATCH', endpoint, body);
+  // }
 
   async getAllGames(): Promise<IGame[]> {
     return this.get<IGame[]>('/game');

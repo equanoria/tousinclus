@@ -1,11 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import {
   ETeam,
-  IAnswer,
-  IAnswerData,
-  IGame,
-  IUser,
-  IVote,
+  type IAnswer,
+  type IAnswerData,
+  type IGame,
+  type IUser,
+  type IVote,
 } from '@tousinclus/types';
 import { Document } from 'mongoose';
 
