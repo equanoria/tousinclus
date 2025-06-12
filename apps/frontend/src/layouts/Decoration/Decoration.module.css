@@ -1,0 +1,7 @@
+.decoratedBody {
+  background-image: url("/src/assets/images/asset_1.svg"),
+    url("/src/assets/images/asset_2.svg");
+  background-position: top right, bottom left;
+  background-repeat: no-repeat, no-repeat;
+  background-size: auto, auto; /* ou fixed size si besoin */
+}

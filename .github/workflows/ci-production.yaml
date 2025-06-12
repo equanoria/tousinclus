@@ -16,6 +16,8 @@ jobs:
         include:
           - image: tousinclus-frontend
             dockerfile: apps/frontend/Dockerfile
+          - image: tousinclus-dashboard
+            dockerfile: apps/dashboard/Dockerfile
           - image: tousinclus-backend
             dockerfile: apps/backend/Dockerfile
           - image: directus

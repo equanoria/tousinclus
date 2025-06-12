@@ -21,11 +21,11 @@
     "translations": [
       {
         "language": "fr-FR",
-        "translation": "configuration des cartes et des règles"
+        "translation": "Configuration des cartes et des règles"
       },
       {
         "language": "en-US",
-        "translation": "cards and rules configuration"
+        "translation": "Cards and rules configuration"
       }
     ],
     "unarchive_value": null,
@@ -233,6 +233,48 @@
       }
     },
     {
+      "field": "deck_default",
+      "type": "integer",
+      "meta": {
+        "collection": "config",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "deck_default",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown-m2o",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "sort": 7,
+        "special": ["m2o"],
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "deck_default",
+        "table": "config",
+        "data_type": "integer",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "decks",
+        "foreign_key_column": "id"
+      }
+    },
+    {
       "field": "id",
       "type": "integer",
       "meta": {
@@ -259,7 +301,7 @@
         "name": "id",
         "table": "config",
         "data_type": "integer",
-        "default_value": "nextval('\"config_id_seq\"'::regclass)",
+        "default_value": null,
         "max_length": null,
         "numeric_precision": 32,
         "numeric_scale": 0,
@@ -303,5 +345,30 @@
       }
     }
   ],
-  "relations": []
+  "relations": [
+    {
+      "field": "deck_default",
+      "related_collection": "decks",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "config",
+        "many_field": "deck_default",
+        "one_allowed_collections": null,
+        "one_collection": "decks",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "config",
+        "column": "deck_default",
+        "foreign_key_table": "decks",
+        "foreign_key_column": "id",
+        "constraint_name": "config_deck_default_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL"
+      }
+    }
+  ]
 }

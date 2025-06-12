@@ -1,10 +1,18 @@
+import {
+  type ContrastManager,
+  type FontManager,
+  type LocaleManager,
+  type ThemeManager,
+  type TitleManager,
+  contrastManager,
+  fontManager,
+  localeManager,
+  themeManager,
+  titleManager,
+} from '@tousinclus/managers';
 import type React from 'react';
 import { type ReactNode, createContext, useContext, useState } from 'react';
-import { ContrastManager } from '../managers/ContrastManager';
-import { FontManager } from '../managers/FontManager';
-import { LocaleManager } from '../managers/LocaleManager';
-import { ThemeManager } from '../managers/ThemeManager';
-import { ErrorView } from '../views/Error/ErrorView';
+import { GameConnection } from '../views/GameConnection/GameConnection';
 
 export interface AppStateContextProps {
   currentView: JSX.Element;
@@ -13,6 +21,7 @@ export interface AppStateContextProps {
   fontManager: FontManager;
   localeManager: LocaleManager;
   contrastManager: ContrastManager;
+  titleManager: TitleManager;
 }
 
 const AppStateContext = createContext<AppStateContextProps | undefined>(
@@ -23,13 +32,8 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [currentView, setCurrentView] = useState<JSX.Element>(
-    <ErrorView message="Cannot load view." />,
+    <GameConnection />,
   );
-
-  const themeManager = new ThemeManager();
-  const fontManager = new FontManager();
-  const localeManager = new LocaleManager();
-  const contrastManager = new ContrastManager();
 
   return (
     <AppStateContext.Provider
@@ -40,6 +44,7 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
         fontManager,
         localeManager,
         contrastManager,
+        titleManager,
       }}
     >
       {children}
@@ -51,7 +56,7 @@ export const AppStateProvider: React.FC<{ children: ReactNode }> = ({
 export const useAppState = (): AppStateContextProps => {
   const context = useContext(AppStateContext);
   if (!context) {
-    throw new Error('useAppState doit être utilisé dans un AppStateProvider');
+    throw new Error('useAppState must be used within AppStateProvider');
   }
   return context;
 };

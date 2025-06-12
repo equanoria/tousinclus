@@ -1,6 +1,6 @@
 import StyleDictionary from 'style-dictionary';
 import { logVerbosityLevels, logWarningLevels } from 'style-dictionary/enums';
-import { THEMES } from './constant.js';
+import { BUILD_PATH, THEMES } from './constants.js';
 
 StyleDictionary.registerTransform({
   name: 'attribute/omit-description',
@@ -105,7 +105,7 @@ THEMES.map((theme) => {
       css: {
         transformGroup: 'custom/css',
         transforms: transforms(),
-        buildPath: '../../apps/frontend/src/styles/',
+        buildPath: BUILD_PATH,
         options: {
           outputReferences: true,
           selector: selector(),

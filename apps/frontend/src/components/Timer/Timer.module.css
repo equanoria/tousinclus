@@ -1,0 +1,24 @@
+.timer {
+  color: var(--pink-700);
+  display: flex;
+  align-items: center;
+  gap: var(--space-200);
+  background-color: var(--timer-bg-primary);
+  font-family: var(--font-cal-sans);
+  padding: var(--space-300) var(--space-600);
+  border-radius: var(--radius-full);
+  border: var(--timer-contrast-primary) solid var(--stroke-border-75);
+}
+
+.time {
+  font-size: var(--body-size-small);
+  font-weight: var(--body-font-weight-strong);
+  display: flex;
+  gap: 1ch;
+}
+
+.integer {
+  font-size: var(--body-size-large);
+  font-weight: var(--body-font-weight-strong);
+  font-family: monospace;
+}

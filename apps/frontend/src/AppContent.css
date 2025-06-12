@@ -1,0 +1,32 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+
+  main {
+    position: relative;
+
+    &:has(.fillHeight) {
+      z-index: 0;
+      flex-grow: 1;
+      display: grid;
+    }
+  }
+
+  > header {
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--space-400) var(--space-800);
+  }
+
+  > footer {
+    display: grid;
+    place-items: center;
+    margin-block: var(--space-800);
+
+    nav {
+      display: flex;
+      gap: var(--space-600);
+    }
+  }
+}

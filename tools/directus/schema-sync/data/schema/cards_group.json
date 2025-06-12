@@ -21,7 +21,7 @@
     "translations": [
       {
         "language": "en-US",
-        "translation": "cards groups"
+        "translation": "Cards groups"
       },
       {
         "language": "fr-FR",
@@ -67,7 +67,7 @@
           }
         ],
         "validation": null,
-        "validation_message": null,
+        "validation_message": "$t:validation_translations",
         "width": "full"
       }
     },

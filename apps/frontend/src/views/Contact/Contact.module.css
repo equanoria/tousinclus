@@ -1,0 +1,28 @@
+.contact {
+  display: grid;
+  gap: var(--space-1200);
+  place-items: center;
+  align-content: center;
+  padding: var(--space-800);
+
+  hgroup {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-400);
+    padding:var(--space-400);
+    background-color: var(--white-1000);
+    border-radius: var(--radius-200);
+  }
+
+  nav {
+    display: grid;
+    gap: var(--space-800);
+    max-width: 22rem;
+    width: 100%;
+
+    section {
+      display: grid;
+      gap: var(--space-400);
+    }
+  }
+}

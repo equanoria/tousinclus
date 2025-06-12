@@ -8,4 +8,10 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
   },
+  // optimizeDeps: {
+  //   include: ['@tousinclus/types'],
+  //   esbuildOptions: {
+  //     format: 'cjs',
+  //   },
+  // },
 });

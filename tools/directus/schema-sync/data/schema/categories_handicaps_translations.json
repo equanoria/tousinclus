@@ -215,7 +215,7 @@
         "one_allowed_collections": null,
         "one_collection": "categories_handicaps",
         "one_collection_field": null,
-        "one_deselect_action": "nullify",
+        "one_deselect_action": "delete",
         "one_field": "translations",
         "sort_field": null
       },
@@ -226,7 +226,7 @@
         "foreign_key_column": "id",
         "constraint_name": "categories_handicaps_translations_categori__6e8dd221_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "CASCADE"
       }
     },
     {
@@ -250,7 +250,7 @@
         "foreign_key_column": "code",
         "constraint_name": "categories_handicaps_translations_languages_code_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "CASCADE"
       }
     }
   ]

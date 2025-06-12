@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import type React from 'react';
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithoutRef, ReactElement } from 'react';
 import stylesButton from '../Button/Button.module.css';
 import styles from './Link.module.css';
 
@@ -13,12 +13,16 @@ export interface LinkProps extends ComponentPropsWithoutRef<'a'> {
     | 'button-warning'
     | 'button-danger'
     | 'button-outlined';
+  startIcon?: ReactElement;
+  endIcon?: ReactElement;
 }
 
 export const Link: React.FC<LinkProps> = ({
   children,
   className,
   variant = 'normal',
+  startIcon,
+  endIcon,
   ...props
 }) => {
   const getClasses = () => {
@@ -33,7 +37,9 @@ export const Link: React.FC<LinkProps> = ({
 
   return (
     <a className={getClasses()} {...props}>
-      {children}
+      {startIcon && <span className={styles.icon}>{startIcon}</span>}
+      {children && <span>{children}</span>}
+      {endIcon && <span className={styles.icon}>{endIcon}</span>}
     </a>
   );
 };

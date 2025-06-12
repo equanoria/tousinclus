@@ -1,0 +1,33 @@
+.votingBtn {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--pink-100);
+  border: var(--stroke-border-50) solid var(--pink-600);
+  box-shadow: 0.20rem 0.20rem 0 0 var(--pink-600);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: inset 0 0 0 0;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 0 var(--stroke-border-75) var(--pink-600);
+  }
+}
+
+.votingBtn::after {
+  content: url("/src/assets/images/heart-icon.svg");
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: content 0.2s ease-in-out;
+}
+
+.votingBtn:checked::after {
+  content: url("/src/assets/images/heart-icon-filled.svg");
+}

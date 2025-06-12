@@ -1,0 +1,46 @@
+.pageConnection {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.container {
+  max-width: 25rem;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2400);
+  margin-block-end: var(--space-2400);
+}
+
+.logo {
+  width: 15rem;
+  height: 8rem;
+}
+
+.logoFooter {
+  position: absolute;
+  bottom: 0;
+  height: 1.5rem;
+}
+
+.connection {
+  width: 100%;
+  padding: var(--space-400) var(--space-300);
+  border-radius: var(--radius-200);
+  border: var(--stroke-border-50) solid var(--pale-blue-600);
+  background-color: var(--pale-blue-100);
+  box-shadow: 4px 4px 0 0 var(--pale-blue-600);
+  display: grid;
+  gap: var(--space-800);
+}
+
+.teamSelection {
+  display: grid;
+  gap: var(--space-600);
+}
+
+.teamButtons {
+  display: flex;
+  gap: var(--space-600);
+}

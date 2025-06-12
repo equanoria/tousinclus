@@ -217,7 +217,7 @@
         "one_allowed_collections": null,
         "one_collection": "cards_situations",
         "one_collection_field": null,
-        "one_deselect_action": "nullify",
+        "one_deselect_action": "delete",
         "one_field": "context_translations",
         "sort_field": null
       },
@@ -228,7 +228,7 @@
         "foreign_key_column": "id",
         "constraint_name": "cards_situations_translations_1_cards_situations_id_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "CASCADE"
       }
     },
     {
@@ -252,7 +252,7 @@
         "foreign_key_column": "code",
         "constraint_name": "cards_situations_translations_1_languages_code_foreign",
         "on_update": "NO ACTION",
-        "on_delete": "SET NULL"
+        "on_delete": "CASCADE"
       }
     }
   ]
