@@ -13,3 +13,5 @@ export const Legal = () => {
     </Decoration>
   );
 };
+
+Legal.path = '/legal';

@@ -28,7 +28,7 @@ import { WaitingService } from './service/waiting.service';
   cors: {
     origin: '*',
   },
-  path: '/api',
+  path: '/api/ws',
   serveClient: false,
 })
 @UseFilters(new WebsocketExceptionFilter())

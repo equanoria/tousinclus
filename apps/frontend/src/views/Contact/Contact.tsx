@@ -34,3 +34,5 @@ export const Contact = () => {
     </Decoration>
   );
 };
+
+Contact.path = '/contact';

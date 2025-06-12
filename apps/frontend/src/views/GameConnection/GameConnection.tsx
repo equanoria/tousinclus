@@ -10,6 +10,9 @@ import { gameService } from '../../services/game/game.service';
 import type { ISocketResponse } from '../../types/ISocketResponse';
 import styles from './GameConnection.module.css';
 
+import logo from '/src/assets/images/logo-ts.svg';
+import footerLogo from '/src/assets/images/logo-eq.svg';
+
 enum ConnectionState {
   CODE = 'code',
   TEAM = 'team',
@@ -82,85 +85,85 @@ export const GameConnection = () => {
     gameService.joinGame(code, team);
   };
 
-  const classes = clsx(styles.pageConnection, 'fillHeight');
-
   return (
     <Decoration>
-      <div className={classes}>
-        <img
-          src="/src/assets/images/logo-ts.svg"
-          alt=""
-          className={styles.logo}
-        />
-        {(() => {
-          switch (connectionState) {
-            case ConnectionState.TEAM:
-              titleManager.set('Connexion à une partie');
-              return (
-                <div className={styles.teamSelection}>
-                  {errorMessage && (
-                    <p className={styles.error} aria-invalid>
-                      {errorMessage}
-                    </p>
-                  )}
-                  <div className={styles.teamButtons}>
-                    <Button
-                      disabled={!availableTeams.includes(ETeam.TEAM1)}
-                      onClick={() => handleJoinGame(ETeam.TEAM1)}
-                      variant="primary"
-                    >
-                      Équipe 1
-                    </Button>
-                    <Button
-                      disabled={!availableTeams.includes(ETeam.TEAM2)}
-                      onClick={() => handleJoinGame(ETeam.TEAM2)}
-                      variant="tertiary"
-                    >
-                      Équipe 2
-                    </Button>
+      <div className={clsx(styles.pageConnection, 'fillHeight')}>
+        <div className={styles.container}>
+          <img
+            src={logo}
+            alt=""
+            className={styles.logo}
+          />
+          {(() => {
+            switch (connectionState) {
+              case ConnectionState.TEAM:
+                titleManager.set('Connexion à une partie');
+                return (
+                  <div className={styles.teamSelection}>
+                    {errorMessage && (
+                      <p className={styles.error} aria-invalid>
+                        {errorMessage}
+                      </p>
+                    )}
+                    <div className={styles.teamButtons}>
+                      <Button
+                        disabled={!availableTeams.includes(ETeam.TEAM1)}
+                        onClick={() => handleJoinGame(ETeam.TEAM1)}
+                        variant="primary"
+                      >
+                        Équipe 1
+                      </Button>
+                      <Button
+                        disabled={!availableTeams.includes(ETeam.TEAM2)}
+                        onClick={() => handleJoinGame(ETeam.TEAM2)}
+                        variant="tertiary"
+                      >
+                        Équipe 2
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              );
-            case ConnectionState.WAITING:
-              titleManager.set("En attente de l'autre équipe...");
-              return (
-                <div className={styles.teamSelection}>
-                  <p>Dans l'attente de l'autre équipe...</p>
-                </div>
-              );
-            default:
-              titleManager.reset();
-              return (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleJoining();
-                  }}
-                  className={styles.connection}
-                >
-                  <Input
-                    name="code"
-                    label="Entrez le code de la partie"
-                    type="text"
-                    placeholder="123456"
-                    pattern={VALIDATION_PATTERN.source}
-                    value={code ?? ''}
-                    onChange={(e) => setCode(e.target.value)}
-                    error={errorMessage}
-                  />
-                  <Button
-                    className={styles.connectionBtn}
-                    variant="primary"
-                    type="submit"
-                    disabled={!VALIDATION_PATTERN.test(code)}
+                );
+              case ConnectionState.WAITING:
+                titleManager.set("En attente de l'autre équipe...");
+                return (
+                  <div className={styles.teamSelection}>
+                    <p>Dans l'attente de l'autre équipe...</p>
+                  </div>
+                );
+              default:
+                titleManager.reset();
+                return (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleJoining();
+                    }}
+                    className={styles.connection}
                   >
-                    Rejoindre la partie
-                  </Button>
-                </form>
-              );
-          }
-        })()}
-        <img src="src/assets/images/logo-eq.svg" alt="" />
+                    <Input
+                      name="code"
+                      label="Entrez le code de la partie"
+                      type="text"
+                      placeholder="123456"
+                      pattern={VALIDATION_PATTERN.source}
+                      value={code ?? ''}
+                      onChange={(e) => setCode(e.target.value)}
+                      error={errorMessage}
+                    />
+                    <Button
+                      className={styles.connectionBtn}
+                      variant="primary"
+                      type="submit"
+                      disabled={!VALIDATION_PATTERN.test(code)}
+                    >
+                      Rejoindre la partie
+                    </Button>
+                  </form>
+                );
+            }
+          })()}
+        </div>
+        <img src={footerLogo} className={styles.logoFooter} alt="" />
       </div>
     </Decoration>
   );

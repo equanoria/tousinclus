@@ -9,6 +9,8 @@ class GameService {
   private _team?: ETeam;
   private _cardsGroupId?: number;
 
+  private _reflectionEndsAt?: Date;
+
   private readyCallbacks: (() => void)[] = [];
 
   get code() {
@@ -24,6 +26,11 @@ class GameService {
   get cardsGroupId() {
     if (!this._cardsGroupId) throw new Error('Undefined card group');
     return this._cardsGroupId;
+  }
+
+  get reflectionEndsAt() {
+    if (!this._reflectionEndsAt) throw new Error('Undefined reflection end time');
+    return this._reflectionEndsAt;
   }
 
   onGameStatus(callback: TGameStatusCallback): this {
@@ -76,6 +83,7 @@ class GameService {
 
       this._code = data.code;
       this._cardsGroupId = data.cardGroupId;
+      this._reflectionEndsAt = data.reflectionEndsAt ? new Date(data.reflectionEndsAt) : undefined;
 
       this.onReadyTrigger();
     }

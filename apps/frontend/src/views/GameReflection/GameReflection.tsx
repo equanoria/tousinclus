@@ -3,7 +3,6 @@ import type { IAnswerData, IDirectusCardsGroup } from '@tousinclus/types';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '../../components/Button/Button';
 import { Checkbox } from '../../components/Checkbox/Checkbox';
-// import { Input } from '../../components/Input/Input';
 import { Deck } from '../../components/Deck/Deck';
 import { GameCard } from '../../components/GameCard/GameCard';
 import { Textarea } from '../../components/Textarea/Textarea';
@@ -12,6 +11,7 @@ import { directusService } from '../../services/directus/directus.service';
 import { gameReflectionService } from '../../services/game/game-reflection.service';
 import { gameService } from '../../services/game/game.service';
 import styles from './GameReflection.module.css';
+import { Timer } from '../../components/Timer/Timer';
 
 const defaultAnswer = {
   input1: '',
@@ -75,14 +75,6 @@ export const GameReflection = () => {
     });
   };
 
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target;
-  //   setAnswerData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
-
   const handleTextareaChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
@@ -125,6 +117,7 @@ export const GameReflection = () => {
         Trouvez des solutions pour chaque utilisateur face à la situation
         concernée
       </p>
+      <Timer endTime={gameService.reflectionEndsAt} />
       {!hasStarted ? (
         <>
           <Deck cardsGroup={cardsGroup} onStart={() => setHasStarted(true)} />
