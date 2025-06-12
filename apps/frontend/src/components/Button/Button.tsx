@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import type React from 'react';
 import type { ComponentPropsWithoutRef, ReactElement } from 'react';
 import styles from './Button.module.css';
 
@@ -9,14 +8,14 @@ export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
   endIcon?: ReactElement;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = ({
   children,
   className,
-  variant = 'normal',
+  variant = 'primary',
   startIcon,
   endIcon,
   ...props
-}) => {
+}: ButtonProps) => {
   const classes = clsx(styles.button, styles[variant], className);
 
   return (

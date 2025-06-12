@@ -28,3 +28,5 @@ export const GameApp = () => {
 
   return currentView;
 };
+
+GameApp.path = '/';

@@ -13,7 +13,7 @@ export const SocketBanner = () => {
 
   const handleConnectError = () => {
     setBanner(
-      <Banner variant="danger">
+      <Banner variant="danger" aria-live="polite">
         Impossible de se connecter au serveur...
       </Banner>,
     );

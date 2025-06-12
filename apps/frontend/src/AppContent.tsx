@@ -1,18 +1,11 @@
-import { IconInfoCircle } from '@tabler/icons-react';
-import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { GameApp } from './GameApp';
-import { Button } from './components/Button/Button';
 import { Link } from './components/Link/Link';
-import { Overlay } from './components/Overlay/Overlay';
-import { RulesModal } from './components/RulesModal/RulesModal';
 import { SocketBanner } from './core/SocketBanner/SocketBanner';
 import { Contact } from './views/Contact/Contact';
 import { Legal } from './views/Legal/Legal';
 
 export const AppContent = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-
   return (
     <>
       <nav className="a11y-skip-content" aria-label="Navigation rapide">
@@ -21,51 +14,26 @@ export const AppContent = () => {
             <a href="#main">Aller au contenu principal</a>
           </li>
           <li>
-            <a href="#main">Aller à un autre endroit</a>
+            <a href="#footer">Aller au pied de page</a>
           </li>
         </ul>
       </nav>
-
-      <header>
-        <Button
-          variant="icon"
-          onClick={() => setModalOpen(true)}
-          startIcon={<IconInfoCircle aria-hidden="true" />}
-        >
-          Aide
-        </Button>
-      </header>
 
       <SocketBanner />
 
       <main id="main">
         <Routes>
-          <Route path="/" element={<GameApp />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/legal" element={<Legal />} />
+          <Route path={GameApp.path} element={<GameApp />} />
+          <Route path={Contact.path} element={<Contact />} />
+          <Route path={Legal.path} element={<Legal />} />
         </Routes>
-
-        <Overlay isVisible={isModalOpen} onClick={() => setModalOpen(false)} />
-        {isModalOpen && (
-          <RulesModal
-            title="Connexion règles"
-            onClose={() => setModalOpen(false)}
-          >
-            À cette étape, chaque équipe doit rassembler son deck de cartes en
-            version physique. Les cartes s'affichent à l’écran : à vous de les
-            retrouver dans le matériel mis à disposition et de constituer votre
-            jeu en vrai. Prenez le temps de bien vérifier que vous avez toutes
-            les cartes nécessaires avant de commencer la prochaine étape. Une
-            fois vos decks prêts, vous pourrez entrer dans le vif du jeu !
-          </RulesModal>
-        )}
       </main>
 
-      <footer>
+      <footer id="footer">
         <nav aria-label="Navigation du site">
-          <Link href="/">Accueil</Link>
-          <Link href="/contact">Contact</Link>
-          <Link href="/legal">Mention Légales</Link>
+          <Link href={GameApp.path}>Accueil</Link>
+          <Link href={Contact.path}>Contact</Link>
+          <Link href={Legal.path}>Mention Légales</Link>
         </nav>
       </footer>
     </>

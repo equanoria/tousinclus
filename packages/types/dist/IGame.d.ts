@@ -27,7 +27,6 @@ export interface IGame {
     team2?: ITeam;
     answers?: Array<IAnswer>;
     votes?: Array<IVote>;
-    timeStamp?: Date;
 }
 export interface ITeam {
     isConnected: boolean;

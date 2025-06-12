@@ -3,7 +3,6 @@ import type { IAnswerData, IDirectusCardsGroup } from '@tousinclus/types';
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from '../../components/Button/Button';
 import { Checkbox } from '../../components/Checkbox/Checkbox';
-// import { Input } from '../../components/Input/Input';
 import { Deck } from '../../components/Deck/Deck';
 import { GameCard } from '../../components/GameCard/GameCard';
 import { Textarea } from '../../components/Textarea/Textarea';
@@ -12,6 +11,7 @@ import { directusService } from '../../services/directus/directus.service';
 import { gameReflectionService } from '../../services/game/game-reflection.service';
 import { gameService } from '../../services/game/game.service';
 import styles from './GameReflection.module.css';
+import { Timer } from '../../components/Timer/Timer';
 
 const defaultAnswer = {
   input1: '',
@@ -24,6 +24,7 @@ export const GameReflection = () => {
   const [cardsGroup, setCardsGroup] = useState<IDirectusCardsGroup>();
   const [extremeUserCursor, setExtremeUserCursor] = useState<number>(0);
   const [answerData, setAnswerData] = useState<IAnswerData>(defaultAnswer);
+  const [endTime, setEndTime] = useState<Date>(new Date());
   const { titleManager } = useAppState();
   const [hasStarted, setHasStarted] = useState(false);
   const [transitionDirection, setTransitionDirection] = useState<
@@ -40,7 +41,9 @@ export const GameReflection = () => {
       setCardsGroup(group);
     };
 
-    gameReflectionService.onGetAnswersResponse(fetchCardGroup);
+    gameReflectionService
+      .onGetAnswersResponse(fetchCardGroup)
+      .onGetAnswersResponse(() => setEndTime(gameReflectionService.reflectionEndsAt));
   }, []);
 
   const usageSituation = cardsGroup?.usage_situation;
@@ -74,14 +77,6 @@ export const GameReflection = () => {
       return (prev - 1 + length) % length;
     });
   };
-
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target;
-  //   setAnswerData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
 
   const handleTextareaChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>,
@@ -125,6 +120,7 @@ export const GameReflection = () => {
         Trouvez des solutions pour chaque utilisateur face à la situation
         concernée
       </p>
+      <Timer endTime={endTime} className={styles.timer}/>
       {!hasStarted ? (
         <>
           <Deck cardsGroup={cardsGroup} onStart={() => setHasStarted(true)} />

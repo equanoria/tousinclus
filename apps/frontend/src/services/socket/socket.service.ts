@@ -8,7 +8,7 @@ const socketIoUrl = urlValidator(
 
 const socketIo = io(socketIoUrl.host.toString(), {
   closeOnBeforeunload: true,
-  path: socketIoUrl.pathname,
+  path: `${socketIoUrl.pathname}/ws`,
 });
 
 export const socketService = socketIo;

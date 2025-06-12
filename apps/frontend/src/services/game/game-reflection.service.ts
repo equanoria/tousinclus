@@ -6,6 +6,7 @@ import type { TWSResponseCallback } from './types/TWSResponseCallback';
 
 class GameReflectionService {
   private _answers?: IAnswer[];
+  private _reflectionEndsAt?: Date;
 
   private getAnswersCallbacks: TWSResponseCallback<IGame>[] = [];
   private updateAnswerCallbacks: TWSResponseCallback<IAnswer>[] = [];
@@ -23,6 +24,11 @@ class GameReflectionService {
   private get answers() {
     if (!this._answers) throw new Error('Undefined answers');
     return this._answers;
+  }
+
+  get reflectionEndsAt() {
+    if (!this._reflectionEndsAt) throw new Error('Undefined reflection end time');
+    return this._reflectionEndsAt;
   }
 
   private getAnswers() {
@@ -69,6 +75,7 @@ class GameReflectionService {
       if ('answers' in data) {
         const gameData = data as IGame; // TODO: Plus jamais ça
         this._answers = gameData.answers;
+        this._reflectionEndsAt = data.reflectionEndsAt ? new Date(data.reflectionEndsAt) : undefined;
 
         for (const callback of this.getAnswersCallbacks) {
           callback(payload as ISocketResponse<IGame>);
