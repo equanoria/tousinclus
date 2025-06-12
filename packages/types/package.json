@@ -6,8 +6,11 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "rolldown -c rolldown.config.ts",
-    "start:dev": "rolldown -c rolldown.config.ts --watch"
+    "clean": "rm -rf dist",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "rolldown -c rolldown.config.ts",
+    "build": "npm run clean && npm run build:types && npm run build:js",
+    "start:dev": "tsc --watch & rolldown -c rolldown.config.ts --watch"
   },
   "keywords": [],
   "author": "",

@@ -10,26 +10,24 @@ export const Contact = () => {
   return (
     <Decoration>
       <section className={styles.contact}>
-        <div className={styles.contactContent}>
-          <h1>Contact</h1>
-          <nav>
-            <Link
-              variant="button-primary"
-              href="mailto:equanoria@tousinclus.org"
-            >
-              equanoria@tousinclus.org
-            </Link>
-            <Link
-              variant="button-primary"
-              href="mailto:estelle.peyrard@tousinclus.org"
-            >
-              estelle.peyrard@tousinclus.org
-            </Link>
-            <Link variant="button-primary" href="https://techlab-handicap.org">
-              techlab-handicap.org{' '}
-            </Link>
-          </nav>
-        </div>
+        <h1>Contact</h1>
+        <nav>
+          <Link
+            variant="button-primary"
+            href="mailto:equanoria@tousinclus.org"
+          >
+            equanoria@tousinclus.org
+          </Link>
+          <Link
+            variant="button-primary"
+            href="mailto:estelle.peyrard@tousinclus.org"
+          >
+            estelle.peyrard@tousinclus.org
+          </Link>
+          <Link variant="button-primary" href="https://techlab-handicap.org">
+            techlab-handicap.org{' '}
+          </Link>
+        </nav>
       </section>
     </Decoration>
   );

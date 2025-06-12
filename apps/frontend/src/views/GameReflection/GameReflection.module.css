@@ -16,6 +16,11 @@
   gap: var(--space-1200);
 }
 
+.timer {
+  position: absolute;
+  right: 0;
+}
+
 .leftContainer {
   z-index: 1;
   display: flex;

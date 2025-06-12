@@ -22,7 +22,6 @@ export const Timer = ({
       setTimeLeftInSeconds(diff);
     };
 
-    updateTime();
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, [endTime]);
@@ -36,14 +35,17 @@ export const Timer = ({
     const numberFormat = (value: number, unit: 'hour' | 'minute' | 'second') =>
       new Intl.NumberFormat(locale.code, { style: 'unit', unit }).formatToParts(value);
 
-    const buildUnitSpan = (value: number, unit: 'hour' | 'minute' | 'second', key: string) => {
-      const parts = numberFormat(value, unit);
-      const text = parts
-        .map((p) => p.value)
-        .join('');
+      const buildUnitSpan = (value: number, unit: 'hour' | 'minute' | 'second', key: string) => {
+        const parts = numberFormat(value, unit);
 
-      return <span key={key}>{text}</span>;
-    };
+        return (
+          <span key={key}>
+            {parts.map((part) => (
+              <span key={`${part.type}-${part.value}`} className={styles[part.type]}>{part.value}</span>
+            ))}
+          </span>
+        );
+      };
 
     const hours = Math.floor(remaining / 3600);
     if (hours > 0) {
@@ -80,7 +82,7 @@ export const Timer = ({
   return (
     <div className={classes} {...props}>
       <IconBellRinging />
-      <time dateTime={formatDateTime(timeLeftInSeconds)}>
+      <time dateTime={formatDateTime(timeLeftInSeconds)} className={styles.time}>
         {formatTime(timeLeftInSeconds)}
       </time>
     </div>

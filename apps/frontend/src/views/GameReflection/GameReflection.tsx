@@ -24,6 +24,7 @@ export const GameReflection = () => {
   const [cardsGroup, setCardsGroup] = useState<IDirectusCardsGroup>();
   const [extremeUserCursor, setExtremeUserCursor] = useState<number>(0);
   const [answerData, setAnswerData] = useState<IAnswerData>(defaultAnswer);
+  const [endTime, setEndTime] = useState<Date>(new Date());
   const { titleManager } = useAppState();
   const [hasStarted, setHasStarted] = useState(false);
   const [transitionDirection, setTransitionDirection] = useState<
@@ -40,7 +41,9 @@ export const GameReflection = () => {
       setCardsGroup(group);
     };
 
-    gameReflectionService.onGetAnswersResponse(fetchCardGroup);
+    gameReflectionService
+      .onGetAnswersResponse(fetchCardGroup)
+      .onGetAnswersResponse(() => setEndTime(gameReflectionService.reflectionEndsAt));
   }, []);
 
   const usageSituation = cardsGroup?.usage_situation;
@@ -117,7 +120,7 @@ export const GameReflection = () => {
         Trouvez des solutions pour chaque utilisateur face à la situation
         concernée
       </p>
-      <Timer endTime={gameService.reflectionEndsAt} />
+      <Timer endTime={endTime} className={styles.timer}/>
       {!hasStarted ? (
         <>
           <Deck cardsGroup={cardsGroup} onStart={() => setHasStarted(true)} />
