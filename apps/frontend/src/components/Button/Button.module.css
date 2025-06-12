@@ -6,14 +6,21 @@
   font-family: var(--font-cal-sans);
   text-box-trim: trim-both;
   text-box-edge: cap alphabetic;
-  display: flex;
-  align-items: center;
   justify-content: center;
   gap: var(--space-200);
-  padding: var(--space-300) var(--space-800);
+  padding: var(--space-200) var(--space-600);
   border-radius: var(--radius-200);
   transition: 180ms ease-out;
   transition-property: color, background-color, box-shadow;
+  line-height: 1.5;
+  display: inline-flex;
+  align-items: center;
+
+  span svg {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
 
   &:hover {
     color: var(--button-contrast-primary-hover);
