@@ -19,6 +19,9 @@ import {
   IsOptional,
   IsString,
   ValidateNested,
+  IsDate,
+  IsArray,
+  Max,
 } from 'class-validator';
 
 // ========== DTO ==========
@@ -35,12 +38,33 @@ export class CreateGameDTO {
 
   @IsNumber()
   @IsOptional()
+  @Max(180)
   @ApiPropertyOptional({
-    description: 'Duration of the reflection part in minutes (optional)',
+    description:
+      'Duration of the reflection part in minutes (optional, max 180)',
     example: 15,
     nullable: true,
+    maximum: 180,
   })
   reflectionDuration?: number;
+
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Organisation name (optional)',
+    example: 'Publicis',
+    nullable: true,
+  })
+  organizationName?: string;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Total amount of player (optional)',
+    example: 12,
+    nullable: true,
+  })
+  playerAmount?: number;
 }
 
 export class AnswerDataDTO implements IAnswerData {
@@ -191,6 +215,24 @@ export class GameDTO implements IGame {
     nullable: true,
   })
   reflectionEndsAt?: Date | null;
+
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Organisation name (optional)',
+    example: 'Publicis',
+    nullable: true,
+  })
+  organizationName?: string;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Total amount of player (optional)',
+    example: 12,
+    nullable: true,
+  })
+  playerAmount?: number;
 
   @IsOptional()
   @IsString()

@@ -84,7 +84,7 @@ export class GameController {
   @ApiOperation({ summary: 'Create many games' })
   @ApiParam({
     name: 'numberOfGame',
-    description: 'The number of games to create',
+    description: 'The number of games to create (max 20)',
     example: 5,
   })
   @ApiBody({
@@ -99,13 +99,18 @@ export class GameController {
     type: [GameDTO],
   })
   @ApiBearerAuth('access-token')
-  createManyGame(
+  async createManyGame(
     @Body() createGameDto: CreateGameDTO,
     @User() user: IUser,
-    @Param('numberOfGame', ParseIntPipe)
-    numberOfGame: number,
+    @Param('numberOfGame', ParseIntPipe) numberOfGame: number,
   ): Promise<GameDTO[]> {
-    const games = this.gameService.createManyGame(
+    if (numberOfGame > 20) {
+      throw new HttpException(
+        'You can create a maximum of 20 games at once',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const games = await this.gameService.createManyGame(
       numberOfGame,
       {
         ...createGameDto,
