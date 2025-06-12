@@ -62,6 +62,9 @@ services:
       - MONGO_DATABASE=${BACKEND_DB_NAME}
       - MONGO_USERNAME=${BACKEND_DB_USER}
       - MONGO_PASSWORD=${BACKEND_DB_PASSWORD}
+      - DIRECTUS_HOSTNAME=directus
+      - DIRECTUS_PORT=8055
+      - DIRECTUS_ADMIN_TOKEN=${DIRECTUS_ADMIN_TOKEN}
 
   backend-mongo:
     image: mongo:8.0.4-noble
