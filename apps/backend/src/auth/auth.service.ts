@@ -5,7 +5,6 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import type { IUser } from '@tousinclus/types';
-import { IUser } from '@tousinclus/types';
 import { Cache } from 'cache-manager';
 import { JwtPayload } from 'jsonwebtoken';
 import { DirectusService } from 'src/directus/directus.service';

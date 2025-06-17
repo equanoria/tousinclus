@@ -19,8 +19,6 @@ import {
   IsOptional,
   IsString,
   ValidateNested,
-  IsDate,
-  IsArray,
   Max,
 } from 'class-validator';
 

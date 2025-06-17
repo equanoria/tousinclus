@@ -6,9 +6,7 @@ import { WebsocketExceptionFilter } from '../utils/filters/websocket-exception.f
 import { WebsocketGateway } from './websocket.gateway';
 
 import { ConfigService } from '@nestjs/config';
-import { ConfigService } from '@nestjs/config';
 import { AuthModule } from 'src/auth/auth.module';
-import { RedisService } from 'src/redis/redis.service';
 import { RedisService } from 'src/redis/redis.service';
 import { NotificationController } from './notification.controller';
 // ========== Service Import ==========

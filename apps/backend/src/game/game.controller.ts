@@ -26,13 +26,8 @@ import {
 import { CreateGameDTO, GameDTO } from './dto/game.dto';
 
 import { ERole, type IUser } from '@tousinclus/types';
-import { ERole, IUser } from '@tousinclus/types';
 import { HTTPResponseDTO } from 'src/utils/dto/response.dto';
 import { ParseDatePipe } from 'src/utils/pipes/parse-date.pipe';
-import { ParseDatePipe } from 'src/utils/pipes/parse-date.pipe';
-import { AuthGuard } from './auth/auth.guard';
-import { Roles } from './auth/roles.decorator';
-import { RolesGuard } from './auth/roles.guard';
 // ========== Service Import ==========
 import { GameService } from './game.service';
 
