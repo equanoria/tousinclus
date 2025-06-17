@@ -6,7 +6,6 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { WebsocketService } from './websocket.service';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -15,10 +14,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ERole } from '@tousinclus/types';
-import { GameDTO } from 'src/game/dto/game.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Roles } from 'src/auth/roles/roles.decorator';
 import { RolesGuard } from 'src/auth/roles/roles.guard';
+import { GameDTO } from 'src/game/dto/game.dto';
+import { WebsocketService } from './websocket.service';
 
 @ApiTags('Notification')
 @Roles(ERole.HOST)

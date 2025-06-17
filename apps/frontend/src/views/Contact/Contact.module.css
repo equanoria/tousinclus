@@ -9,7 +9,7 @@
     display: grid;
     justify-items: center;
     gap: var(--space-400);
-    padding:var(--space-400);
+    padding: var(--space-400);
     background-color: var(--white-1000);
     border-radius: var(--radius-200);
   }

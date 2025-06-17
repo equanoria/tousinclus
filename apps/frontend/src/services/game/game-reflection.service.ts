@@ -27,7 +27,8 @@ class GameReflectionService {
   }
 
   get reflectionEndsAt() {
-    if (!this._reflectionEndsAt) throw new Error('Undefined reflection end time');
+    if (!this._reflectionEndsAt)
+      throw new Error('Undefined reflection end time');
     return this._reflectionEndsAt;
   }
 
@@ -75,7 +76,9 @@ class GameReflectionService {
       if ('answers' in data) {
         const gameData = data as IGame; // TODO: Plus jamais ça
         this._answers = gameData.answers;
-        this._reflectionEndsAt = data.reflectionEndsAt ? new Date(data.reflectionEndsAt) : undefined;
+        this._reflectionEndsAt = data.reflectionEndsAt
+          ? new Date(data.reflectionEndsAt)
+          : undefined;
 
         for (const callback of this.getAnswersCallbacks) {
           callback(payload as ISocketResponse<IGame>);
