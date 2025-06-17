@@ -35,6 +35,7 @@ export const GamesCreate = () => {
         layout="vertical"
         onFinish={handleFinish}
         style={{ maxWidth: 400, margin: '0 auto' }}
+        requiredMark="optional"
       >
         <Form.Item
           label="Parties Count"

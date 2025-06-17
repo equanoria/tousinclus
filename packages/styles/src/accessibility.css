@@ -93,5 +93,4 @@
 *:focus-visible {
   outline: 0.125rem solid var(--color-a11y-skip-content-outline);
   outline-offset: 0.25rem;
-  outline-offset: 0.25rem 3rem;
 }
