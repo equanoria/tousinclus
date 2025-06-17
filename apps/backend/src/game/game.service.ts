@@ -69,7 +69,7 @@ export class GameService {
       createdAt: new Date(),
       createdBy: user.id,
       reflectionEndsAt: null,
-      organizationName: createGameData.organisationName,
+      organizationName: createGameData.organizationName,
       playerAmount: createGameData.playerAmount,
       _id: undefined,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
@@ -143,7 +143,7 @@ export class GameService {
         createdAt: new Date(),
         createdBy: findOneGameData.createdBy,
         reflectionEndsAt: null,
-        organizationName: findOneGameData.organisationName,
+        organizationName: findOneGameData.organizationName,
         playerAmount: findOneGameData.playerAmount,
         _id: undefined,
         code: findOneGameData.code,
