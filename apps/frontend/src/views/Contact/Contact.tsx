@@ -1,9 +1,9 @@
+import { IconMail } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { Link } from '../../components/Link/Link';
 import { useAppState } from '../../context/AppStateProvider';
 import { Decoration } from '../../layouts/Decoration/Decoration';
 import styles from './Contact.module.css';
-import { IconMail } from '@tabler/icons-react';
 
 export const Contact = () => {
   const { titleManager } = useAppState();

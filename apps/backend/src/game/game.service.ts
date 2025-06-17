@@ -69,6 +69,8 @@ export class GameService {
       createdAt: new Date(),
       createdBy: user.id,
       reflectionEndsAt: null,
+      organizationName: createGameData.organizationName,
+      playerAmount: createGameData.playerAmount,
       _id: undefined,
       code: ((Math.random() * 1e6) | 0).toString().padStart(6, '0'), // Generate a 6-digit numeric code
       status: EGameStatus.WAITING,
@@ -141,6 +143,8 @@ export class GameService {
         createdAt: new Date(),
         createdBy: findOneGameData.createdBy,
         reflectionEndsAt: null,
+        organizationName: findOneGameData.organizationName,
+        playerAmount: findOneGameData.playerAmount,
         _id: undefined,
         code: findOneGameData.code,
         status: EGameStatus.WAITING,
@@ -175,7 +179,7 @@ export class GameService {
 
     if (!game) {
       // If game is not found
-      throw new Error(`Game with code ${code} not found`);
+      throw new NotFoundException(`Game with code ${code} not found`);
     }
 
     return game; // Return it with the good format

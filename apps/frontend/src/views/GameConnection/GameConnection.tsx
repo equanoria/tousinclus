@@ -10,8 +10,8 @@ import { gameService } from '../../services/game/game.service';
 import type { ISocketResponse } from '../../types/ISocketResponse';
 import styles from './GameConnection.module.css';
 
-import logo from '/src/assets/images/logo-ts.svg';
 import footerLogo from '/src/assets/images/logo-eq.svg';
+import logo from '/src/assets/images/logo-ts.svg';
 
 enum ConnectionState {
   CODE = 'code',
@@ -89,11 +89,7 @@ export const GameConnection = () => {
     <Decoration>
       <div className={clsx(styles.pageConnection, 'fillHeight')}>
         <div className={styles.container}>
-          <img
-            src={logo}
-            alt=""
-            className={styles.logo}
-          />
+          <img src={logo} alt="" className={styles.logo} />
           {(() => {
             switch (connectionState) {
               case ConnectionState.TEAM:

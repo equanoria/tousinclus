@@ -6,12 +6,12 @@ import { Checkbox } from '../../components/Checkbox/Checkbox';
 import { Deck } from '../../components/Deck/Deck';
 import { GameCard } from '../../components/GameCard/GameCard';
 import { Textarea } from '../../components/Textarea/Textarea';
+import { Timer } from '../../components/Timer/Timer';
 import { useAppState } from '../../context/AppStateProvider';
 import { directusService } from '../../services/directus/directus.service';
 import { gameReflectionService } from '../../services/game/game-reflection.service';
 import { gameService } from '../../services/game/game.service';
 import styles from './GameReflection.module.css';
-import { Timer } from '../../components/Timer/Timer';
 
 const defaultAnswer = {
   input1: '',
@@ -43,7 +43,9 @@ export const GameReflection = () => {
 
     gameReflectionService
       .onGetAnswersResponse(fetchCardGroup)
-      .onGetAnswersResponse(() => setEndTime(gameReflectionService.reflectionEndsAt));
+      .onGetAnswersResponse(() =>
+        setEndTime(gameReflectionService.reflectionEndsAt),
+      );
   }, []);
 
   const usageSituation = cardsGroup?.usage_situation;
@@ -120,7 +122,7 @@ export const GameReflection = () => {
         Trouvez des solutions pour chaque utilisateur face à la situation
         concernée
       </p>
-      <Timer endTime={endTime} className={styles.timer}/>
+      <Timer endTime={endTime} className={styles.timer} />
       {!hasStarted ? (
         <>
           <Deck cardsGroup={cardsGroup} onStart={() => setHasStarted(true)} />
@@ -199,7 +201,9 @@ export const GameReflection = () => {
                     img={directusService.getAssetUrl(usageSituation.image)}
                     alt={
                       usageSituation.context_translations?.[0]?.context ??
-                      usageSituation.description_translations?.[0].description ?? 'Situation'
+                      usageSituation.description_translations?.[0]
+                        .description ??
+                      'Situation'
                     }
                     number={usageSituation?.id}
                   />

@@ -32,9 +32,7 @@ class DirectusService {
   }
 
   async getLanguages(): Promise<TLanguage[]> {
-    return this.directusClient.request<TLanguage[]>(
-      readItems('languages'),
-    );
+    return this.directusClient.request<TLanguage[]>(readItems('languages'));
   }
 
   async getConfig(): Promise<IDirectusConfig> {
