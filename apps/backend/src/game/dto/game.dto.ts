@@ -19,6 +19,7 @@ import {
   IsOptional,
   IsString,
   ValidateNested,
+  Max,
 } from 'class-validator';
 
 // ========== DTO ==========
@@ -26,19 +27,42 @@ import {
 export class CreateGameDTO {
   @IsNumber()
   @IsOptional()
-  @ApiProperty({
+  @ApiPropertyOptional({
     description: 'Identifier of the associated deck (optional)',
     example: 1,
+    nullable: true,
   })
   deckId?: number;
 
   @IsNumber()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'Duration of the reflection part',
+  @IsOptional()
+  @Max(180)
+  @ApiPropertyOptional({
+    description:
+      'Duration of the reflection part in minutes (optional, max 180)',
     example: 15,
+    nullable: true,
+    maximum: 180,
   })
-  reflectionDuration: number;
+  reflectionDuration?: number;
+
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Organisation name (optional)',
+    example: 'Publicis',
+    nullable: true,
+  })
+  organizationName?: string;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Total amount of player (optional)',
+    example: 12,
+    nullable: true,
+  })
+  playerAmount?: number;
 }
 
 export class AnswerDataDTO implements IAnswerData {
@@ -90,20 +114,21 @@ export class AnswerDTO implements IAnswer {
 
   @IsNotEmpty()
   @Expose()
-  @ApiPropertyOptional({
+  @ApiProperty({
     description: 'Team information team1 | team2',
     enum: ETeam,
+    example: ETeam.TEAM1,
   })
   team: ETeam;
 
   @IsNotEmpty()
-  @ValidateNested() // Permet la validation de l'objet imbriqué `data`
-  @Type(() => AnswerDataDTO) // Transforme `data` en instance de `AnswerDataDTO`
+  @ValidateNested()
+  @Type(() => AnswerDataDTO)
   @Expose()
-  @ApiPropertyOptional({
+  @ApiProperty({
     description: 'Answer data',
     type: AnswerDataDTO,
-    nullable: true,
+    nullable: false,
   })
   answer: AnswerDataDTO;
 }
@@ -127,6 +152,14 @@ export class VoteDTO implements IVote {
       { team: 'team1', vote: 'team2' },
       { team: 'team2', vote: 'team1' },
     ],
+    type: 'array',
+    items: {
+      type: 'object',
+      properties: {
+        team: { type: 'string', enum: Object.values(ETeam) },
+        vote: { type: 'string', enum: Object.values(ETeam) },
+      },
+    },
   })
   votes: { team: ETeam; vote: ETeam }[];
 }
@@ -153,20 +186,60 @@ export class GameDTO implements IGame {
   @IsDate()
   @IsNotEmpty()
   @Expose({ groups: ['admin'] })
+  @ApiProperty({
+    description: 'Date of creation',
+    example: new Date().toISOString(),
+    type: String,
+    format: 'date-time',
+  })
   createdAt: Date;
 
   @IsNotEmpty()
   @Expose({ groups: ['admin'] })
+  @ApiProperty({
+    description: 'Mongo _id for the user who created the game',
+    example: '507f191e810c19729de860ea',
+  })
   createdBy: IUser['id'];
 
   @IsOptional()
   @IsDate()
   @Expose({ groups: ['room'] })
+  @ApiPropertyOptional({
+    description: 'Date when the reflection phase ends',
+    example: new Date().toISOString(),
+    type: String,
+    format: 'date-time',
+    nullable: true,
+  })
   reflectionEndsAt?: Date | null;
+
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Organisation name (optional)',
+    example: 'Publicis',
+    nullable: true,
+  })
+  organizationName?: string;
+
+  @IsNumber()
+  @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Total amount of player (optional)',
+    example: 12,
+    nullable: true,
+  })
+  playerAmount?: number;
 
   @IsOptional()
   @IsString()
   @Expose({ groups: ['admin'] })
+  @ApiPropertyOptional({
+    description: 'Mongo _id for the game records',
+    example: '507f191e810c19729de860ea',
+    nullable: true,
+  })
   _id?: string;
 
   @IsString()
@@ -191,6 +264,7 @@ export class GameDTO implements IGame {
   @ApiPropertyOptional({
     description: 'Time for Reflection phase in minutes',
     example: 60,
+    nullable: true,
   })
   reflectionDuration?: number;
 
@@ -200,6 +274,7 @@ export class GameDTO implements IGame {
   @ApiPropertyOptional({
     description: 'Card group identifier',
     example: 14,
+    nullable: true,
   })
   cardGroupId?: number;
 
@@ -209,6 +284,7 @@ export class GameDTO implements IGame {
   @ApiPropertyOptional({
     description: 'Deck identifier',
     example: 14,
+    nullable: true,
   })
   deckId?: number;
 
@@ -218,6 +294,7 @@ export class GameDTO implements IGame {
   @ApiPropertyOptional({
     description: 'First team information',
     type: TeamDTO,
+    nullable: true,
   })
   team1?: TeamDTO;
 
@@ -227,6 +304,7 @@ export class GameDTO implements IGame {
   @ApiPropertyOptional({
     description: 'Second team information',
     type: TeamDTO,
+    nullable: true,
   })
   team2?: TeamDTO;
 
@@ -236,13 +314,19 @@ export class GameDTO implements IGame {
   @Expose({ groups: ['reflection'] })
   @ApiPropertyOptional({
     description: 'Answers associated with the team',
-    type: AnswerDTO,
+    type: [AnswerDTO],
+    nullable: true,
   })
-  answers?: AnswerDTO[]; // Dynamic keys corresponding to IDs
+  answers?: AnswerDTO[];
 
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => VoteDTO)
   @Expose({ groups: ['debate'] })
+  @ApiPropertyOptional({
+    description: 'Votes for the debate phase',
+    type: [VoteDTO],
+    nullable: true,
+  })
   votes?: VoteDTO[];
 }

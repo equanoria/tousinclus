@@ -8,10 +8,7 @@ import type { IUser } from '@tousinclus/types';
 import { Cache } from 'cache-manager';
 import { JwtPayload } from 'jsonwebtoken';
 import { DirectusService } from 'src/directus/directus.service';
-
-interface IReadme {
-  id: string;
-}
+import { IReadme } from './types/readme';
 
 @Injectable()
 export class AuthService {
@@ -51,11 +48,9 @@ export class AuthService {
       return user;
     }
 
-    let decodedJwt: JwtPayload;
-    try {
-      decodedJwt = this.jwtService.decode<JwtPayload>(accessToken);
-    } catch (error) {
-      this.logger.error('Error decoding JWT', error);
+    const decodedJwt = this.jwtService.decode<JwtPayload>(accessToken);
+    if (!decodedJwt) {
+      this.logger.error('Error decoding JWT');
       throw new UnauthorizedException('Invalid token');
     }
 
@@ -69,13 +64,13 @@ export class AuthService {
     const { id } = await this.getUserId(accessToken);
     const roles = await this.directusService.getUserRoles(id);
 
-    const newUser = {
+    const newUser: IUser = {
       id,
       roles,
     };
 
     const ttl = decodedJwt.exp - now;
-    await this.cacheManager.set<IUser>(
+    await this.cacheManager.set(
       `${this.TOKEN_CACHE_KEY}:${tokenHash}`,
       newUser,
       ttl,
