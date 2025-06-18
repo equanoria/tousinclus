@@ -8,7 +8,7 @@ import type { IUser } from '@tousinclus/types';
 import { Cache } from 'cache-manager';
 import { JwtPayload } from 'jsonwebtoken';
 import { DirectusService } from 'src/directus/directus.service';
-import { IReadme } from './types/Readme';
+import { IReadme } from './types/readme';
 
 @Injectable()
 export class AuthService {
