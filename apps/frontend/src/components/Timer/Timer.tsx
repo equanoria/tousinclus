@@ -1,18 +1,14 @@
 import { IconBellRinging } from '@tabler/icons-react';
-import clsx from 'clsx';
-import { useEffect, useState, type ComponentPropsWithoutRef } from 'react';
-import styles from './Timer.module.css';
 import { localeManager } from '@tousinclus/managers';
+import clsx from 'clsx';
+import { type ComponentPropsWithoutRef, useEffect, useState } from 'react';
+import styles from './Timer.module.css';
 
 export interface TimerProps extends ComponentPropsWithoutRef<'div'> {
   endTime: Date;
 }
 
-export const Timer = ({
-  className,
-  endTime,
-  ...props
-}: TimerProps) => {
+export const Timer = ({ className, endTime, ...props }: TimerProps) => {
   const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(0);
 
   useEffect(() => {
@@ -33,19 +29,30 @@ export const Timer = ({
     const locale = localeManager.getLocale();
 
     const numberFormat = (value: number, unit: 'hour' | 'minute' | 'second') =>
-      new Intl.NumberFormat(locale.code, { style: 'unit', unit }).formatToParts(value);
+      new Intl.NumberFormat(locale.code, { style: 'unit', unit }).formatToParts(
+        value,
+      );
 
-      const buildUnitSpan = (value: number, unit: 'hour' | 'minute' | 'second', key: string) => {
-        const parts = numberFormat(value, unit);
+    const buildUnitSpan = (
+      value: number,
+      unit: 'hour' | 'minute' | 'second',
+      key: string,
+    ) => {
+      const parts = numberFormat(value, unit);
 
-        return (
-          <span key={key}>
-            {parts.map((part) => (
-              <span key={`${part.type}-${part.value}`} className={styles[part.type]}>{part.value}</span>
-            ))}
-          </span>
-        );
-      };
+      return (
+        <span key={key}>
+          {parts.map((part) => (
+            <span
+              key={`${part.type}-${part.value}`}
+              className={styles[part.type]}
+            >
+              {part.value}
+            </span>
+          ))}
+        </span>
+      );
+    };
 
     const hours = Math.floor(remaining / 3600);
     if (hours > 0) {
@@ -64,7 +71,6 @@ export const Timer = ({
     return formattedParts;
   };
 
-
   const formatDateTime = (totalSeconds: number): string => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -73,7 +79,7 @@ export const Timer = ({
     return [
       String(hours).padStart(2, '0'),
       String(minutes).padStart(2, '0'),
-      String(seconds).padStart(2, '0')
+      String(seconds).padStart(2, '0'),
     ].join(':');
   };
 
@@ -82,7 +88,10 @@ export const Timer = ({
   return (
     <div className={classes} {...props}>
       <IconBellRinging />
-      <time dateTime={formatDateTime(timeLeftInSeconds)} className={styles.time}>
+      <time
+        dateTime={formatDateTime(timeLeftInSeconds)}
+        className={styles.time}
+      >
         {formatTime(timeLeftInSeconds)}
       </time>
     </div>

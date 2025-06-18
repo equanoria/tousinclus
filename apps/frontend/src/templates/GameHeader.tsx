@@ -1,6 +1,6 @@
-import { IconInfoCircle } from "@tabler/icons-react";
-import { Button } from "../components/Button/Button";
-import type { ReactNode } from "react";
+import { IconInfoCircle } from '@tabler/icons-react';
+import type { ReactNode } from 'react';
+import { Button } from '../components/Button/Button';
 
 export const GameHeader = ({ children }: { children: ReactNode }) => {
   return (

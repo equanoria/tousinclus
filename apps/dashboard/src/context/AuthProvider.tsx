@@ -25,6 +25,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const loadCurrentUser = async () => {
+      const currentUser = await withLoading(() => authService.getUser());
+
+      setUser(currentUser);
+    };
+
     loadCurrentUser();
   }, []);
 
@@ -35,12 +41,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const loadCurrentUser = async () => {
-    const currentUser = await withLoading(() => authService.getUser());
-
-    setUser(currentUser);
   };
 
   const login = async (credentials: ICredentials) => {

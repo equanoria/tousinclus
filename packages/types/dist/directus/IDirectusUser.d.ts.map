@@ -1,1 +1,0 @@
-{"version":3,"file":"IDirectusUser.d.ts","sourceRoot":"","sources":["../../src/directus/IDirectusUser.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,aAAa;IAC5B,EAAE,EAAE,MAAM,CAAC;IACX,UAAU,EAAE,MAAM,GAAG,IAAI,CAAC;IAC1B,SAAS,EAAE,MAAM,GAAG,IAAI,CAAC;IACzB,KAAK,EAAE,MAAM,GAAG,IAAI,CAAC;CACtB"}
