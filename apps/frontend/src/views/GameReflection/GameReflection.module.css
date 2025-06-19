@@ -125,7 +125,6 @@
 .arrowRight,
 .arrowLeft {
   position: absolute;
-  width: min-content;
   padding: var(--space-200) var(--space-300);
   bottom: 30%;
 }

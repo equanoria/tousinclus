@@ -1,7 +1,8 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import tousinclusLogo from '../../assets/images/logo-tousinclus.svg';
 import { useAuth } from '../../context/AuthProvider';
 import type { ICredentials } from '../../services/auth/auth.service';
 import { directusService } from '../../services/directus/directus.service';
@@ -23,6 +24,7 @@ export const Login = () => {
   }, [user, navigate]);
 
   const onFinish = (credentials: ICredentials) => {
+    setLoading(true);
     login(credentials).catch(() => {
       form.setFields([
         {
@@ -38,7 +40,7 @@ export const Login = () => {
   return (
     <section className={clsx(styles.pageLogin, 'fillHeight')}>
       <div className={styles.pageLoginHeader}>
-        <img src="./tousinclus-blue.svg" alt="" />
+        <img src={tousinclusLogo} alt="" />
         <h1 className={`${styles.title} titlePage`}>dashboard</h1>
       </div>
 
@@ -49,6 +51,7 @@ export const Login = () => {
         onFinish={onFinish}
         scrollToFirstError
         className={styles.connectionForm}
+        requiredMark="optional"
       >
         <Form.Item
           wrapperCol={{ span: 24 }}
@@ -87,7 +90,6 @@ export const Login = () => {
             type="primary"
             htmlType="submit"
             loading={loading}
-            onClick={() => setLoading(true)}
           >
             Se connecter
           </Button>
@@ -96,7 +98,9 @@ export const Login = () => {
         <Form.Item>
           <p className={styles.forgotPassword}>
             Mot de passe oublié ?{' '}
-            <a href={directusService.resetPasswordUrl}>Réinitialiser</a>
+            <Typography.Link href={directusService.resetPasswordUrl}>
+              Réinitialiser
+            </Typography.Link>
           </p>
         </Form.Item>
       </Form>
