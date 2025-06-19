@@ -1,5 +1,5 @@
 import type { IGame } from '@tousinclus/types';
-import { Button, Form, InputNumber, Select } from 'antd';
+import { Button, Form, Input, InputNumber, Select } from 'antd';
 import { useEffect, useState } from 'react';
 import { backendService } from '../../../services/backend/backend.service';
 import type { ICreateGames } from '../../../services/backend/interfaces/CreateGames';
@@ -54,6 +54,18 @@ export const GamesCreate = () => {
         </Form.Item>
 
         <Form.Item
+          label="Organization Name"
+          name="organizationName"
+          rules={[{ required: true, message: 'Please enter the organization name' }]}
+        >
+          <Input
+            style={{ width: '100%' }}
+            type="text"
+            placeholder="Enter organization name"
+          />
+        </Form.Item>
+
+        <Form.Item
           label="Reflection Duration (minutes)"
           name="reflectionDuration"
           initialValue={45}
@@ -64,6 +76,20 @@ export const GamesCreate = () => {
           <InputNumber
             min={1}
             max={180}
+            style={{ width: '100%' }}
+            type="number"
+          />
+        </Form.Item>
+
+        <Form.Item
+          label="Player Amount"
+          name="playerAmount"
+          initialValue={4}
+          rules={[{ required: true, message: 'Please enter the player amount' }]}
+        >
+          <InputNumber
+            min={1}
+            max={20}
             style={{ width: '100%' }}
             type="number"
           />

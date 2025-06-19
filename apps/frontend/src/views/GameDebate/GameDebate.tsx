@@ -33,7 +33,7 @@ export const GameDebate = () => {
       .onError((error) => {
         if (error === 'consensus')
           setNotification(
-            'Vous et l\'équipe adverse avez voté pour une solution différente, vous devez choisir la même fiche.',
+            "Vous et l'équipe adverse avez voté pour une solution différente, vous devez choisir la même fiche.",
           );
       })
       .onNextVote((payload) => {

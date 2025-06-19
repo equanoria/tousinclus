@@ -1,11 +1,10 @@
+import { StyleProvider, px2remTransformer } from '@ant-design/cssinjs';
 import { ConfigProvider } from 'antd';
-import { px2remTransformer, StyleProvider } from '@ant-design/cssinjs';
 import { type ReactNode, createContext } from 'react';
 
 const AntDesignContext = createContext({});
 
 export const AntDesignProvider = ({ children }: { children: ReactNode }) => {
-
   return (
     <AntDesignContext.Provider value={{}}>
       <ConfigProvider
@@ -15,10 +14,7 @@ export const AntDesignProvider = ({ children }: { children: ReactNode }) => {
           },
         }}
       >
-        <StyleProvider
-          hashPriority="high"
-          transformers={[px2remTransformer()]}
-        >
+        <StyleProvider hashPriority="high" transformers={[px2remTransformer()]}>
           {children}
         </StyleProvider>
       </ConfigProvider>

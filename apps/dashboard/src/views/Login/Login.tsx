@@ -2,11 +2,11 @@ import { Button, Form, Input, Typography } from 'antd';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import tousinclusLogo from '../../assets/images/logo-tousinclus.svg';
 import { useAuth } from '../../context/AuthProvider';
 import type { ICredentials } from '../../services/auth/auth.service';
 import { directusService } from '../../services/directus/directus.service';
 import styles from './Login.module.css';
-import tousinclusLogo from '../../assets/images/logo-tousinclus.svg';
 
 const messages = {
   email: 'Veuillez entrer une adresse e-mail valide',
@@ -98,7 +98,9 @@ export const Login = () => {
         <Form.Item>
           <p className={styles.forgotPassword}>
             Mot de passe oublié ?{' '}
-            <Typography.Link href={directusService.resetPasswordUrl}>Réinitialiser</Typography.Link>
+            <Typography.Link href={directusService.resetPasswordUrl}>
+              Réinitialiser
+            </Typography.Link>
           </p>
         </Form.Item>
       </Form>
