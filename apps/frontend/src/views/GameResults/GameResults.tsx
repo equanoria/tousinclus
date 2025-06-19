@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import characterWinner from 'src/assets/images/character-winner.svg';
 import { Button } from '../../components/Button/Button';
 import { Link } from '../../components/Link/Link';
 import { Team } from '../../components/Team/Team';
@@ -47,7 +48,7 @@ export const GameResults = () => {
     <section className={styles.gameResults}>
       <div className={styles.content}>
         <h1 className={styles.title_hero}>Bravo à tous</h1>
-        <img src="src/assets/images/character-winner.svg" alt="" />
+        <img src={characterWinner} alt="" />
         <div className={styles.resultsContainer}>
           <Team
             team="team1"

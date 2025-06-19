@@ -89,7 +89,7 @@ class BackendService {
     };
     const response = await fetch(
       `${this.backendUrl}/${url.startsWith('/') ? url.slice(1) : url}`,
-      { method: 'GET', headers }
+      { method: 'GET', headers },
     );
     if (!response.ok) {
       throw response;

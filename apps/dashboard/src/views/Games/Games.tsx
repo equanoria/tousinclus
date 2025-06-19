@@ -18,7 +18,7 @@ export const Games = () => {
   };
 
   const handleDeleteGame = async (code: string) => {
-    backendService.deleteGame(code);
+    await backendService.deleteGame(code);
     fetchGames();
   };
 

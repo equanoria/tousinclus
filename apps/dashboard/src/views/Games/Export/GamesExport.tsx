@@ -33,7 +33,7 @@ export const GamesExport = () => {
       <input
         type="date"
         value={date}
-        onChange={e => setDate(e.target.value)}
+        onChange={(e) => setDate(e.target.value)}
         disabled={loading}
       />
       <button type="button" onClick={handleExport} disabled={!date || loading}>

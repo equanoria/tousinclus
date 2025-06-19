@@ -56,7 +56,9 @@ export const GamesCreate = () => {
         <Form.Item
           label="Organization Name"
           name="organizationName"
-          rules={[{ required: true, message: 'Please enter the organization name' }]}
+          rules={[
+            { required: true, message: 'Please enter the organization name' },
+          ]}
         >
           <Input
             style={{ width: '100%' }}
@@ -85,7 +87,9 @@ export const GamesCreate = () => {
           label="Player Amount"
           name="playerAmount"
           initialValue={4}
-          rules={[{ required: true, message: 'Please enter the player amount' }]}
+          rules={[
+            { required: true, message: 'Please enter the player amount' },
+          ]}
         >
           <InputNumber
             min={1}
