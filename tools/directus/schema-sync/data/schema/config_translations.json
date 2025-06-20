@@ -115,7 +115,7 @@
         "name": "cards_situation_name",
         "table": "config_translations",
         "data_type": "character varying",
-        "default_value": "situation d'usage",
+        "default_value": "situation d''usage",
         "max_length": 255,
         "numeric_precision": null,
         "numeric_scale": null,

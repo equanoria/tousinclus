@@ -52,7 +52,9 @@
         "readonly": false,
         "required": false,
         "sort": 2,
-        "special": ["file"],
+        "special": [
+          "file"
+        ],
         "translations": [
           {
             "language": "fr-FR",
@@ -153,7 +155,9 @@
         "readonly": false,
         "required": false,
         "sort": 3,
-        "special": ["translations"],
+        "special": [
+          "translations"
+        ],
         "translations": [
           {
             "language": "fr-FR",

@@ -18,7 +18,16 @@
     "singleton": false,
     "sort": 6,
     "sort_field": null,
-    "translations": null,
+    "translations": [
+      {
+        "language": "en-US",
+        "translation": "Groups"
+      },
+      {
+        "language": "fr-FR",
+        "translation": "Groupe"
+      }
+    ],
     "unarchive_value": null,
     "versioning": false
   },
@@ -46,15 +55,17 @@
         "readonly": false,
         "required": true,
         "sort": 3,
-        "special": ["m2m"],
+        "special": [
+          "m2m"
+        ],
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Groupes"
+            "translation": "Decks"
           },
           {
             "language": "en-US",
-            "translation": "Groups"
+            "translation": "Decks"
           }
         ],
         "validation": null,
@@ -129,15 +140,17 @@
         "readonly": false,
         "required": true,
         "sort": 2,
-        "special": ["translations"],
+        "special": [
+          "translations"
+        ],
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Titre deck"
+            "translation": "Titre groupe"
           },
           {
             "language": "en-US",
-            "translation": "Deck title"
+            "translation": "Group title"
           }
         ],
         "validation": null,

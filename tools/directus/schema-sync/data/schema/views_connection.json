@@ -36,14 +36,14 @@
   },
   "fields": [
     {
-      "field": "BUTTON",
+      "field": "BUTTON_CONNECTION",
       "type": "string",
       "meta": {
         "collection": "views_connection",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "BUTTON",
+        "field": "BUTTON_CONNECTION",
         "group": null,
         "hidden": false,
         "interface": "input",
@@ -59,7 +59,7 @@
             "translation": "Bouton connexion"
           },
           {
-            "language": "en-US",
+            "language": "fr-FR",
             "translation": "Connection button"
           }
         ],
@@ -68,7 +68,109 @@
         "width": "full"
       },
       "schema": {
-        "name": "BUTTON",
+        "name": "BUTTON_CONNECTION",
+        "table": "views_connection",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "BUTTON_TEAM1",
+      "type": "string",
+      "meta": {
+        "collection": "views_connection",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "BUTTON_TEAM1",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Bouton équipe 1"
+          },
+          {
+            "language": "fr-FR",
+            "translation": "Team 1 button"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "BUTTON_TEAM1",
+        "table": "views_connection",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "BUTTON_TEAM2",
+      "type": "string",
+      "meta": {
+        "collection": "views_connection",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "BUTTON_TEAM2",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Bouton équipe 2"
+          },
+          {
+            "language": "fr-FR",
+            "translation": "Team 2 button"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "BUTTON_TEAM2",
         "table": "views_connection",
         "data_type": "character varying",
         "default_value": null,
@@ -213,6 +315,57 @@
       },
       "schema": {
         "name": "PLACEHOLDER",
+        "table": "views_connection",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "WAITING_MESSAGE",
+      "type": "string",
+      "meta": {
+        "collection": "views_connection",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "WAITING_MESSAGE",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Message d'attente"
+          },
+          {
+            "language": "fr-FR",
+            "translation": "Waiting message"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "WAITING_MESSAGE",
         "table": "views_connection",
         "data_type": "character varying",
         "default_value": null,
