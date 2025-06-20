@@ -21,11 +21,11 @@
     "translations": [
       {
         "language": "en-US",
-        "translation": "Cards groups"
+        "translation": "Deck"
       },
       {
         "language": "fr-FR",
-        "translation": "Groupes de cartes"
+        "translation": "Deck"
       }
     ],
     "unarchive_value": null,
@@ -55,7 +55,9 @@
         "readonly": false,
         "required": true,
         "sort": 4,
-        "special": ["m2m"],
+        "special": [
+          "m2m"
+        ],
         "translations": [
           {
             "language": "fr-FR",
@@ -138,15 +140,17 @@
         "readonly": false,
         "required": false,
         "sort": 2,
-        "special": ["translations"],
+        "special": [
+          "translations"
+        ],
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Titre groupe"
+            "translation": "Titre deck"
           },
           {
             "language": "en-US",
-            "translation": "Group title"
+            "translation": "Deck title"
           }
         ],
         "validation": null,
@@ -174,7 +178,9 @@
         "readonly": false,
         "required": true,
         "sort": 3,
-        "special": ["m2o"],
+        "special": [
+          "m2o"
+        ],
         "translations": [
           {
             "language": "fr-FR",
