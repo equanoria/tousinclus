@@ -1,9 +1,11 @@
 import type { IGame } from '@tousinclus/types';
 import { Button, Form, Input, InputNumber, Select } from 'antd';
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { backendService } from '../../../services/backend/backend.service';
 import type { ICreateGames } from '../../../services/backend/interfaces/CreateGames';
 import { directusService } from '../../../services/directus/directus.service';
+import classes from './GamesCreate.module.css';
 
 const { Option } = Select;
 
@@ -29,110 +31,126 @@ export const GamesCreate = () => {
   };
 
   return (
-    <section>
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={handleFinish}
-        style={{ maxWidth: 400, margin: '0 auto' }}
-        requiredMark="optional"
-      >
-        <Form.Item
-          label="Parties Count"
-          name="count"
-          initialValue={1}
-          rules={[
-            { required: true, message: 'Please enter the number of parties' },
-          ]}
+    <section className={clsx(classes.gamesCreate, 'fillHeight', 'maxWidth')}>
+      <section>
+        <h1 className="title">Création d’une partie</h1>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleFinish}
+          requiredMark="optional"
+          className={classes.createForm}
         >
-          <InputNumber
-            min={1}
-            max={20}
-            style={{ width: '100%' }}
-            type="number"
-          />
-        </Form.Item>
+          <div>
+            <h2>Étape 1 : choisissez le nombre de parties à créer</h2>
+            <Form.Item
+              label="Nombre de parties"
+              name="count"
+              initialValue={1}
+              rules={[
+                {
+                  required: true,
+                  message: 'Veuillez préciser le nombre de parties à créer',
+                },
+              ]}
+            >
+              <InputNumber
+                min={1}
+                max={20}
+                style={{ width: '100%' }}
+                type="number"
+              />
+            </Form.Item>
+          </div>
 
-        <Form.Item
-          label="Organization Name"
-          name="organizationName"
-          rules={[
-            { required: true, message: 'Please enter the organization name' },
-          ]}
-        >
-          <Input
-            style={{ width: '100%' }}
-            type="text"
-            placeholder="Enter organization name"
-          />
-        </Form.Item>
+          <div>
+            <h2>Étape 2 : configurez les parties à créer</h2>
+            <Form.Item
+              label="Nom de l’organisation participante"
+              name="organizationName"
+              rules={[
+                {
+                  required: true,
+                  message: 'Veuillez entrer le nom de l’organisation',
+                },
+              ]}
+            >
+              <Input
+                style={{ width: '100%' }}
+                type="text"
+                placeholder="MonEntreprise"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Durée phase de réflexion (en minutes)"
+              name="reflectionDuration"
+              initialValue={45}
+              rules={[
+                {
+                  required: true,
+                  message: 'Veuillez entrer la durée de la phase de réflexion',
+                },
+              ]}
+            >
+              <InputNumber
+                min={1}
+                max={180}
+                style={{ width: '100%' }}
+                type="number"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Nombre de joueurs"
+              name="playerAmount"
+              initialValue={4}
+              rules={[
+                {
+                  required: true,
+                  message:
+                    'Veuillez entrer le nombre de joueurs présents dans chaque partie',
+                },
+              ]}
+            >
+              <InputNumber
+                min={1}
+                max={20}
+                style={{ width: '100%' }}
+                type="number"
+              />
+            </Form.Item>
+            <Form.Item label="Deck personnalisé" name="deckId">
+              <Select placeholder="Deck" allowClear>
+                {deckGroups.length > 0 &&
+                  deckGroups.map((deck) => (
+                    <Option key={deck.id} value={deck.id}>
+                      Deck {deck.id}
+                    </Option>
+                  ))}
+              </Select>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" block>
+                Create Game
+              </Button>
+            </Form.Item>
+          </div>
+        </Form>
+      </section>
 
-        <Form.Item
-          label="Reflection Duration (minutes)"
-          name="reflectionDuration"
-          initialValue={45}
-          rules={[
-            { required: true, message: 'Please enter the party duration' },
-          ]}
-        >
-          <InputNumber
-            min={1}
-            max={180}
-            style={{ width: '100%' }}
-            type="number"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Player Amount"
-          name="playerAmount"
-          initialValue={4}
-          rules={[
-            { required: true, message: 'Please enter the player amount' },
-          ]}
-        >
-          <InputNumber
-            min={1}
-            max={20}
-            style={{ width: '100%' }}
-            type="number"
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Deck Group"
-          name="deckId"
-          rules={[{ required: true, message: 'Please select a deck' }]}
-        >
-          <Select placeholder="Select a deck">
-            {deckGroups.length > 0 &&
-              deckGroups.map((deck) => (
-                <Option key={deck.id} value={deck.id}>
-                  Deck {deck.id}
-                </Option>
+      <section>
+        {createdGames.length > 0 && (
+          <div className={classes.createdGames}>
+            <h2>Parties créées ✅</h2>
+            <ol>
+              {createdGames.map((game) => (
+                <li key={`${game.code}-${game.createdAt}`}>
+                  <em>{game.code}</em>
+                </li>
               ))}
-          </Select>
-        </Form.Item>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" block>
-            Create Game
-          </Button>
-        </Form.Item>
-      </Form>
-
-      {createdGames.length > 0 && (
-        <div>
-          <h3>Created Games:</h3>
-          <ul>
-            {createdGames.map((game) => (
-              <li key={`${game.code}-${game.createdAt}`}>
-                <h4>{game.code}</h4>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+            </ol>
+          </div>
+        )}
+      </section>
     </section>
   );
 };

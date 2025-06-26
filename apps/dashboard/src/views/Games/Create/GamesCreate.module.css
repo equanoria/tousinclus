@@ -1,0 +1,58 @@
+.gamesCreate {
+  display: flex;
+  justify-content: space-between;
+}
+
+.createForm {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 25rem;
+
+  h2 {
+    margin-block-end: 1rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-wrap: pretty;
+    line-height: 1;
+  }
+}
+
+.createdGames {
+  display: grid;
+  width: 20rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  border: 0.125rem solid #f0f0f0;
+  background-color: #FFFFFF;
+
+  h2 {
+    padding: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    border-block-end: 0.125rem solid #f0f0f0;
+  }
+
+  ol {
+    display: grid;
+    gap: 0.5rem;
+    list-style:lower-latin;
+
+    &::marker {
+      color: #6C00FF;
+    }
+
+    em {
+      font-style: normal;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    li {
+      padding: 1.5rem;
+    }
+
+    li:not(:last-child) {
+      border-block-end: 0.125rem solid #f0f0f0;
+    }
+  }
+}

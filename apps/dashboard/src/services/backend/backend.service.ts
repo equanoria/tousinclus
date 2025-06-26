@@ -80,6 +80,10 @@ class BackendService {
     return this.delete(`/game/${code}`);
   }
 
+  async deleteAllGames(): Promise<void> {
+    return this.delete('/game');
+  }
+
   async exportGames(date: Date): Promise<Blob> {
     const formattedDate = date.toISOString().split('T')[0];
     const url = `/game/export/${formattedDate}.csv`;

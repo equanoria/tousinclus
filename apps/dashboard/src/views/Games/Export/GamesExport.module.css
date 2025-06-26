@@ -1,0 +1,12 @@
+.gamesExport {
+  display: grid;
+  align-content: center;
+
+  form {
+    max-width: 20rem;
+
+    div {
+      width: 100%;
+    }
+  }
+}

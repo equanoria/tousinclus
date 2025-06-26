@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import { backendService } from '../../../services/backend/backend.service';
+import clsx from 'clsx';
+import classes from './GamesExport.module.css';
+import { DatePicker, Button, Alert, Form } from 'antd';
+import dayjs from 'dayjs';
 
 export const GamesExport = () => {
   const [date, setDate] = useState<string>('');
@@ -21,7 +25,7 @@ export const GamesExport = () => {
       a.remove();
       window.URL.revokeObjectURL(url);
     } catch (err) {
-      setError('Export failed');
+      setError('Aucune partie trouvée à cette date');
       console.error(err);
     } finally {
       setLoading(false);
@@ -29,18 +33,63 @@ export const GamesExport = () => {
   };
 
   return (
-    <div>
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        disabled={loading}
-      />
-      <button type="button" onClick={handleExport} disabled={!date || loading}>
-        {loading ? 'Exporting...' : 'Export Games'}
-      </button>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-    </div>
+    <section className={clsx('fillHeight', 'maxWidth', classes.gamesExport)}>
+      <div>
+      <hgroup className="title">
+        <h1>Export des parties</h1>
+        <p>Exportez toutes les parties pour une date donnée</p>
+      </hgroup>
+      <Form
+        layout="vertical"
+        onFinish={handleExport}
+        requiredMark="optional"
+      >
+        <Form.Item
+        label="Date d'export"
+        name="date"
+        rules={[{ required: true, message: 'Veuillez sélectionner une date' }]}
+        >
+        <DatePicker
+          value={date ? dayjs(date) : null}
+          onChange={(_, dateString) => {
+          if (typeof dateString === 'string') {
+            const parsed = dayjs(dateString, 'DD-MM-YYYY');
+            if (parsed.isValid()) {
+            setDate(parsed.format('YYYY-MM-DD'));
+            } else {
+            setDate('');
+            }
+          } else {
+            setDate('');
+          }
+          }}
+          maxDate={dayjs().endOf('day')}
+          disabled={loading}
+          placeholder="Date"
+          format={'DD-MM-YYYY'}
+        />
+        </Form.Item>
+        <Form.Item>
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={loading}
+        >
+          Télécharger les parties
+        </Button>
+        </Form.Item>
+        {error && (
+          <Alert
+            type="warning"
+            message={error}
+            showIcon
+            closable
+            onClose={() => setError(null)}
+          />
+        )}
+      </Form>
+      </div>
+    </section>
   );
 };
 

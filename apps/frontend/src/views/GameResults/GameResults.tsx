@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import characterWinner from 'src/assets/images/character-winner.svg';
+import characterWinner from '../../assets/images/character-winner.svg';
 import { Button } from '../../components/Button/Button';
 import { Link } from '../../components/Link/Link';
 import { Team } from '../../components/Team/Team';
