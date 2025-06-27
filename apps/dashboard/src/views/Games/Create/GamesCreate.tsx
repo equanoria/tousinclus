@@ -130,7 +130,7 @@ export const GamesCreate = () => {
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" block>
-                Create Game
+                Générer les parties
               </Button>
             </Form.Item>
           </div>

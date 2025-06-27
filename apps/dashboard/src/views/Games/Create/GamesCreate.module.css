@@ -35,20 +35,34 @@
   ol {
     display: grid;
     gap: 0.5rem;
-    list-style:lower-latin;
-
-    &::marker {
-      color: #6C00FF;
-    }
+    list-style: none;
+    counter-reset: custom-counter;
 
     em {
       font-style: normal;
       font-size: 1.5rem;
       font-weight: 600;
+      user-select: all;
     }
 
     li {
       padding: 1.5rem;
+      counter-increment: custom-counter;
+      position: relative;
+
+      &::before {
+        content: "#" counter(custom-counter);
+        margin-right: 0.5em;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0.25rem 1rem;
+        margin-inline-start: 1rem;
+        font-weight: 300;
+        background-color: #FAFAFA;
+        border-radius: 0.25rem;
+      }
     }
 
     li:not(:last-child) {
