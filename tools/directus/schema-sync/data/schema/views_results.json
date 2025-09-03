@@ -1,12 +1,12 @@
 {
-  "collection": "views_teams",
+  "collection": "views_results",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": null,
     "archive_value": null,
     "collapse": "open",
-    "collection": "views_teams",
+    "collection": "views_results",
     "color": "#81E1EE",
     "display_template": null,
     "group": "views",
@@ -16,35 +16,34 @@
     "note": null,
     "preview_url": null,
     "singleton": true,
-    "sort": 2,
+    "sort": 6,
     "sort_field": null,
     "translations": [
       {
         "language": "en-US",
-        "singular": null,
-        "translation": "View choosing team"
+        "translation": "Results view"
       },
       {
         "language": "fr-FR",
-        "translation": "Page choix équipe"
+        "translation": "Page résultats"
       }
     ],
     "unarchive_value": null,
     "versioning": false
   },
   "schema": {
-    "name": "views_teams"
+    "name": "views_results"
   },
   "fields": [
     {
-      "field": "BUTTON1",
+      "field": "BUTTON_EXIT",
       "type": "string",
       "meta": {
-        "collection": "views_teams",
+        "collection": "views_results",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "BUTTON1",
+        "field": "BUTTON_EXIT",
         "group": null,
         "hidden": false,
         "interface": "input",
@@ -52,16 +51,16 @@
         "options": null,
         "readonly": false,
         "required": true,
-        "sort": 3,
+        "sort": 5,
         "special": null,
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Bouton équipe 1"
+            "translation": "Bouton quitter"
           },
           {
             "language": "en-US",
-            "translation": "Team 1 button"
+            "translation": "Exit button"
           }
         ],
         "validation": null,
@@ -69,8 +68,8 @@
         "width": "full"
       },
       "schema": {
-        "name": "BUTTON1",
-        "table": "views_teams",
+        "name": "BUTTON_EXIT",
+        "table": "views_results",
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
@@ -88,14 +87,14 @@
       }
     },
     {
-      "field": "BUTTON2",
+      "field": "BUTTON_REPLAY",
       "type": "string",
       "meta": {
-        "collection": "views_teams",
+        "collection": "views_results",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "BUTTON2",
+        "field": "BUTTON_REPLAY",
         "group": null,
         "hidden": false,
         "interface": "input",
@@ -103,16 +102,16 @@
         "options": null,
         "readonly": false,
         "required": true,
-        "sort": 4,
+        "sort": 6,
         "special": null,
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Bouton équipe 2"
+            "translation": "Bouton rejouer"
           },
           {
             "language": "en-US",
-            "translation": "Team 2 button"
+            "translation": "Replay button"
           }
         ],
         "validation": null,
@@ -120,8 +119,8 @@
         "width": "full"
       },
       "schema": {
-        "name": "BUTTON2",
-        "table": "views_teams",
+        "name": "BUTTON_REPLAY",
+        "table": "views_results",
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
@@ -142,7 +141,7 @@
       "field": "id",
       "type": "integer",
       "meta": {
-        "collection": "views_teams",
+        "collection": "views_results",
         "conditions": null,
         "display": null,
         "display_options": null,
@@ -163,7 +162,7 @@
       },
       "schema": {
         "name": "id",
-        "table": "views_teams",
+        "table": "views_results",
         "data_type": "integer",
         "default_value": null,
         "max_length": null,
@@ -181,14 +180,116 @@
       }
     },
     {
-      "field": "WAITING_MESSAGE",
+      "field": "POINTS",
       "type": "string",
       "meta": {
-        "collection": "views_teams",
+        "collection": "views_results",
         "conditions": null,
         "display": null,
         "display_options": null,
-        "field": "WAITING_MESSAGE",
+        "field": "POINTS",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Points"
+          },
+          {
+            "language": "fr-FR",
+            "translation": "Points"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "POINTS",
+        "table": "views_results",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "SCORE",
+      "type": "string",
+      "meta": {
+        "collection": "views_results",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "SCORE",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "fr-FR",
+            "translation": "Score"
+          },
+          {
+            "language": "en-US",
+            "translation": "Score"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "SCORE",
+        "table": "views_results",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "field": "TITLE",
+      "type": "string",
+      "meta": {
+        "collection": "views_results",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "TITLE",
         "group": null,
         "hidden": false,
         "interface": "input",
@@ -201,11 +302,11 @@
         "translations": [
           {
             "language": "fr-FR",
-            "translation": "Message d'attente"
+            "translation": "Titre de la page"
           },
           {
             "language": "en-US",
-            "translation": "Waiting message"
+            "translation": "Page title"
           }
         ],
         "validation": null,
@@ -213,8 +314,8 @@
         "width": "full"
       },
       "schema": {
-        "name": "WAITING_MESSAGE",
-        "table": "views_teams",
+        "name": "TITLE",
+        "table": "views_results",
         "data_type": "character varying",
         "default_value": null,
         "max_length": 255,
