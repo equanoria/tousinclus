@@ -162,6 +162,9 @@ importers:
       '@ant-design/cssinjs':
         specifier: ^1.23.0
         version: 1.23.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ant-design/icons':
+        specifier: 5.x
+        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@directus/sdk':
         specifier: ^19.1.0
         version: 19.1.0
@@ -183,6 +186,12 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
+      deepmerge:
+        specifier: ^4.3.1
+        version: 4.3.1
       react:
         specifier: ^18.3.1
         version: 18.3.1

@@ -1,6 +1,7 @@
 import { StyleProvider, px2remTransformer } from '@ant-design/cssinjs';
 import { ConfigProvider } from 'antd';
 import { type ReactNode, createContext } from 'react';
+import { fr_FR_OVERRIDE } from '../locales/fr-FR';
 
 const AntDesignContext = createContext({});
 
@@ -10,9 +11,14 @@ export const AntDesignProvider = ({ children }: { children: ReactNode }) => {
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: '#306EF0',
+            colorPrimary: '#6200FF',
+            fontSize: 16,
+            fontFamily: 'Gotham',
+            colorLink: '#6200FF',
           },
+          cssVar: { key: 'app' },
         }}
+        locale={fr_FR_OVERRIDE}
       >
         <StyleProvider hashPriority="high" transformers={[px2remTransformer()]}>
           {children}

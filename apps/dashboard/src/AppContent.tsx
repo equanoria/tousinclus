@@ -1,14 +1,15 @@
-import { Link, Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAuth } from './context/AuthProvider';
 import { ProtectedRoute } from './layouts/ProtectedRoute/ProtectedRoute';
+import { Footer } from './templates/Footer/Footer';
+import { Header } from './templates/Header/Header';
 import { GamesCreate } from './views/Games/Create/GamesCreate';
 import { GamesExport } from './views/Games/Export/GamesExport';
 import { Games } from './views/Games/Games';
 import { Login } from './views/Login/Login';
 
 export const AppContent = () => {
-  const { user, logout } = useAuth();
-
+  const { user } = useAuth();
   return (
     <>
       <nav className="a11y-skip-content" aria-label="Navigation rapide">
@@ -21,6 +22,8 @@ export const AppContent = () => {
           </li>
         </ul>
       </nav>
+
+      {user && <Header />}
 
       <main id="main">
         <Routes>
@@ -54,19 +57,7 @@ export const AppContent = () => {
         </Routes>
       </main>
 
-      <footer>
-        <nav aria-label="Navigation du site">
-          <Link to={Games.path}>Liste des parties</Link>
-          <Link to={GamesCreate.path}>Nouvelle partie</Link>
-          <Link to={GamesExport.path}>Export</Link>
-
-          {user && (
-            <Link to={Login.path} onClick={() => logout()}>
-              Déconnexion
-            </Link>
-          )}
-        </nav>
-      </footer>
+      {user && <Footer />}
     </>
   );
 };

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100svh;
+  background-color: #fafafa;
 
   main:has(.fillHeight) {
     z-index: 0;
@@ -9,20 +10,10 @@
     display: grid;
   }
 
-  > header {
-    display: flex;
-    justify-content: flex-end;
-    padding: var(--space-400) var(--space-800);
-  }
-
-  > footer {
-    display: grid;
-    place-items: center;
-    margin-bottom: var(--space-800);
-
-    nav {
-      display: flex;
-      gap: var(--space-600);
-    }
+  main:has(.maxWidth) {
+    max-width: 85rem;
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 2rem;
   }
 }
