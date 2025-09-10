@@ -1,0 +1,18 @@
+.actions {
+  margin-block-start: 1rem;
+  display: flex;
+}
+
+.refresh {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  p {
+    display: grid;
+
+    span {
+      font-size: 0.75rem;
+    }
+  }
+}

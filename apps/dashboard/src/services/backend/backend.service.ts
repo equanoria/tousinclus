@@ -79,6 +79,27 @@ class BackendService {
   async deleteGame(code: string): Promise<void> {
     return this.delete(`/game/${code}`);
   }
+
+  async deleteAllGames(): Promise<void> {
+    return this.delete('/game');
+  }
+
+  async exportGames(date: Date): Promise<Blob> {
+    const formattedDate = date.toISOString().split('T')[0];
+    const url = `/game/export/${formattedDate}.csv`;
+    const user = await authService.getUser();
+    const headers: HeadersInit = {
+      Authorization: `Bearer ${user?.token || ''}`,
+    };
+    const response = await fetch(
+      `${this.backendUrl}/${url.startsWith('/') ? url.slice(1) : url}`,
+      { method: 'GET', headers },
+    );
+    if (!response.ok) {
+      throw response;
+    }
+    return response.blob();
+  }
 }
 
 export const backendService = new BackendService();

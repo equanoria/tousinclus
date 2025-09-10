@@ -23,7 +23,7 @@ export const Team: FC<TeamProps> = ({ winner = false, score, label }) => {
           className={styles.stars}
         />
         <span className={`${styles.score} ${styles.label}`}>
-          Score : {score} points
+          {score} point{score > 1 ? 's' : ''}
         </span>
       </div>
     </div>
