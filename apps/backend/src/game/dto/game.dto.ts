@@ -18,8 +18,8 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  ValidateNested,
   Max,
+  ValidateNested,
 } from 'class-validator';
 
 // ========== DTO ==========

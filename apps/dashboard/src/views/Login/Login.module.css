@@ -1,29 +1,37 @@
-.pageLogin {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-800);
+.login {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.pageLoginHeader {
+.login > div {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.logo {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: var(--space-600);
+  background: linear-gradient(224deg, #6C00FF 23.64%, #56009D 101.21%);
+
+  img {
+    width: 15rem;
+  }
 }
 
 .title {
-  color: var(--blue-500);
+  justify-content: center;
 }
 
 .connectionForm {
-  width: 20rem;
+  width: 23rem;
 }
 
 .submitButton {
-  width: 100%;
+  margin-block-start: 1rem;
 }
 
 .forgotPassword {
